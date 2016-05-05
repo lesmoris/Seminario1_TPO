@@ -4,33 +4,21 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class bajaVehiculo extends JInternalFrame {
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					bajaVehiculo frame = new bajaVehiculo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public bajaVehiculo() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -40,11 +28,11 @@ public class bajaVehiculo extends JInternalFrame {
 		getContentPane().add(lblBajaVehiculo);
 		
 		JLabel lblDominioDelVeh = new JLabel("Dominio del Vehiculo");
-		lblDominioDelVeh.setBounds(34, 106, 125, 14);
+		lblDominioDelVeh.setBounds(34, 106, 149, 14);
 		getContentPane().add(lblDominioDelVeh);
 		
 		textField = new JTextField();
-		textField.setBounds(145, 103, 86, 20);
+		textField.setBounds(97, 134, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		

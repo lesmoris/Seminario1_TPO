@@ -4,34 +4,22 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class generarReporteHistoricoMantenimientoVehiculo extends
 		JInternalFrame {
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					generarReporteHistoricoMantenimientoVehiculo frame = new generarReporteHistoricoMantenimientoVehiculo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public generarReporteHistoricoMantenimientoVehiculo() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -41,11 +29,11 @@ public class generarReporteHistoricoMantenimientoVehiculo extends
 		getContentPane().add(lblHistorialMantenimiento);
 		
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(22, 120, 79, 14);
+		lblDominioVehiculo.setBounds(22, 120, 129, 14);
 		getContentPane().add(lblDominioVehiculo);
 		
 		textField = new JTextField();
-		textField.setBounds(117, 117, 86, 20);
+		textField.setBounds(110, 141, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		

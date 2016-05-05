@@ -4,34 +4,22 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class cerrarMantenimiento extends JInternalFrame {
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					cerrarMantenimiento frame = new cerrarMantenimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public cerrarMantenimiento() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -50,15 +38,16 @@ public class cerrarMantenimiento extends JInternalFrame {
 		textField.setColumns(10);
 		
 		JLabel lblDescripcionDelMantenimiento = new JLabel("Descripcion del mantenimiento realizado:");
-		lblDescripcionDelMantenimiento.setBounds(37, 131, 204, 14);
+		lblDescripcionDelMantenimiento.setBounds(37, 131, 245, 14);
 		getContentPane().add(lblDescripcionDelMantenimiento);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true);
 		textArea.setBounds(39, 156, 204, 103);
 		getContentPane().add(textArea);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(311, 223, 89, 23);
+		btnConfirmar.setBounds(311, 223, 106, 23);
 		getContentPane().add(btnConfirmar);
 
 	}

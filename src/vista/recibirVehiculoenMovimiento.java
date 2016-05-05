@@ -4,34 +4,22 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					recibirVehiculoenMovimiento frame = new recibirVehiculoenMovimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public recibirVehiculoenMovimiento() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -41,16 +29,16 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		getContentPane().add(lblAltaDeVehiculo);
 		
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(25, 155, 100, 14);
+		lblDominioVehiculo.setBounds(10, 155, 115, 14);
 		getContentPane().add(lblDominioVehiculo);
 		
 		textField = new JTextField();
-		textField.setBounds(119, 152, 86, 20);
+		textField.setBounds(119, 152, 100, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblSucursal = new JLabel("Sucursal");
-		lblSucursal.setBounds(41, 105, 46, 14);
+		lblSucursal.setBounds(23, 105, 57, 14);
 		getContentPane().add(lblSucursal);
 		
 		JComboBox comboBox = new JComboBox();

@@ -4,32 +4,20 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class generarReporteMantenimiento extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					generarReporteMantenimiento frame = new generarReporteMantenimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public generarReporteMantenimiento() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -39,15 +27,15 @@ public class generarReporteMantenimiento extends JInternalFrame {
 		getContentPane().add(lblReporteMantenimiento);
 		
 		JLabel lblSucursal = new JLabel("Sucursal");
-		lblSucursal.setBounds(25, 156, 46, 14);
+		lblSucursal.setBounds(25, 156, 69, 14);
 		getContentPane().add(lblSucursal);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(107, 153, 140, 20);
+		comboBox.setBounds(141, 153, 140, 20);
 		getContentPane().add(comboBox);
 		
 		JButton btnGenerarReporte = new JButton("Generar Reporte");
-		btnGenerarReporte.setBounds(368, 264, 113, 23);
+		btnGenerarReporte.setBounds(333, 264, 148, 23);
 		getContentPane().add(btnGenerarReporte);
 
 	}

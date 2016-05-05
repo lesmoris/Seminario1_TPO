@@ -4,11 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class generarReporteAlquileres extends JInternalFrame {
 	private JTextField textField;
@@ -20,26 +23,12 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private JTextField textField_6;
 	private JTextField textField_7;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					generarReporteAlquileres frame = new generarReporteAlquileres();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public generarReporteAlquileres() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -49,11 +38,11 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(lblReporteDeAlquileres);
 		
 		JLabel lblNewLabel = new JLabel("Sucursal Origen");
-		lblNewLabel.setBounds(10, 242, 83, 14);
+		lblNewLabel.setBounds(10, 242, 99, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(92, 239, 103, 20);
+		comboBox.setBounds(119, 239, 76, 20);
 		getContentPane().add(comboBox);
 		
 		JLabel lblFechaDesde = new JLabel("Desde");
@@ -101,27 +90,27 @@ public class generarReporteAlquileres extends JInternalFrame {
 		textField_3.setColumns(10);
 		
 		JLabel lblFiltros = new JLabel("FILTROS");
-		lblFiltros.setBounds(52, 159, 46, 14);
+		lblFiltros.setBounds(52, 159, 86, 14);
 		getContentPane().add(lblFiltros);
 		
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(10, 285, 83, 14);
+		lblSucursalDestino.setBounds(10, 285, 99, 14);
 		getContentPane().add(lblSucursalDestino);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(92, 282, 103, 20);
+		comboBox_1.setBounds(119, 282, 76, 20);
 		getContentPane().add(comboBox_1);
 		
 		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(279, 195, 46, 14);
+		lblCliente.setBounds(279, 195, 76, 14);
 		getContentPane().add(lblCliente);
 		
 		JLabel lblSucursales = new JLabel("SUCURSALES");
-		lblSucursales.setBounds(47, 195, 71, 14);
+		lblSucursales.setBounds(47, 195, 91, 14);
 		getContentPane().add(lblSucursales);
 		
 		JLabel lblTipoDoc = new JLabel("Tipo Doc");
-		lblTipoDoc.setBounds(238, 239, 46, 14);
+		lblTipoDoc.setBounds(219, 239, 65, 14);
 		getContentPane().add(lblTipoDoc);
 		
 		JComboBox comboBox_2 = new JComboBox();
@@ -129,7 +118,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(comboBox_2);
 		
 		JLabel lblNroDoc = new JLabel("nro Doc");
-		lblNroDoc.setBounds(238, 285, 46, 14);
+		lblNroDoc.setBounds(219, 285, 65, 14);
 		getContentPane().add(lblNroDoc);
 		
 		textField_4 = new JTextField();
@@ -142,19 +131,19 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(lblVehiculo);
 		
 		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(435, 242, 46, 14);
+		lblMarca.setBounds(422, 242, 46, 14);
 		getContentPane().add(lblMarca);
 		
 		JLabel lblModelo = new JLabel("Modelo");
-		lblModelo.setBounds(435, 285, 46, 14);
+		lblModelo.setBounds(422, 285, 46, 14);
 		getContentPane().add(lblModelo);
 		
 		JLabel lblColor = new JLabel("Color");
-		lblColor.setBounds(435, 326, 46, 14);
+		lblColor.setBounds(422, 326, 46, 14);
 		getContentPane().add(lblColor);
 		
 		JLabel lblCantPuertas = new JLabel("Cant Puertas");
-		lblCantPuertas.setBounds(412, 361, 92, 14);
+		lblCantPuertas.setBounds(373, 361, 108, 14);
 		getContentPane().add(lblCantPuertas);
 		
 		textField_5 = new JTextField();
@@ -177,19 +166,19 @@ public class generarReporteAlquileres extends JInternalFrame {
 		textField_7.setColumns(10);
 		
 		JCheckBox chckbxAireAcondicionado = new JCheckBox("AIRE ACONDICIONADO");
-		chckbxAireAcondicionado.setBounds(422, 385, 146, 23);
+		chckbxAireAcondicionado.setBounds(422, 385, 178, 23);
 		getContentPane().add(chckbxAireAcondicionado);
 		
 		JButton btnGenerar = new JButton("Generar");
-		btnGenerar.setBounds(624, 414, 89, 23);
+		btnGenerar.setBounds(641, 385, 89, 23);
 		getContentPane().add(btnGenerar);
 		
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
-		lblTamao.setBounds(590, 242, 46, 14);
+		lblTamao.setBounds(571, 242, 65, 14);
 		getContentPane().add(lblTamao);
 		
 		JLabel lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(590, 285, 64, 14);
+		lblTransmision.setBounds(571, 285, 83, 14);
 		getContentPane().add(lblTransmision);
 		
 		JComboBox comboBox_4 = new JComboBox();

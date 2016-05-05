@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class modificarCliente extends JInternalFrame {
 	private JTextField textField;
@@ -15,26 +18,11 @@ public class modificarCliente extends JInternalFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					modificarCliente frame = new modificarCliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public modificarCliente() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -51,7 +39,7 @@ public class modificarCliente extends JInternalFrame {
 		comboBox.setBounds(104, 62, 65, 20);
 		getContentPane().add(comboBox);
 		
-		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
+		JLabel lblNumeroDocumento = new JLabel("Nro Documento");
 		lblNumeroDocumento.setBounds(10, 104, 109, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
@@ -75,11 +63,11 @@ public class modificarCliente extends JInternalFrame {
 		textField_1.setColumns(10);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		lblDomicilio.setBounds(10, 204, 46, 14);
+		lblDomicilio.setBounds(10, 204, 84, 14);
 		getContentPane().add(lblDomicilio);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(10, 245, 46, 14);
+		lblTelefono.setBounds(10, 245, 84, 14);
 		getContentPane().add(lblTelefono);
 		
 		textField_2 = new JTextField();
@@ -96,7 +84,7 @@ public class modificarCliente extends JInternalFrame {
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setEnabled(false);
-		btnConfirmar.setBounds(293, 223, 89, 23);
+		btnConfirmar.setBounds(293, 223, 116, 23);
 		getContentPane().add(btnConfirmar);
 
 	}

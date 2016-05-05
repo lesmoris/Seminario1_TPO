@@ -4,34 +4,22 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class moverVehiculo extends JInternalFrame {
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					moverVehiculo frame = new moverVehiculo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public moverVehiculo() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -58,11 +46,11 @@ public class moverVehiculo extends JInternalFrame {
 		textField.setColumns(10);
 		
 		JButton btnBuscarVehiculo = new JButton("Buscar Vehiculo");
-		btnBuscarVehiculo.setBounds(52, 286, 107, 23);
+		btnBuscarVehiculo.setBounds(52, 286, 133, 23);
 		getContentPane().add(btnBuscarVehiculo);
 		
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(35, 107, 75, 14);
+		lblSucursalOrigen.setBounds(10, 107, 100, 14);
 		getContentPane().add(lblSucursalOrigen);
 		
 		JComboBox comboBox = new JComboBox();
@@ -70,7 +58,7 @@ public class moverVehiculo extends JInternalFrame {
 		getContentPane().add(comboBox);
 		
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(289, 107, 97, 14);
+		lblSucursalDestino.setBounds(248, 107, 120, 14);
 		getContentPane().add(lblSucursalDestino);
 		
 		JComboBox comboBox_1 = new JComboBox();
@@ -78,7 +66,7 @@ public class moverVehiculo extends JInternalFrame {
 		getContentPane().add(comboBox_1);
 		
 		JButton btnIniciarMovimiento = new JButton("Iniciar Movimiento");
-		btnIniciarMovimiento.setBounds(401, 204, 133, 23);
+		btnIniciarMovimiento.setBounds(401, 204, 169, 34);
 		getContentPane().add(btnIniciarMovimiento);
 
 	}

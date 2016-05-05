@@ -4,35 +4,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class cierreAlquiler extends JInternalFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					cierreAlquiler frame = new cierreAlquiler();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public cierreAlquiler() {
+		
+		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
@@ -42,7 +30,7 @@ public class cierreAlquiler extends JInternalFrame {
 		getContentPane().add(lblCierreContrato);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(25, 109, 85, 14);
+		lblTipoDocumento.setBounds(10, 109, 100, 14);
 		getContentPane().add(lblTipoDocumento);
 		
 		JComboBox comboBox = new JComboBox();
@@ -50,7 +38,7 @@ public class cierreAlquiler extends JInternalFrame {
 		getContentPane().add(comboBox);
 		
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
-		lblNumeroDocumento.setBounds(25, 145, 99, 14);
+		lblNumeroDocumento.setBounds(10, 145, 114, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
 		textField = new JTextField();
@@ -59,11 +47,11 @@ public class cierreAlquiler extends JInternalFrame {
 		textField.setColumns(10);
 		
 		JButton btnBuscarContrato = new JButton("Buscar Contrato");
-		btnBuscarContrato.setBounds(63, 201, 120, 23);
+		btnBuscarContrato.setBounds(63, 201, 143, 23);
 		getContentPane().add(btnBuscarContrato);
 		
 		JLabel lblContratosVigentes = new JLabel("Contratos Vigentes");
-		lblContratosVigentes.setBounds(301, 109, 126, 14);
+		lblContratosVigentes.setBounds(288, 109, 139, 14);
 		getContentPane().add(lblContratosVigentes);
 		
 		JComboBox comboBox_1 = new JComboBox();
@@ -71,11 +59,11 @@ public class cierreAlquiler extends JInternalFrame {
 		getContentPane().add(comboBox_1);
 		
 		JLabel lblFechaFinContrato = new JLabel("Fecha Fin Contrato");
-		lblFechaFinContrato.setBounds(306, 180, 104, 14);
+		lblFechaFinContrato.setBounds(284, 180, 126, 14);
 		getContentPane().add(lblFechaFinContrato);
 		
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(301, 226, 99, 14);
+		lblSucursalDestino.setBounds(288, 226, 112, 14);
 		getContentPane().add(lblSucursalDestino);
 		
 		textField_1 = new JTextField();
