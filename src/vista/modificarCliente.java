@@ -17,6 +17,7 @@ public class modificarCliente extends JInternalFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextField mailTF;
 
 
 	public modificarCliente() {
@@ -86,6 +87,15 @@ public class modificarCliente extends JInternalFrame {
 		btnConfirmar.setEnabled(false);
 		btnConfirmar.setBounds(293, 223, 116, 23);
 		getContentPane().add(btnConfirmar);
+		
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setBounds(10, 292, 46, 14);
+		getContentPane().add(lblMail);
+		
+		mailTF = new JTextField();
+		mailTF.setBounds(104, 289, 86, 20);
+		getContentPane().add(mailTF);
+		mailTF.setColumns(10);
 
 	}
 

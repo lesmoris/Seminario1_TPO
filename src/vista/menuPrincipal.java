@@ -134,6 +134,32 @@ public class menuPrincipal extends JFrame {
 				
 			}
 		});
+		
+		JMenuItem mntmBaja = new JMenuItem("Baja");
+		mntmBaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				bajaVehiculo a = new bajaVehiculo();
+				
+				irAVentana(a);
+				
+			}
+		});
+		
+		JMenuItem mntmModificarPrecioPor = new JMenuItem("Modificar Precio por Dia Vehiculo");
+		mntmModificarPrecioPor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				modificacionVehiculo a = new modificacionVehiculo();
+				
+				irAVentana(a);
+				
+				
+			}
+		});
+		mnVehiculos.add(mntmModificarPrecioPor);
+		mnVehiculos.add(mntmBaja);
 		mnVehiculos.add(mntmSolicitudMantenimiento);
 		
 		JMenuItem mntmCerrarMantenimiento = new JMenuItem("Cerrar Mantenimiento\r\n");
@@ -147,19 +173,6 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 		mnVehiculos.add(mntmCerrarMantenimiento);
-		
-		JMenuItem mntmBaja = new JMenuItem("Baja");
-		mntmBaja.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				bajaVehiculo a = new bajaVehiculo();
-				
-				irAVentana(a);
-				
-			}
-		});
-		mnVehiculos.add(mntmBaja);
 		
 		JMenuItem mntmHistorialMantenimientoPor = new JMenuItem("Historial Mantenimiento");
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {

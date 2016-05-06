@@ -11,10 +11,15 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+import models.TMrecibirvehiculoTABLA;
 
 public class recibirVehiculoenMovimiento extends JInternalFrame {
-	private JTextField textField;
-
+	private JTextField nroOrdenTF;
+	private JTable recibirvehiculoTABLA;
+	private TMrecibirvehiculoTABLA TM;
 	
 	public recibirVehiculoenMovimiento() {
 		
@@ -28,27 +33,32 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		lblAltaDeVehiculo.setBounds(188, 11, 333, 44);
 		getContentPane().add(lblAltaDeVehiculo);
 		
-		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(10, 155, 115, 14);
-		getContentPane().add(lblDominioVehiculo);
-		
-		textField = new JTextField();
-		textField.setBounds(119, 152, 100, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblSucursal = new JLabel("Sucursal");
-		lblSucursal.setBounds(23, 105, 57, 14);
-		getContentPane().add(lblSucursal);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(115, 102, 90, 20);
-		getContentPane().add(comboBox);
-		
 		JButton btnConfirmarRecepcionVehiculo = new JButton("Confirmar Recepcion");
-		btnConfirmarRecepcionVehiculo.setBounds(263, 231, 155, 23);
+		btnConfirmarRecepcionVehiculo.setBounds(303, 311, 155, 23);
 		getContentPane().add(btnConfirmarRecepcionVehiculo);
+		
+		JLabel lblNumeroDeOrden = new JLabel("Numero de Orden");
+		lblNumeroDeOrden.setBounds(33, 130, 108, 23);
+		getContentPane().add(lblNumeroDeOrden);
+		
+		nroOrdenTF = new JTextField();
+		nroOrdenTF.setBounds(139, 131, 100, 20);
+		getContentPane().add(nroOrdenTF);
+		nroOrdenTF.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(286, 130, 89, 23);
+		getContentPane().add(btnBuscar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(43, 164, 525, 64);
+		getContentPane().add(scrollPane);
+		
+		TM = new TMrecibirvehiculoTABLA();
+		
+		recibirvehiculoTABLA = new JTable();
+		recibirvehiculoTABLA.setModel(TM);
+		scrollPane.setViewportView(recibirvehiculoTABLA);
 
 	}
-
 }

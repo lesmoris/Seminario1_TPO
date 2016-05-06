@@ -37,7 +37,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		getContentPane().add(comboBox);
 		
 		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(56, 69, 46, 14);
+		lblCliente.setBounds(56, 69, 69, 14);
 		getContentPane().add(lblCliente);
 		
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
@@ -50,7 +50,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		textField.setColumns(10);
 		
 		JButton btnBuscarCliente = new JButton("Buscar Cliente");
-		btnBuscarCliente.setBounds(54, 193, 128, 23);
+		btnBuscarCliente.setBounds(54, 193, 150, 23);
 		getContentPane().add(btnBuscarCliente);
 		
 		JLabel lblPresupuesto = new JLabel("PRESUPUESTO");

@@ -17,6 +17,7 @@ public class altaCliente extends JInternalFrame {
 	private JTextField docTF;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField mailTF;
 
 
 	public altaCliente() {
@@ -54,7 +55,7 @@ public class altaCliente extends JInternalFrame {
 		nombreTF.setColumns(10);
 		
 		JComboBox tipodocCB = new JComboBox();
-		tipodocCB.setBounds(167, 112, 76, 20);
+		tipodocCB.setBounds(153, 112, 90, 20);
 		getContentPane().add(tipodocCB);
 		
 		docTF = new JTextField();
@@ -75,6 +76,15 @@ public class altaCliente extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(271, 222, 89, 23);
 		getContentPane().add(btnAceptar);
+		
+		JLabel mailLB = new JLabel("Mail");
+		mailLB.setBounds(34, 266, 46, 14);
+		getContentPane().add(mailLB);
+		
+		mailTF = new JTextField();
+		mailTF.setBounds(157, 263, 86, 20);
+		getContentPane().add(mailTF);
+		mailTF.setColumns(10);
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		

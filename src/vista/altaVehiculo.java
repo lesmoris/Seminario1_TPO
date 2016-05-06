@@ -19,6 +19,7 @@ public class altaVehiculo extends JInternalFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTextField preciopordiaTF;
 
 
 	public altaVehiculo() {
@@ -117,6 +118,15 @@ public class altaVehiculo extends JInternalFrame {
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setBounds(146, 273, 86, 20);
 		getContentPane().add(comboBox_3);
+		
+		JLabel lblPrecioPorDia = new JLabel("Precio por Dia");
+		lblPrecioPorDia.setBounds(68, 325, 86, 14);
+		getContentPane().add(lblPrecioPorDia);
+		
+		preciopordiaTF = new JTextField();
+		preciopordiaTF.setBounds(146, 322, 86, 20);
+		getContentPane().add(preciopordiaTF);
+		preciopordiaTF.setColumns(10);
 
 	}
 }
