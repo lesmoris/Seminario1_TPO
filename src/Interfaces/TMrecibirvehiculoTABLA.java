@@ -1,4 +1,4 @@
-package models;
+package Interfaces;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;

@@ -14,7 +14,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-import models.TMrecibirvehiculoTABLA;
+import Interfaces.TMrecibirvehiculoTABLA;
 
 public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private JTextField nroOrdenTF;
