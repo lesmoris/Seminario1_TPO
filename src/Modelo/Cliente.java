@@ -8,11 +8,23 @@ public class Cliente {
 	private String direccion;
 	private String tipoDNI;
 	
+
 	
+	public Cliente(String nombre, String DNI, String mail, String direccion, String tipoDNI){
+		
+		this.nombre=nombre;
+		this.DNI=DNI;
+		this.mail=mail;
+		this.direccion=direccion;
+		this.tipoDNI=tipoDNI;
+		
+		
+	}
 	
-	
-	
-	
+	public Cliente (){
+		
+		
+	}
 	
 	public boolean soscliente(String DNI){
 		

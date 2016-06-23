@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class baseMapper {
 	
-	private String jdbc="jdbc:sqlserver://";
+	private static String jdbc="jdbc:sqlserver://";
 	
 	// METODO QUE DEVUELVE LA CONEXION A LA BASE DE DATOS
 	public static Connection Conectar() throws SQLException{
