@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Vehiculo;
 
@@ -42,6 +43,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
+				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
 				
 				listavehiculos.add(veh);
 			}
@@ -79,6 +81,8 @@ public class vehiculoMapper extends baseMapper {
 				listMovs.add(mov);
 				
 			}
+			con.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,5 +91,38 @@ public class vehiculoMapper extends baseMapper {
 		return listMovs;
 	}
 	
-	
+	private List<Mantenimiento> ListMantenimientos(int idVehiculo) {
+		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
+			
+		Connection con = null;
+		
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento where idVehiculo = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ps.setInt(1, idVehiculo);
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				Mantenimiento mant = new Mantenimiento();
+				
+				mant.setFechaInicio(res.getDate("fechaInicio"));
+				mant.setFechaFin(res.getDate("fechaFin"));
+				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
+				mant.setProblema(res.getString("problema"));
+				mant.setSolucion(res.getString("solucion"));
+				
+				listMants.add(mant);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listMants;
+	}
+
 }
