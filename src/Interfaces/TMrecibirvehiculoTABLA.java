@@ -5,7 +5,14 @@ import javax.swing.table.TableModel;
 
 public class TMrecibirvehiculoTABLA implements TableModel{
 
-	@Override
+	
+	public TMrecibirvehiculoTABLA(){
+		
+		
+		
+	}
+	
+	
 	public void addTableModelListener(TableModelListener arg0) {
 		// TODO Auto-generated method stub
 		

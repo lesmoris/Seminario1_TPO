@@ -14,15 +14,21 @@ public class Vehiculo {
 	private Sucursal sucursal;
 	private String tamaño;
 	private String transmision;
-	
+	private boolean aireAcondicionado;
+	private float precioPorDia;
+	private List<Movimiento> movimientos;
 	private List<Mantenimiento> mantenimientos;
+	private String estado;
+	
 	
 	// CONSTRUCTOR
 	public Vehiculo(){
 		
 		
 	mantenimientos = new ArrayList<Mantenimiento>();
-		
+	movimientos = new ArrayList<Movimiento>();	
+	
+	
 	}
 	
 	
