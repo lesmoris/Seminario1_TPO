@@ -6,6 +6,8 @@ public class Sucursal {
 	private String nombre;
 	private String direccion;
 	private int idSucursal;
+	private String telefono;
+	private String mail;
 	
 	
 	
@@ -36,11 +38,16 @@ public class Sucursal {
 	public void setIdSucursal(int idSucursal) {
 		this.idSucursal = idSucursal;
 	}
-	
-	
-	
-	
-	
-	
-	
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 }

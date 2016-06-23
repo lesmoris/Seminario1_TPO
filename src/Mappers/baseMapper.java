@@ -7,17 +7,9 @@ import java.sql.SQLException;
 public class baseMapper {
 	
 	private String jdbc="jdbc:sqlserver://";
-	private static baseMapper instancia;
-	
-	//SINGLETON
-	public static baseMapper getInstance(){
-		if (instancia==null)
-				instancia=new vehiculoMapper();
-		return instancia;
-	}
 	
 	// METODO QUE DEVUELVE LA CONEXION A LA BASE DE DATOS
-	public Connection Conectar() throws SQLException{
+	public static Connection Conectar() throws SQLException{
 	
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

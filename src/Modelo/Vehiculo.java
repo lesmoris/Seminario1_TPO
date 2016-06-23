@@ -24,17 +24,10 @@ public class Vehiculo {
 	// CONSTRUCTOR
 	public Vehiculo(){
 		
-		
-	mantenimientos = new ArrayList<Mantenimiento>();
-	movimientos = new ArrayList<Movimiento>();	
-	
+		mantenimientos = new ArrayList<Mantenimiento>();
+		movimientos = new ArrayList<Movimiento>();	
 	
 	}
-	
-	
-	
-	
-	
 	
 	// GETTERS Y SETTERS
 	public String getDominio() {
