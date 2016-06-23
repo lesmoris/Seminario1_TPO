@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Vehiculo {
 
+	private int idVehiculo;
 	private String dominio;
 	private String marca;
 	private String modelo;
@@ -23,10 +24,8 @@ public class Vehiculo {
 	
 	// CONSTRUCTOR
 	public Vehiculo(){
-		
 		mantenimientos = new ArrayList<Mantenimiento>();
 		movimientos = new ArrayList<Movimiento>();	
-	
 	}
 	
 	// GETTERS Y SETTERS
@@ -84,32 +83,25 @@ public class Vehiculo {
 	public void setTransmision(String transmision) {
 		this.transmision = transmision;
 	}
-
-
 	public void agregarMantenimiento (Mantenimiento m){
-		
 		this.mantenimientos.add(m);
-		
 	}
-
-
-
 	public List<Mantenimiento> getMantenimientos() {
 		return mantenimientos;
 	}
-
-
-
-
-
-
 	public void setMantenimientos(List<Mantenimiento> mantenimientos) {
 		this.mantenimientos = mantenimientos;
 	}
-	
-	
-	
-	
-	
-	
+	public int getIdVehiculo() {
+		return idVehiculo;
+	}
+	public void setIdVehiculo(int idVehiculo) {
+		this.idVehiculo = idVehiculo;
+	}
+	public List<Movimiento> getMovimientos() {
+		return movimientos;
+	}
+	public void setMovimientos(List<Movimiento> movimientos) {
+		this.movimientos = movimientos;
+	}
 }
