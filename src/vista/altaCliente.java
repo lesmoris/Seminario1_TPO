@@ -26,63 +26,63 @@ public class altaCliente extends JInternalFrame {
 		
 		JLabel lblAltaCliente = new JLabel("Alta Cliente");
 		lblAltaCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblAltaCliente.setBounds(134, 11, 168, 41);
+		lblAltaCliente.setBounds(336, 11, 111, 41);
 		getContentPane().add(lblAltaCliente);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(40, 78, 86, 14);
+		lblNombre.setBounds(292, 78, 111, 14);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(40, 115, 103, 14);
+		lblTipoDocumento.setBounds(292, 115, 111, 14);
 		getContentPane().add(lblTipoDocumento);
 		
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
-		lblNumeroDocumento.setBounds(40, 150, 118, 14);
+		lblNumeroDocumento.setBounds(292, 150, 111, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		lblDomicilio.setBounds(40, 185, 86, 14);
+		lblDomicilio.setBounds(292, 185, 111, 14);
 		getContentPane().add(lblDomicilio);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(40, 222, 86, 14);
+		lblTelefono.setBounds(292, 222, 111, 14);
 		getContentPane().add(lblTelefono);
 		
 		nombreTF = new JTextField();
-		nombreTF.setBounds(157, 75, 86, 20);
+		nombreTF.setBounds(409, 75, 90, 20);
 		getContentPane().add(nombreTF);
 		nombreTF.setColumns(10);
 		
 		JComboBox tipodocCB = new JComboBox();
-		tipodocCB.setBounds(153, 112, 90, 20);
+		tipodocCB.setBounds(409, 112, 90, 20);
 		getContentPane().add(tipodocCB);
 		
 		docTF = new JTextField();
-		docTF.setBounds(157, 147, 86, 20);
+		docTF.setBounds(409, 147, 90, 20);
 		getContentPane().add(docTF);
 		docTF.setColumns(10);
 		
 		textField = new JTextField();
-		textField.setBounds(157, 182, 86, 20);
+		textField.setBounds(409, 182, 90, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(157, 219, 86, 20);
+		textField_1.setBounds(409, 219, 90, 20);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(271, 222, 89, 23);
+		btnAceptar.setBounds(346, 298, 90, 23);
 		getContentPane().add(btnAceptar);
 		
 		JLabel mailLB = new JLabel("Mail");
-		mailLB.setBounds(34, 266, 46, 14);
+		mailLB.setBounds(292, 255, 111, 14);
 		getContentPane().add(mailLB);
 		
 		mailTF = new JTextField();
-		mailTF.setBounds(157, 263, 86, 20);
+		mailTF.setBounds(409, 252, 90, 20);
 		getContentPane().add(mailTF);
 		mailTF.setColumns(10);
 
