@@ -23,22 +23,22 @@ public class generarReporteHistoricoMantenimientoVehiculo extends
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
-		JLabel lblHistorialMantenimiento = new JLabel("HISTORIAL MANTENIMIENTO");
+		JLabel lblHistorialMantenimiento = new JLabel("Historial Mantenimiento");
 		lblHistorialMantenimiento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblHistorialMantenimiento.setBounds(263, 11, 281, 44);
+		lblHistorialMantenimiento.setBounds(281, 11, 221, 44);
 		getContentPane().add(lblHistorialMantenimiento);
 		
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(22, 120, 129, 14);
+		lblDominioVehiculo.setBounds(281, 116, 129, 14);
 		getContentPane().add(lblDominioVehiculo);
 		
 		textField = new JTextField();
-		textField.setBounds(110, 141, 86, 20);
+		textField.setBounds(406, 113, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(171, 195, 89, 23);
+		btnConfirmar.setBounds(347, 195, 89, 23);
 		getContentPane().add(btnConfirmar);
 
 	}
