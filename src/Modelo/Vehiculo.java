@@ -104,4 +104,8 @@ public class Vehiculo {
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
+
+	public boolean sosVehiculo(int idVehiculo) {
+		return this.idVehiculo == idVehiculo;
+	}
 }

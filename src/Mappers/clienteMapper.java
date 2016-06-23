@@ -8,24 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import Modelo.Cliente;
 
-
-
-
-
 public class clienteMapper extends baseMapper{
 
-	
-		public static clienteMapper instancia;
+	public static clienteMapper instancia;
 	
 	// SINGLETON
-		public static clienteMapper getInstance(){
-			
-			if (instancia==null)
-				instancia = new clienteMapper();
-			
-			return instancia;
-			
-		}
+	public static clienteMapper getInstance(){
+		
+		if (instancia==null)
+			instancia = new clienteMapper();
+		
+		return instancia;
+		
+	}
 	
 	public List<Cliente> SelectAll(){
 		

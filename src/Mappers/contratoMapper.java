@@ -7,53 +7,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Controlador.Controlador;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Vehiculo;
 
-public class vehiculoMapper extends baseMapper {
+public class contratoMapper extends baseMapper {
 
-	public static vehiculoMapper instancia;
+	public static contratoMapper instancia;
 	
 	// SINGLETON
-	public static vehiculoMapper getInstance(){
+	public static contratoMapper getInstance(){
 		
 		if (instancia==null)
-			instancia = new vehiculoMapper();
+			instancia = new contratoMapper();
 		
 		return instancia;
 		
 	}
 	
-	public Vehiculo Select(int idVehiculo){
+	public Controlador Select(int idContrato){
 
 		Connection con = null;
-		Vehiculo veh = null;
+		Controlador cont = null;
 		
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño FROM vehiculo where idVehiculo = ?";
+			String senten = "SELECT fechainicio, fechafin, estado, importe, idsucursaldestino, punitorio FROM vehiculo where idAlquiler = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
-			ps.setInt(1, idVehiculo);
+			ps.setInt(1, idContrato);
 			ResultSet res = ps.executeQuery();
 			
 			while (res.next()){
-				veh = new Vehiculo();
+				cont = new Contrato();
 
-				veh.setIdVehiculo(idVehiculo);
-				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
-				veh.setColor(res.getString("color"));
-				veh.setDominio(res.getString("dominio"));
-				veh.setKilometraje(res.getInt("kilometraje"));
-				veh.setMarca(res.getString("marca"));
-				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().Select(idSucursal));
-				veh.setTamaño(res.getString("tamaño"));
-				veh.setTransmision(res.getString("transmision"));
-				veh.setMovimientos(this.ListMovimientos(idVehiculo));
-				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
 			}
 
 			con.close();
@@ -61,7 +50,7 @@ public class vehiculoMapper extends baseMapper {
 			e.printStackTrace();
 		}
 		
-		return veh;
+		return cont;
 		
 	}
 	
