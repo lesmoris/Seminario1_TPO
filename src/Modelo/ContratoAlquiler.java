@@ -2,7 +2,7 @@ package Modelo;
 
 import java.util.Date;
 
-public class contratoAlquiler {
+public class ContratoAlquiler {
 	
 	private int numero;
 	private String estado;
@@ -17,13 +17,12 @@ public class contratoAlquiler {
 		return this.sucursalOrigen.getNombre()==sucOr && this.sucursalDestino.getNombre()==sucDes;
 	}
 	
-	public boolean estasEnRango(Date fechaInico, Date fechaFin){
-		if ((fechaInico<=this.fechaInicio<=fechaFin)&&(fechaInico<=this.fechaFin<=fechaFin))
-			if ((fechaInico.after(this.fechaInicio)) && (this.fechaInicio<=fechaFin))
-			return true;
-		return false;
-	}
-
+//	public boolean estasEnRango(Date fechaInico, Date fechaFin){
+//		if ((fechaInico <= this.fechaInicio <= fechaFin)&&(fechaInico<=this.fechaFin<=fechaFin))
+//			if ((fechaInico.after(this.fechaInicio)) && (this.fechaInicio<=fechaFin))
+//			return true;
+//		return false;
+//	}
 
 	//GETTERS Y SETTERS
 	public int getNumero() {

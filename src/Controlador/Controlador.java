@@ -13,7 +13,6 @@ public class Controlador {
 	public List<Vehiculo> vehiculos;
 	public List<Cliente> clientes;
 	
-	// CONSTRUCTOR
 	public Controlador(){
 		
 		instancia = this;
@@ -22,7 +21,6 @@ public class Controlador {
 		clientes = new ArrayList<Cliente>();
 	}
 	
-	// SINGLETON
 	public static Controlador getInstance(){
 		
 		if (instancia==null)
