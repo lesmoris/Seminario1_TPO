@@ -29,7 +29,7 @@ public class generarReporteHistoricoMantenimientoVehiculo extends
 		getContentPane().add(lblHistorialMantenimiento);
 		
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(281, 116, 129, 14);
+		lblDominioVehiculo.setBounds(281, 116, 116, 14);
 		getContentPane().add(lblDominioVehiculo);
 		
 		textField = new JTextField();
