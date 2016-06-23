@@ -7,20 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.Cliente;
 import Modelo.Vehiculo;
 
-public class vehiculoMapper extends baseMapper {
+public class clienteMapper extends baseMapper {
 
 	
-	public List<Vehiculo> SelectAll(){
+	public List<Cliente> SelectAll(){
 		
-		List<Vehiculo> listavehiculos = new ArrayList<Vehiculo>();
+		List<Cliente> listaClientes = new ArrayList<Cliente>();
 		Connection con = null;
 		
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT * FROM vehiculo";
+			String senten = "SELECT * FROM cliente";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ResultSet res = ps.executeQuery();
@@ -33,7 +34,7 @@ public class vehiculoMapper extends baseMapper {
 			e.printStackTrace();
 		}
 		
-		return listavehiculos;
+		return listaClientes;
 	}
 	
 	
