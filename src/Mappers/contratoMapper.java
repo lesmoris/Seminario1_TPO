@@ -27,7 +27,7 @@ public class contratoMapper extends baseMapper {
 		
 	}
 	
-	public Controlador Select(int idContrato){
+	public ContratoAlquiler Select(int numeroContrato){
 
 		Connection con = null;
 		ContratoAlquiler cont = null;
@@ -35,17 +35,23 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT fechainicio, fechafin, estado, importe, idsucursaldestino, punitorio FROM vehiculo where idAlquiler = ?";
+			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, estado, importe, idsucursaldestino, punitorio, idPresupuesto FROM alquileres where numeroContrato = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
-			ps.setInt(1, idContrato);
+			ps.setInt(1, numeroContrato);
 			ResultSet res = ps.executeQuery();
 			
 			while (res.next()){
 				cont = new ContratoAlquiler();
 
-				cont.setEstado(estado);
-				
+				cont.setEstado(res.getString("estado"));
+				cont.setFechaInicio(res.getDate("fechaInicio"));
+				cont.setFechaFin(res.getDate("fechaFin"));
+				cont.setFechaEmision(res.getDate("fechaemision"));
+				cont.setImporte(res.getFloat("fechaInicio"));
+				cont.setNumero(res.getInt("idAlquiler"));
+				cont.setSucursalDestino(sucursalMapper.getInstance().Select(res.getInt("idsucursaldestino")));
+
 			}
 
 			con.close();

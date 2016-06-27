@@ -13,17 +13,21 @@ public class ContratoAlquiler {
 	private Sucursal sucursalOrigen;
 	private Sucursal sucursalDestino;
 	
-	public boolean sosSucursalOD (String sucOr, String sucDes){
-		return this.sucursalOrigen.getNombre()==sucOr && this.sucursalDestino.getNombre()==sucDes;
+	public boolean sosDeLaSucursalOrigenODestino (String sucOr, String sucDes) {
+		return this.sucursalOrigen.getNombre().equals(sucOr) && this.sucursalDestino.getNombre().equals(sucDes);
 	}
 	
-//	public boolean estasEnRango(Date fechaInico, Date fechaFin){
-//		if ((fechaInico <= this.fechaInicio <= fechaFin)&&(fechaInico<=this.fechaFin<=fechaFin))
+//	public boolean estasEnRango(Date fechaInicio, Date fechaFin) {
+//		if ((fechaInicio <= this.fechaInicio <= fechaFin) && (fechaInicio<=this.fechaFin<=fechaFin))
 //			if ((fechaInico.after(this.fechaInicio)) && (this.fechaInicio<=fechaFin))
 //			return true;
 //		return false;
 //	}
 
+	public boolean sosContrato(int numero) {
+		return numero == this.numero;
+	}
+	
 	//GETTERS Y SETTERS
 	public int getNumero() {
 		return numero;
@@ -79,13 +83,5 @@ public class ContratoAlquiler {
 
 	public void setSucursalDestino(Sucursal sucursalDestino) {
 		this.sucursalDestino = sucursalDestino;
-	}
-
-	public Sucursal getSucursalOrigen() {
-		return sucursalOrigen;
-	}
-
-	public void setSucursalOrigen(Sucursal sucursalOrigen) {
-		this.sucursalOrigen = sucursalOrigen;
 	}
 }

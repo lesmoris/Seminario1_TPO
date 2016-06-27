@@ -25,7 +25,7 @@ public class vehiculoMapper extends baseMapper {
 		
 	}
 	
-	public Vehiculo Select(int idVehiculo){
+	public Vehiculo Select(String dominio){
 
 		Connection con = null;
 		Vehiculo veh = null;
@@ -33,15 +33,17 @@ public class vehiculoMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño FROM vehiculo where idVehiculo = ?";
+			String senten = "SELECT idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where dominio = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
-			ps.setInt(1, idVehiculo);
+			ps.setString(1, dominio);
 			ResultSet res = ps.executeQuery();
 			
 			while (res.next()){
 				veh = new Vehiculo();
 
+				int idVehiculo = res.getInt("idVehiculo");
+				
 				veh.setIdVehiculo(idVehiculo);
 				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
 				veh.setColor(res.getString("color"));
@@ -49,7 +51,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().Select(idSucursal));
+				veh.setSucursal(sucursalMapper.getInstance().Select(res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
