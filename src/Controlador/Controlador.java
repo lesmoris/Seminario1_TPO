@@ -3,10 +3,8 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
-import Mappers.contratoMapper;
-import Mappers.vehiculoMapper;
+import Mappers.clienteMapper;
 import Modelo.Cliente;
-import Modelo.ContratoAlquiler;
 import Modelo.Vehiculo;
 
 public class Controlador {
@@ -14,8 +12,8 @@ public class Controlador {
 	public static Controlador instancia;
 	public List<Vehiculo> vehiculos;
 	public List<Cliente> clientes;
-	public List<ContratoAlquiler> contratosAlquiler;
 	
+	// CONSTRUCTOR
 	public Controlador(){
 		
 		instancia = this;
@@ -24,6 +22,7 @@ public class Controlador {
 		clientes = new ArrayList<Cliente>();
 	}
 	
+	// SINGLETON
 	public static Controlador getInstance(){
 		
 		if (instancia==null)
@@ -33,34 +32,18 @@ public class Controlador {
 		
 	}
 	
-	Vehiculo buscarVehiculo(String dominio) {
-		
-		for(Vehiculo v:vehiculos) {
-			if (v.sosVehiculo(dominio))
-				return v;
-		}
-				
-		Vehiculo vehiculo = vehiculoMapper.getInstance().Select(dominio);
-		
-		if (vehiculo != null)
-			vehiculos.add(vehiculo);
-			
-		return vehiculo;
-	}
 	
-	ContratoAlquiler buscarContrato(int numeroContrato) {
+	public Cliente buscarCliente(String dni, String tipodoc){
 		
-		for(ContratoAlquiler c:contratosAlquiler) {
-			if (c.sosContrato(numeroContrato))
+		for (Cliente c:this.clientes){
+			if (c.soscliente(dni, tipodoc)){
 				return c;
+			}
 		}
-			
-		ContratoAlquiler contrato = contratoMapper.getInstance().Select(numeroContrato);
+		return clienteMapper.getInstance().SelectCliente(dni, tipodoc);
+		}
 		
-		if (contrato != null)
-			contratosAlquiler.add(contrato);
-			
-		return contrato; 
-	}
+		
+	
 	
 }
