@@ -35,6 +35,14 @@ public class Vehiculo {
 		return this.estado.equals("DISPONIBLE");
 	}
 	
+	public boolean estasEnMantenimiento() {
+		return this.estado.equals("ENMANTENIMIENTO");
+	}
+	
+	public boolean estasEnMovimiento() {
+		return this.estado.equals("ENMOVIMIENTO");
+	}
+	
 	public void mover(Sucursal origen, Sucursal destino) {
 		
 		this.setEstado("ENMOVIMIENTO");
@@ -77,7 +85,7 @@ public class Vehiculo {
 		this.mantenimientos.add(mantenimiento);
 	}	
 	
-	public void cerrarMantenimientos(String solucion){
+	public void cerrarMantenimiento(String solucion){
 
 		Mantenimiento mantenimiento = mantenimientoActivo();
 //		if (mantenimiento == null)
