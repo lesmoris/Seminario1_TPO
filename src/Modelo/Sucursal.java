@@ -9,15 +9,9 @@ public class Sucursal {
 	private String telefono;
 	private String mail;
 	
-	
-	
 	public boolean sosSucursal (String nombre){
-		
-		
-		return this.nombre==nombre;
+		return this.nombre.equals(nombre);
 	}
-	
-	
 	
 	// GETTeRS Y SETTERS
 	public String getNombre() {

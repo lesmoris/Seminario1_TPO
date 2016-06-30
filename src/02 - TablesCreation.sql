@@ -121,7 +121,7 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[SUCURSAL](
 	[idsucursal] [int] IDENTITY(1,1) NOT NULL,
-	[nombre] [varchar](50) NOT NULL,
+	[nombre] [varchar](50) NOT NULL UNIQUE,
 	[direccion] [varchar](50) NOT NULL,
 	[telefono] [varchar](20) NOT NULL,
 	[mail] [varchar](50) NOT NULL,

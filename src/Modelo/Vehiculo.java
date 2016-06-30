@@ -31,6 +31,10 @@ public class Vehiculo {
 	public boolean sosVehiculo(String dominio) {
 		return this.dominio.equals(dominio);
 	}
+	
+	public void mover() {
+		
+	}
 
 	// GETTERS Y SETTERS
 	public String getDominio() {

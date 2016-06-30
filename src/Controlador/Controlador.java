@@ -7,10 +7,12 @@ import java.util.List;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.presupuestoMapper;
+import Mappers.sucursalMapper;
 import Mappers.vehiculoMapper;
 import Modelo.Cliente;
 import Modelo.ContratoAlquiler;
 import Modelo.PresupuestoAlquiler;
+import Modelo.Sucursal;
 import Modelo.Vehiculo;
 
 public class Controlador {
@@ -18,6 +20,7 @@ public class Controlador {
 	public static Controlador instancia;
 	public List<Vehiculo> vehiculos;
 	public List<Cliente> clientes;
+	public List<Sucursal> sucursales;
 	public List<ContratoAlquiler> contratosAlquiler;
 	public List<PresupuestoAlquiler> presupuestosAlquiler;
 	
@@ -89,6 +92,32 @@ public class Controlador {
 		}
 		
 		return cliente;
+	}
+	
+	public Sucursal buscarSucursal(String nombreSucursal) {
+		for (Sucursal s:this.sucursales){
+			if (s.sosSucursal(nombreSucursal)){
+				return s;
+			}
+		}
+	
+		Sucursal sucursal = sucursalMapper.getInstance().Select(nombreSucursal);
+	
+		if (sucursal != null) {
+			sucursales.add(sucursal);
+		}
+		
+		return sucursal;
+		
+	}
+	
+	public boolean moverVehiculo(String sucursalOrigen, String sucursalDestino, String dominioVehiculo) {
+		
+		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		
+		
+		
+		return true;
 	}
 	
 	
