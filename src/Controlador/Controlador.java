@@ -132,9 +132,12 @@ public class Controlador {
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 		
-		vehiculo.recibir(sucDestino);
-		
-		return true;
+		if (vehiculo.estasEnMovimiento()) {
+			vehiculo.recibir(sucDestino);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public boolean solicitarMantenimiento(String dominioVehiculo, String problema) {
@@ -149,6 +152,18 @@ public class Controlador {
 			return false;
 	}
 	
+	public boolean cerrarMantenimiento(String dominioVehiculo, String solucion) {
+		
+		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		if (vehiculo.estasDisponible())
+		{
+			vehiculo.cerrarMantenimiento(solucion);
+			return true;
+		}
+		else
+			return false;
+	}
+	
 	public PresupuestoAlquiler buscarPresupuesto (int idPresupuesto) throws SQLException{
 		
 		for (PresupuestoAlquiler pa : this.presupuestosAlquiler){
@@ -156,7 +171,6 @@ public class Controlador {
 			if (pa.getIdPresupuesto()==idPresupuesto){
 				return pa;
 			}
-			
 		}
 		
 		PresupuestoAlquiler p = null;
