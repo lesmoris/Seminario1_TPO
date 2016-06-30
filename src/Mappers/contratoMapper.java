@@ -50,7 +50,7 @@ public class contratoMapper extends baseMapper {
 				cont.setFechaEmision(res.getDate("fechaemision"));
 				cont.setImporte(res.getFloat("fechaInicio"));
 				cont.setNumero(res.getInt("idAlquiler"));
-				cont.setSucursalDestino(sucursalMapper.getInstance().Select(res.getInt("idsucursaldestino")));
+				cont.setSucursalDestino(sucursalMapper.getInstance().SelectPORID(res.getInt("idsucursaldestino")));
 
 			}
 

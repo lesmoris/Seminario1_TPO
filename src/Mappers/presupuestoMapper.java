@@ -60,10 +60,10 @@ public class presupuestoMapper extends baseMapper{
 				Cliente c = clienteMapper.getInstance().SelectClientePORID(res.getInt("idcliente"));
 				pa.setCliente(c);
 				
-				Sucursal origen = sucursalMapper.getInstance().Select(res.getInt("idsucursalorigen"));
+				Sucursal origen = sucursalMapper.getInstance().SelectPORID(res.getInt("idsucursalorigen"));
 				pa.setSucursalOrigen(origen);
 				
-				Sucursal destino = sucursalMapper.getInstance().Select(res.getInt("idsucursaldestino"));
+				Sucursal destino = sucursalMapper.getInstance().SelectPORID(res.getInt("idsucursaldestino"));
 				pa.setSucursalDestino(destino);
 			}
 
@@ -98,10 +98,10 @@ public class presupuestoMapper extends baseMapper{
 				Cliente c = clienteMapper.getInstance().SelectClientePORID(res.getInt("idcliente"));
 				pa.setCliente(c);
 				
-				Sucursal origen = sucursalMapper.getInstance().Select(res.getInt("idsucursalorigen"));
+				Sucursal origen = sucursalMapper.getInstance().SelectPORID(res.getInt("idsucursalorigen"));
 				pa.setSucursalOrigen(origen);
 				
-				Sucursal destino = sucursalMapper.getInstance().Select(res.getInt("idsucursaldestino"));
+				Sucursal destino = sucursalMapper.getInstance().SelectPORID(res.getInt("idsucursaldestino"));
 				pa.setSucursalDestino(destino);
 				
 				lista.add(pa);

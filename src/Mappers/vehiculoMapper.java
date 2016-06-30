@@ -52,7 +52,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().Select(res.getInt("idSucursal")));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
@@ -97,7 +97,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().Select(res.getInt("idSucursal")));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
@@ -139,7 +139,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().Select(idSucursal));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(idSucursal));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
@@ -173,8 +173,8 @@ public class vehiculoMapper extends baseMapper {
 			while (res.next()){
 				Movimiento mov = new Movimiento();
 				
-				mov.setOrigen(sucursalMapper.getInstance().Select(res.getInt("idSucursalOrigen")));
-				mov.setDestino(sucursalMapper.getInstance().Select(res.getInt("idSucursalDestino")));
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalDestino")));
 				mov.setFechaInicio(res.getDate("fechaInicio"));
 				mov.setFechaFin(res.getDate("fechaFin"));
 				

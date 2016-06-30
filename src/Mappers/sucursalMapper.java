@@ -52,4 +52,35 @@ public class sucursalMapper extends baseMapper {
 	}
 	
 	
+	public Sucursal SelectPORID(int idsucursal){
+		
+		Connection con = null;
+		Sucursal suc = null;
+		
+		try {
+			con = Conectar();
+			
+			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal where idsucursal = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ps.setInt(1, idsucursal);
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				suc = new Sucursal();
+
+				suc.setIdSucursal(res.getInt("idSucursal"));
+				suc.setDireccion(res.getString("direccion"));
+				suc.setNombre(res.getString("nombre"));
+				suc.setMail(res.getString("mail"));
+				suc.setTelefono(res.getString("telefono"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return suc;
+	}
+	
 }
