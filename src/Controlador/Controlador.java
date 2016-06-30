@@ -36,7 +36,6 @@ public class Controlador {
 		
 	}
 	
-	
 	public Vehiculo buscarVehiculo(String dominio) {
 		
 		for(Vehiculo v:vehiculos) {
