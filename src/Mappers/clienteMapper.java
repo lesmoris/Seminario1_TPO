@@ -57,10 +57,7 @@ public class clienteMapper extends baseMapper{
 			}
 			return listaclientes;
 			
-	
-			
 		}
-	
 	
 		public Cliente SelectCliente(String DNI, String tipoDoc){
 			
@@ -93,7 +90,6 @@ public class clienteMapper extends baseMapper{
 				e.printStackTrace();
 			}
 			return null;
-			
 			
 		}
 	
