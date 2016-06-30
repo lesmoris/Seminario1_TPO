@@ -6,13 +6,19 @@ import java.util.List;
 
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
+<<<<<<< HEAD
 import Mappers.presupuestoMapper;
-import Mappers.sucursalMapper;
 import Mappers.vehiculoMapper;
 import Modelo.Cliente;
 import Modelo.ContratoAlquiler;
 import Modelo.PresupuestoAlquiler;
+=======
+import Mappers.sucursalMapper;
+import Mappers.vehiculoMapper;
+import Modelo.Cliente;
+import Modelo.ContratoAlquiler;
 import Modelo.Sucursal;
+>>>>>>> Movimientos de autos entre sucursales
 import Modelo.Vehiculo;
 
 public class Controlador {
@@ -94,43 +100,7 @@ public class Controlador {
 		return cliente;
 	}
 	
-	public Sucursal buscarSucursal(String nombreSucursal) {
-		for (Sucursal s:this.sucursales){
-			if (s.sosSucursal(nombreSucursal)){
-				return s;
-			}
-		}
-	
-		Sucursal sucursal = sucursalMapper.getInstance().Select(nombreSucursal);
-	
-		if (sucursal != null) {
-			sucursales.add(sucursal);
-		}
-		
-		return sucursal;
-		
-	}
-	
-	public boolean moverVehiculo(String sucursalOrigen, String sucursalDestino, String dominioVehiculo) {
-		
-		Sucursal sucOrigen = buscarSucursal(sucursalOrigen);
-		Sucursal sucDestino = buscarSucursal(sucursalDestino);
-		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
-		
-		vehiculo.mover(sucOrigen, sucDestino);
-		
-		return true;
-	}
-	
-	public boolean recibirVehiculo(String sucursalDestino, String dominioVehiculo) {
-		
-		Sucursal sucDestino = buscarSucursal(sucursalDestino);
-		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
-		
-		vehiculo.recibir(sucDestino);
-		
-		return true;
-	}
+<<<<<<< HEAD
 	
 	public PresupuestoAlquiler buscarPresupuesto (int idPresupuesto) throws SQLException{
 		
@@ -153,4 +123,31 @@ public class Controlador {
 	}
 	
 	
+=======
+	public Sucursal buscarSucursal(String nombreSucursal) {
+		for (Sucursal s:this.sucursales){
+			if (s.sosSucursal(nombreSucursal)){
+				return s;
+			}
+		}
+	
+		Sucursal sucursal = sucursalMapper.getInstance().Select(nombreSucursal);
+	
+		if (sucursal != null) {
+			sucursales.add(sucursal);
+		}
+		
+		return sucursal;
+		
+	}
+	
+	public boolean moverVehiculo(String sucursalOrigen, String sucursalDestino, String dominioVehiculo) {
+		
+		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		
+		
+		
+		return true;
+	}
+>>>>>>> Movimientos de autos entre sucursales
 }

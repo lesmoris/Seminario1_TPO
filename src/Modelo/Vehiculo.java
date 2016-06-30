@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Vehiculo {
@@ -31,7 +32,33 @@ public class Vehiculo {
 	public boolean sosVehiculo(String dominio) {
 		return this.dominio.equals(dominio);
 	}
+	
+	public void mover(Sucursal origen, Sucursal destino) {
+		
+		this.setEstado("ENMOVIMIENTO");
+		
+		Movimiento movimiento = new Movimiento();
+		movimiento.setOrigen(origen);
+		movimiento.setDestino(destino);
+	}
 
+	public void recibir(Sucursal destino) {
+
+		Movimiento movimiento = movimientoActivo();
+//		if (movimiento == null)
+//			throw new Exception("Vehiclo no esta en movimiento");
+		movimiento.setDestino(destino);
+		movimiento.cerrar();
+	}
+	
+	public Movimiento movimientoActivo() {
+		for (Movimiento m: movimientos) {
+			if (m.estasActivo())
+				return m;
+		}
+		return null;
+	}
+	
 	// GETTERS Y SETTERS
 	public String getDominio() {
 		return dominio;
@@ -89,6 +116,12 @@ public class Vehiculo {
 	}
 	public void agregarMantenimiento (Mantenimiento m){
 		this.mantenimientos.add(m);
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getEstado(){
+		return this.estado;
 	}
 	public List<Mantenimiento> getMantenimientos() {
 		return mantenimientos;

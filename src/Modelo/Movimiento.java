@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Movimiento {
 
@@ -9,6 +9,24 @@ public class Movimiento {
 	private Sucursal destino;
 	private Date fechaInicio;
 	private Date fechaFin;
+
+	public Movimiento() {
+		Date d = new Date();
+		
+		fechaInicio = d;
+		fechaFin = null;
+	}
+	
+	public void cerrar() {
+		Date d = new Date();
+		
+		fechaFin = d;
+	}
+	
+	public boolean estasActivo() {
+		return this.getFechaFin() == null;
+	}
+	
 	public int getIdMovimiento() {
 		return idMovimiento;
 	}

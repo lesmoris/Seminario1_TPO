@@ -20,7 +20,7 @@ public class sucursalMapper extends baseMapper {
 		return instancia;
 	}
 	
-	public Sucursal Select(int idSucursal){
+	public Sucursal Select(String nombre){
 		
 		Connection con = null;
 		Sucursal suc = null;
@@ -28,18 +28,18 @@ public class sucursalMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT nombre, direccion, telefono, mail FROM sucursal where idSucursal = ?";
+			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal where nombre = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
-			ps.setInt(1, idSucursal);
+			ps.setString(1, nombre);
 			ResultSet res = ps.executeQuery();
 			
 			while (res.next()){
 				suc = new Sucursal();
 
-				suc.setIdSucursal(idSucursal);
+				suc.setIdSucursal(res.getInt("idSucursal"));
 				suc.setDireccion(res.getString("direccion"));
-				suc.setNombre(res.getString("nombre"));
+				suc.setNombre(nombre);
 				suc.setMail(res.getString("mail"));
 				suc.setTelefono(res.getString("telefono"));
 			}
