@@ -7,13 +7,15 @@ public class Cliente {
 	private String mail;
 	private String direccion;
 	private String tipoDNI;
+	private int idCliente;
 	
-	public Cliente(String nombre, String DNI, String mail, String direccion, String tipoDNI){
+	public Cliente(String nombre, String DNI, String mail, String direccion, String tipoDNI, int idCliente){
 		this.nombre=nombre;
 		this.DNI=DNI;
 		this.mail=mail;
 		this.direccion=direccion;
 		this.tipoDNI=tipoDNI;
+		this.idCliente=idCliente;
 	}
 	
 	public Cliente (){

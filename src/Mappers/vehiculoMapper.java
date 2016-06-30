@@ -25,6 +25,52 @@ public class vehiculoMapper extends baseMapper {
 		
 	}
 	
+	
+	public Vehiculo SelectPORID(int idVehiculo){
+		
+		Connection con = null;
+		Vehiculo veh = null;
+		
+		try {
+			con = Conectar();
+			
+			String senten = "SELECT idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ps.setInt(1, idVehiculo);
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				veh = new Vehiculo();
+
+				
+				
+				veh.setIdVehiculo(idVehiculo);
+				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
+				veh.setColor(res.getString("color"));
+				veh.setDominio(res.getString("dominio"));
+				veh.setKilometraje(res.getInt("kilometraje"));
+				veh.setMarca(res.getString("marca"));
+				veh.setModelo(res.getString("modelo"));
+				veh.setSucursal(sucursalMapper.getInstance().Select(res.getInt("idSucursal")));
+				veh.setTamaño(res.getString("tamaño"));
+				veh.setTransmision(res.getString("transmision"));
+				veh.setMovimientos(this.ListMovimientos(idVehiculo));
+				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
+			}
+
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return veh;
+		
+	}
+		
+		
+	
+	
 	public Vehiculo Select(String dominio){
 
 		Connection con = null;

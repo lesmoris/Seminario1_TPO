@@ -45,7 +45,7 @@ public class clienteMapper extends baseMapper{
 			
 			while (res.next()){
 				
-				Cliente c = new Cliente(res.getString("nombre"), res.getString("dni"), res.getString("mail"), res.getString("direccion"), res.getString("tipodni"));
+				Cliente c = new Cliente(res.getString("nombre"), res.getString("dni"), res.getString("mail"), res.getString("direccion"), res.getString("tipodni"), res.getInt("idcliente"));
 			
 				listaclientes.add(c);
 				
@@ -78,7 +78,42 @@ public class clienteMapper extends baseMapper{
 			
 			while (res.next()){
 				
-			c = new Cliente(res.getString("nombre"), res.getString("dni"), res.getString("mail"), res.getString("direccion"), res.getString("tipodni"));
+			c = new Cliente(res.getString("nombre"), res.getString("dni"), res.getString("mail"), res.getString("direccion"), res.getString("tipodni"), res.getInt("idcliente"));
+				
+				
+			}
+			
+			return c;
+			
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+			return null;
+			
+		}
+
+		
+		public Cliente SelectClientePORID(int idCliente) {
+			
+			Cliente c = new Cliente();
+			
+			Connection con = null;
+			PreparedStatement ps = null;
+			
+			String senten = "SELECT idcliente,dni,tipodni,nombre,telefono,mail,direccion,estado FROM CLIENTE WHERE idcliente = ?";
+			
+			try {
+				ps = con.prepareStatement(senten);
+			
+			ps.setInt(1, idCliente);
+			
+			
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				
+			c = new Cliente(res.getString("nombre"), res.getString("dni"), res.getString("mail"), res.getString("direccion"), res.getString("tipodni"),res.getInt("idcliente"));
 				
 				
 			}
