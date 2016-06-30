@@ -1,13 +1,16 @@
 package Controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
+import Mappers.presupuestoMapper;
 import Mappers.vehiculoMapper;
 import Modelo.Cliente;
 import Modelo.ContratoAlquiler;
+import Modelo.PresupuestoAlquiler;
 import Modelo.Vehiculo;
 
 public class Controlador {
@@ -16,6 +19,8 @@ public class Controlador {
 	public List<Vehiculo> vehiculos;
 	public List<Cliente> clientes;
 	public List<ContratoAlquiler> contratosAlquiler;
+	public List<PresupuestoAlquiler> presupuestosAlquiler;
+	
 	
 	// CONSTRUCTOR
 	public Controlador(){
@@ -24,6 +29,9 @@ public class Controlador {
 		
 		vehiculos = new ArrayList<Vehiculo>();
 		clientes = new ArrayList<Cliente>();
+		contratosAlquiler = new ArrayList<ContratoAlquiler>();
+		presupuestosAlquiler = new ArrayList<PresupuestoAlquiler>();
+		
 	}
 	
 	// SINGLETON
@@ -83,4 +91,27 @@ public class Controlador {
 		
 		return cliente;
 	}
+	
+	
+	public PresupuestoAlquiler buscarPresupuesto (int idPresupuesto) throws SQLException{
+		
+		for (PresupuestoAlquiler pa : this.presupuestosAlquiler){
+			
+			if (pa.getIdPresupuesto()==idPresupuesto){
+				return pa;
+			}
+			
+		}
+		
+		PresupuestoAlquiler p = null;
+				// Terminar el meotodo de SelectPresupuesto
+		p = presupuestoMapper.getInstance().SelectPresupuesto(idPresupuesto);
+		
+		return p;
+		
+	
+		
+	}
+	
+	
 }
