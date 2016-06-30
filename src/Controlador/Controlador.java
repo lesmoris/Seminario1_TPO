@@ -16,7 +16,7 @@ import Modelo.Sucursal;
 import Modelo.Vehiculo;
 
 //PRUEBA GIT
-
+//XXX
 public class Controlador {
 
 	public static Controlador instancia;
@@ -165,5 +165,27 @@ public class Controlador {
 		
 		return p;
 	}
+	
+public List <PresupuestoAlquiler> consultaPresupetoAlquier(String TipoDNI, String DNI){
+		
+		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
+		Cliente cli;
+		
+		//Busco cliente
+		
+		cli=this.buscarCliente(DNI, TipoDNI);
+		
+		// Cliente existe?
+		if (cli != null){
+			
+			//Falta
+						
+		}
+		
+		
+		
+		return res;
+	}
+
 
 }
