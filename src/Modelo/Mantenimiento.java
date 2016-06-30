@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Mantenimiento {
 
@@ -8,7 +8,25 @@ public class Mantenimiento {
 	private Date fechaFin;
 	private String problema;
 	private String solucion;
-	private int idMantenimiento ;
+	private int idMantenimiento;
+	
+	public Mantenimiento(){
+		Date d = new Date();
+		
+		fechaInicio = d;
+		fechaFin = null;
+	}
+	
+	public void cerrar(String solucion) {
+		Date d = new Date();
+		
+		fechaFin = d;
+	}
+	
+	public boolean estasActivo() {
+		return this.getFechaFin() == null;
+	}
+	
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}

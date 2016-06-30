@@ -117,9 +117,12 @@ public class Controlador {
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 		
-		vehiculo.mover(sucOrigen, sucDestino);
-		
-		return true;
+		if (vehiculo.estasDisponible()) {
+			vehiculo.mover(sucOrigen, sucDestino);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public boolean recibirVehiculo(String sucursalDestino, String dominioVehiculo) {
@@ -130,6 +133,18 @@ public class Controlador {
 		vehiculo.recibir(sucDestino);
 		
 		return true;
+	}
+	
+	public boolean solicitarMantenimiento(String dominioVehiculo, String problema) {
+		
+		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		if (vehiculo.estasDisponible())
+		{
+			vehiculo.agregarMantenimiento(problema);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public PresupuestoAlquiler buscarPresupuesto (int idPresupuesto) throws SQLException{
@@ -143,14 +158,10 @@ public class Controlador {
 		}
 		
 		PresupuestoAlquiler p = null;
-				// Terminar el meotodo de SelectPresupuesto
+		// Terminar el meotodo de SelectPresupuesto
 		p = presupuestoMapper.getInstance().SelectPresupuesto(idPresupuesto);
 		
 		return p;
-		
-	
-		
 	}
-	
-	
+
 }

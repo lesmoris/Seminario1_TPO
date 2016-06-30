@@ -22,8 +22,6 @@ public class Vehiculo {
 	private List<Mantenimiento> mantenimientos;
 	private String estado;
 	
-	
-	// CONSTRUCTOR
 	public Vehiculo(){
 		mantenimientos = new ArrayList<Mantenimiento>();
 		movimientos = new ArrayList<Movimiento>();	
@@ -33,6 +31,10 @@ public class Vehiculo {
 		return this.dominio.equals(dominio);
 	}
 	
+	public boolean estasDisponible() {
+		return this.estado.equals("DISPONIBLE");
+	}
+	
 	public void mover(Sucursal origen, Sucursal destino) {
 		
 		this.setEstado("ENMOVIMIENTO");
@@ -40,6 +42,8 @@ public class Vehiculo {
 		Movimiento movimiento = new Movimiento();
 		movimiento.setOrigen(origen);
 		movimiento.setDestino(destino);
+		
+		this.movimientos.add(movimiento);
 	}
 
 	public void recibir(Sucursal destino) {
@@ -49,10 +53,42 @@ public class Vehiculo {
 //			throw new Exception("Vehiclo no esta en movimiento");
 		movimiento.setDestino(destino);
 		movimiento.cerrar();
+		
+		this.setEstado("DISPONIBLE");
 	}
 	
 	public Movimiento movimientoActivo() {
 		for (Movimiento m: movimientos) {
+			if (m.estasActivo())
+				return m;
+		}
+		return null;
+	}
+	
+	public void agregarMantenimiento (String problema){
+		
+		Mantenimiento mantenimiento = new Mantenimiento();
+//		if (mantenimiento == null)
+//			throw new Exception("Vehiclo no esta en movimiento");
+		mantenimiento.setProblema(problema);
+		
+		this.setEstado("ENMANTENIMIENTO");
+		
+		this.mantenimientos.add(mantenimiento);
+	}	
+	
+	public void cerrarMantenimientos(String solucion){
+
+		Mantenimiento mantenimiento = mantenimientoActivo();
+//		if (mantenimiento == null)
+//			throw new Exception("Vehiclo no esta en mantenimiento");
+		mantenimiento.cerrar(solucion);
+		
+		this.setEstado("DISPONIBLE");
+	}
+	
+	public Mantenimiento mantenimientoActivo() {
+		for (Mantenimiento m: mantenimientos) {
 			if (m.estasActivo())
 				return m;
 		}
@@ -113,9 +149,6 @@ public class Vehiculo {
 	}
 	public void setTransmision(String transmision) {
 		this.transmision = transmision;
-	}
-	public void agregarMantenimiento (Mantenimiento m){
-		this.mantenimientos.add(m);
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
