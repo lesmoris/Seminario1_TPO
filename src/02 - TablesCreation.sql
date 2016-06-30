@@ -1,3 +1,6 @@
+USE [RENT_A_CAR]
+GO
+
 /****** Object:  Table [dbo].[ALQUILER]    Script Date: 27/06/2016 09:14:24 a.m. ******/
 SET ANSI_NULLS ON
 GO
