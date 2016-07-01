@@ -205,4 +205,21 @@ public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, Str
 	}
 
 
+	public List<Vehiculo> buscarVehiculosPorDetalle(String marca, String modelo, String color, int cantPuertas, String tamano, String tipoTrans, boolean ac) {
+		
+		// Agrego al cache todos los vehiculos
+		
+		//this.vehiculos = vehiculoMapper.getInstance().SelectAll();
+		
+		List<Vehiculo> vehiculosReporte = new ArrayList<Vehiculo>();
+		
+		for(Vehiculo v : vehiculos) {
+			if (v.cumplisCondiciones(marca, modelo, color, cantPuertas, tamano, tipoTrans, ac))
+				vehiculosReporte.add(v);
+		}
+			
+		return vehiculosReporte;
+	}	
+
+
 }
