@@ -224,5 +224,43 @@ public class vehiculoMapper extends baseMapper {
 		
 		return listMants;
 	}
+	
+	public void Insert(Vehiculo vehiculo) {
+		
+		Connection con = null;
+		
+		try {
+			con = Conectar();
+			
+			String senten = "INSERT INTO VEHICULO(dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, "
+					+ "cantidadPuertas, kilometraje, idsucursal, color, tamaño, estado) "
+					      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
+					      + "SELECT SCOPE_IDENTITY() as idVehiculo";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ps.setString(1, vehiculo.getDominio());
+			ps.setString(2, vehiculo.getMarca());
+			ps.setString(3, vehiculo.getModelo());
+			ps.setString(4, vehiculo.tenesAC()? "S" : "N");
+			ps.setString(5, vehiculo.getTipoCombustible());
+			ps.setFloat(6, vehiculo.getPrecioPorDia());
+			ps.setString(7, vehiculo.getTransmision());
+			ps.setInt(8, vehiculo.getCantidadPuertas());
+			ps.setInt(9, vehiculo.getKilometraje());
+			ps.setInt(10, vehiculo.getSucursal().getIdSucursal());
+			ps.setString(11, vehiculo.getColor());
+			ps.setString(12, vehiculo.getTamaño());
+			ps.setString(13, vehiculo.getEstado());
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				vehiculo.setIdVehiculo(res.getInt("idVehiculo"));
+			}
+
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

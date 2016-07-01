@@ -16,6 +16,7 @@ public class Vehiculo {
 	private Sucursal sucursal;
 	private String tamaño;
 	private String transmision;
+	private String tipoCombustible;
 	private boolean aireAcondicionado;
 	private float precioPorDia;
 	private List<Movimiento> movimientos;
@@ -52,6 +53,8 @@ public class Vehiculo {
 		movimiento.setDestino(destino);
 		
 		this.movimientos.add(movimiento);
+
+		
 	}
 
 	public void recibir(Sucursal destino) {
@@ -1250,7 +1253,7 @@ public boolean cumplisCondiciones(String marca, String modelo, String color, int
 			}
 		}
 	}
-	
+	''
 	// GETTERS Y SETTERS
 	public String getDominio() {
 		return dominio;
@@ -1329,5 +1332,25 @@ public boolean cumplisCondiciones(String marca, String modelo, String color, int
 	}
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
+	}
+	public boolean tenesAC() {
+		return this.aireAcondicionado;
+	}
+	public void setAC(Boolean aireAcondicionado) {
+		this.aireAcondicionado = aireAcondicionado;
+	}
+	public String getTipoCombustible() {
+		return tipoCombustible;
+	}
+	public void setTipoCombustible(String tipoCombustible) {
+		this.tipoCombustible = tipoCombustible;
+	}
+
+	public float getPrecioPorDia() {
+		return precioPorDia;
+	}
+
+	public void setPrecioPorDia(float precioPorDia) {
+		this.precioPorDia = precioPorDia;
 	}
 }
