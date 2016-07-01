@@ -180,7 +180,7 @@ public class Controlador {
 		return p;
 	}
 	
-public List <PresupuestoAlquiler> consultaPresupetoAlquier(String TipoDNI, String DNI){
+public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, String DNI){
 		
 		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
 		Cliente cli;
@@ -193,10 +193,13 @@ public List <PresupuestoAlquiler> consultaPresupetoAlquier(String TipoDNI, Strin
 		if (cli != null){
 			
 			//Falta
-						
+			for (PresupuestoAlquiler pa : this.presupuestosAlquiler){
+				
+				if (pa.getCliente()==cli && pa.estasActivo()){
+					res.add(pa);
+				}		
+			
 		}
-		
-		
 		
 		return res;
 	}
