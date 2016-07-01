@@ -1330,4 +1330,12 @@ public boolean cumplisCondiciones(String marca, String modelo, String color, int
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
 	}
+
+	public float getPrecioPorDia() {
+		return precioPorDia;
+	}
+
+	public void setPrecioPorDia(float precioPorDia) {
+		this.precioPorDia = precioPorDia;
+	}
 }

@@ -57,6 +57,14 @@ public class Cliente {
 	public void setTipoDNI(String tipoDNI) {
 		this.tipoDNI = tipoDNI;
 	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 	
 	
 	

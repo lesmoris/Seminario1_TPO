@@ -177,10 +177,13 @@ public class Controlador {
 		// Terminar el meotodo de SelectPresupuesto
 		p = presupuestoMapper.getInstance().SelectPresupuesto(idPresupuesto);
 		
-		return p;
+		if (p != null)
+			presupuestosAlquiler.add(p);
+			
+		return p; 
 	}
 	
-public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, String DNI){
+	public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, String DNI){
 		
 		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
 		Cliente cli;
@@ -203,7 +206,8 @@ public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, Str
 		
 		return res;
 	}
-
+		return null;
+}
 
 	public List<Vehiculo> buscarVehiculosPorDetalle(String marca, String modelo, String color, int cantPuertas, String tamano, String tipoTrans, boolean ac) {
 		
@@ -220,6 +224,8 @@ public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, Str
 			
 		return vehiculosReporte;
 	}	
+	
+	
 
 
 }

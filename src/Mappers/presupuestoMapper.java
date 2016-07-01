@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import Modelo.Cliente;
 import Modelo.PresupuestoAlquiler;
@@ -113,5 +114,37 @@ public class presupuestoMapper extends baseMapper{
 		}
 		
 		
-	
+		public void insert (PresupuestoAlquiler p) throws SQLException{
+			
+			Connection con = Conectar();
+			
+			String senten = "INSERT INTO PRESUPUESTO (fecha, fechaInicio, fechaFin, importe, "
+					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo) "
+					+ "VALUES (?,?,?,?,?,?,?,?) ; SELECT SCOPE_IDENTITY() as idPresupuesto";
+			
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			
+			// Ver que Date usar, si util o sql
+			//ps.setDate(1, p.getFechaEmision());
+			//ps.setDate(2, p.getFechaInicio());
+			//ps.setDate(3, p.getFechaVencimiento());
+			ps.setFloat(4, p.getImporte());
+			ps.setInt(5, p.getCliente().getIdCliente());
+			ps.setInt(6, p.getSucursalOrigen().getIdSucursal());
+			ps.setInt(7, p.getSucursalDestino().getIdSucursal());
+			ps.setInt(8, p.getVehiculo().getIdVehiculo());
+			
+			
+			ps.execute();
+			// Ver si este resultset funciona con el SELECT de la senten,o sino hacer dos preparedStatement separados
+			ResultSet resID = ps.executeQuery();
+			
+			while (resID.next()){
+				
+				p.setIdPresupuesto(resID.getInt("idPresupuesto"));
+				
+			}
+			
+		}
 }
