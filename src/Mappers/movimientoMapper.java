@@ -36,9 +36,10 @@ public class movimientoMapper extends baseMapper {
 					      + "VALUES (?, ?, ?, ?, ?); "
 					      + "SELECT SCOPE_IDENTITY() as idMovimiento";
 			PreparedStatement ps = null;
+		// VER SI USAMOS SQL DATE O UTIL DATE
 			ps = con.prepareStatement(senten);			
-			ps.setDate(1, movimiento.getFechaInicio());
-			ps.setDate(2, movimiento.getFechaFin());
+			//ps.setDate(1, movimiento.getFechaInicio());
+			//ps.setDate(2, movimiento.getFechaFin());
 			ps.setInt(3, idVehiculo);
 			ps.setInt(4, movimiento.getOrigen().getIdSucursal());
 			ps.setInt(5, movimiento.getDestino().getIdSucursal());

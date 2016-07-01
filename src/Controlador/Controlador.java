@@ -183,7 +183,6 @@ public class Controlador {
 	}
 
 	public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, String DNI){
-			String DNI) {
 
 		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
 		Cliente cli;

@@ -1253,7 +1253,7 @@ public boolean cumplisCondiciones(String marca, String modelo, String color, int
 			}
 		}
 	}
-	''
+	
 	// GETTERS Y SETTERS
 	public String getDominio() {
 		return dominio;
@@ -1354,11 +1354,5 @@ public boolean cumplisCondiciones(String marca, String modelo, String color, int
 		this.precioPorDia = precioPorDia;
 	}
 
-	public float getPrecioPorDia() {
-		return precioPorDia;
-	}
 
-	public void setPrecioPorDia(float precioPorDia) {
-		this.precioPorDia = precioPorDia;
-	}
 }
