@@ -1,6 +1,9 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
+
+import Mappers.mantenimientoMapper;
 
 public class Mantenimiento {
 
@@ -9,56 +12,72 @@ public class Mantenimiento {
 	private String problema;
 	private String solucion;
 	private int idMantenimiento;
-	
-	public Mantenimiento(){
-		Date d = new Date();
-		
-		fechaInicio = d;
+
+	// Constructor
+	public Mantenimiento() {
+		fechaInicio = new java.sql.Date(Calendar.getInstance().getTime()
+				.getTime());
 		fechaFin = null;
 	}
-	
+
+	// Metodos
 	public void cerrar(String solucion) {
-		Date d = new Date();
-		
-		fechaFin = d;
+		fechaFin = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		this.solucion = solucion;
 	}
-	
+
 	public boolean estasActivo() {
 		return this.getFechaFin() == null;
 	}
+
+	// Manejo de BD
+	public void Insert(int idVehiculo) throws Exception {
+		mantenimientoMapper.getInstance().Insert(this, idVehiculo);
+	}
+
+	public void Update() throws Exception {
+		mantenimientoMapper.getInstance().Update(this);
+	}
 	
+	// Getters and Setters
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
+
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+
 	public Date getFechaFin() {
 		return fechaFin;
 	}
+
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
 	public String getProblema() {
 		return problema;
 	}
+
 	public void setProblema(String problema) {
 		this.problema = problema;
 	}
+
 	public String getSolucion() {
 		return solucion;
 	}
+
 	public void setSolucion(String solucion) {
 		this.solucion = solucion;
 	}
+
 	public int getIdMantenimiento() {
 		return idMantenimiento;
 	}
+
 	public void setIdMantenimiento(int idMantenimiento) {
 		this.idMantenimiento = idMantenimiento;
 	}
-	
-	
-	
-	
+
 }

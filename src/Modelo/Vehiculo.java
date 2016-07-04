@@ -38,40 +38,68 @@ public class Vehiculo {
 		return this.estado.equals("DISPONIBLE");
 	}
 
-	public boolean estasEnMantenimiento() {
-		return this.estado.equals("ENMANTENIMIENTO");
-	}
-
 	public boolean estasEnMovimiento() {
 		return this.estado.equals("ENMOVIMIENTO");
 	}
 
+	public boolean estasEnMantenimiento() {
+		return this.estado.equals("ENMANTENIMIENTO");
+	}
+
 	public void mover(Sucursal origen, Sucursal destino) throws Exception {
 
-		Movimiento movimiento = movimientoActivo();
-		if (movimiento != null)
+		if (this.estasEnMovimiento())
 			throw new Exception("Vehiclo esta en movimiento");
 
-		this.setEstado("ENMOVIMIENTO");
-		vehiculoMapper.getInstance().SetStatus(this, "ENMOVIMIENTO");
-
+		Movimiento movimiento = new Movimiento();
 		movimiento = new Movimiento();
 		movimiento.setOrigen(origen);
 		movimiento.setDestino(destino);
 		movimiento.Insert(this.idVehiculo);
 
 		this.movimientos.add(movimiento);
+
+		this.setEstado("ENMOVIMIENTO");
+		vehiculoMapper.getInstance().SetStatus(this, "ENMOVIMIENTO");
 	}
 
 	public void recibir(Sucursal destino) throws Exception {
 
-		Movimiento movimiento = movimientoActivo();
-		if (movimiento == null)
+		if (!this.estasEnMovimiento())
 			throw new Exception("Vehiculo no esta en movimiento");
-		
+
+		Movimiento movimiento = movimientoActivo();
 		movimiento.setDestino(destino);
 		movimiento.cerrar();
 		movimiento.Update();
+
+		this.setEstado("DISPONIBLE");
+		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+	}
+
+	public void agregarMantenimiento(String problema) throws Exception {
+
+		if (!this.estasEnMantenimiento())
+			throw new Exception("Vehiclo no esta en movimiento");
+
+		Mantenimiento mantenimiento = new Mantenimiento();
+		mantenimiento.setProblema(problema);
+		mantenimiento.Insert(this.idVehiculo);
+
+		this.mantenimientos.add(mantenimiento);
+
+		this.setEstado("ENMANTENIMIENTO");
+		vehiculoMapper.getInstance().SetStatus(this, "ENMANTENIMIENTO");
+	}
+
+	public void cerrarMantenimiento(String solucion) throws Exception {
+
+		if (!this.estasEnMantenimiento())
+			throw new Exception("Vehiculo no esta en mantenimiento");
+		
+		Mantenimiento mantenimiento = mantenimientoActivo();
+		mantenimiento.cerrar(solucion);
+		mantenimiento.Update();
 
 		this.setEstado("DISPONIBLE");
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
@@ -83,28 +111,6 @@ public class Vehiculo {
 				return m;
 		}
 		return null;
-	}
-
-	public void agregarMantenimiento(String problema) {
-
-		Mantenimiento mantenimiento = new Mantenimiento();
-		// if (mantenimiento == null)
-		// throw new Exception("Vehiclo no esta en movimiento");
-		mantenimiento.setProblema(problema);
-
-		this.setEstado("ENMANTENIMIENTO");
-
-		this.mantenimientos.add(mantenimiento);
-	}
-
-	public void cerrarMantenimiento(String solucion) {
-
-		Mantenimiento mantenimiento = mantenimientoActivo();
-		// if (mantenimiento == null)
-		// throw new Exception("Vehiclo no esta en mantenimiento");
-		mantenimiento.cerrar(solucion);
-
-		this.setEstado("DISPONIBLE");
 	}
 
 	public Mantenimiento mantenimientoActivo() {
