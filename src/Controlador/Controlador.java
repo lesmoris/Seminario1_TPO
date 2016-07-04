@@ -115,6 +115,15 @@ public class Controlador {
 
 	public ResultadoOperacion moverVehiculo(String sucursalOrigen,
 			String sucursalDestino, String dominioVehiculo) {
+		
+		if (sucursalOrigen.isEmpty())
+			return new ResultadoOperacion(false, "Elija una sucursal de origen, por favor");
+
+		if (sucursalDestino.isEmpty())
+			return new ResultadoOperacion(false, "Elija una sucursal de destino, por favor");
+
+		if (dominioVehiculo.isEmpty())
+			return new ResultadoOperacion(false, "Elija un vehiculo, por favor");
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 		if (vehiculo == null)

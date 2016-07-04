@@ -1,74 +1,78 @@
 package Vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-public class moverVehiculo extends JInternalFrame {
-	private JTextField textField;
+import Controlador.Controlador;
+import Interfaces.ResultadoOperacion;
 
-	
+public class moverVehiculo extends JInternalFrame {
+	private JTextField txtDominio;
+	private Controlador controlador;
+
 	public moverVehiculo() {
 		
+		this.controlador = Controlador.getInstance();
+
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-		
+
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-		
+
 		JLabel lblMoverVehiculoDe = new JLabel("MOVER VEHICULO DE SUCURSAL");
 		lblMoverVehiculoDe.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMoverVehiculoDe.setBounds(226, 11, 325, 50);
+		lblMoverVehiculoDe.setBounds(237, 11, 325, 50);
 		getContentPane().add(lblMoverVehiculoDe);
-		
-		JLabel label = new JLabel("");
-		label.setBounds(35, 204, 46, 14);
-		getContentPane().add(label);
-		
-		JLabel lblVehiculo = new JLabel("VEHICULO");
-		lblVehiculo.setBounds(52, 178, 69, 14);
-		getContentPane().add(lblVehiculo);
-		
+
 		JLabel lblDominio = new JLabel("Dominio");
-		lblDominio.setBounds(35, 229, 46, 14);
+		lblDominio.setBounds(21, 178, 46, 14);
 		getContentPane().add(lblDominio);
-		
-		textField = new JTextField();
-		textField.setBounds(99, 226, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JButton btnBuscarVehiculo = new JButton("Buscar Vehiculo");
-		btnBuscarVehiculo.setBounds(52, 286, 133, 23);
-		getContentPane().add(btnBuscarVehiculo);
-		
+
+		txtDominio = new JTextField();
+		txtDominio.setBounds(130, 174, 144, 23);
+		getContentPane().add(txtDominio);
+		txtDominio.setColumns(10);
+
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(10, 107, 100, 14);
+		lblSucursalOrigen.setBounds(21, 107, 100, 14);
 		getContentPane().add(lblSucursalOrigen);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(120, 104, 97, 20);
-		getContentPane().add(comboBox);
-		
+
+		final JComboBox cmbSucursalOrigen = new JComboBox();
+		cmbSucursalOrigen.setBounds(130, 104, 144, 23);
+		getContentPane().add(cmbSucursalOrigen);
+
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(248, 107, 120, 14);
+		lblSucursalDestino.setBounds(21, 142, 120, 14);
 		getContentPane().add(lblSucursalDestino);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(380, 104, 144, 23);
-		getContentPane().add(comboBox_1);
-		
+
+		final JComboBox cmbSucursalDestino = new JComboBox();
+		cmbSucursalDestino.setBounds(130, 138, 144, 23);
+		getContentPane().add(cmbSucursalDestino);
+
 		JButton btnIniciarMovimiento = new JButton("Iniciar Movimiento");
-		btnIniciarMovimiento.setBounds(401, 204, 169, 34);
+		btnIniciarMovimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String sucursalOrigen = cmbSucursalOrigen.getSelectedItem().toString();
+				String sucursalDestino = cmbSucursalDestino.getSelectedItem().toString();
+				String dominioVehiculo = txtDominio.getText();
+				
+				ResultadoOperacion res = controlador.moverVehiculo(sucursalOrigen, sucursalDestino, dominioVehiculo);
+				
+				JOptionPane.showMessageDialog(null,res.getMessage(),"Mensaje", res.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		btnIniciarMovimiento.setBounds(605, 425, 169, 34);
 		getContentPane().add(btnIniciarMovimiento);
 
 	}
-
 }
