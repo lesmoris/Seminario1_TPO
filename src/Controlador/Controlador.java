@@ -17,18 +17,17 @@ import Modelo.Sucursal;
 import Modelo.Vehiculo;
 
 //PRUEBA GIT
-//XXX
 public class Controlador {
 
-	public static Controlador instancia;
-	public List<Vehiculo> vehiculos;
-	public List<Cliente> clientes;
-	public List<Sucursal> sucursales;
-	public List<ContratoAlquiler> contratosAlquiler;
-	public List<PresupuestoAlquiler> presupuestosAlquiler;
+	private static Controlador instancia;
+	private List<Vehiculo> vehiculos;
+	private List<Cliente> clientes;
+	private List<Sucursal> sucursales;
+	private List<ContratoAlquiler> contratosAlquiler;
+	private List<PresupuestoAlquiler> presupuestosAlquiler;
 
 	// CONSTRUCTOR
-	public Controlador() {
+	private Controlador() {
 
 		instancia = this;
 
@@ -210,8 +209,7 @@ public class Controlador {
 					"El Vehiculo no esta en mantenimiento");
 	}
 
-	public PresupuestoAlquiler buscarPresupuesto(int idPresupuesto)
-			throws SQLException {
+	private PresupuestoAlquiler buscarPresupuesto(int idPresupuesto) {
 
 		for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
 
@@ -222,10 +220,7 @@ public class Controlador {
 
 		PresupuestoAlquiler p = null;
 		// Terminar el meotodo de SelectPresupuesto
-		try {
-			p = presupuestoMapper.getInstance().Select(idPresupuesto);
-		} catch (Exception e) { /* Ignorar */
-		}
+		p = presupuestoMapper.getInstance().Select(idPresupuesto);
 
 		if (p != null)
 			presupuestosAlquiler.add(p);
@@ -233,8 +228,8 @@ public class Controlador {
 		return p;
 	}
 
-	public List<PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI,
-			String DNI) {
+	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
+			String TipoDNI, String DNI) {
 
 		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
 		Cliente cli;
@@ -259,7 +254,7 @@ public class Controlador {
 		return null;
 	}
 
-	public List<Vehiculo> buscarVehiculosPorDetalle(String marca,
+	private List<Vehiculo> buscarVehiculosPorDetalle(String marca,
 			String modelo, String color, int cantPuertas, String tamano,
 			String tipoTrans, boolean ac) {
 

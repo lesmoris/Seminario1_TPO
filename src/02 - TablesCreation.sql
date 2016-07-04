@@ -155,7 +155,7 @@ CREATE TABLE [dbo].[VEHICULO](
 	[idsucursal] [int] NOT NULL,
 	[color] [varchar](10) NOT NULL,
 	[tamaño] [varchar](10) NOT NULL CHECK(UPPER([tamaño]) = 'CHICO' or UPPER([tamaño]) = 'MEDIANO' or UPPER([tamaño]) = 'GRANDE'),
-	[estado] [varchar](20) NOT NULL CHECK(UPPER([estado]) = 'ACTIVO' or UPPER([estado]) = 'ACTIVO'),
+	[estado] [varchar](20) NOT NULL CHECK(UPPER([estado]) = 'DISPONIBLE' or UPPER([estado]) = 'ENMOVIMIENTO' or UPPER([estado]) = 'ENMANTENIMIENTO'),
  CONSTRAINT [PK__VEHICULO__8E1E9617DE856741] PRIMARY KEY CLUSTERED 
 (
 	[idvehiculo] ASC
