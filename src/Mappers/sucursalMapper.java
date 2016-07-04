@@ -86,4 +86,43 @@ public class sucursalMapper extends baseMapper {
 		return suc;
 	}
 	
+	public List<Sucursal> SelectAll(){
+		
+		Connection con = null;
+		
+		List<Sucursal> lista = new ArrayList<Sucursal>();
+		
+		Sucursal suc = null;
+		
+		try {
+			con = Conectar();
+			
+			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				suc = new Sucursal();
+
+				suc.setIdSucursal(res.getInt("idSucursal"));
+				suc.setDireccion(res.getString("direccion"));
+				suc.setNombre(res.getString("nombre"));
+				suc.setMail(res.getString("mail"));
+				suc.setTelefono(res.getString("telefono"));
+				
+				lista.add(suc);
+			}
+			
+		} catch (SQLException e) {
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		
+		return lista;
+	}
+	
+	
+	
+	
 }
