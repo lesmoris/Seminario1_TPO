@@ -32,6 +32,7 @@ public class movimientoMapper extends baseMapper {
 
 		try {
 			con = Conectar();
+			con.setAutoCommit(false);
 
 			String senten = "INSERT INTO MOVIMIENTO(fechaInicio, fechaFin, idvehiculo, idsucursalOrigen, idsucursalDestino) "
 					+ "VALUES (?, ?, ?, ?, ?); "
@@ -49,7 +50,9 @@ public class movimientoMapper extends baseMapper {
 				movimiento.setIdMovimiento(res.getInt("idMovimiento"));
 			}
 
+			con.commit();
 		} catch (SQLException e) {
+			con.rollback();
 			throw new Exception(e.getMessage());
 		} catch (Exception e) {
 			throw e;
@@ -64,6 +67,7 @@ public class movimientoMapper extends baseMapper {
 
 		try {
 			con = Conectar();
+			con.setAutoCommit(false);
 
 			String senten = "UPDATE MOVIMIENTO SET " + "fechaInicio = ?, "
 					+ "fechaFin = ?, " + "idSucursalOrigen = ?, "
@@ -76,8 +80,10 @@ public class movimientoMapper extends baseMapper {
 			ps.setInt(4, movimiento.getDestino().getIdSucursal());
 			ps.setInt(5, movimiento.getIdMovimiento());
 			ps.execute();
-
+			
+			con.commit();
 		} catch (SQLException e) {
+			con.rollback();
 			throw new Exception(e.getMessage());
 		} catch (Exception e) {
 			throw e;

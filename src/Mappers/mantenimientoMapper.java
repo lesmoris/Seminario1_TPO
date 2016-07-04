@@ -32,6 +32,7 @@ public class mantenimientoMapper extends baseMapper {
 
 		try {
 			con = Conectar();
+			con.setAutoCommit(false);
 			
 			String senten = "INSERT INTO MANTENIMIENTO(fechaInicio, fechaFin, idvehiculo, problema, solucion) "
 					      + "VALUES (?, ?, ?, ?, ?); "
@@ -48,8 +49,11 @@ public class mantenimientoMapper extends baseMapper {
 			while (res.next()){
 				mantenimiento.setIdMantenimiento(res.getInt("idMovimiento"));
 			}
+			
+			con.commit();
 
 		} catch (SQLException e) {
+			con.rollback();
 			throw new Exception(e.getMessage());
 		} catch (Exception e) {
 			throw e;
@@ -65,6 +69,7 @@ public class mantenimientoMapper extends baseMapper {
 
 		try {
 			con = Conectar();
+			con.setAutoCommit(false);
 			
 			String senten = "UPDATE MANTENIMIENTO SET "
 					      + "fechaInicio = ?, "
@@ -81,7 +86,10 @@ public class mantenimientoMapper extends baseMapper {
 			ps.setInt(5, mantenimiento.getIdMantenimiento());
 			ps.execute();
 			
+			con.commit();
+			
 		} catch (SQLException e) {
+			con.rollback();
 			throw new Exception(e.getMessage());
 		} catch (Exception e) {
 			throw e;

@@ -138,7 +138,7 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true, "Vehiculo en movimiento");
 		} else
-			return new ResultadoOperacion(false, "Error al poner el vehiculo en movimiento");
+			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para movimiento");
 	}
 
 	public ResultadoOperacion recibirVehiculo(String sucursalDestino,
@@ -155,38 +155,50 @@ public class Controlador {
 			return new ResultadoOperacion(false, "La sucursal de destino no existe");
 
 		if (vehiculo.estasEnMovimiento()) {
-			vehiculo.recibir(sucDestino);
+			try {
+				vehiculo.recibir(sucDestino);
+			} catch (Exception e) {
+				return new ResultadoOperacion(false, e.getMessage());
+			}
 			return new ResultadoOperacion(true, "Vehiculo recibido en sucursal con exito");
 		} else
-			return new ResultadoOperacion(false, "Error al recibir el vehiculo en movimiento");
+			return new ResultadoOperacion(false, "El Vehiculo no esta en movimiento");
 	}
 
-	public boolean solicitarMantenimiento(String dominioVehiculo,
+	public ResultadoOperacion solicitarMantenimiento(String dominioVehiculo,
 			String problema) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 		if (vehiculo == null)
-			return false;
+			return new ResultadoOperacion(false, "El vehiculo no existe");
 
 		if (vehiculo.estasDisponible()) {
-			vehiculo.agregarMantenimiento(problema);
-			return true;
+			try {
+				vehiculo.agregarMantenimiento(problema);
+			} catch (Exception e) {
+				return new ResultadoOperacion(false, e.getMessage());
+			}
+			return new ResultadoOperacion(true, "Vehiculo en mantenimiento");
 		} else
-			return false;
+			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para mantenimiento");
 	}
 
-	public boolean cerrarMantenimiento(String dominioVehiculo, String solucion) {
+	public ResultadoOperacion cerrarMantenimiento(String dominioVehiculo, String solucion) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 
 		if (vehiculo == null)
-			return false;
+			return new ResultadoOperacion(false, "El vehiculo no existe");
 
 		if (vehiculo.estasDisponible()) {
-			vehiculo.cerrarMantenimiento(solucion);
-			return true;
+			try {
+				vehiculo.cerrarMantenimiento(solucion);
+			} catch (Exception e) {
+				return new ResultadoOperacion(false, e.getMessage());
+			}
+			return new ResultadoOperacion(true, "Vehiculo devuelto de mantenimiento con exito");
 		} else
-			return false;
+			return new ResultadoOperacion(false, "El Vehiculo no esta en mantenimiento");
 	}
 
 	public PresupuestoAlquiler buscarPresupuesto(int idPresupuesto)
