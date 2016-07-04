@@ -121,6 +121,9 @@ public class Controlador {
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 
+		if (vehiculo == null && sucOrigen == null && sucDestino == null)
+			return false;
+
 		if (vehiculo.estasDisponible()) {
 			vehiculo.mover(sucOrigen, sucDestino);
 			return true;
@@ -134,6 +137,9 @@ public class Controlador {
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 
+		if (vehiculo == null && sucDestino == null)
+			return false;
+
 		if (vehiculo.estasEnMovimiento()) {
 			vehiculo.recibir(sucDestino);
 			return true;
@@ -145,6 +151,9 @@ public class Controlador {
 			String problema) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		if (vehiculo == null)
+			return false;
+
 		if (vehiculo.estasDisponible()) {
 			vehiculo.agregarMantenimiento(problema);
 			return true;
@@ -155,6 +164,10 @@ public class Controlador {
 	public boolean cerrarMantenimiento(String dominioVehiculo, String solucion) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		
+		if (vehiculo == null)
+			return false;
+
 		if (vehiculo.estasDisponible()) {
 			vehiculo.cerrarMantenimiento(solucion);
 			return true;
@@ -178,11 +191,12 @@ public class Controlador {
 
 		if (p != null)
 			presupuestosAlquiler.add(p);
-			
-		return p; 
+
+		return p;
 	}
 
-	public List <PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI, String DNI){
+	public List<PresupuestoAlquiler> consultaPresupuestoAlquier(String TipoDNI,
+			String DNI) {
 
 		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
 		Cliente cli;
@@ -195,17 +209,18 @@ public class Controlador {
 		if (cli != null) {
 
 			// Falta
-			for (PresupuestoAlquiler pa : this.presupuestosAlquiler){
+			for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
 
-				if (pa.getCliente()==cli && pa.estasActivo()){
+				if (pa.getCliente() == cli && pa.estasActivo()) {
 					res.add(pa);
-				}		
-			
+				}
+
+			}
+			return res;
 		}
-		return res;
-	}
 		return null;
-}
+	}
+
 	public List<Vehiculo> buscarVehiculosPorDetalle(String marca,
 			String modelo, String color, int cantPuertas, String tamano,
 			String tipoTrans, boolean ac) {
@@ -224,7 +239,5 @@ public class Controlador {
 
 		return vehiculosReporte;
 	}
-	
-	
 
 }
