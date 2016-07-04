@@ -1,7 +1,7 @@
 USE [RENT_A_CAR]
 GO
 
-/****** Object:  Table [dbo].[ALQUILER]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[ALQUILER]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[ALQUILER](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[CLIENTE]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[CLIENTE]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33,22 +33,22 @@ GO
 CREATE TABLE [dbo].[CLIENTE](
 	[idcliente] [int] IDENTITY(1,1) NOT NULL,
 	[dni] [varchar](20) NOT NULL,
-	[tipodni] [varchar](10) NOT NULL CHECK([tipodni] = 'DNI' or [tipodni] = 'CUIL' or [tipodni] = 'CUIT'),
+	[tipodni] [varchar](10) NOT NULL,
 	[nombre] [varchar](50) NOT NULL,
 	[telefono] [varchar](50) NOT NULL,
 	[mail] [varchar](50) NOT NULL,
 	[direccion] [varchar](50) NOT NULL,
-	[estado] [varchar](20) NOT NULL CHECK(UPPER([estado]) = 'ACTIVO' or UPPER([estado]) = 'NOACTIVO'),
+	[estado] [varchar](20) NOT NULL,
  CONSTRAINT [PK__CLIENTE__7B86132F4D4DD73B] PRIMARY KEY CLUSTERED 
 (
 	[idcliente] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
 
+GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -60,8 +60,8 @@ CREATE TABLE [dbo].[MANTENIMIENTO](
 	[fechaInicio] [date] NOT NULL,
 	[idvehiculo] [int] NOT NULL,
 	[fechaFin] [date] NULL,
-	[problema] [varchar](50) NOT NULL,
-	[solucion] [varchar](50) NOT NULL,
+	[problema] [varchar](250) NOT NULL,
+	[solucion] [varchar](250) NULL,
  CONSTRAINT [PK__MANTENIM__1090A6709DFF4ED9] PRIMARY KEY CLUSTERED 
 (
 	[idmantenimiento] ASC
@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[MANTENIMIENTO](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +90,7 @@ CREATE TABLE [dbo].[MOVIMIENTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +112,7 @@ CREATE TABLE [dbo].[PRESUPUESTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -121,20 +121,24 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[SUCURSAL](
 	[idsucursal] [int] IDENTITY(1,1) NOT NULL,
-	[nombre] [varchar](50) NOT NULL UNIQUE,
+	[nombre] [varchar](50) NOT NULL,
 	[direccion] [varchar](50) NOT NULL,
 	[telefono] [varchar](20) NOT NULL,
 	[mail] [varchar](50) NOT NULL,
  CONSTRAINT [PK__SUCURSAL__0C87B3419C5B8895] PRIMARY KEY CLUSTERED 
 (
 	[idsucursal] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[nombre] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[VEHICULO]    Script Date: 27/06/2016 09:14:24 a.m. ******/
+/****** Object:  Table [dbo].[VEHICULO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,16 +150,16 @@ CREATE TABLE [dbo].[VEHICULO](
 	[dominio] [varchar](7) NOT NULL,
 	[marca] [varchar](15) NOT NULL,
 	[modelo] [varchar](15) NOT NULL,
-	[aireAcondicionado] [varchar](1) NOT NULL CHECK(UPPER([aireAcondicionado]) = 'S' or UPPER([aireAcondicionado]) = 'N'),
-	[tipoCombustible] [varchar](10) NOT NULL CHECK(UPPER([tipoCombustible]) = 'NAFTA' or UPPER([tipoCombustible]) = 'DIESEL' or UPPER([tipoCombustible]) = 'GNC'),
+	[aireAcondicionado] [varchar](1) NOT NULL,
+	[tipoCombustible] [varchar](10) NOT NULL,
 	[precioPorDia] [float] NOT NULL,
-	[transmision] [varchar](10) NOT NULL CHECK(UPPER([transmision]) = 'MANUAL' or UPPER([transmision]) = 'AUTOMATICO') ,
-	[cantidadPuertas] [int] NOT NULL CHECK([cantidadPuertas] < 5),
+	[transmision] [varchar](10) NOT NULL,
+	[cantidadPuertas] [int] NOT NULL,
 	[kilometraje] [int] NOT NULL,
 	[idsucursal] [int] NOT NULL,
 	[color] [varchar](10) NOT NULL,
-	[tamaño] [varchar](10) NOT NULL CHECK(UPPER([tamaño]) = 'CHICO' or UPPER([tamaño]) = 'MEDIANO' or UPPER([tamaño]) = 'GRANDE'),
-	[estado] [varchar](20) NOT NULL CHECK(UPPER([estado]) = 'DISPONIBLE' or UPPER([estado]) = 'ENMOVIMIENTO' or UPPER([estado]) = 'ENMANTENIMIENTO'),
+	[tamaño] [varchar](10) NOT NULL,
+	[estado] [varchar](20) NOT NULL,
  CONSTRAINT [PK__VEHICULO__8E1E9617DE856741] PRIMARY KEY CLUSTERED 
 (
 	[idvehiculo] ASC
@@ -228,4 +232,20 @@ ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD  CONSTRAINT [fk_sucursal_vehiculo] 
 REFERENCES [dbo].[SUCURSAL] ([idsucursal])
 GO
 ALTER TABLE [dbo].[VEHICULO] CHECK CONSTRAINT [fk_sucursal_vehiculo]
+GO
+ALTER TABLE [dbo].[CLIENTE]  WITH CHECK ADD CHECK  ((upper([estado])='ACTIVO' OR upper([estado])='NOACTIVO'))
+GO
+ALTER TABLE [dbo].[CLIENTE]  WITH CHECK ADD CHECK  (([tipodni]='DNI' OR [tipodni]='CUIL' OR [tipodni]='CUIT'))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([aireAcondicionado])='S' OR upper([aireAcondicionado])='N'))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  (([cantidadPuertas]<(5)))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([estado])='DISPONIBLE' OR upper([estado])='ENMOVIMIENTO' OR upper([estado])='ENMANTENIMIENTO'))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tamaño])='CHICO' OR upper([tamaño])='MEDIANO' OR upper([tamaño])='GRANDE'))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tipoCombustible])='NAFTA' OR upper([tipoCombustible])='DIESEL' OR upper([tipoCombustible])='GNC'))
+GO
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([transmision])='MANUAL' OR upper([transmision])='AUTOMATICO'))
 GO
