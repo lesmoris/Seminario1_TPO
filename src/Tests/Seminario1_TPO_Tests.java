@@ -4,7 +4,8 @@ import Controlador.Controlador;
 import Interfaces.ResultadoOperacion;
 
 public class Seminario1_TPO_Tests {
-	public void Main() {
+	
+	public static void main(String[] args) {
 		
 		MoverVehiculoTest_OperacionNormalSinFalla();
 		MoverVehiculoTest_VehiculoNoExiste();
@@ -13,7 +14,7 @@ public class Seminario1_TPO_Tests {
 		MoverVehiculoTest_VehiculoNoDisponible();
 	}
 	
-	public boolean MoverVehiculoTest_OperacionNormalSinFalla() 
+	public static boolean MoverVehiculoTest_OperacionNormalSinFalla() 
 	{
 		Controlador controlador = Controlador.getInstance();
 		
@@ -28,7 +29,7 @@ public class Seminario1_TPO_Tests {
 		return true;
 	}
 
-	public boolean MoverVehiculoTest_VehiculoNoExiste() 
+	public static boolean MoverVehiculoTest_VehiculoNoExiste() 
 	{
 		Controlador controlador = Controlador.getInstance();
 		
@@ -39,7 +40,7 @@ public class Seminario1_TPO_Tests {
 		return false;
 	}
 
-	public boolean MoverVehiculoTest_SucursalOrigenNoExiste() 
+	public static boolean MoverVehiculoTest_SucursalOrigenNoExiste() 
 	{
 		Controlador controlador = Controlador.getInstance();
 		
@@ -50,7 +51,7 @@ public class Seminario1_TPO_Tests {
 		return false;
 	}
 
-	public boolean MoverVehiculoTest_SucursalDestinoNoExiste() 
+	public static boolean MoverVehiculoTest_SucursalDestinoNoExiste() 
 	{
 		Controlador controlador = Controlador.getInstance();
 		
@@ -61,7 +62,7 @@ public class Seminario1_TPO_Tests {
 		return false;
 	}
 
-	public boolean MoverVehiculoTest_VehiculoNoDisponible() 
+	public static boolean MoverVehiculoTest_VehiculoNoDisponible() 
 	{
 		Controlador controlador = Controlador.getInstance();
 		
