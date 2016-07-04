@@ -16,7 +16,7 @@ import Modelo.Vehiculo;
 
 public class presupuestoMapper extends baseMapper {
 
-	public static presupuestoMapper instancia;
+	private static presupuestoMapper instancia;
 
 	// SINGLETON
 	public static presupuestoMapper getInstance() {

@@ -16,7 +16,7 @@ import Modelo.Vehiculo;
 
 public class contratoMapper extends baseMapper {
 
-	public static contratoMapper instancia;
+	private static contratoMapper instancia;
 
 	// SINGLETON
 	public static contratoMapper getInstance() {
