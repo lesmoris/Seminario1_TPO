@@ -14,7 +14,7 @@ public class baseMapper {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		
-		    String dbConnectString = jdbc + baseMapperConfig.getServidor(); 
+		    String dbConnectString = jdbc + baseMapperConfig.getServidor() + ";databasename=" + baseMapperConfig.getDb(); 
 		    Connection con = DriverManager.getConnection (dbConnectString, baseMapperConfig.getUsuario(), baseMapperConfig.getPassword());
 		    
 		    return con;

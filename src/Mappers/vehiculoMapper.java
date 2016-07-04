@@ -102,6 +102,7 @@ public class vehiculoMapper extends baseMapper {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		finally {
 			DBUtils.closeQuietly(con);

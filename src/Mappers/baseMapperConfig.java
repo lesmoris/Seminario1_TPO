@@ -3,6 +3,7 @@ package Mappers;
 public class baseMapperConfig {
 	
 	private static String servidor="LTP-FRA-09";
+	private static String db="Rent_a_car";
 	private static String usuario="s1tpo";
 	private static String password="s1tpo12";
 	
@@ -15,5 +16,7 @@ public class baseMapperConfig {
 	public static String getPassword() {
 		return password;
 	}
-
+	public static String getDb() {
+		return db;
+	}
 }
