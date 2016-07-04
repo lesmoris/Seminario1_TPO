@@ -26,6 +26,42 @@ public class movimientoMapper extends baseMapper {
 
 	}
 
+	public static List<Movimiento> ListMovimientos(int idVehiculo) {
+		List<Movimiento> listMovs = new ArrayList<Movimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmovimiento, fechaInicio, fechaFin, idsucursalOrigen, idsucursalDestino FROM movimiento where idVehiculo = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setInt(1, idVehiculo);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Movimiento mov = new Movimiento();
+
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalDestino")));
+				mov.setFechaInicio(res.getDate("fechaInicio"));
+				mov.setFechaFin(res.getDate("fechaFin"));
+
+				listMovs.add(mov);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMovs;
+	}
+
 	public void Insert(Movimiento movimiento, int idVehiculo) throws Exception {
 
 		Connection con = null;
@@ -35,8 +71,7 @@ public class movimientoMapper extends baseMapper {
 			con.setAutoCommit(false);
 
 			String senten = "INSERT INTO MOVIMIENTO(fechaInicio, fechaFin, idvehiculo, idsucursalOrigen, idsucursalDestino) "
-					+ "VALUES (?, ?, ?, ?, ?); "
-					+ "SELECT SCOPE_IDENTITY() as idMovimiento";
+					+ "VALUES (?, ?, ?, ?, ?); ";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setDate(1, movimiento.getFechaInicio());
@@ -44,11 +79,9 @@ public class movimientoMapper extends baseMapper {
 			ps.setInt(3, idVehiculo);
 			ps.setInt(4, movimiento.getOrigen().getIdSucursal());
 			ps.setInt(5, movimiento.getDestino().getIdSucursal());
-			ResultSet res = ps.executeQuery();
+			ps.execute();
 
-			while (res.next()) {
-				movimiento.setIdMovimiento(res.getInt("idMovimiento"));
-			}
+			movimiento.setIdMovimiento(DBUtils.getLastInsertedID(con, "MOVIMIENTO"));
 
 			con.commit();
 		} catch (SQLException e) {
@@ -67,9 +100,9 @@ public class movimientoMapper extends baseMapper {
 			con = Conectar();
 			con.setAutoCommit(false);
 
-			String senten = "UPDATE MOVIMIENTO SET " + "fechaInicio = ?, "
-					+ "fechaFin = ?, " + "idSucursalOrigen = ?, "
-					+ "idSucursalDestino = ?, " + "WHERE idMovimiento = ?";
+			String senten = "UPDATE MOVIMIENTO SET fechaInicio = ?, "
+					+ "fechaFin = ?, idSucursalOrigen = ?, "
+					+ "idSucursalDestino = ? WHERE idMovimiento = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setDate(1, movimiento.getFechaInicio());
@@ -78,7 +111,7 @@ public class movimientoMapper extends baseMapper {
 			ps.setInt(4, movimiento.getDestino().getIdSucursal());
 			ps.setInt(5, movimiento.getIdMovimiento());
 			ps.execute();
-			
+
 			con.commit();
 		} catch (SQLException e) {
 			con.rollback();

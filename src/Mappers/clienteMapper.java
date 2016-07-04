@@ -24,7 +24,7 @@ public class clienteMapper extends baseMapper {
 
 	}
 
-	public List<Cliente> SelectAll() {
+	public List<Cliente> SelectAll() throws Exception {
 
 		List<Cliente> listaclientes = new ArrayList<Cliente>();
 		Connection con = null;
@@ -51,6 +51,7 @@ public class clienteMapper extends baseMapper {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -86,6 +87,7 @@ public class clienteMapper extends baseMapper {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -117,9 +119,8 @@ public class clienteMapper extends baseMapper {
 
 			}
 
-			return c;
-
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}

@@ -52,6 +52,7 @@ public class contratoMapper extends baseMapper {
 			}
 			con.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}

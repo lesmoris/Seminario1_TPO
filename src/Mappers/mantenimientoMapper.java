@@ -26,6 +26,42 @@ public class mantenimientoMapper extends baseMapper {
 		
 	}
 	
+	public static List<Mantenimiento> ListMantenimientos(int idVehiculo) {
+		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento where idVehiculo = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setInt(1, idVehiculo);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Mantenimiento mant = new Mantenimiento();
+
+				mant.setFechaInicio(res.getDate("fechaInicio"));
+				mant.setFechaFin(res.getDate("fechaFin"));
+				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
+				mant.setProblema(res.getString("problema"));
+				mant.setSolucion(res.getString("solucion"));
+
+				listMants.add(mant);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMants;
+	}
+	
 	public void Insert(Mantenimiento mantenimiento, int idVehiculo) throws Exception {
 		
 		Connection con = null;

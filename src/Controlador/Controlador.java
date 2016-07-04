@@ -34,6 +34,7 @@ public class Controlador {
 		clientes = new ArrayList<Cliente>();
 		contratosAlquiler = new ArrayList<ContratoAlquiler>();
 		presupuestosAlquiler = new ArrayList<PresupuestoAlquiler>();
+		sucursales = new ArrayList<Sucursal>();
 
 	}
 
@@ -112,12 +113,8 @@ public class Controlador {
 
 	}
 
-	public ResultadoOperacion moverVehiculo(String sucursalOrigen,
-			String sucursalDestino, String dominioVehiculo) {
+	public ResultadoOperacion moverVehiculo(String sucursalDestino, String dominioVehiculo) {
 		
-		if (sucursalOrigen.isEmpty())
-			return new ResultadoOperacion(false, "Elija una sucursal de origen, por favor");
-
 		if (sucursalDestino.isEmpty())
 			return new ResultadoOperacion(false, "Elija una sucursal de destino, por favor");
 
@@ -128,11 +125,6 @@ public class Controlador {
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
 
-		Sucursal sucOrigen = buscarSucursal(sucursalOrigen);
-		if (sucOrigen == null)
-			return new ResultadoOperacion(false,
-					"La sucursal de origen no existe");
-
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		if (sucDestino == null)
 			return new ResultadoOperacion(false,
@@ -140,7 +132,7 @@ public class Controlador {
 
 		if (vehiculo.estasDisponible()) {
 			try {
-				vehiculo.mover(sucOrigen, sucDestino);
+				vehiculo.mover(sucDestino);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}

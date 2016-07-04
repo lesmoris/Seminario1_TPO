@@ -48,14 +48,13 @@ public class Vehiculo {
 		return this.estado.equals("ENMANTENIMIENTO");
 	}
 
-	public void mover(Sucursal origen, Sucursal destino) throws Exception {
+	public void mover(Sucursal destino) throws Exception {
 
 		if (this.estasEnMovimiento())
 			throw new Exception("Vehiclo esta en movimiento");
 
 		Movimiento movimiento = new Movimiento();
-		movimiento = new Movimiento();
-		movimiento.setOrigen(origen);
+		movimiento.setOrigen(this.sucursal);
 		movimiento.setDestino(destino);
 		movimiento.Insert(this.idVehiculo);
 

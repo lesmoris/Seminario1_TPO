@@ -46,6 +46,7 @@ public class sucursalMapper extends baseMapper {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -62,7 +63,7 @@ public class sucursalMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal where idsucursal = ?";
+			String senten = "SELECT direccion, nombre, telefono, mail FROM sucursal where idsucursal = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ps.setInt(1, idsucursal);
@@ -71,7 +72,7 @@ public class sucursalMapper extends baseMapper {
 			while (res.next()){
 				suc = new Sucursal();
 
-				suc.setIdSucursal(res.getInt("idSucursal"));
+				suc.setIdSucursal(idsucursal);
 				suc.setDireccion(res.getString("direccion"));
 				suc.setNombre(res.getString("nombre"));
 				suc.setMail(res.getString("mail"));
@@ -79,6 +80,7 @@ public class sucursalMapper extends baseMapper {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -115,6 +117,7 @@ public class sucursalMapper extends baseMapper {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
