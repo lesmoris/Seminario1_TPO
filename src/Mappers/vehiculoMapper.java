@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.DBUtils;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Vehiculo;
@@ -14,37 +15,34 @@ import Modelo.Vehiculo;
 public class vehiculoMapper extends baseMapper {
 
 	public static vehiculoMapper instancia;
-	
+
 	// SINGLETON
-	public static vehiculoMapper getInstance(){
-		
-		if (instancia==null)
+	public static vehiculoMapper getInstance() {
+
+		if (instancia == null)
 			instancia = new vehiculoMapper();
-		
+
 		return instancia;
-		
+
 	}
-	
-	
-	public Vehiculo SelectPORID(int idVehiculo){
-		
+
+	public Vehiculo SelectPORID(int idVehiculo) throws Exception {
+
 		Connection con = null;
 		Vehiculo veh = null;
-		
+
 		try {
 			con = Conectar();
-			
+
 			String senten = "SELECT idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
+			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
+
+			while (res.next()) {
 				veh = new Vehiculo();
 
-				
-				
 				veh.setIdVehiculo(idVehiculo);
 				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
 				veh.setColor(res.getString("color"));
@@ -52,7 +50,8 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
@@ -61,35 +60,37 @@ public class vehiculoMapper extends baseMapper {
 
 			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
 		}
-		
+
+		finally {
+			DBUtils.closeQuietly(con);
+		}
 		return veh;
-		
+
 	}
-		
-		
-	
-	
-	public Vehiculo Select(String dominio){
+
+	public Vehiculo Select(String dominio) throws Exception {
 
 		Connection con = null;
 		Vehiculo veh = null;
-		
+
 		try {
 			con = Conectar();
-			
+
 			String senten = "SELECT idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where dominio = ?";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
+			ps = con.prepareStatement(senten);
 			ps.setString(1, dominio);
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
+
+			while (res.next()) {
 				veh = new Vehiculo();
 
 				int idVehiculo = res.getInt("idVehiculo");
-				
+
 				veh.setIdVehiculo(idVehiculo);
 				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
 				veh.setColor(res.getString("color"));
@@ -97,7 +98,8 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
@@ -106,32 +108,37 @@ public class vehiculoMapper extends baseMapper {
 
 			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
 		}
-		
+
+		finally {
+			DBUtils.closeQuietly(con);
+		}
 		return veh;
-		
+
 	}
-	
-	public List<Vehiculo> SelectAll(int idSucursal){
-		
+
+	public List<Vehiculo> SelectAll(int idSucursal) throws Exception {
+
 		List<Vehiculo> listavehiculos = new ArrayList<Vehiculo>();
 		Connection con = null;
-		
+
 		try {
 			con = Conectar();
-			
+
 			String senten = "SELECT idvehiculo, dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño FROM vehiculo where idSucursal = ?";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
+			ps = con.prepareStatement(senten);
 			ps.setInt(1, idSucursal);
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
+
+			while (res.next()) {
 				Vehiculo veh = new Vehiculo();
-				
+
 				int idVehiculo = res.getInt("idVehiculo");
-				
+
 				veh.setIdVehiculo(idVehiculo);
 				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
 				veh.setColor(res.getString("color"));
@@ -139,128 +146,123 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
-				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(idSucursal));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+						idSucursal));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setMovimientos(this.ListMovimientos(idVehiculo));
 				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
-				
+
 				listavehiculos.add(veh);
 			}
 
 			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
 		}
-		
+		finally {
+			DBUtils.closeQuietly(con);
+		}
 		return listavehiculos;
 	}
-	
-	private List<Movimiento> ListMovimientos(int idVehiculo) {
+
+	private List<Movimiento> ListMovimientos(int idVehiculo) throws Exception {
 		List<Movimiento> listMovs = new ArrayList<Movimiento>();
-			
+
 		Connection con = null;
-		
+
 		try {
 			con = Conectar();
 
 			String senten = "SELECT idmovimiento, fechaInicio, fechaFin, idsucursalOrigen, idsucursalDestino FROM movimientos where idVehiculo = ?";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
+			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
+
+			while (res.next()) {
 				Movimiento mov = new Movimiento();
-				
-				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalOrigen")));
-				mov.setDestino(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalDestino")));
+
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalDestino")));
 				mov.setFechaInicio(res.getDate("fechaInicio"));
 				mov.setFechaFin(res.getDate("fechaFin"));
-				
+
 				listMovs.add(mov);
-				
+
 			}
 			con.close();
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
-		
+		finally {
+			DBUtils.closeQuietly(con);
+		}
 		return listMovs;
 	}
-	
+
 	private List<Mantenimiento> ListMantenimientos(int idVehiculo) {
 		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
-			
+
 		Connection con = null;
-		
+
 		try {
 			con = Conectar();
 
 			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento where idVehiculo = ?";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
+			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
+
+			while (res.next()) {
 				Mantenimiento mant = new Mantenimiento();
-				
+
 				mant.setFechaInicio(res.getDate("fechaInicio"));
 				mant.setFechaFin(res.getDate("fechaFin"));
 				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
 				mant.setProblema(res.getString("problema"));
 				mant.setSolucion(res.getString("solucion"));
-				
+
 				listMants.add(mant);
-				
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		finally {
+			DBUtils.closeQuietly(con);
+		}
 		return listMants;
 	}
-	
-	public void Insert(Vehiculo vehiculo) {
-		
+
+	public void SetStatus(int idVehiculo, String estado) throws Exception {
 		Connection con = null;
-		
 		try {
+
 			con = Conectar();
-			
-			String senten = "INSERT INTO VEHICULO(dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, "
-					+ "cantidadPuertas, kilometraje, idsucursal, color, tamaño, estado) "
-					      + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); "
-					      + "SELECT SCOPE_IDENTITY() as idVehiculo";
+			String senten = " UPDATE VEHICULO SET estado = ? "
+					     + "  WHERE idVehiculo = ? ";
 			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);			
-			ps.setString(1, vehiculo.getDominio());
-			ps.setString(2, vehiculo.getMarca());
-			ps.setString(3, vehiculo.getModelo());
-			ps.setString(4, vehiculo.tenesAC()? "S" : "N");
-			ps.setString(5, vehiculo.getTipoCombustible());
-			ps.setFloat(6, vehiculo.getPrecioPorDia());
-			ps.setString(7, vehiculo.getTransmision());
-			ps.setInt(8, vehiculo.getCantidadPuertas());
-			ps.setInt(9, vehiculo.getKilometraje());
-			ps.setInt(10, vehiculo.getSucursal().getIdSucursal());
-			ps.setString(11, vehiculo.getColor());
-			ps.setString(12, vehiculo.getTamaño());
-			ps.setString(13, vehiculo.getEstado());
-			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
-				vehiculo.setIdVehiculo(res.getInt("idVehiculo"));
-			}
+			ps = con.prepareStatement(senten);
+			ps.setString(1, estado);
+			ps.setInt(2, idVehiculo);
+			ps.execute();
 
 			con.close();
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
 	}
-
 }

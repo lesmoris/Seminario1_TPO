@@ -197,7 +197,7 @@ public class Controlador {
 
 		PresupuestoAlquiler p = null;
 		// Terminar el meotodo de SelectPresupuesto
-		p = presupuestoMapper.getInstance().SelectPresupuesto(idPresupuesto);
+		p = presupuestoMapper.getInstance().Select(idPresupuesto);
 
 		if (p != null)
 			presupuestosAlquiler.add(p);
