@@ -28,13 +28,13 @@ public class presupuestoMapper extends baseMapper {
 
 	}
 
-	public PresupuestoAlquiler Select(int idPresupuesto) throws Exception {
+	public PresupuestoAlquiler Select(int idPresupuesto) {
 
+		PresupuestoAlquiler pa = null;
 		Connection con = null;
+
 		try {
 			con = Conectar();
-
-			PresupuestoAlquiler pa = null;
 
 			String senten = "SELECT (fecha, fechaInicio, fechaFin, importe, "
 					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo, idpresupuesto, estado) FROM PRESUPUESTO "
@@ -72,24 +72,22 @@ public class presupuestoMapper extends baseMapper {
 				pa.setSucursalDestino(destino);
 			}
 
-			return pa;
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
+		return pa;
 
 	}
 
-	public List<PresupuestoAlquiler> SelectAll() throws Exception {
+	public List<PresupuestoAlquiler> SelectAll() {
 
+		List<PresupuestoAlquiler> lista = null;
 		Connection con = null;
 
 		try {
 
-			List<PresupuestoAlquiler> lista = new ArrayList<PresupuestoAlquiler>();
+			lista = new ArrayList<PresupuestoAlquiler>();
 			con = Conectar();
 
 			String senten = "SELECT (fecha, fechaInicio, fechaFin, importe,"
@@ -129,15 +127,11 @@ public class presupuestoMapper extends baseMapper {
 
 			}
 
-			return lista;
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
-
+		return lista;
 	}
 
 	public void insert(PresupuestoAlquiler p) throws Exception {
@@ -153,10 +147,9 @@ public class presupuestoMapper extends baseMapper {
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 
-			// Ver que Date usar, si util o sql
-			// ps.setDate(1, p.getFechaEmision());
-			// ps.setDate(2, p.getFechaInicio());
-			// ps.setDate(3, p.getFechaVencimiento());
+			ps.setDate(1, p.getFechaEmision());
+			ps.setDate(2, p.getFechaInicio());
+			ps.setDate(3, p.getFechaVencimiento());
 			ps.setFloat(4, p.getImporte());
 			ps.setInt(5, p.getCliente().getIdCliente());
 			ps.setInt(6, p.getSucursalOrigen().getIdSucursal());
@@ -175,8 +168,6 @@ public class presupuestoMapper extends baseMapper {
 			}
 		} catch (SQLException e) {
 			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
