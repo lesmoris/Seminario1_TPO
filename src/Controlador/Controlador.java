@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.ResultadoOperacion;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.presupuestoMapper;
@@ -114,37 +115,46 @@ public class Controlador {
 
 	}
 
-	public boolean moverVehiculo(String sucursalOrigen, String sucursalDestino,
-			String dominioVehiculo) {
+	public ResultadoOperacion moverVehiculo(String sucursalOrigen,
+			String sucursalDestino, String dominioVehiculo) {
+
+		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		if (vehiculo == null)
+			return new ResultadoOperacion(false, "El vehiculo no existe");
 
 		Sucursal sucOrigen = buscarSucursal(sucursalOrigen);
-		Sucursal sucDestino = buscarSucursal(sucursalDestino);
-		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
+		if (sucOrigen == null)
+			return new ResultadoOperacion(false, "La sucursal de origen no existe");
 
-		if (vehiculo == null && sucOrigen == null && sucDestino == null)
-			return false;
+		Sucursal sucDestino = buscarSucursal(sucursalDestino);
+		if (sucDestino == null)
+			return new ResultadoOperacion(false, "La sucursal de destino no existe");
 
 		if (vehiculo.estasDisponible()) {
 			vehiculo.mover(sucOrigen, sucDestino);
-			return true;
+			return new ResultadoOperacion(true, "Vehiculo en movimiento");
 		} else
-			return false;
+			return new ResultadoOperacion(false, "Error al poner el vehiculo en movimiento");
 	}
 
-	public boolean recibirVehiculo(String sucursalDestino,
+	public ResultadoOperacion recibirVehiculo(String sucursalDestino,
 			String dominioVehiculo) {
 
-		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 
-		if (vehiculo == null && sucDestino == null)
-			return false;
+		if (vehiculo == null)
+			return new ResultadoOperacion(false, "El vehiculo no existe");
+		
+		Sucursal sucDestino = buscarSucursal(sucursalDestino);
+
+		if (sucDestino == null)
+			return new ResultadoOperacion(false, "La sucursal de destino no existe");
 
 		if (vehiculo.estasEnMovimiento()) {
 			vehiculo.recibir(sucDestino);
-			return true;
+			return new ResultadoOperacion(true, "Vehiculo recibido en sucursal con exito");
 		} else
-			return false;
+			return new ResultadoOperacion(false, "Error al recibir el vehiculo en movimiento");
 	}
 
 	public boolean solicitarMantenimiento(String dominioVehiculo,
@@ -164,7 +174,7 @@ public class Controlador {
 	public boolean cerrarMantenimiento(String dominioVehiculo, String solucion) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
-		
+
 		if (vehiculo == null)
 			return false;
 
