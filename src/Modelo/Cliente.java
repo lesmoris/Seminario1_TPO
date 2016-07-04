@@ -9,24 +9,12 @@ public class Cliente {
 	private String tipoDNI;
 	private int idCliente;
 	
-	public Cliente(String nombre, String DNI, String mail, String direccion, String tipoDNI, int idCliente){
-		this.nombre=nombre;
-		this.DNI=DNI;
-		this.mail=mail;
-		this.direccion=direccion;
-		this.tipoDNI=tipoDNI;
-		this.idCliente=idCliente;
-	}
-	
-	public Cliente (){
-		
-	}
-	
+	// Metodos
 	public boolean sosCliente(String DNI, String tipoDNI){
 		return this.DNI.equals(DNI) && this.tipoDNI.equals(tipoDNI);
 	}
 	
-	// SETTERS Y GETTERS
+	// Getters and Setters
 	public String getNombre() {
 		return nombre;
 	}

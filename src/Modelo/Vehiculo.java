@@ -25,11 +25,13 @@ public class Vehiculo {
 	private List<Mantenimiento> mantenimientos;
 	private String estado;
 
+	// Constructor
 	public Vehiculo() {
 		mantenimientos = new ArrayList<Mantenimiento>();
 		movimientos = new ArrayList<Movimiento>();
 	}
-
+	
+	// Metodos
 	public boolean sosVehiculo(String dominio) {
 		return this.dominio.equals(dominio);
 	}
@@ -121,7 +123,7 @@ public class Vehiculo {
 		return null;
 	}
 
-	// GETTERS Y SETTERS
+	// Getters and Setters
 	public String getDominio() {
 		return dominio;
 	}

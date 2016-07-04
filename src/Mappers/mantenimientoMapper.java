@@ -78,7 +78,7 @@ public class mantenimientoMapper extends baseMapper {
 			ps.setDate(2, mantenimiento.getFechaFin());
 			ps.setString(3, mantenimiento.getProblema());
 			ps.setString(4, mantenimiento.getSolucion());
-			ps.setInt(5, mantenimiento.getIdMantenimiento()());
+			ps.setInt(5, mantenimiento.getIdMantenimiento());
 			ps.execute();
 			
 		} catch (SQLException e) {
