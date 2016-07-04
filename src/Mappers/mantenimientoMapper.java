@@ -55,8 +55,6 @@ public class mantenimientoMapper extends baseMapper {
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -91,8 +89,6 @@ public class mantenimientoMapper extends baseMapper {
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			DBUtils.closeQuietly(con);
 		}

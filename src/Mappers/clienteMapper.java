@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Helpers.DBUtils;
 import Modelo.Cliente;
 
 public class clienteMapper extends baseMapper {
@@ -46,26 +48,24 @@ public class clienteMapper extends baseMapper {
 				c.setIdCliente(res.getInt("idcliente"));
 
 				listaclientes.add(c);
-
 			}
-			return listaclientes;
-		} catch (SQLException e) {
 
-			e.printStackTrace();
+		} catch (SQLException e) {
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
 		return listaclientes;
-
 	}
 
-	public Cliente SelectCliente(String DNI, String tipoDoc) {
+	public Cliente Select(String DNI, String tipoDoc) {
 
 		Cliente c = null;
 
 		Connection con = null;
 
-
 		try {
 			con = Conectar();
+
 			String senten = "SELECT idcliente,dni,tipodni,nombre,telefono,mail,direccion,estado FROM CLIENTE WHERE tipodni = ? AND dni = ?";
 			PreparedStatement ps = con.prepareStatement(senten);
 
@@ -85,26 +85,23 @@ public class clienteMapper extends baseMapper {
 				c.setIdCliente(res.getInt("idcliente"));
 			}
 
-			return c;
-
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
-		return null;
-
+		return c;
 	}
 
-	public Cliente SelectClientePORID(int idCliente) {
+	public Cliente SelectPORID(int idCliente) {
 
 		Cliente c = null;
 
 		Connection con = null;
-		
+
 		try {
 			con = Conectar();
 			String senten = "SELECT idcliente,dni,tipodni,nombre,telefono,mail,direccion,estado FROM CLIENTE WHERE idcliente = ?";
-			PreparedStatement 	ps = con.prepareStatement(senten);
+			PreparedStatement ps = con.prepareStatement(senten);
 			ps.setInt(1, idCliente);
 			ResultSet res = ps.executeQuery();
 
@@ -123,10 +120,10 @@ public class clienteMapper extends baseMapper {
 			return c;
 
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
-		return null;
+		return c;
 
 	}
 

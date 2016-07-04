@@ -26,7 +26,7 @@ public class vehiculoMapper extends baseMapper {
 
 	}
 
-	public Vehiculo SelectPORID(int idVehiculo) throws Exception {
+	public Vehiculo SelectPORID(int idVehiculo) {
 
 		Connection con = null;
 		Vehiculo veh = null;
@@ -58,13 +58,8 @@ public class vehiculoMapper extends baseMapper {
 				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
 			}
 
-			con.close();
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		}
-
 		finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -72,7 +67,7 @@ public class vehiculoMapper extends baseMapper {
 
 	}
 
-	public Vehiculo Select(String dominio) throws Exception {
+	public Vehiculo Select(String dominio) {
 
 		Connection con = null;
 		Vehiculo veh = null;
@@ -106,11 +101,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setMantenimientos(this.ListMantenimientos(idVehiculo));
 			}
 
-			con.close();
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		}
 		finally {
 			DBUtils.closeQuietly(con);
@@ -119,7 +110,7 @@ public class vehiculoMapper extends baseMapper {
 
 	}
 
-	public List<Vehiculo> SelectAll(int idSucursal) throws Exception {
+	public List<Vehiculo> SelectAll(int idSucursal) {
 
 		List<Vehiculo> listavehiculos = new ArrayList<Vehiculo>();
 		Connection con = null;
@@ -155,11 +146,7 @@ public class vehiculoMapper extends baseMapper {
 				listavehiculos.add(veh);
 			}
 
-			con.close();
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		}
 		finally {
 			DBUtils.closeQuietly(con);
@@ -167,7 +154,7 @@ public class vehiculoMapper extends baseMapper {
 		return listavehiculos;
 	}
 
-	private List<Movimiento> ListMovimientos(int idVehiculo) throws Exception {
+	private List<Movimiento> ListMovimientos(int idVehiculo) {
 		List<Movimiento> listMovs = new ArrayList<Movimiento>();
 
 		Connection con = null;
@@ -194,10 +181,8 @@ public class vehiculoMapper extends baseMapper {
 				listMovs.add(mov);
 
 			}
-			con.close();
-
+			
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
 		}
 		finally {
 			DBUtils.closeQuietly(con);
@@ -205,7 +190,7 @@ public class vehiculoMapper extends baseMapper {
 		return listMovs;
 	}
 
-	private List<Mantenimiento> ListMantenimientos(int idVehiculo) throws Exception {
+	private List<Mantenimiento> ListMantenimientos(int idVehiculo) {
 		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
 
 		Connection con = null;
@@ -232,15 +217,12 @@ public class vehiculoMapper extends baseMapper {
 
 			}
 
-			return listMants;
 		} catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		} catch (Exception e) {
-			throw e;
 		}
 		finally {
 			DBUtils.closeQuietly(con);
 		}
+		return listMants;
 	}
 
 	public void SetStatus(Vehiculo vehiculo, String estado) throws Exception {
@@ -255,8 +237,6 @@ public class vehiculoMapper extends baseMapper {
 			ps.setString(1, estado);
 			ps.setInt(2, vehiculo.getIdVehiculo());
 			ps.execute();
-
-			con.close();
 			
 		} catch (SQLException e) {
 			throw new Exception(e.getMessage());

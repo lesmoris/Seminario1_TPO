@@ -49,7 +49,7 @@ public class Controlador {
 
 	}
 
-	public Vehiculo buscarVehiculo(String dominio) {
+	private Vehiculo buscarVehiculo(String dominio) {
 
 		for (Vehiculo v : vehiculos) {
 			if (v.sosVehiculo(dominio))
@@ -64,7 +64,7 @@ public class Controlador {
 		return vehiculo;
 	}
 
-	public ContratoAlquiler buscarContrato(int numeroContrato) {
+	private ContratoAlquiler buscarContrato(int numeroContrato) {
 
 		for (ContratoAlquiler c : contratosAlquiler) {
 			if (c.sosContrato(numeroContrato))
@@ -80,7 +80,7 @@ public class Controlador {
 		return contrato;
 	}
 
-	public Cliente buscarCliente(String dni, String tipodoc) {
+	private Cliente buscarCliente(String dni, String tipodoc) {
 
 		for (Cliente c : this.clientes) {
 			if (c.sosCliente(dni, tipodoc)) {
@@ -88,8 +88,7 @@ public class Controlador {
 			}
 		}
 
-		Cliente cliente = clienteMapper.getInstance().SelectCliente(dni,
-				tipodoc);
+		Cliente cliente = clienteMapper.getInstance().Select(dni, tipodoc);
 
 		if (cliente != null) {
 			clientes.add(cliente);
@@ -98,7 +97,7 @@ public class Controlador {
 		return cliente;
 	}
 
-	public Sucursal buscarSucursal(String nombreSucursal) {
+	private Sucursal buscarSucursal(String nombreSucursal) {
 		for (Sucursal s : this.sucursales) {
 			if (s.sosSucursal(nombreSucursal)) {
 				return s;
@@ -124,11 +123,13 @@ public class Controlador {
 
 		Sucursal sucOrigen = buscarSucursal(sucursalOrigen);
 		if (sucOrigen == null)
-			return new ResultadoOperacion(false, "La sucursal de origen no existe");
+			return new ResultadoOperacion(false,
+					"La sucursal de origen no existe");
 
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 		if (sucDestino == null)
-			return new ResultadoOperacion(false, "La sucursal de destino no existe");
+			return new ResultadoOperacion(false,
+					"La sucursal de destino no existe");
 
 		if (vehiculo.estasDisponible()) {
 			try {
@@ -138,7 +139,8 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true, "Vehiculo en movimiento");
 		} else
-			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta disponible para movimiento");
 	}
 
 	public ResultadoOperacion recibirVehiculo(String sucursalDestino,
@@ -148,11 +150,12 @@ public class Controlador {
 
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
-		
+
 		Sucursal sucDestino = buscarSucursal(sucursalDestino);
 
 		if (sucDestino == null)
-			return new ResultadoOperacion(false, "La sucursal de destino no existe");
+			return new ResultadoOperacion(false,
+					"La sucursal de destino no existe");
 
 		if (vehiculo.estasEnMovimiento()) {
 			try {
@@ -160,9 +163,11 @@ public class Controlador {
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true, "Vehiculo recibido en sucursal con exito");
+			return new ResultadoOperacion(true,
+					"Vehiculo recibido en sucursal con exito");
 		} else
-			return new ResultadoOperacion(false, "El Vehiculo no esta en movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta en movimiento");
 	}
 
 	public ResultadoOperacion solicitarMantenimiento(String dominioVehiculo,
@@ -180,10 +185,12 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true, "Vehiculo en mantenimiento");
 		} else
-			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para mantenimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta disponible para mantenimiento");
 	}
 
-	public ResultadoOperacion cerrarMantenimiento(String dominioVehiculo, String solucion) {
+	public ResultadoOperacion cerrarMantenimiento(String dominioVehiculo,
+			String solucion) {
 
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 
@@ -196,9 +203,11 @@ public class Controlador {
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true, "Vehiculo devuelto de mantenimiento con exito");
+			return new ResultadoOperacion(true,
+					"Vehiculo devuelto de mantenimiento con exito");
 		} else
-			return new ResultadoOperacion(false, "El Vehiculo no esta en mantenimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta en mantenimiento");
 	}
 
 	public PresupuestoAlquiler buscarPresupuesto(int idPresupuesto)
@@ -213,7 +222,10 @@ public class Controlador {
 
 		PresupuestoAlquiler p = null;
 		// Terminar el meotodo de SelectPresupuesto
-		p = presupuestoMapper.getInstance().Select(idPresupuesto);
+		try {
+			p = presupuestoMapper.getInstance().Select(idPresupuesto);
+		} catch (Exception e) { /* Ignorar */
+		}
 
 		if (p != null)
 			presupuestosAlquiler.add(p);
@@ -257,10 +269,12 @@ public class Controlador {
 
 		List<Vehiculo> vehiculosReporte = new ArrayList<Vehiculo>();
 
-		for (Vehiculo v : vehiculos) {
-			if (v.cumplisCondiciones(marca, modelo, color, cantPuertas, tamano,
-					tipoTrans, ac))
-				vehiculosReporte.add(v);
+		for (Vehiculo v : vehiculos) { // llamar al mapper con los parametros y
+										// que filtre al armar el sql
+			// if (v.cumplisCondiciones(marca, modelo, color, cantPuertas,
+			// tamano, tipoTrans, ac))
+			// Saque este metodo, reemplazar por sql dinamico
+			// vehiculosReporte.add(v);
 		}
 
 		return vehiculosReporte;

@@ -59,7 +59,7 @@ public class presupuestoMapper extends baseMapper {
 						res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 
-				Cliente c = clienteMapper.getInstance().SelectClientePORID(
+				Cliente c = clienteMapper.getInstance().SelectPORID(
 						res.getInt("idcliente"));
 				pa.setCliente(c);
 
@@ -113,7 +113,7 @@ public class presupuestoMapper extends baseMapper {
 						res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 
-				Cliente c = clienteMapper.getInstance().SelectClientePORID(
+				Cliente c = clienteMapper.getInstance().SelectPORID(
 						res.getInt("idcliente"));
 				pa.setCliente(c);
 
