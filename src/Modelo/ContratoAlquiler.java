@@ -13,6 +13,7 @@ public class ContratoAlquiler {
 	private Sucursal sucursalOrigen;
 	private Sucursal sucursalDestino;
 	
+	// Metodos
 	public boolean sosDeLaSucursalOrigenODestino (String sucOr, String sucDes) {
 		return this.sucursalOrigen.getNombre().equals(sucOr) && this.sucursalDestino.getNombre().equals(sucDes);
 	}
@@ -28,7 +29,7 @@ public class ContratoAlquiler {
 		return numero == this.numero;
 	}
 	
-	//GETTERS Y SETTERS
+	// Getters and Setters
 	public int getNumero() {
 		return numero;
 	}

@@ -19,7 +19,7 @@ public class PresupuestoAlquiler {
 	private Cliente cliente;
 	private Vehiculo vehiculo;
 	
-	
+	// Metodos
 	public boolean sosDelCliente (String numero, String tipo){
 		
 		if (this.cliente.sosCliente(numero, tipo)){
@@ -50,7 +50,6 @@ public class PresupuestoAlquiler {
 		
 	}
 	
-	
 	// Getters y Setters
 	public int getIdPresupuesto() {
 		return idPresupuesto;
@@ -58,8 +57,6 @@ public class PresupuestoAlquiler {
 	public void setIdPresupuesto(int idPresupuesto) {
 		this.idPresupuesto = idPresupuesto;
 	}
-
-
 	public Date getFechaEmision() {
 		return fechaEmision;
 	}
@@ -96,27 +93,16 @@ public class PresupuestoAlquiler {
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		FechaVencimiento = fechaVencimiento;
 	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
-
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
-	
-	
-	
-	
-	
-	
-	
 }

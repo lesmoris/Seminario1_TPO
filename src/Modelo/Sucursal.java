@@ -9,11 +9,12 @@ public class Sucursal {
 	private String telefono;
 	private String mail;
 	
+	// Metodos
 	public boolean sosSucursal (String nombre){
 		return this.nombre.equals(nombre);
 	}
 	
-	// GETTeRS Y SETTERS
+	// Getters and Setters
 	public String getNombre() {
 		return nombre;
 	}

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.DBUtils;
 import Modelo.Sucursal;
 
 public class sucursalMapper extends baseMapper {
@@ -45,7 +46,8 @@ public class sucursalMapper extends baseMapper {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
 		
 		return suc;
@@ -77,7 +79,8 @@ public class sucursalMapper extends baseMapper {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
 		
 		return suc;
