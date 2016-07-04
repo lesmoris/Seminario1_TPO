@@ -1,6 +1,9 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
+
+import Mappers.movimientoMapper;
 
 public class Movimiento {
 
@@ -10,23 +13,33 @@ public class Movimiento {
 	private Date fechaInicio;
 	private Date fechaFin;
 
+	// Constructor
 	public Movimiento() {
-		Date d = new Date();
-		
-		fechaInicio = d;
+		fechaInicio = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		fechaFin = null;
 	}
 	
+	// Metodos
 	public void cerrar() {
-		Date d = new Date();
-		
-		fechaFin = d;
+		fechaFin = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 	}
 	
 	public boolean estasActivo() {
 		return this.getFechaFin() == null;
 	}
 	
+	// Manejo de BD
+	public void Insert(int idVehiculo) throws Exception 
+	{
+		movimientoMapper.getInstance().Insert(this, idVehiculo);
+	}
+	
+	public void Update() throws Exception
+	{
+		movimientoMapper.getInstance().Update(this);
+	}
+	
+	// Getters and Setters
 	public int getIdMovimiento() {
 		return idMovimiento;
 	}

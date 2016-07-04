@@ -14,7 +14,7 @@ import Modelo.Vehiculo;
 
 public class vehiculoMapper extends baseMapper {
 
-	public static vehiculoMapper instancia;
+	private static vehiculoMapper instancia;
 
 	// SINGLETON
 	public static vehiculoMapper getInstance() {
@@ -112,7 +112,6 @@ public class vehiculoMapper extends baseMapper {
 		} catch (Exception e) {
 			throw e;
 		}
-
 		finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -206,7 +205,7 @@ public class vehiculoMapper extends baseMapper {
 		return listMovs;
 	}
 
-	private List<Mantenimiento> ListMantenimientos(int idVehiculo) {
+	private List<Mantenimiento> ListMantenimientos(int idVehiculo) throws Exception {
 		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
 
 		Connection con = null;
@@ -232,17 +231,19 @@ public class vehiculoMapper extends baseMapper {
 				listMants.add(mant);
 
 			}
+
+			return listMants;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
 		}
 		finally {
 			DBUtils.closeQuietly(con);
 		}
-		return listMants;
 	}
 
-	public void SetStatus(int idVehiculo, String estado) throws Exception {
+	public void SetStatus(Vehiculo vehiculo, String estado) throws Exception {
 		Connection con = null;
 		try {
 
@@ -252,7 +253,7 @@ public class vehiculoMapper extends baseMapper {
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setString(1, estado);
-			ps.setInt(2, idVehiculo);
+			ps.setInt(2, vehiculo.getIdVehiculo());
 			ps.execute();
 
 			con.close();

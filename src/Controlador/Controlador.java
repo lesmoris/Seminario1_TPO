@@ -131,7 +131,11 @@ public class Controlador {
 			return new ResultadoOperacion(false, "La sucursal de destino no existe");
 
 		if (vehiculo.estasDisponible()) {
-			vehiculo.mover(sucOrigen, sucDestino);
+			try {
+				vehiculo.mover(sucOrigen, sucDestino);
+			} catch (Exception e) {
+				return new ResultadoOperacion(false, e.getMessage());
+			}
 			return new ResultadoOperacion(true, "Vehiculo en movimiento");
 		} else
 			return new ResultadoOperacion(false, "Error al poner el vehiculo en movimiento");

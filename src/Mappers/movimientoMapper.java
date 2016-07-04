@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.DBUtils;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Vehiculo;
 
 public class movimientoMapper extends baseMapper {
 
-	public static movimientoMapper instancia;
+	private static movimientoMapper instancia;
 	
 	// SINGLETON
 	public static movimientoMapper getInstance(){
@@ -25,7 +26,7 @@ public class movimientoMapper extends baseMapper {
 		
 	}
 	
-	public void Insert(Movimiento movimiento, int idVehiculo) {
+	public void Insert(Movimiento movimiento, int idVehiculo) throws Exception {
 		
 		Connection con = null;
 
@@ -36,10 +37,9 @@ public class movimientoMapper extends baseMapper {
 					      + "VALUES (?, ?, ?, ?, ?); "
 					      + "SELECT SCOPE_IDENTITY() as idMovimiento";
 			PreparedStatement ps = null;
-		// VER SI USAMOS SQL DATE O UTIL DATE
 			ps = con.prepareStatement(senten);			
-			//ps.setDate(1, movimiento.getFechaInicio());
-			//ps.setDate(2, movimiento.getFechaFin());
+			ps.setDate(1, movimiento.getFechaInicio());
+			ps.setDate(2, movimiento.getFechaFin());
 			ps.setInt(3, idVehiculo);
 			ps.setInt(4, movimiento.getOrigen().getIdSucursal());
 			ps.setInt(5, movimiento.getDestino().getIdSucursal());
@@ -49,9 +49,47 @@ public class movimientoMapper extends baseMapper {
 				movimiento.setIdMovimiento(res.getInt("idMovimiento"));
 			}
 
-			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+	}
+
+	
+	public void Update(Movimiento movimiento) throws Exception {
+		
+		Connection con = null;
+
+		try {
+			con = Conectar();
+			
+			String senten = "UPDATE MOVIMIENTO SET "
+					      + "fechaInicio = ?, "
+					      + "fechaFin = ?, "
+					      + "idSucursalOrigen = ?, "
+					      + "idSucursalDestino = ?, "
+					      + "WHERE idMovimiento = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);			
+			ps.setDate(1, movimiento.getFechaInicio());
+			ps.setDate(2, movimiento.getFechaFin());
+			ps.setInt(4, movimiento.getOrigen().getIdSucursal());
+			ps.setInt(5, movimiento.getDestino().getIdSucursal());
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				movimiento.setIdMovimiento(res.getInt("idMovimiento"));
+			}
+
+		} catch (SQLException e) {
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DBUtils.closeQuietly(con);
 		}
 	}
 }
