@@ -196,7 +196,7 @@ public class Controlador {
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
 
-		if (vehiculo.estasDisponible()) {
+		if (vehiculo.estasEnMantenimiento()) {
 			try {
 				vehiculo.cerrarMantenimiento(solucion);
 			} catch (Exception e) {

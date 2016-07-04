@@ -71,8 +71,7 @@ public class mantenimientoMapper extends baseMapper {
 			con.setAutoCommit(false);
 			
 			String senten = "INSERT INTO MANTENIMIENTO(fechaInicio, fechaFin, idvehiculo, problema, solucion) "
-					      + "VALUES (?, ?, ?, ?, ?); "
-					      + "SELECT SCOPE_IDENTITY() as idMantenimiento";
+					      + "VALUES (?, ?, ?, ?, ?); ";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ps.setDate(1, mantenimiento.getFechaInicio());
@@ -80,11 +79,9 @@ public class mantenimientoMapper extends baseMapper {
 			ps.setInt(3, idVehiculo);
 			ps.setString(4, mantenimiento.getProblema());
 			ps.setString(5, mantenimiento.getSolucion());
-			ResultSet res = ps.executeQuery();
+			ps.execute();
 			
-			while (res.next()){
-				mantenimiento.setIdMantenimiento(res.getInt("idMovimiento"));
-			}
+			mantenimiento.setIdMantenimiento(DBUtils.getLastInsertedID(con, "MANTENIMIENTO"));
 			
 			con.commit();
 
@@ -109,7 +106,7 @@ public class mantenimientoMapper extends baseMapper {
 					      + "fechaInicio = ?, "
 					      + "fechaFin = ?, "
 					      + "problema = ?, "
-					      + "solucion = ?, "
+					      + "solucion = ? "
 					      + "WHERE idMantenimiento = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			

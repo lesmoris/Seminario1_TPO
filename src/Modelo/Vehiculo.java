@@ -52,6 +52,9 @@ public class Vehiculo {
 
 		if (this.estasEnMovimiento())
 			throw new Exception("Vehiclo esta en movimiento");
+		
+		if (this.sucursal.sosSucursal(destino.getNombre()))
+			throw new Exception("La sucursal de destino es la misma en la que el vehiculo se encuentra actualmente");
 
 		Movimiento movimiento = new Movimiento();
 		movimiento.setOrigen(this.sucursal);
@@ -80,8 +83,8 @@ public class Vehiculo {
 
 	public void agregarMantenimiento(String problema) throws Exception {
 
-		if (!this.estasEnMantenimiento())
-			throw new Exception("Vehiclo no esta en movimiento");
+		if (this.estasEnMantenimiento())
+			throw new Exception("Vehiclo esta actualmente en mantenimiento");
 
 		Mantenimiento mantenimiento = new Mantenimiento();
 		mantenimiento.setProblema(problema);
