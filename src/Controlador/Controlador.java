@@ -261,7 +261,7 @@ public class Controlador {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
 			return new ResultadoOperacion(true,
-					"Vehiculo devuelto de mantenimiento con exito");
+					"Vehiculo " + dominioVehiculo + " devuelto de mantenimiento con exito");
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en mantenimiento");

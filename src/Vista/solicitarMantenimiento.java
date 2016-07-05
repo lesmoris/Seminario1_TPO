@@ -1,30 +1,22 @@
 package Vista;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
-import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
 
 public class solicitarMantenimiento extends JInternalFrame {
 	private JTextField dominioTF;
