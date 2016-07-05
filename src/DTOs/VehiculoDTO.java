@@ -30,7 +30,7 @@ public class VehiculoDTO {
 	private List<MantenimientoDTO> mantenimientos;
 	private String estado;
 	
-	public VehiculoDTO(int idVehiculo, String dominio, String marca, String modelo, int Kilometraje, int cantidadPuertas,
+	public VehiculoDTO(int idVehiculo, String dominio, String marca, String modelo, int kilometraje, int cantidadPuertas,
 			String color, SucursalDTO sucursal, String tamaño, String transmision, String tipoCombustible, boolean aireAcondicionado,
 			float precioPorDia, List<MovimientoDTO> movimientos, List<MantenimientoDTO> mantenimientos, String estado){
 		
