@@ -32,12 +32,12 @@ public class bajaVehiculo extends JInternalFrame {
 		getContentPane().add(lblDominioDelVeh);
 		
 		textField = new JTextField();
-		textField.setBounds(97, 134, 86, 20);
+		textField.setBounds(133, 103, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnConfirmarBaja = new JButton("Confirmar Baja");
-		btnConfirmarBaja.setBounds(259, 214, 125, 23);
+		btnConfirmarBaja.setBounds(230, 102, 125, 23);
 		getContentPane().add(btnConfirmarBaja);
 
 	}
