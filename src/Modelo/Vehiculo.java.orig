@@ -3,10 +3,12 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import DTOs.MantenimientoDTO;
-import DTOs.VehiculoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
+=======
+>>>>>>> origin/master
 import DTOs.VehiculoDTO;
 import Mappers.vehiculoMapper;
 
@@ -130,7 +132,13 @@ public class Vehiculo {
 		return null;
 	}
 
-
+	public VehiculoDTO crearVista() {
+		return new VehiculoDTO(this.idVehiculo, this.dominio, this.marca,
+				this.modelo, this.kilometraje, this.cantidadPuertas,
+				this.color, this.sucursal.getNombre(), this.tamaño,
+				this.transmision, this.tipoCombustible, this.aireAcondicionado,
+				this.precioPorDia, this.estado);
+	}
 
 	// Getters and Setters
 	public String getDominio() {

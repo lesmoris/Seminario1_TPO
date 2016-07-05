@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import Controlador.Controlador;
 import DTOs.VehiculoDTO;
 import Interfaces.TMrecibirvehiculoTABLA;
 
@@ -19,10 +20,13 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private JTable VehiculosEnMovimientoTABLA;
 	private TMrecibirvehiculoTABLA TM;
 	private List<VehiculoDTO> vehiculos;
+	private Controlador controlador;
 	
-	public recibirVehiculoenMovimiento(List<VehiculoDTO> vehiculos) {
+	public recibirVehiculoenMovimiento() {
 		
-		this.vehiculos=vehiculos;
+		this.controlador = Controlador.getInstance();
+		
+		this.vehiculos=controlador.getVehiculosEnMovimiento();
 		
 		
 		iniciarComponentes();
@@ -63,7 +67,9 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		scrollPane.setBounds(43, 164, 525, 64);
 		getContentPane().add(scrollPane);
 		
-		TM = new TMrecibirvehiculoTABLA(null);
+		// Llenamos El TableModel
+		
+		TM = new TMrecibirvehiculoTABLA(vehiculos);
 		
 		VehiculosEnMovimientoTABLA = new JTable();
 		VehiculosEnMovimientoTABLA.setModel(TM);

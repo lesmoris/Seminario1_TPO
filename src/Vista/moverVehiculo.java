@@ -131,8 +131,7 @@ public class moverVehiculo extends JInternalFrame {
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
-					SucursalOrigenTF
-							.setText(res.getVehiculoDTO().getSucursal());
+					SucursalOrigenTF.setText(res.getVehiculoDTO().getSucursal().getNombre());
 
 					btnIniciarMovimiento.setEnabled(true);
 				} else {
