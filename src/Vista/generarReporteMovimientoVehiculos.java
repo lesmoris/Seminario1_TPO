@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +19,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import Controlador.Controlador;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
+import DTOs.SucursalDTO;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
 import Interfaces.TMmantenimientosPorVehiculoTABLA;
@@ -31,11 +33,39 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 	private JTable HistorialMovimientosTABLA;
 	private TMmovimientosDeVehiculosTABLA TM;
 	private Controlador controlador;
+	private List<SucursalDTO> sucursales;
+	private JComboBox<ComboBoxItem> cmbOrigen;
+	private JComboBox<ComboBoxItem> cmbDestino;
 
 	public generarReporteMovimientoVehiculos() {
 		this.controlador = Controlador.getInstance();
 
 		iniciarComponentes();
+
+		cargarSucursales(sucursales);
+	}
+
+	// Cargamos los ComboBox
+	private void cargarSucursales(List<SucursalDTO> sucursales) {
+
+		this.sucursales = controlador.getSucursales();
+
+		ComboBoxItem cbi = new ComboBoxItem();
+		cbi.setCodigo(0);
+		cbi.setNombre("");
+
+		cmbOrigen.addItem(cbi);
+		cmbDestino.addItem(cbi);
+
+		for (SucursalDTO s : this.sucursales) {
+
+			cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
+
+			cmbOrigen.addItem(cbi);
+			cmbDestino.addItem(cbi);
+		}
 	}
 
 	private void iniciarComponentes() {
@@ -102,11 +132,11 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		lblSucursalDestino.setBounds(361, 134, 106, 14);
 		getContentPane().add(lblSucursalDestino);
 
-		final JComboBox cmbOrigen = new JComboBox();
+		cmbOrigen = new JComboBox();
 		cmbOrigen.setBounds(459, 92, 100, 20);
 		getContentPane().add(cmbOrigen);
 
-		final JComboBox cmbDestino = new JComboBox();
+		cmbDestino = new JComboBox();
 		cmbDestino.setBounds(459, 131, 100, 20);
 		getContentPane().add(cmbDestino);
 
@@ -118,16 +148,19 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 				String fechaInicioHasta = fechaInicioHastaTF.getText();
 				String fechaFinDesde = fechaFinDesdeTF.getText();
 				String fechaFinHasta = fechaFinHastaTF.getText();
-				
+
 				String sucursalOrigen = ((ComboBoxItem) cmbOrigen
 						.getSelectedItem()).getNombre();
-				
+
 				String sucursalDestino = ((ComboBoxItem) cmbDestino
 						.getSelectedItem()).getNombre();
 
 				// Mando el mensaje
 				ResultadoOperacionReporteMovimientosVehiculos res = controlador
-						.generarReporteDeMovimientoDeVehiculos(fechaInicioDesde, fechaInicioHasta, fechaFinDesde, fechaFinHasta, sucursalDestino, sucursalOrigen);
+						.generarReporteDeMovimientoDeVehiculos(
+								fechaInicioDesde, fechaInicioHasta,
+								fechaFinDesde, fechaFinHasta, sucursalOrigen,
+								sucursalDestino);
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {

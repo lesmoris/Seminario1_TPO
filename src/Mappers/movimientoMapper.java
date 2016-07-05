@@ -82,6 +82,7 @@ public class movimientoMapper extends baseMapper {
 			while (res.next()) {
 				Movimiento mov = new Movimiento();
 
+				mov.setIdMovimiento(res.getInt("idMovimiento"));
 				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
 						res.getInt("idSucursalOrigen")));
 				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
@@ -137,6 +138,7 @@ public class movimientoMapper extends baseMapper {
 			while (res.next()) {
 				Movimiento mov = new Movimiento();
 
+				mov.setIdMovimiento(res.getInt("idMovimiento"));
 				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
 						res.getInt("idSucursalOrigen")));
 				mov.setDestino(sucursalMapper.getInstance().SelectPORID(

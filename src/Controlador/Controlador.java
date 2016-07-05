@@ -332,6 +332,8 @@ public class Controlador {
 			String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde,
 			String fechaFinHasta, String sucursalOrigen, String sucursalDestino) {
 
+		// Valido solo que las fechas tengan sentido (Desde no puede ser mayor a Hasta)
+		
 		// No valido por que pueden venir vacios, ahi trae todo
 		List<Movimiento> movimientos = movimientoMapper.getInstance()
 				.ListMovimientos(fechaInicioDesde, fechaInicioHasta,

@@ -18,54 +18,39 @@ AS
 	declare @sql	nvarchar(max)
 
 	select @sql	= 
-	N'select 
-		 [idVehiculo]
-	    ,v.[idSucursal]
- 		,[dominio]
-		,[marca]
-		,[modelo]
-		,[aireAcondicionado]
-		,[tipoCombustible]
-		,[precioPorDia]
-		,[transmision]
-		,[cantidadPuertas]
-		,[kilometraje]
-		,[color]
-		,[tamaño]
-		,[estado]
-	FROM movimientos m
+	N'SELECT 
+	   [idmovimiento]
+      ,[fechaInicio]
+      ,[fechaFin]
+      ,m.[idvehiculo]
+      ,[idsucursalOrigen]
+      ,[idsucursalDestino]
+	FROM movimiento m
 	inner join vehiculo v on v.idVehiculo = m.idVehiculo
-	inner join Sucursal s on s.idsucursal = v.idsucursal 
+	inner join sucursal s_origen on s_origen.idsucursal = m.idsucursalOrigen 
+	inner join sucursal s_destino on s_destino.idsucursal = m.idsucursalDestino 
 	where 1 = 1 '
 
-	if (@marca is not null)
-		select @sql	= @sql + ' and v.marca = @marca '
+	if (@fechaInicioDesde is not null)
+		select @sql	= @sql + ' and m.fechaInicio >= @fechaInicioDesde '
 
-	if (@modelo is not null)
-		select @sql	= @sql + ' and v.modelo = @modelo '
+	if (@fechaInicioHasta is not null)
+		select @sql	= @sql + ' and m.fechaInicio <= @fechaInicioHasta '
 	
-	if (@aireAcondicionado is not null)
-		select @sql	= @sql + ' and v.aireAcondicionado = @aireAcondicionado '
+	if (@fechaFinDesde is not null)
+		select @sql	= @sql + ' and v.fechaFin >= @fechaFinDesde '
 	
-	if (@tipoCombustible is not null)
-		select @sql	= @sql + ' and v.tipoCombustible = @tipoCombustible '
+	if (@fechaFinHasta is not null)
+		select @sql	= @sql + ' and v.fechaFin <= @fechaFinHasta '
 	
-	if (@transmision is not null)
-		select @sql	= @sql + ' and v.transmision = @transmision '
+	if (@sucursalOrigen is not null)
+		select @sql	= @sql + ' and s_origen.nombre = @sucursalOrigen '
 	
-	if (@cantidadPuertas > 0)
-		select @sql	= @sql + ' and v.cantidadPuertas = @cantidadPuertas '
+	if (@sucursalDestino is not null)
+		select @sql	= @sql + ' and s_destino.nombre = @sucursalDestino '
 	
-	if (@color is not null)
-		select @sql	= @sql + ' and v.color = @color '
-	
-	if (@tamaño is not null)
-		select @sql	= @sql + ' and v.tamaño = @tamaño '
-
-	print @sql
-
 	exec sp_executesql @sql, 
-						N' @nombreSucursal	varchar(50), @marca	varchar(15), @modelo varchar(15), @aireAcondicionado varchar(1), @tipoCombustible varchar(10), @transmision	varchar(10), @cantidadPuertas int, @color varchar(10), @tamaño varchar(10)',
-						@nombreSucursal, @marca, @modelo, @aireAcondicionado, @tipoCombustible, @transmision, @cantidadPuertas, @color, @tamaño
+						N'  @fechaInicioDesde datetime, @fechaInicioHasta datetime, @fechaFinDesde datetime, @fechaFinHasta datetime, @sucursalOrigen varchar(50), @sucursalDestino	varchar(50)',
+						@fechaInicioDesde, @fechaInicioHasta, @fechaFinDesde, @fechaFinHasta, @sucursalOrigen, @sucursalDestino
 	
 GO
