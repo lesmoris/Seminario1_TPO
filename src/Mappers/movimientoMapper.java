@@ -100,6 +100,43 @@ public class movimientoMapper extends baseMapper {
 		return listMovs;
 	}
 	
+	public List<Movimiento> ListMovimientosCerrados() {
+		
+		List<Movimiento> listMovs = new ArrayList<Movimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmovimiento, fechaInicio, fechaFin, idsucursalOrigen, idsucursalDestino, idVehiculo FROM movimiento where fechaFin is not null ";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Movimiento mov = new Movimiento();
+
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalDestino")));
+				mov.setFechaInicio(res.getDate("fechaInicio"));
+				mov.setFechaFin(res.getDate("fechaFin"));
+				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+
+				listMovs.add(mov);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMovs;
+	}
+	
 	public void Insert(Movimiento movimiento, int idVehiculo) throws Exception {
 
 		Connection con = null;

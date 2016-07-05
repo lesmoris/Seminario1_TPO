@@ -152,7 +152,7 @@ public class menuPrincipal extends JFrame {
 		mnVehiculos.add(mntmModificarPrecioPor);
 		mnVehiculos.add(mntmBaja);
 		
-		JMenu mnMantenimiento = new JMenu("Mantenimiento");
+		JMenu mnMantenimiento = new JMenu("Mantenimientos");
 		mnVehiculos.add(mnMantenimiento);
 		
 		JMenuItem mntmSolicitudMantenimiento = new JMenuItem("Solicitud Mantenimiento");
@@ -161,7 +161,7 @@ public class menuPrincipal extends JFrame {
 		JMenuItem mntmCerrarMantenimiento = new JMenuItem("Cerrar Mantenimiento\r\n");
 		mnMantenimiento.add(mntmCerrarMantenimiento);
 		
-		JMenuItem mntmHistorialMantenimientoPor = new JMenuItem("Historial Mantenimientos");
+		JMenuItem mntmHistorialMantenimientoPor = new JMenuItem("Historial Mantenimientos por Vehiculo");
 		mnMantenimiento.add(mntmHistorialMantenimientoPor);
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -280,7 +280,7 @@ public class menuPrincipal extends JFrame {
 		});
 		mnReportes.add(mntmAlquileres);
 		
-		JMenuItem mntmMovimientoVehiculos = new JMenuItem("Movimiento Vehiculos");
+		JMenuItem mntmMovimientoVehiculos = new JMenuItem("Movimiento de Vehiculos");
 		mntmMovimientoVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
