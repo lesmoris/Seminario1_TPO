@@ -18,14 +18,9 @@ public class Sucursal {
 	
 	public SucursalDTO crearVista(){
 		
-		SucursalDTO s = new SucursalDTO(this.getNombre(), this.getDireccion(), 
+		return new SucursalDTO(this.getNombre(), this.getDireccion(), 
 				this.getIdSucursal(), this.getTelefono(), this.getMail());
-		
-		
-		return s;
 	}
-	
-	
 	
 	// Getters and Setters
 	public String getNombre() {

@@ -5,6 +5,11 @@ import java.util.List;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Sucursal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import Mappers.vehiculoMapper;
 
 public class VehiculoDTO {
 
@@ -58,17 +63,17 @@ public class VehiculoDTO {
 	public String getDominio() {
 		return dominio;
 	}
-	public void setDominio(String dominio) {
-		this.dominio = dominio;
-	}
-	public String getMarca() {
-		return marca;
-	}
+
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+
 	public String getModelo() {
 		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
@@ -130,13 +135,32 @@ public class VehiculoDTO {
 	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+
+	public void setIdVehiculo(int idVehiculo) {
+		this.idVehiculo = idVehiculo;
 	}
-	
-	
-	
-	
-	
-	
+
+	public boolean tenesAC() {
+		return this.aireAcondicionado;
+	}
+
+	public void setAC(Boolean aireAcondicionado) {
+		this.aireAcondicionado = aireAcondicionado;
+	}
+
+	public String getTipoCombustible() {
+		return tipoCombustible;
+	}
+
+	public void setTipoCombustible(String tipoCombustible) {
+		this.tipoCombustible = tipoCombustible;
+	}
+
+	public float getPrecioPorDia() {
+		return precioPorDia;
+	}
+
+	public void setPrecioPorDia(float precioPorDia) {
+		this.precioPorDia = precioPorDia;
+	}
 }

@@ -192,7 +192,7 @@ public class menuPrincipal extends JFrame {
 				
 				
 				
-				moverVehiculo a = new moverVehiculo(Controlador.getInstance().getSucursalesDTO());
+				moverVehiculo a = new moverVehiculo();
 				
 				irAVentana(a);
 				
