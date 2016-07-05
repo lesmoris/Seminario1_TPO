@@ -55,7 +55,7 @@ public class presupuestoMapper extends baseMapper {
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
 
-				Vehiculo v = vehiculoMapper.getInstance().SelectPORID(
+				Vehiculo v = vehiculoMapper.getInstance().SelectPorIDConMovimientosYMantenimientos(
 						res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 
@@ -108,7 +108,7 @@ public class presupuestoMapper extends baseMapper {
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
 
-				Vehiculo v = vehiculoMapper.getInstance().SelectPORID(
+				Vehiculo v = vehiculoMapper.getInstance().SelectPorIDConMovimientosYMantenimientos(
 						res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 

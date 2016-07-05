@@ -13,6 +13,7 @@ public class Movimiento {
 	private Sucursal destino;
 	private Date fechaInicio;
 	private Date fechaFin;
+	private Vehiculo vehiculo;
 
 	// Constructor
 	public Movimiento() {
@@ -20,12 +21,8 @@ public class Movimiento {
 		fechaFin = null;
 	}
 	
-	
 	public MovimientoDTO crearVista(){
-		
-		MovimientoDTO m = new MovimientoDTO(idMovimiento, origen.crearVista(), destino.crearVista(), fechaFin, fechaFin);
-		
-		return m;
+		return new MovimientoDTO(idMovimiento, origen.crearVista(), destino.crearVista(), fechaInicio, fechaFin, vehiculo.getDominio());
 	}
 	
 	// Metodos
@@ -79,9 +76,11 @@ public class Movimiento {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
-	
-	
-	
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
 	
 }

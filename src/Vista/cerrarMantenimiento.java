@@ -78,6 +78,9 @@ public class cerrarMantenimiento extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
+
+				menuPrincipal.getInstance().irAMenuPrincipal();
+				
 			}
 		});
 		btnConfirmar.setBounds(513, 223, 106, 23);

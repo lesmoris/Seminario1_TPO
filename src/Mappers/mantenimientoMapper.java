@@ -26,7 +26,7 @@ public class mantenimientoMapper extends baseMapper {
 		
 	}
 	
-	public static List<Mantenimiento> ListMantenimientos(int idVehiculo) {
+	public List<Mantenimiento> ListMantenimientos(int idVehiculo) {
 		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
 
 		Connection con = null;

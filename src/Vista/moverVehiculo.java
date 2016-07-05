@@ -51,7 +51,6 @@ public class moverVehiculo extends JInternalFrame {
 
 			cmbSucursalDestino.addItem(cbi);
 		}
-
 	}
 
 	// Componentes de la pantalla y acciones de los componentes
@@ -105,6 +104,8 @@ public class moverVehiculo extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
+
+				menuPrincipal.getInstance().irAMenuPrincipal();
 			}
 
 		});

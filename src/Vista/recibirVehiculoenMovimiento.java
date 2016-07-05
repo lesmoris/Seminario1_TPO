@@ -15,20 +15,16 @@ import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
+import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
-import DTOs.VehiculoDTO;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
 import Interfaces.TMrecibirvehiculoTABLA;
-import Mappers.sucursalMapper;
-import Mappers.vehiculoMapper;
-import Modelo.Sucursal;
-import Modelo.Vehiculo;
 
 public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private JTable VehiculosEnMovimientoTABLA;
 	private TMrecibirvehiculoTABLA TM;
-	private List<VehiculoDTO> vehiculos;
+	private List<MovimientoDTO> movimientos;
 	private Controlador controlador;
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> sucursalCOMBO;
@@ -37,14 +33,11 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		
 		this.controlador = Controlador.getInstance();
 		
-		this.vehiculos=controlador.getVehiculosEnMovimiento();
+		this.sucursales = controlador.getSucursales();
 		
-		this.sucursales=controlador.getSucursales();
-		
+		this.movimientos = controlador.getMovimientosEnCurso();
 		
 		iniciarComponentes();
-		
-		
 	}
 
 	private void iniciarComponentes() {
@@ -81,7 +74,6 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 							: JOptionPane.ERROR_MESSAGE);
 				
-				
 					menuPrincipal.getInstance().irAMenuPrincipal();
 						
 				}else{
@@ -102,7 +94,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		
 		// Llenamos El TableModel
 		
-		TM = new TMrecibirvehiculoTABLA(vehiculos);
+		TM = new TMrecibirvehiculoTABLA(movimientos);
 		
 		VehiculosEnMovimientoTABLA = new JTable();
 		VehiculosEnMovimientoTABLA.setModel(TM);
@@ -120,8 +112,6 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 
 			sucursalCOMBO.addItem(cbi);
 		}
-		
-		
 	}
 	
 	public boolean tablaseleccionada (JTable tabla){
@@ -135,8 +125,6 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 				}
 			}
 		}
-		
-		
 		return seleccionado;
 	}
 	

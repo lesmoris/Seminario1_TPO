@@ -74,6 +74,9 @@ public class solicitarMantenimiento extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
+
+				menuPrincipal.getInstance().irAMenuPrincipal();
+
 			}
 		});
 		btnConfirmar.setBounds(617, 305, 89, 23);

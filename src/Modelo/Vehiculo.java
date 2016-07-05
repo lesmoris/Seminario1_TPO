@@ -64,6 +64,7 @@ public class Vehiculo {
 		Movimiento movimiento = new Movimiento();
 		movimiento.setOrigen(this.sucursal);
 		movimiento.setDestino(destino);
+		movimiento.setVehiculo(this);
 		movimiento.Insert(this.idVehiculo);
 
 		this.movimientos.add(movimiento);
@@ -83,7 +84,9 @@ public class Vehiculo {
 		movimiento.Update();
 
 		this.setEstado("DISPONIBLE");
+		this.setSucursal(destino);
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+		vehiculoMapper.getInstance().UpdateSucursal(this, destino);
 	}
 
 	public int agregarMantenimiento(String problema) throws Exception {

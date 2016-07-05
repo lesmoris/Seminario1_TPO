@@ -11,18 +11,17 @@ public class MovimientoDTO {
 	private SucursalDTO destino;
 	private Date fechaInicio;
 	private Date fechaFin;
+	private String dominio;
 	
-	
-	public MovimientoDTO(int idMovimiento, SucursalDTO sucursalDTO, SucursalDTO sucursalDTO2, Date fechaInicio, Date fechaFin){
+	public MovimientoDTO(int idMovimiento, SucursalDTO sucursalDTO, SucursalDTO sucursalDTO2, Date fechaInicio, Date fechaFin, String dominio){
 		
 		this.idMovimiento=idMovimiento;
 		this.origen=sucursalDTO;
 		this.destino=sucursalDTO2;
 		this.fechaInicio=fechaInicio;
 		this.fechaFin=fechaFin;
-		
+		this.dominio = dominio;
 	}
-	
 	
 	public int getIdMovimiento() {
 		return idMovimiento;
@@ -54,8 +53,10 @@ public class MovimientoDTO {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
-	
-	
-	
+	public String getDominio() {
+		return dominio;
+	}
+	public void setDominio(String dominio) {
+		this.dominio = dominio;
+	}
 }

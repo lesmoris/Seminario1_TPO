@@ -5,98 +5,98 @@ import java.util.List;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import DTOs.MovimientoDTO;
 import DTOs.VehiculoDTO;
 import Modelo.Vehiculo;
 
-public class TMrecibirvehiculoTABLA implements TableModel{
+public class TMrecibirvehiculoTABLA implements TableModel {
 
-	private List<VehiculoDTO> vehiculos;
-	
-	public TMrecibirvehiculoTABLA(List<VehiculoDTO> vehiculos){
-		
-	this.vehiculos=vehiculos;	
-		
-		
+	private List<MovimientoDTO> movimientos;
+
+	public TMrecibirvehiculoTABLA(List<MovimientoDTO> movimientos) {
+		this.movimientos = movimientos;
 	}
-	
-	
+
 	public void addTableModelListener(TableModelListener arg0) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Class<?> getColumnClass(int arg0) {
-		// TODO Auto-generated method stub
 		return String.class;
 	}
 
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 2;
+		return 4;
 	}
 
 	public String getColumnName(int arg0) {
 		String valor = "";
-		
-		switch (arg0){
-		
-		case 0:{ 
+
+		switch (arg0) {
+
+		case 0: {
 			valor = "Dominio";
 			break;
 		}
 		case 1: {
-			valor= "Origen";
+			valor = "Origen";
 			break;
 		}
-		
-		
+		case 2: {
+			valor = "Destino";
+			break;
+		}
+		case 3: {
+			valor = "Fecha Inicio";
+			break;
+		}
 		}
 		return valor;
 	}
 
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return vehiculos.size();
+		return movimientos.size();
 	}
 
 	public Object getValueAt(int fila, int columna) {
-		
-		VehiculoDTO v = vehiculos.get(fila);
-		
+
+		MovimientoDTO m = movimientos.get(fila);
+
 		String valor = null;
-		
-		switch (columna){
-		
-		case 0:	{
-			valor = v.getDominio();
-				break;
+
+		switch (columna) {
+
+		case 0: {
+			valor = m.getDominio();
+			break;
 		}
-		case 1:	{
-			valor = v.getSucursal().getNombre();
-				break;
+		case 1: {
+			valor = m.getOrigen().getNombre();
+			break;
 		}
-		
+		case 2: {
+			valor = m.getDestino().getNombre();
+			break;
+		}
+		case 3: {
+			valor = m.getFechaInicio().toString();
+			break;
+		}
 		}
 		return valor;
-		
+
 	}
 
 	public boolean isCellEditable(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void removeTableModelListener(TableModelListener arg0) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void setValueAt(Object arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-	
-	
-	
 }
