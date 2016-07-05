@@ -5,6 +5,7 @@ import java.util.List;
 
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
+import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Mappers.clienteMapper;
@@ -314,6 +315,7 @@ public class Controlador {
 		return null;
 	}
 
+	
 	private List<Vehiculo> buscarVehiculosPorDetalle(String marca,
 			String modelo, String color, int cantPuertas, String tamano,
 			String tipoTrans, boolean ac) {

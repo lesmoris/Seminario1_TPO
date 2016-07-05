@@ -18,6 +18,7 @@ import Controlador.Controlador;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Interfaces.ComboBoxItem;
+import Interfaces.ResultadoOperacion;
 import Interfaces.TMrecibirvehiculoTABLA;
 import Mappers.sucursalMapper;
 import Mappers.vehiculoMapper;
@@ -69,19 +70,19 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 					
 					int fila = VehiculosEnMovimientoTABLA.getSelectedRow();
 					String dominio = VehiculosEnMovimientoTABLA.getValueAt(fila, 0).toString();
-					Vehiculo v = vehiculoMapper.getInstance().Select(dominio);
-					Sucursal s = sucursalMapper.getInstance().Select(((ComboBoxItem) sucursalCOMBO.getSelectedItem()).getNombre());
+					String sucursalDestino = sucursalCOMBO.getSelectedItem().toString();
 					
-					try {
-						v.recibir(s);
-						
-						
-						// Generar Mensaje de Recepcion
-						
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					// Llamamos al controlador
+					
+					ResultadoOperacion res = controlador.recibirVehiculo(sucursalDestino, dominio);
+					
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
+				
+				
+					menuPrincipal.getInstance().irAMenuPrincipal();
 						
 				}else{
 					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN VEHICULO PARA RECIBIR");

@@ -21,7 +21,9 @@ import Controlador.Controlador;
 public class menuPrincipal extends JFrame {
 
 	private JPanel contentPane;
-
+	private static menuPrincipal instancia;
+	
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -42,6 +44,8 @@ public class menuPrincipal extends JFrame {
 	public menuPrincipal() {
 		
 //		initComponents();
+		
+		instancia = this;
 		
 		setTitle("Rent-A-Car");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -323,7 +327,7 @@ public class menuPrincipal extends JFrame {
 		contentPane.add(lblRentACar);
 	}
 	
-	private void irAMenuPrincipal(){
+	public void irAMenuPrincipal(){
 		
 		setContentPane(contentPane);
 		contentPane.repaint();
@@ -334,7 +338,7 @@ public class menuPrincipal extends JFrame {
 		
 	}
 	
-	private void irAVentana(JInternalFrame i) {
+	public void irAVentana(JInternalFrame i) {
 		
 		setContentPane(i);
 		i.getContentPane().setLayout(null);
@@ -343,4 +347,18 @@ public class menuPrincipal extends JFrame {
 		
 		
 	}
+
+	
+	public static menuPrincipal getInstance(){
+		
+		if (instancia == null)
+			instancia = new menuPrincipal();
+		
+		return instancia;
+		
+	}
+	
 }
+
+
+
