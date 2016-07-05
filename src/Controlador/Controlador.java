@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import DTOs.VehiculoDTO;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
+import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.mantenimientoMapper;
@@ -33,8 +35,7 @@ public class Controlador {
 	private List<Sucursal> sucursales;
 	private List<ContratoAlquiler> contratosAlquiler;
 	private List<PresupuestoAlquiler> presupuestosAlquiler;
-	
-	
+
 	// CONSTRUCTOR
 	private Controlador() {
 
@@ -45,9 +46,7 @@ public class Controlador {
 		contratosAlquiler = new ArrayList<ContratoAlquiler>();
 		presupuestosAlquiler = new ArrayList<PresupuestoAlquiler>();
 		sucursales = new ArrayList<Sucursal>();
-		
-		
-		
+
 	}
 
 	// SINGLETON
@@ -78,16 +77,16 @@ public class Controlador {
 	private void actualizarVehiculoParaBusqueda(String dominio) {
 
 		for (Vehiculo v : vehiculos) {
-			if (v.sosVehiculo(dominio))
-			{
+			if (v.sosVehiculo(dominio)) {
 				vehiculos.remove(v);
-				Vehiculo vehiculo = vehiculoMapper.getInstance().Select(dominio);
+				Vehiculo vehiculo = vehiculoMapper.getInstance()
+						.Select(dominio);
 				vehiculos.add(vehiculo);
 				return;
 			}
 		}
 	}
-	
+
 	private ContratoAlquiler buscarContrato(int numeroContrato) {
 
 		for (ContratoAlquiler c : contratosAlquiler) {
@@ -146,7 +145,8 @@ public class Controlador {
 
 	public List<MovimientoDTO> getMovimientosEnCurso() {
 
-		List<Movimiento> movimientoEnCurso = movimientoMapper.getInstance().ListMovimientosEnCurso();
+		List<Movimiento> movimientoEnCurso = movimientoMapper.getInstance()
+				.ListMovimientosEnCurso();
 
 		List<MovimientoDTO> movimientoEnCursoDTO = new ArrayList<MovimientoDTO>();
 
@@ -260,7 +260,8 @@ public class Controlador {
 			return new ResultadoOperacion(false, "El vehiculo no existe");
 
 		if (problema.trim().isEmpty())
-			return new ResultadoOperacion(false, "Debe ingresa un problema a solucionar");
+			return new ResultadoOperacion(false,
+					"Debe ingresa un problema a solucionar");
 
 		if (vehiculo.estasDisponible()) {
 			try {
@@ -282,9 +283,10 @@ public class Controlador {
 
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
-		
+
 		if (solucion.trim().isEmpty())
-			return new ResultadoOperacion(false, "Debe ingresa una solucion al problema inicial");
+			return new ResultadoOperacion(false,
+					"Debe ingresa una solucion al problema inicial");
 
 		if (vehiculo.estasEnMantenimiento()) {
 			try {
@@ -292,33 +294,68 @@ public class Controlador {
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true,
-					"Vehiculo " + dominioVehiculo + " devuelto de mantenimiento con exito");
+			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
+					+ " devuelto de mantenimiento con exito");
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en mantenimiento");
 	}
 
-	public ResultadoOperacionHistorialMantenimiento historialMantenimientosPorVehiculo(String dominio) {
-		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance().ListMantenimientosCerrados(dominio);
+	public ResultadoOperacionHistorialMantenimiento historialMantenimientosPorVehiculo(
+			String dominio) {
+		
+		if (dominio.trim().isEmpty())
+			return new ResultadoOperacionHistorialMantenimiento(false, "Ingrese un dominio, por favor", null);
+		
+		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance()
+				.ListMantenimientosCerrados(dominio);
 
 		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
 
-		if (mantenimientos.size() > 0) 
-		{
+		if (mantenimientos.size() > 0) {
 			for (Mantenimiento m : mantenimientos) {
 				mantenimientosDTO.add(m.crearVista());
 			}
-			
-			return new ResultadoOperacionHistorialMantenimiento(true, "", mantenimientosDTO);
-			
-		}
-		else
-		{
-			return new ResultadoOperacionHistorialMantenimiento(false, "No hay mantenimientos efectuados para el vehiculo seleccionado", null);
+
+			return new ResultadoOperacionHistorialMantenimiento(true, "",
+					mantenimientosDTO);
+
+		} else {
+			return new ResultadoOperacionHistorialMantenimiento(
+					false,
+					"No hay mantenimientos efectuados para el vehiculo seleccionado",
+					null);
 		}
 	}
-	
+
+	public ResultadoOperacionReporteMovimientosVehiculos generarReporteDeMovimientoDeVehiculos(
+			String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde,
+			String fechaFinHasta, String sucursalOrigen, String sucursalDestino) {
+
+		// No valido por que pueden venir vacios, ahi trae todo
+		List<Movimiento> movimientos = movimientoMapper.getInstance()
+				.ListMovimientos(fechaInicioDesde, fechaInicioHasta,
+						fechaFinDesde, fechaFinHasta, sucursalOrigen,
+						sucursalDestino);
+
+		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
+
+		if (movimientos.size() > 0) {
+			for (Movimiento m : movimientos) {
+				movimientosDTO.add(m.crearVista());
+			}
+
+			return new ResultadoOperacionReporteMovimientosVehiculos(true, "",
+					movimientosDTO);
+
+		} else {
+			return new ResultadoOperacionReporteMovimientosVehiculos(
+					false,
+					"No hay movimientos efectuados para los filtros ingresados",
+					null);
+		}
+	}
+
 	private PresupuestoAlquiler buscarPresupuesto(int idPresupuesto) {
 
 		for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
@@ -364,30 +401,4 @@ public class Controlador {
 		return null;
 	}
 
-	
-	private List<Vehiculo> buscarVehiculosPorDetalle(String marca,
-			String modelo, String color, int cantPuertas, String tamano,
-			String tipoTrans, boolean ac) {
-
-		// Agrego al cache todos los vehiculos
-
-		// this.vehiculos = vehiculoMapper.getInstance().SelectAll();
-
-		List<Vehiculo> vehiculosReporte = new ArrayList<Vehiculo>();
-
-		for (Vehiculo v : vehiculos) { // llamar al mapper con los parametros y
-										// que filtre al armar el sql
-			// if (v.cumplisCondiciones(marca, modelo, color, cantPuertas,
-			// tamano, tipoTrans, ac))
-			// Saque este metodo, reemplazar por sql dinamico
-			// vehiculosReporte.add(v);
-		}
-
-		return vehiculosReporte;
-	}
-
-
-	
-	
-	
 }

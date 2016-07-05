@@ -1,6 +1,8 @@
 package Mappers;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,7 +66,7 @@ public class movimientoMapper extends baseMapper {
 	}
 
 	public List<Movimiento> ListMovimientosEnCurso() {
-		
+
 		List<Movimiento> listMovs = new ArrayList<Movimiento>();
 
 		Connection con = null;
@@ -86,7 +88,8 @@ public class movimientoMapper extends baseMapper {
 						res.getInt("idSucursalDestino")));
 				mov.setFechaInicio(res.getDate("fechaInicio"));
 				mov.setFechaFin(res.getDate("fechaFin"));
-				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(
+						res.getInt("idVehiculo")));
 
 				listMovs.add(mov);
 
@@ -99,9 +102,64 @@ public class movimientoMapper extends baseMapper {
 		}
 		return listMovs;
 	}
-	
+
+	public List<Movimiento> ListMovimientos(String fechaInicioDesde,
+			String fechaInicioHasta, String fechaFinDesde,
+			String fechaFinHasta, String sucursalOrigen, String sucursalDestino) {
+
+		List<Movimiento> listMovs = new ArrayList<Movimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String SP_ListMovimientos = "{call SP_ListMovimientos(?,?,?,?,?,?)}";
+			CallableStatement callableStatement = con
+					.prepareCall(SP_ListMovimientos);
+			callableStatement.setString(1,
+					!fechaInicioDesde.trim().isEmpty() ? fechaInicioDesde
+							: null);
+			callableStatement.setString(2,
+					!fechaInicioHasta.trim().isEmpty() ? fechaInicioHasta
+							: null);
+			callableStatement.setString(3,
+					!fechaFinDesde.trim().isEmpty() ? fechaFinDesde : null);
+			callableStatement.setString(4,
+					!fechaFinHasta.trim().isEmpty() ? fechaFinHasta : null);
+			callableStatement.setString(5,
+					!sucursalOrigen.trim().isEmpty() ? sucursalOrigen : null);
+			callableStatement.setString(6,
+					!sucursalDestino.trim().isEmpty() ? sucursalDestino : null);
+
+			ResultSet res = callableStatement.executeQuery();
+
+			while (res.next()) {
+				Movimiento mov = new Movimiento();
+
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalDestino")));
+				mov.setFechaInicio(res.getDate("fechaInicio"));
+				mov.setFechaFin(res.getDate("fechaFin"));
+				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(
+						res.getInt("idVehiculo")));
+
+				listMovs.add(mov);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMovs;
+	}
+
 	public List<Movimiento> ListMovimientosCerrados() {
-		
+
 		List<Movimiento> listMovs = new ArrayList<Movimiento>();
 
 		Connection con = null;
@@ -123,7 +181,8 @@ public class movimientoMapper extends baseMapper {
 						res.getInt("idSucursalDestino")));
 				mov.setFechaInicio(res.getDate("fechaInicio"));
 				mov.setFechaFin(res.getDate("fechaFin"));
-				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(
+						res.getInt("idVehiculo")));
 
 				listMovs.add(mov);
 
@@ -136,7 +195,7 @@ public class movimientoMapper extends baseMapper {
 		}
 		return listMovs;
 	}
-	
+
 	public void Insert(Movimiento movimiento, int idVehiculo) throws Exception {
 
 		Connection con = null;
@@ -156,7 +215,8 @@ public class movimientoMapper extends baseMapper {
 			ps.setInt(5, movimiento.getDestino().getIdSucursal());
 			ps.execute();
 
-			movimiento.setIdMovimiento(DBUtils.getLastInsertedID(con, "MOVIMIENTO"));
+			movimiento.setIdMovimiento(DBUtils.getLastInsertedID(con,
+					"MOVIMIENTO"));
 
 			con.commit();
 		} catch (SQLException e) {
