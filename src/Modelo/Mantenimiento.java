@@ -43,7 +43,7 @@ public class Mantenimiento {
 	
 	public MantenimientoDTO crearVista(){
 		
-		MantenimientoDTO m = new MantenimientoDTO(fechaFin, fechaFin, problema, problema, idMantenimiento);
+		MantenimientoDTO m = new MantenimientoDTO(fechaFin, fechaFin, problema, solucion, idMantenimiento);
 		
 		return m;
 	}
