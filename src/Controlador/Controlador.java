@@ -29,7 +29,6 @@ public class Controlador {
 	private List<Sucursal> sucursales;
 	private List<ContratoAlquiler> contratosAlquiler;
 	private List<PresupuestoAlquiler> presupuestosAlquiler;
-	private List<String> tiposDoc;
 	
 	
 	// CONSTRUCTOR
@@ -42,11 +41,8 @@ public class Controlador {
 		contratosAlquiler = new ArrayList<ContratoAlquiler>();
 		presupuestosAlquiler = new ArrayList<PresupuestoAlquiler>();
 		sucursales = new ArrayList<Sucursal>();
-		tiposDoc = new ArrayList<String>();
 		
-		tiposDoc.add("DNI");
-		tiposDoc.add("CUIT");
-		tiposDoc.add("CUIL");
+		
 		
 	}
 
@@ -366,14 +362,8 @@ public class Controlador {
 		return vehiculosReporte;
 	}
 
-	public List<String> getTiposDoc() {
-		return tiposDoc;
-	}
 
-	public void setTiposDoc(List<String> tiposDoc) {
-		this.tiposDoc = tiposDoc;
-	}
-
+	
 	
 	
 }

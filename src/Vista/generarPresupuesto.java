@@ -13,6 +13,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
 import DTOs.SucursalDTO;
+import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 
 public class generarPresupuesto extends JInternalFrame {
@@ -25,19 +26,25 @@ public class generarPresupuesto extends JInternalFrame {
 	
 	private Controlador controlador;
 	private JComboBox<String> tipoDocCOMBO;
-	private JComboBox<ComboBoxItem> tamañoCOMBO;
-	private JComboBox<ComboBoxItem> colorCOMBO;
-	private JComboBox<ComboBoxItem> transmisionCOMBO;
+	private JComboBox<String> tamañoCOMBO;
+	private JComboBox<String> colorCOMBO;
+	private JComboBox<String> transmisionCOMBO;
 	private JComboBox<ComboBoxItem> sucOrigenCOMBO;
 	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
+	private JComboBox<String> combustibleCOMBO;
 	private List<SucursalDTO> sucursalestodas;
 	private List<String> tiposDoc;
+	private List<String> tamaños;
+	private List<String> transmisiones;
+	private List<String> colores;
+	private List<String> tiposComb;
 	// Estos Strings van para asignar los valores desde la pantalla y llamar al controlador
 	private String tipoDoc;
 	private String numeroDoc;
 	private String dominio;
 	private String sucursalOrigen;
 	private String sucursalDestino;
+	
 	
 	
 	public generarPresupuesto() {
@@ -49,13 +56,63 @@ public class generarPresupuesto extends JInternalFrame {
 		
 		cargarTiposDoc();
 		cargarSucursales();
-
+		cargarTransmisiones();
+		cargarTamaños();
+		cargarColores();
+		cargarCombustible();
 	}
 
 	
+	private void cargarCombustible() {
+
+
+		tiposComb = HelperValoresFijos.getInstance().getTiposComb();
+	
+		for (String s: tiposComb){
+			combustibleCOMBO.addItem(s);
+		}
+		
+	}
+	
+
+
+	private void cargarColores() {
+		
+		this.colores = HelperValoresFijos.getInstance().getColores();
+		
+		for (String s : colores){
+			
+			colorCOMBO.addItem(s);
+		}
+		
+	}
+
+
+	private void cargarTamaños() {
+		
+		this.tamaños = HelperValoresFijos.getInstance().getTamaños();
+		
+		for (String t: tamaños){
+			tamañoCOMBO.addItem(t);
+			}
+		
+	}
+
+
+	private void cargarTransmisiones() {
+		
+		this.transmisiones = HelperValoresFijos.getInstance().getTransmisiones();
+		
+		for (String s : transmisiones){
+			transmisionCOMBO.addItem(s);
+		}
+		
+	}
+
+
 	private void cargarTiposDoc(){
 		
-		this.tiposDoc=controlador.getTiposDoc();
+		this.tiposDoc=HelperValoresFijos.getInstance().getTiposDoc();
 		
 		for (String td: tiposDoc){
 		tipoDocCOMBO.addItem(td);
@@ -138,11 +195,11 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(lblColor);
 		
 		JCheckBox aireAcondicionadoCB = new JCheckBox("Aire Acondicionado");
-		aireAcondicionadoCB.setBounds(272, 226, 146, 23);
+		aireAcondicionadoCB.setBounds(272, 278, 146, 23);
 		getContentPane().add(aireAcondicionadoCB);
 		
 		JLabel lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(257, 273, 86, 14);
+		lblTransmision.setBounds(257, 223, 86, 14);
 		getContentPane().add(lblTransmision);
 		
 		JLabel lblMarca = new JLabel("Marca");
@@ -168,7 +225,7 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(colorCOMBO);
 		
 		transmisionCOMBO = new JComboBox();
-		transmisionCOMBO.setBounds(353, 270, 86, 20);
+		transmisionCOMBO.setBounds(353, 220, 86, 20);
 		getContentPane().add(transmisionCOMBO);
 		
 		marcaTF = new JTextField();
@@ -229,9 +286,16 @@ public class generarPresupuesto extends JInternalFrame {
 		JLabel precioLABEL = new JLabel("\"PRECIO\"");
 		precioLABEL.setBounds(472, 391, 71, 14);
 		getContentPane().add(precioLABEL);
+		
+		JLabel lblCombustible = new JLabel("Combustible");
+		lblCombustible.setBounds(245, 251, 86, 20);
+		getContentPane().add(lblCombustible);
+		
+		combustibleCOMBO = new JComboBox();
+		combustibleCOMBO.setBounds(353, 251, 86, 20);
+		getContentPane().add(combustibleCOMBO);
 
 		
 		
 	}
-
 }

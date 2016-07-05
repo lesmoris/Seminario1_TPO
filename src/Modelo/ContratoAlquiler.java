@@ -12,6 +12,7 @@ public class ContratoAlquiler {
 	private float importe;
 	private Sucursal sucursalOrigen;
 	private Sucursal sucursalDestino;
+	private PresupuestoAlquiler presupuesto;
 	
 	// Metodos
 	public boolean sosDeLaSucursalOrigenODestino (String sucOr, String sucDes) {
@@ -85,4 +86,13 @@ public class ContratoAlquiler {
 	public void setSucursalDestino(Sucursal sucursalDestino) {
 		this.sucursalDestino = sucursalDestino;
 	}
+
+	public PresupuestoAlquiler getPresupuesto() {
+		return presupuesto;
+	}
+
+	public void setPresupuesto(PresupuestoAlquiler presupuesto) {
+		this.presupuesto = presupuesto;
+	}
+	
 }

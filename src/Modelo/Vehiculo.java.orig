@@ -86,6 +86,11 @@ public class Vehiculo {
 		this.setEstado("DISPONIBLE");
 		this.setSucursal(destino);
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+<<<<<<< HEAD
+		this.setSucursal(destino);
+=======
+		vehiculoMapper.getInstance().UpdateSucursal(this, destino);
+>>>>>>> cbc733e2e0222608a5231b9e4e29c85ece8c351a
 	}
 
 	public int agregarMantenimiento(String problema) throws Exception {
@@ -98,7 +103,7 @@ public class Vehiculo {
 		int id = mantenimiento.Insert(this.idVehiculo);
 
 		this.mantenimientos.add(mantenimiento);
-		
+
 		this.setEstado("ENMANTENIMIENTO");
 		vehiculoMapper.getInstance().SetStatus(this, "ENMANTENIMIENTO");
 		
