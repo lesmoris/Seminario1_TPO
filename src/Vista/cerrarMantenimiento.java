@@ -12,12 +12,21 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import Controlador.Controlador;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+
 public class cerrarMantenimiento extends JInternalFrame {
 	private JTextField textField;
-
+	private Controlador controlador;
 	
 	public cerrarMantenimiento() {
+		iniciarcomponentes();
 		
+		this.controlador = Controlador.getInstance();
+	}
+
+	private void iniciarcomponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		
 		setBounds(100, 100, 800, 500);
@@ -42,12 +51,13 @@ public class cerrarMantenimiento extends JInternalFrame {
 		getContentPane().add(lblDescripcionDelMantenimiento);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setBorder(new LineBorder(new Color(0, 0, 0)));
 		textArea.setLineWrap(true);
-		textArea.setBounds(39, 156, 204, 103);
+		textArea.setBounds(281, 79, 338, 103);
 		getContentPane().add(textArea);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(311, 223, 106, 23);
+		btnConfirmar.setBounds(513, 223, 106, 23);
 		getContentPane().add(btnConfirmar);
 
 	}

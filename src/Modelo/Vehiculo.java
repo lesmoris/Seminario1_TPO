@@ -86,19 +86,21 @@ public class Vehiculo {
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
 	}
 
-	public void agregarMantenimiento(String problema) throws Exception {
+	public int agregarMantenimiento(String problema) throws Exception {
 
 		if (this.estasEnMantenimiento())
 			throw new Exception("Vehiclo esta actualmente en mantenimiento");
 
 		Mantenimiento mantenimiento = new Mantenimiento();
 		mantenimiento.setProblema(problema);
-		mantenimiento.Insert(this.idVehiculo);
+		int id = mantenimiento.Insert(this.idVehiculo);
 
 		this.mantenimientos.add(mantenimiento);
 
 		this.setEstado("ENMANTENIMIENTO");
 		vehiculoMapper.getInstance().SetStatus(this, "ENMANTENIMIENTO");
+		
+		return id;
 	}
 
 	public void cerrarMantenimiento(String solucion) throws Exception {

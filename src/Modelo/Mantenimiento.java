@@ -32,8 +32,8 @@ public class Mantenimiento {
 	}
 
 	// Manejo de BD
-	public void Insert(int idVehiculo) throws Exception {
-		mantenimientoMapper.getInstance().Insert(this, idVehiculo);
+	public int Insert(int idVehiculo) throws Exception {
+		return mantenimientoMapper.getInstance().Insert(this, idVehiculo);
 	}
 
 	public void Update() throws Exception {

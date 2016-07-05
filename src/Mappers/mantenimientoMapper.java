@@ -62,7 +62,7 @@ public class mantenimientoMapper extends baseMapper {
 		return listMants;
 	}
 	
-	public void Insert(Mantenimiento mantenimiento, int idVehiculo) throws Exception {
+	public int Insert(Mantenimiento mantenimiento, int idVehiculo) throws Exception {
 		
 		Connection con = null;
 
@@ -84,6 +84,8 @@ public class mantenimientoMapper extends baseMapper {
 			mantenimiento.setIdMantenimiento(DBUtils.getLastInsertedID(con, "MANTENIMIENTO"));
 			
 			con.commit();
+			
+			return mantenimiento.getIdMantenimiento();
 
 		} catch (SQLException e) {
 			con.rollback();

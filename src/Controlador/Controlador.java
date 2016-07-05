@@ -121,15 +121,14 @@ public class Controlador {
 		this.sucursales = sucursalMapper.getInstance().SelectAll();
 
 	}
-	
-	public List<VehiculoDTO> getVehiculosEnMovimiento(){
-		
+
+	public List<VehiculoDTO> getVehiculosEnMovimiento() {
+
 		List<VehiculoDTO> vehiculosEnMovimiento = new ArrayList<VehiculoDTO>();
-		
-		
-		vehiculosEnMovimiento = vehiculoMapper.getInstance().selectAllEnMovimientoDTO();
-		
-		
+
+		vehiculosEnMovimiento = vehiculoMapper.getInstance()
+				.selectAllEnMovimientoDTO();
+
 		return vehiculosEnMovimiento;
 	}
 
@@ -229,17 +228,19 @@ public class Controlador {
 	public ResultadoOperacion solicitarMantenimiento(String dominioVehiculo,
 			String problema) {
 
+		int nroOrden = 0;
 		Vehiculo vehiculo = buscarVehiculo(dominioVehiculo);
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
 
 		if (vehiculo.estasDisponible()) {
 			try {
-				vehiculo.agregarMantenimiento(problema);
+				nroOrden = vehiculo.agregarMantenimiento(problema);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true, "Vehiculo en mantenimiento");
+			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
+					+ " en mantenimiento. Nro de Orden : " + nroOrden);
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta disponible para mantenimiento");
@@ -284,11 +285,7 @@ public class Controlador {
 
 		return p;
 	}
-	
-	
-	
-	
-	
+
 	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
 			String TipoDNI, String DNI) {
 
