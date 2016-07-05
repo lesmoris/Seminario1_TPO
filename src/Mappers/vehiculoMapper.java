@@ -226,8 +226,8 @@ public class vehiculoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String getDBUSERByUserIdSql = "{call SP_ListVehiculos(?,?,?,?,?,?,?,?,?)}";
-			CallableStatement callableStatement = con.prepareCall(getDBUSERByUserIdSql);
+			String SP_ListVehiculos = "{call SP_ListVehiculos(?,?,?,?,?,?,?,?,?)}";
+			CallableStatement callableStatement = con.prepareCall(SP_ListVehiculos);
 			callableStatement.setString(1, sucursal);
 			callableStatement.setString(2, marca != null && !marca.trim().isEmpty() ? marca : null);
 			callableStatement.setString(3, modelo != null && !modelo.trim().isEmpty() ? modelo : null);
