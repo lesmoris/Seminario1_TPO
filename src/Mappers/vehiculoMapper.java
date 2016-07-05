@@ -1,5 +1,6 @@
 package Mappers;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTOs.VehiculoDTO;
 import Helpers.DBUtils;
-import Modelo.Mantenimiento;
-import Modelo.Movimiento;
 import Modelo.Sucursal;
 import Modelo.Vehiculo;
 
@@ -195,8 +193,9 @@ public class vehiculoMapper extends baseMapper {
 			DBUtils.closeQuietly(con);
 		}
 	}
-	
-	public void UpdateSucursal(Vehiculo vehiculo, Sucursal sucursal) throws Exception {
+
+	public void UpdateSucursal(Vehiculo vehiculo, Sucursal sucursal)
+			throws Exception {
 		Connection con = null;
 		try {
 
@@ -218,20 +217,29 @@ public class vehiculoMapper extends baseMapper {
 		}
 	}
 
-	public List<VehiculoDTO> selectAllEnMovimientoDTO() {
-
-		List<VehiculoDTO> listavehiculos = new ArrayList<VehiculoDTO>();
+	public List<Vehiculo> SelectAll(String sucursal, String nombre,
+			String marca, String modelo, String ac, String tipoCombustible,
+			String transmision, int cantPuertas, String color, String tamaño) {
+		List<Vehiculo> listavehiculos = new ArrayList<Vehiculo>();
 		Connection con = null;
 
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idvehiculo, dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, idSucursal, tamaño FROM vehiculo where estado = 'ENMOVIMIENTO'";
-			PreparedStatement ps = null;
-			ps = con.prepareStatement(senten);
-
-			ResultSet res = ps.executeQuery();
-
+			String getDBUSERByUserIdSql = "{call SP_ListVehiculos(?,?,?,?,?,?,?,?,?)}";
+			CallableStatement callableStatement = con.prepareCall(getDBUSERByUserIdSql);
+			callableStatement.setString(1, sucursal);
+			callableStatement.setString(2, marca != null && !marca.trim().isEmpty() ? marca : null);
+			callableStatement.setString(3, modelo != null && !modelo.trim().isEmpty() ? modelo : null);
+			callableStatement.setString(4, ac != null && !ac.trim().isEmpty() ? ac : null);
+			callableStatement.setString(5, tipoCombustible != null && !tipoCombustible.trim().isEmpty() ? tipoCombustible : null);
+			callableStatement.setString(6, transmision != null && !transmision.trim().isEmpty() ? transmision : null);
+			callableStatement.setInt(7, cantPuertas);
+			callableStatement.setString(8, color != null && !color.trim().isEmpty() ? color : null);
+			callableStatement.setString(9, tamaño != null && !tamaño.trim().isEmpty() ? tamaño : null);
+			
+			ResultSet res = callableStatement.executeQuery();
+			
 			while (res.next()) {
 				Vehiculo veh = new Vehiculo();
 
@@ -244,16 +252,14 @@ public class vehiculoMapper extends baseMapper {
 				veh.setKilometraje(res.getInt("kilometraje"));
 				veh.setMarca(res.getString("marca"));
 				veh.setModelo(res.getString("modelo"));
+				veh.setTipoCombustible(res.getString("tipoCombustible"));
 				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
 						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
-				veh.setMovimientos(movimientoMapper.getInstance()
-						.ListMovimientos(veh));
-				veh.setMantenimientos(mantenimientoMapper.getInstance()
-						.ListMantenimientos(idVehiculo));
+				veh.setEstado(res.getString("estado"));
 
-				listavehiculos.add(veh.crearVista());
+				listavehiculos.add(veh);
 			}
 
 		} catch (SQLException e) {
@@ -262,6 +268,5 @@ public class vehiculoMapper extends baseMapper {
 			DBUtils.closeQuietly(con);
 		}
 		return listavehiculos;
-
 	}
 }

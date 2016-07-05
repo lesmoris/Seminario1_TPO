@@ -1,7 +1,11 @@
 package Tests;
 
+import java.util.List;
+
 import Controlador.Controlador;
 import Interfaces.ResultadoOperacion;
+import Mappers.vehiculoMapper;
+import Modelo.Vehiculo;
 
 public class Seminario1_TPO_Tests {
 	
@@ -9,8 +13,9 @@ public class Seminario1_TPO_Tests {
 	
 	public static void main(String[] args) {
 		
-		MoverVehiculoTest_OperacionNormalSinFalla();
-		EfectuarMantenimientoTest_OperacionNormalSinFalla();
+//		MoverVehiculoTest_OperacionNormalSinFalla();
+//		EfectuarMantenimientoTest_OperacionNormalSinFalla();
+		List<Vehiculo> vehiculos = vehiculoMapper.getInstance().SelectAll("SucLP", null, null, null, null, null, null, 0, null, null);
 	}
 	
 	private static boolean EfectuarMantenimientoTest_OperacionNormalSinFalla() {
