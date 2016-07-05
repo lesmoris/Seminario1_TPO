@@ -41,7 +41,7 @@ public class moverVehiculo extends JInternalFrame {
 	// Cargamos los ComboBox
 	private void cargarSucursales(List<SucursalDTO> sucursales) {
 
-		this.sucursales = controlador.getSucursalesDTO();
+		this.sucursales = controlador.getSucursales();
 
 		for (SucursalDTO s : this.sucursales) {
 

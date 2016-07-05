@@ -115,48 +115,50 @@ public class Controlador {
 
 	}
 
-	
-	private void actualizarSucursales(){
-		
+	private void actualizarSucursales() {
+
 		this.sucursales = sucursalMapper.getInstance().SelectAll();
-		
+
 	}
-	
-	public List<SucursalDTO> getSucursalesDTO(){
-		
+
+	public List<SucursalDTO> getSucursales() {
+
 		actualizarSucursales();
-		
+
 		List<SucursalDTO> lista = new ArrayList<SucursalDTO>();
-		
-		for (Sucursal s: this.sucursales){
+
+		for (Sucursal s : this.sucursales) {
 			lista.add(s.crearVista());
 		}
-		
+
 		return lista;
 	}
-	
+
 	public ResultadoOperacionGetVehiculo getVehiculo(String dominio) {
-		
+
 		if (dominio.isEmpty())
-			return new ResultadoOperacionGetVehiculo(false, "Elija un vehiculo, por favor", null);
-		
+			return new ResultadoOperacionGetVehiculo(false,
+					"Elija un vehiculo, por favor", null);
+
 		VehiculoDTO vehDTO = null;
-		
+
 		Vehiculo veh = buscarVehiculo(dominio);
-		
+
 		if (veh != null) {
 			vehDTO = veh.crearVista();
 			return new ResultadoOperacionGetVehiculo(true, "", vehDTO);
 		}
-		
-		return new ResultadoOperacionGetVehiculo(false, "Vehiculo no encontrado", null);
+
+		return new ResultadoOperacionGetVehiculo(false,
+				"Vehiculo no encontrado", null);
 	}
-	
-	
-	public ResultadoOperacion moverVehiculo(String sucursalDestino, String dominioVehiculo) {
-		
+
+	public ResultadoOperacion moverVehiculo(String sucursalDestino,
+			String dominioVehiculo) {
+
 		if (sucursalDestino.isEmpty())
-			return new ResultadoOperacion(false, "Elija una sucursal de destino, por favor");
+			return new ResultadoOperacion(false,
+					"Elija una sucursal de destino, por favor");
 
 		if (dominioVehiculo.isEmpty())
 			return new ResultadoOperacion(false, "Elija un vehiculo, por favor");
@@ -176,7 +178,10 @@ public class Controlador {
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true, "Se ha generado el Movimiento del Vehiculo de dominio: " + 	dominioVehiculo + " a la Sucursal: " + sucursalDestino);
+			return new ResultadoOperacion(true,
+					"Se ha generado el Movimiento del Vehiculo de dominio: "
+							+ dominioVehiculo + " a la Sucursal: "
+							+ sucursalDestino);
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta disponible para movimiento");
