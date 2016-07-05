@@ -117,7 +117,7 @@ public class sucursalMapper extends baseMapper {
 				
 				lista.add(suc);
 				
-				System.out.println(suc.getNombre());
+				
 				
 			}
 			

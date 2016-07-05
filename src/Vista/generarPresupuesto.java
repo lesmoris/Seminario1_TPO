@@ -1,29 +1,87 @@
 package Vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.util.List;
 
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import Controlador.Controlador;
+import DTOs.SucursalDTO;
+import Interfaces.ComboBoxItem;
+
 public class generarPresupuesto extends JInternalFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-
-
+	private JTextField numeroDocTF;
+	private JTextField modeloTF;
+	private JTextField cantPuertasTF;
+	private JTextField marcaTF;
+	private JTextField fechaInicioTF;
+	private JTextField fechaFinTF;
+	
+	private Controlador controlador;
+	private JComboBox<String> tipoDocCOMBO;
+	private JComboBox<ComboBoxItem> tamañoCOMBO;
+	private JComboBox<ComboBoxItem> colorCOMBO;
+	private JComboBox<ComboBoxItem> transmisionCOMBO;
+	private JComboBox<ComboBoxItem> sucOrigenCOMBO;
+	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
+	private List<SucursalDTO> sucursalestodas;
+	private List<String> tiposDoc;
+	// Estos Strings van para asignar los valores desde la pantalla y llamar al controlador
+	private String tipoDoc;
+	private String numeroDoc;
+	private String dominio;
+	private String sucursalOrigen;
+	private String sucursalDestino;
+	
+	
 	public generarPresupuesto() {
 		
+		iniciarComponentes();
+		
+		this.controlador=Controlador.getInstance();
+		
+		
+		cargarTiposDoc();
+		cargarSucursales();
+
+	}
+
+	
+	private void cargarTiposDoc(){
+		
+		this.tiposDoc=controlador.getTiposDoc();
+		
+		for (String td: tiposDoc){
+		tipoDocCOMBO.addItem(td);
+		}
+	}
+	
+	private void cargarSucursales() {
+
+		this.sucursalestodas = controlador.getSucursales();
+
+		for (SucursalDTO s : this.sucursalestodas) {
+
+			ComboBoxItem cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
+
+			sucDestinoCOMBO.addItem(cbi);
+			sucOrigenCOMBO.addItem(cbi);
+		}
+
+	}
+
+	
+	
+	private void iniciarComponentes() {
+
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		
 		setBounds(100, 100, 800, 500);
@@ -42,21 +100,21 @@ public class generarPresupuesto extends JInternalFrame {
 		lblTipoDoc.setBounds(10, 108, 60, 14);
 		getContentPane().add(lblTipoDoc);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(82, 105, 60, 20);
-		getContentPane().add(comboBox);
+		tipoDocCOMBO = new JComboBox();
+		tipoDocCOMBO.setBounds(82, 105, 60, 20);
+		getContentPane().add(tipoDocCOMBO);
 		
 		JLabel lblNumeroDoc = new JLabel("Numero Doc");
 		lblNumeroDoc.setBounds(10, 149, 71, 14);
 		getContentPane().add(lblNumeroDoc);
 		
-		textField = new JTextField();
-		textField.setBounds(92, 146, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		numeroDocTF = new JTextField();
+		numeroDocTF.setBounds(92, 146, 86, 20);
+		getContentPane().add(numeroDocTF);
+		numeroDocTF.setColumns(10);
 		
 		JButton btnBuscarCliente = new JButton("Buscar Cliente");
-		btnBuscarCliente.setBounds(20, 174, 106, 23);
+		btnBuscarCliente.setBounds(20, 174, 137, 23);
 		getContentPane().add(btnBuscarCliente);
 		
 		JLabel lblVehiculo = new JLabel("Vehiculo");
@@ -79,9 +137,9 @@ public class generarPresupuesto extends JInternalFrame {
 		lblColor.setBounds(272, 198, 46, 14);
 		getContentPane().add(lblColor);
 		
-		JCheckBox chckbxAireAcond = new JCheckBox("Aire Acondicionado");
-		chckbxAireAcond.setBounds(272, 226, 146, 23);
-		getContentPane().add(chckbxAireAcond);
+		JCheckBox aireAcondicionadoCB = new JCheckBox("Aire Acondicionado");
+		aireAcondicionadoCB.setBounds(272, 226, 146, 23);
+		getContentPane().add(aireAcondicionadoCB);
 		
 		JLabel lblTransmision = new JLabel("Transmision");
 		lblTransmision.setBounds(257, 273, 86, 14);
@@ -91,32 +149,32 @@ public class generarPresupuesto extends JInternalFrame {
 		lblMarca.setBounds(220, 311, 46, 14);
 		getContentPane().add(lblMarca);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(353, 87, 86, 20);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		modeloTF = new JTextField();
+		modeloTF.setBounds(353, 87, 86, 20);
+		getContentPane().add(modeloTF);
+		modeloTF.setColumns(10);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(355, 124, 84, 20);
-		getContentPane().add(comboBox_1);
+		tamañoCOMBO = new JComboBox();
+		tamañoCOMBO.setBounds(355, 124, 84, 20);
+		getContentPane().add(tamañoCOMBO);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(353, 162, 86, 20);
-		getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		cantPuertasTF = new JTextField();
+		cantPuertasTF.setBounds(353, 162, 86, 20);
+		getContentPane().add(cantPuertasTF);
+		cantPuertasTF.setColumns(10);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(353, 195, 86, 20);
-		getContentPane().add(comboBox_2);
+		colorCOMBO = new JComboBox();
+		colorCOMBO.setBounds(353, 195, 86, 20);
+		getContentPane().add(colorCOMBO);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(353, 270, 86, 20);
-		getContentPane().add(comboBox_3);
+		transmisionCOMBO = new JComboBox();
+		transmisionCOMBO.setBounds(353, 270, 86, 20);
+		getContentPane().add(transmisionCOMBO);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(301, 308, 86, 20);
-		getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		marcaTF = new JTextField();
+		marcaTF.setBounds(301, 308, 86, 20);
+		getContentPane().add(marcaTF);
+		marcaTF.setColumns(10);
 		
 		JButton btnBuscarAuto = new JButton("Buscar Vehiculo");
 		btnBuscarAuto.setBounds(548, 191, 137, 23);
@@ -126,10 +184,10 @@ public class generarPresupuesto extends JInternalFrame {
 		lblInicio.setBounds(524, 121, 74, 14);
 		getContentPane().add(lblInicio);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(626, 118, 86, 20);
-		getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		fechaInicioTF = new JTextField();
+		fechaInicioTF.setBounds(626, 118, 86, 20);
+		getContentPane().add(fechaInicioTF);
+		fechaInicioTF.setColumns(10);
 		
 		JLabel lblSucursal = new JLabel("Sucursal Origen");
 		lblSucursal.setBounds(504, 81, 106, 14);
@@ -139,22 +197,22 @@ public class generarPresupuesto extends JInternalFrame {
 		lblFechaFin.setBounds(20, 311, 61, 14);
 		getContentPane().add(lblFechaFin);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(620, 78, 92, 20);
-		getContentPane().add(comboBox_4);
+		sucOrigenCOMBO = new JComboBox();
+		sucOrigenCOMBO.setBounds(620, 78, 92, 20);
+		getContentPane().add(sucOrigenCOMBO);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(104, 308, 86, 20);
-		getContentPane().add(textField_5);
-		textField_5.setColumns(10);
+		fechaFinTF = new JTextField();
+		fechaFinTF.setBounds(104, 308, 86, 20);
+		getContentPane().add(fechaFinTF);
+		fechaFinTF.setColumns(10);
 		
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino:");
 		lblSucursalDestino.setBounds(10, 371, 116, 14);
 		getContentPane().add(lblSucursalDestino);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(137, 368, 92, 20);
-		getContentPane().add(comboBox_5);
+		sucDestinoCOMBO = new JComboBox();
+		sucDestinoCOMBO.setBounds(137, 368, 92, 20);
+		getContentPane().add(sucDestinoCOMBO);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setBounds(592, 387, 106, 23);
@@ -168,10 +226,12 @@ public class generarPresupuesto extends JInternalFrame {
 		lblPrecioCalculado.setBounds(365, 387, 132, 23);
 		getContentPane().add(lblPrecioCalculado);
 		
-		JLabel lblprecio = new JLabel("\"PRECIO\"");
-		lblprecio.setBounds(472, 391, 71, 14);
-		getContentPane().add(lblprecio);
+		JLabel precioLABEL = new JLabel("\"PRECIO\"");
+		precioLABEL.setBounds(472, 391, 71, 14);
+		getContentPane().add(precioLABEL);
 
+		
+		
 	}
 
 }

@@ -76,7 +76,7 @@ public class Vehiculo {
 
 		if (!this.estasEnMovimiento())
 			throw new Exception("Vehiculo no esta en movimiento");
-
+		
 		Movimiento movimiento = movimientoActivo();
 		movimiento.setDestino(destino);
 		movimiento.cerrar();
@@ -84,6 +84,7 @@ public class Vehiculo {
 
 		this.setEstado("DISPONIBLE");
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+		this.setSucursal(destino);
 	}
 
 	public int agregarMantenimiento(String problema) throws Exception {

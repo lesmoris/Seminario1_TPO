@@ -22,7 +22,6 @@ import Interfaces.ResultadoOperacionGetVehiculo;
 
 public class moverVehiculo extends JInternalFrame {
 	private JTextField dominioTF;
-
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> cmbSucursalDestino;
 	private JTextField SucursalOrigenTF;
