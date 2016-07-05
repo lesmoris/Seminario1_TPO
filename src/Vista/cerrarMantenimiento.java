@@ -15,6 +15,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetVehiculo;
 
 import javax.swing.border.LineBorder;
 
@@ -53,16 +54,17 @@ public class cerrarMantenimiento extends JInternalFrame {
 		dominioTF.setColumns(10);
 		
 		JLabel lblDescripcionDelMantenimiento = new JLabel("Descripcion del mantenimiento realizado:");
-		lblDescripcionDelMantenimiento.setBounds(37, 131, 245, 14);
+		lblDescripcionDelMantenimiento.setBounds(39, 111, 245, 14);
 		getContentPane().add(lblDescripcionDelMantenimiento);
 		
 		final JTextArea descripcionTA = new JTextArea();
 		descripcionTA.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionTA.setLineWrap(true);
-		descripcionTA.setBounds(281, 79, 338, 103);
+		descripcionTA.setBounds(39, 136, 420, 103);
+		descripcionTA.setEnabled(false);
 		getContentPane().add(descripcionTA);
 		
-		JButton btnConfirmar = new JButton("Confirmar");
+		final JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Obtengo los datos de la pantalla
@@ -78,11 +80,40 @@ public class cerrarMantenimiento extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
+
+				menuPrincipal.getInstance().irAMenuPrincipal();
+				
 			}
 		});
-		btnConfirmar.setBounds(513, 223, 106, 23);
+		btnConfirmar.setBounds(484, 216, 106, 23);
 		getContentPane().add(btnConfirmar);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Obtengo los datos de la pantalla
+				String dominioVehiculo = dominioTF.getText();
+
+				// Mando el mensaje
+				ResultadoOperacionGetVehiculo res = controlador
+						.getVehiculo(dominioVehiculo);
+
+				// Recibo y muestro el resultado
+				if (res.sosExitoso()) {
+
+					descripcionTA.setEnabled(true);
+					btnConfirmar.setEnabled(true);
+				} else {
+					JOptionPane.showMessageDialog(null, res.getMessage(),
+							"Error", JOptionPane.ERROR_MESSAGE);
+
+					descripcionTA.setEnabled(false);
+					btnConfirmar.setEnabled(false);
+				}
+			}
+		});
+		btnBuscar.setBounds(248, 79, 89, 23);
+		getContentPane().add(btnBuscar);
 
 	}
-
 }

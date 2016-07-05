@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.DBUtils;
-import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.Vehiculo;
 
@@ -26,7 +25,7 @@ public class movimientoMapper extends baseMapper {
 
 	}
 
-	public static List<Movimiento> ListMovimientos(int idVehiculo) {
+	public List<Movimiento> ListMovimientos(Vehiculo veh) {
 		List<Movimiento> listMovs = new ArrayList<Movimiento>();
 
 		Connection con = null;
@@ -37,18 +36,20 @@ public class movimientoMapper extends baseMapper {
 			String senten = "SELECT idmovimiento, fechaInicio, fechaFin, idsucursalOrigen, idsucursalDestino FROM movimiento where idVehiculo = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
-			ps.setInt(1, idVehiculo);
+			ps.setInt(1, veh.getIdVehiculo());
 			ResultSet res = ps.executeQuery();
 
 			while (res.next()) {
 				Movimiento mov = new Movimiento();
 
+				mov.setIdMovimiento(res.getInt("idMovimiento"));
 				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
 						res.getInt("idSucursalOrigen")));
 				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
 						res.getInt("idSucursalDestino")));
 				mov.setFechaInicio(res.getDate("fechaInicio"));
 				mov.setFechaFin(res.getDate("fechaFin"));
+				mov.setVehiculo(veh);
 
 				listMovs.add(mov);
 
@@ -62,6 +63,43 @@ public class movimientoMapper extends baseMapper {
 		return listMovs;
 	}
 
+	public List<Movimiento> ListMovimientosEnCurso() {
+		
+		List<Movimiento> listMovs = new ArrayList<Movimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmovimiento, fechaInicio, fechaFin, idsucursalOrigen, idsucursalDestino, idVehiculo FROM movimiento where fechaFin is null ";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Movimiento mov = new Movimiento();
+
+				mov.setOrigen(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalOrigen")));
+				mov.setDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursalDestino")));
+				mov.setFechaInicio(res.getDate("fechaInicio"));
+				mov.setFechaFin(res.getDate("fechaFin"));
+				mov.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+
+				listMovs.add(mov);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMovs;
+	}
+	
 	public void Insert(Movimiento movimiento, int idVehiculo) throws Exception {
 
 		Connection con = null;

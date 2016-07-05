@@ -43,6 +43,7 @@ public class solicitarMantenimiento extends JInternalFrame {
 		descripcionFallaTF.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionFallaTF.setLineWrap(true);
 		descripcionFallaTF.setBounds(355, 116, 351, 165);
+		descripcionFallaTF.setEnabled(false);
 		getContentPane().add(descripcionFallaTF);
 
 		JLabel lblDominio = new JLabel("Dominio");
@@ -74,6 +75,9 @@ public class solicitarMantenimiento extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
+
+				menuPrincipal.getInstance().irAMenuPrincipal();
+
 			}
 		});
 		btnConfirmar.setBounds(617, 305, 89, 23);
@@ -92,13 +96,13 @@ public class solicitarMantenimiento extends JInternalFrame {
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
 
-					lblDescripcion.setEnabled(true);
+					descripcionFallaTF.setEnabled(true);
 					btnConfirmar.setEnabled(true);
 				} else {
 					JOptionPane.showMessageDialog(null, res.getMessage(),
 							"Error", JOptionPane.ERROR_MESSAGE);
 
-					lblDescripcion.setEnabled(false);
+					descripcionFallaTF.setEnabled(false);
 					btnConfirmar.setEnabled(false);
 				}
 			}

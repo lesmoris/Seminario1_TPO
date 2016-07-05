@@ -3,18 +3,20 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
-import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
+import Mappers.movimientoMapper;
 import Mappers.presupuestoMapper;
 import Mappers.sucursalMapper;
 import Mappers.vehiculoMapper;
 import Modelo.Cliente;
 import Modelo.ContratoAlquiler;
+import Modelo.Movimiento;
 import Modelo.PresupuestoAlquiler;
 import Modelo.Sucursal;
 import Modelo.Vehiculo;
@@ -73,6 +75,19 @@ public class Controlador {
 		return vehiculo;
 	}
 
+	private void actualizarVehiculoParaBusqueda(String dominio) {
+
+		for (Vehiculo v : vehiculos) {
+			if (v.sosVehiculo(dominio))
+			{
+				vehiculos.remove(v);
+				Vehiculo vehiculo = vehiculoMapper.getInstance().Select(dominio);
+				vehiculos.add(vehiculo);
+				return;
+			}
+		}
+	}
+	
 	private ContratoAlquiler buscarContrato(int numeroContrato) {
 
 		for (ContratoAlquiler c : contratosAlquiler) {
@@ -129,14 +144,17 @@ public class Controlador {
 
 	}
 
-	public List<VehiculoDTO> getVehiculosEnMovimiento() {
+	public List<MovimientoDTO> getMovimientosEnCurso() {
 
-		List<VehiculoDTO> vehiculosEnMovimiento = new ArrayList<VehiculoDTO>();
+		List<Movimiento> movimientoEnCurso = movimientoMapper.getInstance().ListMovimientosEnCurso();
 
-		vehiculosEnMovimiento = vehiculoMapper.getInstance()
-				.selectAllEnMovimientoDTO();
+		List<MovimientoDTO> movimientoEnCursoDTO = new ArrayList<MovimientoDTO>();
 
-		return vehiculosEnMovimiento;
+		for (Movimiento m : movimientoEnCurso) {
+			movimientoEnCursoDTO.add(m.crearVista());
+		}
+
+		return movimientoEnCursoDTO;
 	}
 
 	public List<SucursalDTO> getSucursales() {
@@ -193,6 +211,7 @@ public class Controlador {
 		if (vehiculo.estasDisponible()) {
 			try {
 				vehiculo.mover(sucDestino);
+				actualizarVehiculoParaBusqueda(dominioVehiculo);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}

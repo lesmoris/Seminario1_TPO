@@ -107,8 +107,6 @@ public class sucursalMapper extends baseMapper {
 			while (res.next()){
 				suc = new Sucursal();
 
-				
-				
 				suc.setIdSucursal(res.getInt("idSucursal"));
 				suc.setDireccion(res.getString("direccion"));
 				suc.setNombre(res.getString("nombre"));
@@ -116,8 +114,6 @@ public class sucursalMapper extends baseMapper {
 				suc.setTelefono(res.getString("telefono"));
 				
 				lista.add(suc);
-				
-				
 				
 			}
 			

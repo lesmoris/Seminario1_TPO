@@ -11,6 +11,7 @@ import DTOs.VehiculoDTO;
 import Helpers.DBUtils;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
+import Modelo.Sucursal;
 import Modelo.Vehiculo;
 
 public class vehiculoMapper extends baseMapper {
@@ -27,7 +28,7 @@ public class vehiculoMapper extends baseMapper {
 
 	}
 
-	public Vehiculo SelectPORID(int idVehiculo) {
+	public Vehiculo SelectPorID(int idVehiculo) {
 
 		Connection con = null;
 		Vehiculo veh = null;
@@ -35,7 +36,7 @@ public class vehiculoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
+			String senten = "SELECT dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
@@ -55,15 +56,26 @@ public class vehiculoMapper extends baseMapper {
 						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
-				veh.setMovimientos(movimientoMapper.ListMovimientos(idVehiculo));
-				veh.setMantenimientos(mantenimientoMapper.ListMantenimientos(idVehiculo));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DBUtils.closeQuietly(con);
+		}
+		return veh;
+
+	}
+
+	public Vehiculo SelectPorIDConMovimientosYMantenimientos(int idVehiculo) {
+
+		Vehiculo veh = this.SelectPorID(idVehiculo);
+		if (veh != null) {
+
+			veh.setMovimientos(movimientoMapper.getInstance().ListMovimientos(
+					veh));
+			veh.setMantenimientos(mantenimientoMapper.getInstance()
+					.ListMantenimientos(idVehiculo));
 		}
 		return veh;
 
@@ -101,14 +113,15 @@ public class vehiculoMapper extends baseMapper {
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setTipoCombustible(res.getString("tipoCombustible"));
-				veh.setMovimientos(movimientoMapper.ListMovimientos(idVehiculo));
-				veh.setMantenimientos(mantenimientoMapper.ListMantenimientos(idVehiculo));
+				veh.setMovimientos(movimientoMapper.getInstance()
+						.ListMovimientos(veh));
+				veh.setMantenimientos(mantenimientoMapper.getInstance()
+						.ListMantenimientos(idVehiculo));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DBUtils.closeQuietly(con);
 		}
 		return veh;
@@ -145,16 +158,17 @@ public class vehiculoMapper extends baseMapper {
 						idSucursal));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
-				veh.setMovimientos(movimientoMapper.ListMovimientos(idVehiculo));
-				veh.setMantenimientos(mantenimientoMapper.ListMantenimientos(idVehiculo));
+				veh.setMovimientos(movimientoMapper.getInstance()
+						.ListMovimientos(veh));
+				veh.setMantenimientos(mantenimientoMapper.getInstance()
+						.ListMantenimientos(idVehiculo));
 
 				listavehiculos.add(veh);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DBUtils.closeQuietly(con);
 		}
 		return listavehiculos;
@@ -166,13 +180,35 @@ public class vehiculoMapper extends baseMapper {
 
 			con = Conectar();
 			String senten = " UPDATE VEHICULO SET estado = ? "
-					     + "  WHERE idVehiculo = ? ";
+					+ "  WHERE idVehiculo = ? ";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setString(1, estado);
 			ps.setInt(2, vehiculo.getIdVehiculo());
 			ps.execute();
-			
+
+		} catch (SQLException e) {
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+	}
+	
+	public void UpdateSucursal(Vehiculo vehiculo, Sucursal sucursal) throws Exception {
+		Connection con = null;
+		try {
+
+			con = Conectar();
+			String senten = " UPDATE VEHICULO SET idSucursal = ? "
+					+ "  WHERE idVehiculo = ? ";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setInt(1, sucursal.getIdSucursal());
+			ps.setInt(2, vehiculo.getIdVehiculo());
+			ps.execute();
+
 		} catch (SQLException e) {
 			throw new Exception(e.getMessage());
 		} catch (Exception e) {
@@ -183,7 +219,7 @@ public class vehiculoMapper extends baseMapper {
 	}
 
 	public List<VehiculoDTO> selectAllEnMovimientoDTO() {
-		
+
 		List<VehiculoDTO> listavehiculos = new ArrayList<VehiculoDTO>();
 		Connection con = null;
 
@@ -193,7 +229,7 @@ public class vehiculoMapper extends baseMapper {
 			String senten = "SELECT idvehiculo, dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, idSucursal, tamaño FROM vehiculo where estado = 'ENMOVIMIENTO'";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
-			
+
 			ResultSet res = ps.executeQuery();
 
 			while (res.next()) {
@@ -212,21 +248,20 @@ public class vehiculoMapper extends baseMapper {
 						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
-				veh.setMovimientos(movimientoMapper.ListMovimientos(idVehiculo));
-				veh.setMantenimientos(mantenimientoMapper.ListMantenimientos(idVehiculo));
+				veh.setMovimientos(movimientoMapper.getInstance()
+						.ListMovimientos(veh));
+				veh.setMantenimientos(mantenimientoMapper.getInstance()
+						.ListMantenimientos(idVehiculo));
 
 				listavehiculos.add(veh.crearVista());
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			DBUtils.closeQuietly(con);
 		}
 		return listavehiculos;
 
-		
-		
 	}
 }
