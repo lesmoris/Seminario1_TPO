@@ -1,24 +1,22 @@
 package Vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
+import Controlador.Controlador;
 
 public class menuPrincipal extends JFrame {
 
@@ -191,7 +189,10 @@ public class menuPrincipal extends JFrame {
 		mntmMoverVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				moverVehiculo a = new moverVehiculo();
+				
+				
+				
+				moverVehiculo a = new moverVehiculo(Controlador.getInstance().getSucursalesDTO());
 				
 				irAVentana(a);
 				

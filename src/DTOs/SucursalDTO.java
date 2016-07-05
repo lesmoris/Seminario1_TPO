@@ -1,33 +1,31 @@
-package Modelo;
+package DTOs;
 
-import DTOs.SucursalDTO;
+public class SucursalDTO {
 
-public class Sucursal {
-
-	
 	private String nombre;
 	private String direccion;
 	private int idSucursal;
 	private String telefono;
 	private String mail;
 	
-	// Metodos
-	public boolean sosSucursal (String nombre){
-		return this.nombre.equals(nombre);
+	
+	
+	public SucursalDTO(){
+		
 	}
 	
-	public SucursalDTO crearVista(){
+	public SucursalDTO(String nombre, String direccion, int idSucursal, String telefono, String mail){
 		
-		SucursalDTO s = new SucursalDTO(this.getNombre(), this.getDireccion(), 
-				this.getIdSucursal(), this.getTelefono(), this.getMail());
+		this.nombre=nombre;
+		this.direccion=direccion;
+		this.idSucursal=idSucursal;
+		this.telefono=telefono;
+		this.mail=mail;
 		
 		
-		return s;
 	}
 	
 	
-	
-	// Getters and Setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -58,4 +56,9 @@ public class Sucursal {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	
+	
+	
+	
+	
 }

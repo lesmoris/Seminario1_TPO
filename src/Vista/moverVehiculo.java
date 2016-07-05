@@ -3,6 +3,7 @@ package Vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,18 +14,49 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
-import Interfaces.ResultadoOperacion;
+import DTOs.SucursalDTO;
+import Interfaces.ComboBoxItem;
+import Mappers.sucursalMapper;
+import Mappers.vehiculoMapper;
+import Modelo.Vehiculo;
 
 public class moverVehiculo extends JInternalFrame {
-	private JTextField txtDominio;
-	private Controlador controlador;
+	private JTextField dominioTF;
+	
 
-	public moverVehiculo() {
+	private List<SucursalDTO> sucursales;
+	private JComboBox<ComboBoxItem> comboOrigen;
+	private JComboBox<ComboBoxItem> comboDestino;
+	
+	
+	// Constructor
+	public moverVehiculo(List<SucursalDTO> sucursales) {
 		
-		this.controlador = Controlador.getInstance();
+		iniciarcomponentes();
+		cargarSucursales(sucursales);
+		
+			}
 
+	// Cargamos los ComboBox
+	private void cargarSucursales(List<SucursalDTO> sucursales) {
+	
+		this.sucursales = sucursales;
+		
+		for (SucursalDTO s : this.sucursales){
+			
+			ComboBoxItem cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
+			
+			comboDestino.addItem(cbi);
+			comboOrigen.addItem(cbi);
+		}
+		
+	}
+
+	// Componentes de la pantalla y acciones de los componentes
+	private void iniciarcomponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 
@@ -37,42 +69,59 @@ public class moverVehiculo extends JInternalFrame {
 		lblDominio.setBounds(21, 178, 46, 14);
 		getContentPane().add(lblDominio);
 
-		txtDominio = new JTextField();
-		txtDominio.setBounds(130, 174, 144, 23);
-		getContentPane().add(txtDominio);
-		txtDominio.setColumns(10);
+		dominioTF = new JTextField();
+		dominioTF.setBounds(130, 174, 144, 23);
+		getContentPane().add(dominioTF);
+		dominioTF.setColumns(10);
 
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
 		lblSucursalOrigen.setBounds(21, 107, 100, 14);
 		getContentPane().add(lblSucursalOrigen);
 
-		final JComboBox cmbSucursalOrigen = new JComboBox();
-		cmbSucursalOrigen.setBounds(130, 104, 144, 23);
-		getContentPane().add(cmbSucursalOrigen);
+		comboOrigen = new JComboBox();
+		comboOrigen.setBounds(130, 104, 144, 23);
+		getContentPane().add(comboOrigen);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
 		lblSucursalDestino.setBounds(21, 142, 120, 14);
 		getContentPane().add(lblSucursalDestino);
 
-		final JComboBox cmbSucursalDestino = new JComboBox();
-		cmbSucursalDestino.setBounds(130, 138, 144, 23);
-		getContentPane().add(cmbSucursalDestino);
+		comboDestino = new JComboBox();
+		comboDestino.setBounds(130, 138, 144, 23);
+		getContentPane().add(comboDestino);
 
 		JButton btnIniciarMovimiento = new JButton("Iniciar Movimiento");
 		btnIniciarMovimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String sucursalOrigen = cmbSucursalOrigen.getSelectedItem().toString();
-				String sucursalDestino = cmbSucursalDestino.getSelectedItem().toString();
-				String dominioVehiculo = txtDominio.getText();
+				if (dominioTF.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "DEBE INGRESAR DOMINIO");
+				}else{
 				
-				ResultadoOperacion res = controlador.moverVehiculo(sucursalOrigen, sucursalDestino, dominioVehiculo);
+				Vehiculo v = vehiculoMapper.getInstance().Select(dominioTF.getText());
 				
-				JOptionPane.showMessageDialog(null,res.getMessage(),"Mensaje", res.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+				// Guardamos el codigo de la sucursal elegida como destino
+				
+				int codigoSucursalDestino = ((ComboBoxItem) comboDestino.getSelectedItem()).getCodigo();
+				
+						// Iniciamos el movimiento del vehiculo
+				try {
+					v.mover(sucursalMapper.getInstance().SelectPORID(codigoSucursalDestino));
+					
+					JOptionPane.showMessageDialog(null, "Se ha generado el Movimiento del Vehiculo de dominio " + 
+					v.getDominio() + " a la Sucursal: " + comboDestino.getSelectedItem().toString());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+
 			}
 		});
-		btnIniciarMovimiento.setBounds(605, 425, 169, 34);
+		btnIniciarMovimiento.setBounds(563, 297, 169, 34);
 		getContentPane().add(btnIniciarMovimiento);
 
+		
 	}
 }

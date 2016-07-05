@@ -29,7 +29,7 @@ public class sucursalMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal where nombre = ?";
+			String senten = "SELECT idSucursal, nombre, direccion, telefono, mail FROM sucursal where nombre = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ps.setString(1, nombre);
@@ -99,7 +99,7 @@ public class sucursalMapper extends baseMapper {
 		try {
 			con = Conectar();
 			
-			String senten = "SELECT idSucursal, direccion, telefono, mail FROM sucursal";
+			String senten = "SELECT idSucursal, nombre, direccion, telefono, mail FROM sucursal";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ResultSet res = ps.executeQuery();
@@ -107,6 +107,8 @@ public class sucursalMapper extends baseMapper {
 			while (res.next()){
 				suc = new Sucursal();
 
+				
+				
 				suc.setIdSucursal(res.getInt("idSucursal"));
 				suc.setDireccion(res.getString("direccion"));
 				suc.setNombre(res.getString("nombre"));
@@ -114,6 +116,9 @@ public class sucursalMapper extends baseMapper {
 				suc.setTelefono(res.getString("telefono"));
 				
 				lista.add(suc);
+				
+				System.out.println(suc.getNombre());
+				
 			}
 			
 		} catch (SQLException e) {

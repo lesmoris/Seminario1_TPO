@@ -3,6 +3,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.SucursalDTO;
 import Interfaces.ResultadoOperacion;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
@@ -112,6 +113,28 @@ public class Controlador {
 
 	}
 
+	
+	public void actualizarSucursales(){
+		
+		this.sucursales = sucursalMapper.getInstance().SelectAll();
+		
+	}
+	
+	
+	public List<SucursalDTO> getSucursalesDTO(){
+		
+		actualizarSucursales();
+		
+		List<SucursalDTO> lista = new ArrayList<SucursalDTO>();
+		
+		for (Sucursal s: this.sucursales){
+			lista.add(s.crearVista());
+		}
+		
+		return lista;
+	}
+	
+	
 	public ResultadoOperacion moverVehiculo(String sucursalDestino, String dominioVehiculo) {
 		
 		if (sucursalDestino.isEmpty())
