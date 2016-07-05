@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.VehiculoDTO;
 import Helpers.DBUtils;
 import Modelo.Mantenimiento;
 import Modelo.Movimiento;
@@ -179,5 +180,53 @@ public class vehiculoMapper extends baseMapper {
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
+	}
+
+	public List<VehiculoDTO> selectAllEnMovimientoDTO() {
+		
+		List<VehiculoDTO> listavehiculos = new ArrayList<VehiculoDTO>();
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idvehiculo, dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, idSucursal, tamaño FROM vehiculo where estado = 'ENMOVIMIENTO'";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Vehiculo veh = new Vehiculo();
+
+				int idVehiculo = res.getInt("idVehiculo");
+
+				veh.setIdVehiculo(idVehiculo);
+				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
+				veh.setColor(res.getString("color"));
+				veh.setDominio(res.getString("dominio"));
+				veh.setKilometraje(res.getInt("kilometraje"));
+				veh.setMarca(res.getString("marca"));
+				veh.setModelo(res.getString("modelo"));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursal")));
+				veh.setTamaño(res.getString("tamaño"));
+				veh.setTransmision(res.getString("transmision"));
+				veh.setMovimientos(movimientoMapper.ListMovimientos(idVehiculo));
+				veh.setMantenimientos(mantenimientoMapper.ListMantenimientos(idVehiculo));
+
+				listavehiculos.add(veh.crearVista());
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listavehiculos;
+
+		
+		
 	}
 }

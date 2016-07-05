@@ -1,13 +1,19 @@
 package Interfaces;
 
+import java.util.List;
+
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import DTOs.VehiculoDTO;
+
 public class TMrecibirvehiculoTABLA implements TableModel{
 
+	private List<VehiculoDTO> vehiculos;
 	
-	public TMrecibirvehiculoTABLA(){
+	public TMrecibirvehiculoTABLA(List<VehiculoDTO> vehiculos){
 		
+	this.vehiculos=vehiculos;	
 		
 		
 	}

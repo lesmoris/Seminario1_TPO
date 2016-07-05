@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 import java.util.Calendar;
 
+import DTOs.MantenimientoDTO;
 import Mappers.mantenimientoMapper;
 
 public class Mantenimiento {
@@ -37,6 +38,14 @@ public class Mantenimiento {
 
 	public void Update() throws Exception {
 		mantenimientoMapper.getInstance().Update(this);
+	}
+	
+	
+	public MantenimientoDTO crearVista(){
+		
+		MantenimientoDTO m = new MantenimientoDTO(fechaFin, fechaFin, problema, problema, idMantenimiento);
+		
+		return m;
 	}
 	
 	// Getters and Setters

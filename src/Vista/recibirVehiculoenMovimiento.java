@@ -1,27 +1,36 @@
 package Vista;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import DTOs.VehiculoDTO;
 import Interfaces.TMrecibirvehiculoTABLA;
 
 public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private JTextField nroOrdenTF;
-	private JTable recibirvehiculoTABLA;
+	private JTable VehiculosEnMovimientoTABLA;
 	private TMrecibirvehiculoTABLA TM;
+	private List<VehiculoDTO> vehiculos;
 	
-	public recibirVehiculoenMovimiento() {
+	public recibirVehiculoenMovimiento(List<VehiculoDTO> vehiculos) {
+		
+		this.vehiculos=vehiculos;
+		
+		
+		iniciarComponentes();
+		
+		
+	}
+
+	private void iniciarComponentes() {
 		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		
@@ -54,11 +63,13 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		scrollPane.setBounds(43, 164, 525, 64);
 		getContentPane().add(scrollPane);
 		
-		TM = new TMrecibirvehiculoTABLA();
+		TM = new TMrecibirvehiculoTABLA(null);
 		
-		recibirvehiculoTABLA = new JTable();
-		recibirvehiculoTABLA.setModel(TM);
-		scrollPane.setViewportView(recibirvehiculoTABLA);
+		VehiculosEnMovimientoTABLA = new JTable();
+		VehiculosEnMovimientoTABLA.setModel(TM);
+		scrollPane.setViewportView(VehiculosEnMovimientoTABLA);
 
+		
+		
 	}
 }

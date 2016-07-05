@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTOs.SucursalDTO;
+import DTOs.VehiculoDTO;
 import Interfaces.ResultadoOperacion;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
@@ -118,6 +119,17 @@ public class Controlador {
 		
 		this.sucursales = sucursalMapper.getInstance().SelectAll();
 		
+	}
+	
+	public List<VehiculoDTO> getVehiculosEnMovimiento(){
+		
+		List<VehiculoDTO> vehiculosEnMovimiento = new ArrayList<VehiculoDTO>();
+		
+		
+		vehiculosEnMovimiento = vehiculoMapper.getInstance().selectAllEnMovimientoDTO();
+		
+		
+		return vehiculosEnMovimiento;
 	}
 	
 	

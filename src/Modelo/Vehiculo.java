@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import DTOs.MantenimientoDTO;
+import DTOs.MovimientoDTO;
+import DTOs.SucursalDTO;
+import DTOs.VehiculoDTO;
 import Mappers.vehiculoMapper;
 
 public class Vehiculo {
@@ -252,5 +256,24 @@ public class Vehiculo {
 
 	public void setPrecioPorDia(float precioPorDia) {
 		this.precioPorDia = precioPorDia;
+	}
+
+	public VehiculoDTO crearVista() {
+		
+		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
+		for (Movimiento m: this.movimientos){
+			movimientosDTO.add(m.crearVista());
+		}
+		
+		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
+		for (Mantenimiento m: this.mantenimientos){
+			mantenimientosDTO.add(m.crearVista());
+		}	
+		
+		VehiculoDTO v = new VehiculoDTO(idVehiculo, dominio, marca, modelo, kilometraje, cantidadPuertas, 
+				color, sucursal.crearVista(), tamaño, transmision, tipoCombustible, aireAcondicionado,
+				precioPorDia, movimientosDTO, mantenimientosDTO, estado);
+		
+		return v;
 	}
 }

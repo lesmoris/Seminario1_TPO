@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 import java.util.Calendar;
 
+import DTOs.MovimientoDTO;
 import Mappers.movimientoMapper;
 
 public class Movimiento {
@@ -17,6 +18,14 @@ public class Movimiento {
 	public Movimiento() {
 		fechaInicio = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		fechaFin = null;
+	}
+	
+	
+	public MovimientoDTO crearVista(){
+		
+		MovimientoDTO m = new MovimientoDTO(idMovimiento, origen.crearVista(), destino.crearVista(), fechaFin, fechaFin);
+		
+		return m;
 	}
 	
 	// Metodos
