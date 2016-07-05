@@ -1,9 +1,9 @@
 package Modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import DTOs.VehiculoDTO;
 import Mappers.vehiculoMapper;
 
 public class Vehiculo {
@@ -30,7 +30,7 @@ public class Vehiculo {
 		mantenimientos = new ArrayList<Mantenimiento>();
 		movimientos = new ArrayList<Movimiento>();
 	}
-	
+
 	// Metodos
 	public boolean sosVehiculo(String dominio) {
 		return this.dominio.equals(dominio);
@@ -52,9 +52,10 @@ public class Vehiculo {
 
 		if (this.estasEnMovimiento())
 			throw new Exception("Vehiclo esta en movimiento");
-		
+
 		if (this.sucursal.sosSucursal(destino.getNombre()))
-			throw new Exception("La sucursal de destino es la misma en la que el vehiculo se encuentra actualmente");
+			throw new Exception(
+					"La sucursal de destino es la misma en la que el vehiculo se encuentra actualmente");
 
 		Movimiento movimiento = new Movimiento();
 		movimiento.setOrigen(this.sucursal);
@@ -100,7 +101,7 @@ public class Vehiculo {
 
 		if (!this.estasEnMantenimiento())
 			throw new Exception("Vehiculo no esta en mantenimiento");
-		
+
 		Mantenimiento mantenimiento = mantenimientoActivo();
 		mantenimiento.cerrar(solucion);
 		mantenimiento.Update();
@@ -123,6 +124,14 @@ public class Vehiculo {
 				return m;
 		}
 		return null;
+	}
+
+	public VehiculoDTO crearVista() {
+		return new VehiculoDTO(this.idVehiculo, this.dominio, this.marca,
+				this.modelo, this.kilometraje, this.cantidadPuertas,
+				this.color, this.sucursal.getNombre(), this.tamaño,
+				this.transmision, this.tipoCombustible, this.aireAcondicionado,
+				this.precioPorDia, this.estado);
 	}
 
 	// Getters and Setters

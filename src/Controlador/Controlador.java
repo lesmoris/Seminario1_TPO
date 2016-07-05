@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTOs.SucursalDTO;
+import DTOs.VehiculoDTO;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetVehiculo;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.presupuestoMapper;
@@ -114,12 +116,11 @@ public class Controlador {
 	}
 
 	
-	public void actualizarSucursales(){
+	private void actualizarSucursales(){
 		
 		this.sucursales = sucursalMapper.getInstance().SelectAll();
 		
 	}
-	
 	
 	public List<SucursalDTO> getSucursalesDTO(){
 		
@@ -132,6 +133,23 @@ public class Controlador {
 		}
 		
 		return lista;
+	}
+	
+	public ResultadoOperacionGetVehiculo getVehiculo(String dominio) {
+		
+		if (dominio.isEmpty())
+			return new ResultadoOperacionGetVehiculo(false, "Elija un vehiculo, por favor", null);
+		
+		VehiculoDTO vehDTO = null;
+		
+		Vehiculo veh = buscarVehiculo(dominio);
+		
+		if (veh != null) {
+			vehDTO = veh.crearVista();
+			return new ResultadoOperacionGetVehiculo(true, "", vehDTO);
+		}
+		
+		return new ResultadoOperacionGetVehiculo(false, "Vehiculo no encontrado", null);
 	}
 	
 	
@@ -158,7 +176,7 @@ public class Controlador {
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
-			return new ResultadoOperacion(true, "Vehiculo en movimiento");
+			return new ResultadoOperacion(true, "Se ha generado el Movimiento del Vehiculo de dominio: " + 	dominioVehiculo + " a la Sucursal: " + sucursalDestino);
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta disponible para movimiento");
