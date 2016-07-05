@@ -3,19 +3,23 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
+import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
+import Mappers.mantenimientoMapper;
 import Mappers.movimientoMapper;
 import Mappers.presupuestoMapper;
 import Mappers.sucursalMapper;
 import Mappers.vehiculoMapper;
 import Modelo.Cliente;
 import Modelo.ContratoAlquiler;
+import Modelo.Mantenimiento;
 import Modelo.Movimiento;
 import Modelo.PresupuestoAlquiler;
 import Modelo.Sucursal;
@@ -295,6 +299,26 @@ public class Controlador {
 					"El Vehiculo no esta en mantenimiento");
 	}
 
+	public ResultadoOperacionHistorialMantenimiento historialMantenimientosPorVehiculo(String dominio) {
+		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance().ListMantenimientosCerrados(dominio);
+
+		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
+
+		if (mantenimientos.size() > 0) 
+		{
+			for (Mantenimiento m : mantenimientos) {
+				mantenimientosDTO.add(m.crearVista());
+			}
+			
+			return new ResultadoOperacionHistorialMantenimiento(true, "", mantenimientosDTO);
+			
+		}
+		else
+		{
+			return new ResultadoOperacionHistorialMantenimiento(false, "No hay mantenimientos efectuados para el vehiculo seleccionado", null);
+		}
+	}
+	
 	private PresupuestoAlquiler buscarPresupuesto(int idPresupuesto) {
 
 		for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {

@@ -11,15 +11,12 @@ public class MantenimientoDTO {
 	private int idMantenimiento;
 	
 	public MantenimientoDTO(Date fechaInicio, Date fechaFin, String problema, String solucion, int idMantenimiento){
-		
 		this.fechaInicio=fechaInicio;
 		this.fechaFin=fechaFin;
 		this.problema=problema;
 		this.solucion=solucion;
 		this.idMantenimiento=idMantenimiento;
-		
 	}
-	
 	
 	public Date getFechaInicio() {
 		return fechaInicio;
@@ -51,9 +48,4 @@ public class MantenimientoDTO {
 	public void setIdMantenimiento(int idMantenimiento) {
 		this.idMantenimiento = idMantenimiento;
 	}
-
-	
-
-	
-	
 }

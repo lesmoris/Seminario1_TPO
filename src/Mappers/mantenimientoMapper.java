@@ -62,6 +62,42 @@ public class mantenimientoMapper extends baseMapper {
 		return listMants;
 	}
 	
+	public List<Mantenimiento> ListMantenimientosCerrados(String dominio) {
+		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo where v.dominio = ? and m.fechaFin is not null";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setString(1, dominio);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Mantenimiento mant = new Mantenimiento();
+
+				mant.setFechaInicio(res.getDate("fechaInicio"));
+				mant.setFechaFin(res.getDate("fechaFin"));
+				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
+				mant.setProblema(res.getString("problema"));
+				mant.setSolucion(res.getString("solucion"));
+
+				listMants.add(mant);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMants;
+	}
+
 	public int Insert(Mantenimiento mantenimiento, int idVehiculo) throws Exception {
 		
 		Connection con = null;
