@@ -283,7 +283,11 @@ public class Controlador {
 
 		return p;
 	}
-
+	
+	
+	
+	
+	
 	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
 			String TipoDNI, String DNI) {
 

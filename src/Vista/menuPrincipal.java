@@ -266,7 +266,6 @@ public class menuPrincipal extends JFrame {
 				
 				irAVentana(a);
 				
-				
 			}
 		});
 		mnReportes.add(mntmAlquileres);
@@ -301,8 +300,7 @@ public class menuPrincipal extends JFrame {
 		btnSalir.setBorderPainted(false);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+		
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Seguro desea salir del sistema?", "Alerta", dialogButton);
 				if (dialogResult == JOptionPane.YES_OPTION){
@@ -310,10 +308,6 @@ public class menuPrincipal extends JFrame {
 				dispose();
 				
 				}
-				
-				
-				
-				
 				
 			}
 		});
