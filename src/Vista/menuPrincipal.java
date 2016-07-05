@@ -126,17 +126,6 @@ public class menuPrincipal extends JFrame {
 		});
 		mnVehiculos.add(mntmAlta);
 		
-		JMenuItem mntmSolicitudMantenimiento = new JMenuItem("Solicitud Mantenimiento");
-		mntmSolicitudMantenimiento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				solicitarMantenimiento a = new solicitarMantenimiento();
-				
-				irAVentana(a);
-				
-			}
-		});
-		
 		JMenuItem mntmBaja = new JMenuItem("Baja");
 		mntmBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,7 +138,7 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 		
-		JMenuItem mntmModificarPrecioPor = new JMenuItem("Modificar Precio por Dia Vehiculo");
+		JMenuItem mntmModificarPrecioPor = new JMenuItem("Modificar Precio por Dia");
 		mntmModificarPrecioPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -162,21 +151,18 @@ public class menuPrincipal extends JFrame {
 		});
 		mnVehiculos.add(mntmModificarPrecioPor);
 		mnVehiculos.add(mntmBaja);
-		mnVehiculos.add(mntmSolicitudMantenimiento);
+		
+		JMenu mnMantenimiento = new JMenu("Mantenimiento");
+		mnVehiculos.add(mnMantenimiento);
+		
+		JMenuItem mntmSolicitudMantenimiento = new JMenuItem("Solicitud Mantenimiento");
+		mnMantenimiento.add(mntmSolicitudMantenimiento);
 		
 		JMenuItem mntmCerrarMantenimiento = new JMenuItem("Cerrar Mantenimiento\r\n");
-		mntmCerrarMantenimiento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				cerrarMantenimiento a = new cerrarMantenimiento();
-				
-				irAVentana(a);
-				
-			}
-		});
-		mnVehiculos.add(mntmCerrarMantenimiento);
+		mnMantenimiento.add(mntmCerrarMantenimiento);
 		
-		JMenuItem mntmHistorialMantenimientoPor = new JMenuItem("Historial Mantenimiento");
+		JMenuItem mntmHistorialMantenimientoPor = new JMenuItem("Historial Mantenimientos");
+		mnMantenimiento.add(mntmHistorialMantenimientoPor);
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -187,9 +173,43 @@ public class menuPrincipal extends JFrame {
 				
 			}
 		});
-		mnVehiculos.add(mntmHistorialMantenimientoPor);
+		mntmCerrarMantenimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cerrarMantenimiento a = new cerrarMantenimiento();
+				
+				irAVentana(a);
+				
+			}
+		});
+		mntmSolicitudMantenimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				solicitarMantenimiento a = new solicitarMantenimiento();
+				
+				irAVentana(a);
+				
+			}
+		});
+		
+		JMenu mnMovimientosIntersucursal = new JMenu("Movimientos Intersucursal");
+		mnVehiculos.add(mnMovimientosIntersucursal);
 		
 		JMenuItem mntmMoverVehiculo = new JMenuItem("Mover Vehiculo");
+		mnMovimientosIntersucursal.add(mntmMoverVehiculo);
+		
+		JMenuItem mntmRecibirVehiculo = new JMenuItem("Recibir Vehiculo");
+		mnMovimientosIntersucursal.add(mntmRecibirVehiculo);
+		mntmRecibirVehiculo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				recibirVehiculoenMovimiento a = new recibirVehiculoenMovimiento();
+				
+				irAVentana(a);
+				
+			}
+		});
 		mntmMoverVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -203,20 +223,6 @@ public class menuPrincipal extends JFrame {
 				
 			}
 		});
-		mnVehiculos.add(mntmMoverVehiculo);
-		
-		JMenuItem mntmRecibirVehiculo = new JMenuItem("Recibir Vehiculo");
-		mntmRecibirVehiculo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				recibirVehiculoenMovimiento a = new recibirVehiculoenMovimiento();
-				
-				irAVentana(a);
-				
-			}
-		});
-		mnVehiculos.add(mntmRecibirVehiculo);
 		
 		JMenu mnAlquileres = new JMenu("Alquileres");
 		menuBar.add(mnAlquileres);
@@ -357,7 +363,6 @@ public class menuPrincipal extends JFrame {
 		return instancia;
 		
 	}
-	
 }
 
 

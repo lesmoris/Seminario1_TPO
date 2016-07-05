@@ -165,9 +165,9 @@ public class Controlador {
 
 	public ResultadoOperacionGetVehiculo getVehiculo(String dominio) {
 
-		if (dominio.isEmpty())
+		if (dominio.trim().isEmpty())
 			return new ResultadoOperacionGetVehiculo(false,
-					"Elija un vehiculo, por favor", null);
+					"Ingrese un dominio, por favor", null);
 
 		VehiculoDTO vehDTO = null;
 
@@ -252,6 +252,9 @@ public class Controlador {
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
 
+		if (problema.trim().isEmpty())
+			return new ResultadoOperacion(false, "Debe ingresa un problema a solucionar");
+
 		if (vehiculo.estasDisponible()) {
 			try {
 				nroOrden = vehiculo.agregarMantenimiento(problema);
@@ -272,6 +275,9 @@ public class Controlador {
 
 		if (vehiculo == null)
 			return new ResultadoOperacion(false, "El vehiculo no existe");
+		
+		if (solucion.trim().isEmpty())
+			return new ResultadoOperacion(false, "Debe ingresa una solucion al problema inicial");
 
 		if (vehiculo.estasEnMantenimiento()) {
 			try {

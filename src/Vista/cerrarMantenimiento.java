@@ -65,6 +65,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 		getContentPane().add(descripcionTA);
 		
 		final JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setEnabled(false);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Obtengo los datos de la pantalla
@@ -80,8 +81,9 @@ public class cerrarMantenimiento extends JInternalFrame {
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
-
-				menuPrincipal.getInstance().irAMenuPrincipal();
+				
+				if (res.sosExitoso())
+					menuPrincipal.getInstance().irAMenuPrincipal();
 				
 			}
 		});

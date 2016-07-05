@@ -74,7 +74,8 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 							: JOptionPane.ERROR_MESSAGE);
 				
-					menuPrincipal.getInstance().irAMenuPrincipal();
+					if (res.sosExitoso())
+						menuPrincipal.getInstance().irAMenuPrincipal();
 						
 				}else{
 					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN VEHICULO PARA RECIBIR");

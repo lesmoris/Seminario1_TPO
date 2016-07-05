@@ -105,7 +105,8 @@ public class moverVehiculo extends JInternalFrame {
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
 
-				menuPrincipal.getInstance().irAMenuPrincipal();
+				if (res.sosExitoso())
+					menuPrincipal.getInstance().irAMenuPrincipal();
 			}
 
 		});
