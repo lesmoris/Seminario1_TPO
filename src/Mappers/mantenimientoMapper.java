@@ -110,7 +110,7 @@ public class mantenimientoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo inner join sucursal s on s.where s.nombre = ?";
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo inner join sucursal s on s.idsucursal = m.idsucursal where s.nombre = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setString(1, sucursal);

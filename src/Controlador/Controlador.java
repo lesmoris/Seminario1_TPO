@@ -327,6 +327,33 @@ public class Controlador {
 					null);
 		}
 	}
+	
+	public ResultadoOperacionHistorialMantenimiento historialMantenimientosPorSucursal(
+			String sucursal) {
+		
+		if (sucursal.trim().isEmpty())
+			return new ResultadoOperacionHistorialMantenimiento(false, "Ingrese una sucursal, por favor", null);
+		
+		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance()
+				.ListMantenimientos(sucursal);
+
+		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
+
+		if (mantenimientos.size() > 0) {
+			for (Mantenimiento m : mantenimientos) {
+				mantenimientosDTO.add(m.crearVista());
+			}
+
+			return new ResultadoOperacionHistorialMantenimiento(true, "",
+					mantenimientosDTO);
+
+		} else {
+			return new ResultadoOperacionHistorialMantenimiento(
+					false,
+					"No hay mantenimientos efectuados para la sucursal seleccionada",
+					null);
+		}
+	}
 
 	public ResultadoOperacionReporteMovimientosVehiculos generarReporteDeMovimientoDeVehiculos(
 			String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde,
