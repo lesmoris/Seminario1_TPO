@@ -279,11 +279,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setEstado(res.getString("estado"));
 				veh.setPrecioPorDia(res.getFloat("precioPorDia"));
 				
-				if (res.getString("aireAcondicionado")=="S"){
-					veh.setAC(true);
-				}else{
-					veh.setAC(false);
-				}
+				veh.setAC(res.getString("aireAcondicionado").equals("S"));
 				
 				listavehiculos.add(veh);
 			}
