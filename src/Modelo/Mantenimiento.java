@@ -44,7 +44,7 @@ public class Mantenimiento {
 
 	public MantenimientoDTO crearVista() {
 
-		MantenimientoDTO m = new MantenimientoDTO(fechaFin, fechaFin, problema,
+		MantenimientoDTO m = new MantenimientoDTO(fechaInicio, fechaFin, problema,
 				solucion, idMantenimiento, vehiculo.getDominio(), sucursal.getNombre());
 
 		return m;

@@ -102,7 +102,7 @@ public class mantenimientoMapper extends baseMapper {
 		return listMants;
 	}
 	
-	public List<Mantenimiento> ListMantenimientos(String sucursal) {
+	public List<Mantenimiento> ListMantenimientosAbiertos(String sucursal) {
 		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
 
 		Connection con = null;
@@ -110,7 +110,7 @@ public class mantenimientoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo inner join sucursal s on s.idsucursal = m.idsucursal where s.nombre = ?";
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo inner join sucursal s on s.idsucursal = m.idsucursal where s.nombre = ? and m.fechaFin is null";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setString(1, sucursal);
@@ -149,7 +149,7 @@ public class mantenimientoMapper extends baseMapper {
 			con.setAutoCommit(false);
 			
 			String senten = "INSERT INTO MANTENIMIENTO(fechaInicio, fechaFin, idvehiculo, problema, solucion, idsucursal) "
-					      + "VALUES (?, ?, ?, ?, ?); ";
+					      + "VALUES (?, ?, ?, ?, ?, ?); ";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ps.setDate(1, mantenimiento.getFechaInicio());

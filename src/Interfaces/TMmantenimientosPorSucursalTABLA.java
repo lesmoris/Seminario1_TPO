@@ -88,7 +88,7 @@ public class TMmantenimientosPorSucursalTABLA implements TableModel {
 			break;
 		}
 		case 4: {
-			valor = m.getFechaFin().toString();
+			valor = m.getFechaFin() != null ? m.getFechaFin().toString() : "";
 			break;
 		}
 		}

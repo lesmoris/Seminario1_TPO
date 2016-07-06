@@ -23,14 +23,14 @@ import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.TMmantenimientosPorSucursalTABLA;
 import Interfaces.TMmantenimientosPorVehiculoTABLA;
 
-public class generarReporteMantenimientosPorSucursal extends JInternalFrame {
+public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFrame {
 	private Controlador controlador;
 	private JTable HistorialMantenimientosTABLA;
 	private TMmantenimientosPorSucursalTABLA TM;
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> cmbSucursal;
 
-	public generarReporteMantenimientosPorSucursal() {
+	public generarReporteMantenimientosAbiertosPorSucursal() {
 		this.controlador = Controlador.getInstance();
 
 		iniciarComponentes();
@@ -81,12 +81,12 @@ public class generarReporteMantenimientosPorSucursal extends JInternalFrame {
 
 				// Mando el mensaje
 				ResultadoOperacionHistorialMantenimiento res = controlador
-						.historialMantenimientosPorSucursal(sucursalDestino);
+						.reporteMantenimientosAbiertosPorSucursal(sucursalDestino);
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
 					TM = new TMmantenimientosPorSucursalTABLA(
-							new ArrayList<MantenimientoDTO>());
+							res.getMantenimientosDTO());
 					HistorialMantenimientosTABLA.setModel(TM);
 
 				} else {

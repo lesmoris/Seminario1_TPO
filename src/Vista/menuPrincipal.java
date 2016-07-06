@@ -166,7 +166,7 @@ public class menuPrincipal extends JFrame {
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				generarReporteHistoricoMantenimientoVehiculo a = new generarReporteHistoricoMantenimientoVehiculo();
+				generarReporteMantenimientoPorVehiculo a = new generarReporteMantenimientoPorVehiculo();
 				
 				irAVentana(a);
 				
@@ -280,7 +280,7 @@ public class menuPrincipal extends JFrame {
 		});
 		mnReportes.add(mntmAlquileres);
 		
-		JMenuItem mntmMovimientoVehiculos = new JMenuItem("Movimiento de Vehiculos");
+		JMenuItem mntmMovimientoVehiculos = new JMenuItem("Movimiento de Vehiculos Entre Sucursales");
 		mntmMovimientoVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -293,11 +293,11 @@ public class menuPrincipal extends JFrame {
 		});
 		mnReportes.add(mntmMovimientoVehiculos);
 		
-		JMenuItem mntmVehiculosEnMantenimiento = new JMenuItem("Vehiculos en Mantenimiento");
+		JMenuItem mntmVehiculosEnMantenimiento = new JMenuItem("Vehiculos en Mantenimiento Por Sucursal");
 		mntmVehiculosEnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				generarReporteMantenimiento a = new generarReporteMantenimiento();
+				generarReporteMantenimientosAbiertosPorSucursal a = new generarReporteMantenimientosAbiertosPorSucursal();
 				
 				irAVentana(a);
 				
