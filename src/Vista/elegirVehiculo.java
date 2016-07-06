@@ -1,21 +1,22 @@
 package Vista;
 
 import java.awt.Font;
+import java.text.ParseException;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
 import DTOs.VehiculoDTO;
 import Interfaces.TMVehiculoTABLA;
-
-import java.util.*;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 
 
 public class elegirVehiculo extends JInternalFrame {
@@ -84,7 +85,16 @@ public class elegirVehiculo extends JInternalFrame {
 		btnConfirmar.setBounds(577, 384, 89, 23);
 		getContentPane().add(btnConfirmar);
 		
-		fechaFinTF = new JTextField();
+		MaskFormatter mf = null;
+		try {
+			mf = new MaskFormatter("##/##/####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		fechaFinTF = new JFormattedTextField(mf);
 		fechaFinTF.setBounds(265, 353, 86, 20);
 		getContentPane().add(fechaFinTF);
 		fechaFinTF.setColumns(10);

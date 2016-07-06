@@ -54,6 +54,13 @@ public class vehiculoMapper extends baseMapper {
 						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
+				
+				if (res.getString("aireAcondicionado")=="S"){
+					veh.setAC(true);
+				}else{
+					veh.setAC(false);
+				}
+				
 			}
 
 		} catch (SQLException e) {
@@ -115,6 +122,12 @@ public class vehiculoMapper extends baseMapper {
 						.ListMovimientos(veh));
 				veh.setMantenimientos(mantenimientoMapper.getInstance()
 						.ListMantenimientos(idVehiculo));
+				
+				if (res.getString("aireAcondicionado")=="S"){
+					veh.setAC(true);
+				}else{
+					veh.setAC(false);
+				}
 			}
 
 		} catch (SQLException e) {
@@ -161,6 +174,12 @@ public class vehiculoMapper extends baseMapper {
 				veh.setMantenimientos(mantenimientoMapper.getInstance()
 						.ListMantenimientos(idVehiculo));
 
+				if (res.getString("aireAcondicionado")=="S"){
+					veh.setAC(true);
+				}else{
+					veh.setAC(false);
+				}
+				
 				listavehiculos.add(veh);
 			}
 
@@ -258,7 +277,14 @@ public class vehiculoMapper extends baseMapper {
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setEstado(res.getString("estado"));
-
+				veh.setPrecioPorDia(res.getFloat("precioPorDia"));
+				
+				if (res.getString("aireAcondicionado")=="S"){
+					veh.setAC(true);
+				}else{
+					veh.setAC(false);
+				}
+				
 				listavehiculos.add(veh);
 			}
 

@@ -406,6 +406,19 @@ public class Controlador {
 	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,String  marca,String  modelo,String  ac,
 			String tipoCombustible,String  transmision, int cantPuertas, String color, String tamaño){
 		
+		if (color==""){
+			color = null;
+		}
+		if (color == null){
+			System.out.println("FUNCIONO");
+		}
+		if (tipoCombustible==""){
+			tipoCombustible = null;
+		}
+		if (tamaño==""){
+			tamaño = null;
+		}
+		
 		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>(); 
 		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);

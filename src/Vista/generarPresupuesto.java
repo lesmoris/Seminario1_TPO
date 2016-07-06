@@ -29,7 +29,6 @@ public class generarPresupuesto extends JInternalFrame {
 	private JTextField marcaTF;
 	private JTextField fechaInicioTF;
 	private JTextField fechaFinTF;
-	
 	private Controlador controlador;
 	private JComboBox<String> tipoDocCOMBO;
 	private JComboBox<String> tamañoCOMBO;
@@ -38,6 +37,7 @@ public class generarPresupuesto extends JInternalFrame {
 	private JComboBox<ComboBoxItem> sucOrigenCOMBO;
 	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
 	private JComboBox<String> combustibleCOMBO;
+	private JButton verVehiculosBOTON;
 	private List<SucursalDTO> sucursalestodas;
 	private List<String> tiposDoc;
 	private List<String> tamaños;
@@ -50,7 +50,6 @@ public class generarPresupuesto extends JInternalFrame {
 	private String dominio;
 	private String sucursalOrigen;
 	private String sucursalDestino;
-	private JButton verVehiculosBOTON;
 	
 	
 	
@@ -286,6 +285,7 @@ public class generarPresupuesto extends JInternalFrame {
 				}else{
 					ac = "N";
 				}
+				
 				
 				
 				// VER COMO HACER PARA DEVOLVER NULL CUANDO NO SE ELIJAN OPCIONES DE LOS COMBOBOX

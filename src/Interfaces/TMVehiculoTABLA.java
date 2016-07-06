@@ -132,11 +132,10 @@ public class TMVehiculoTABLA implements TableModel {
 			break;
 		}
 		case 9: {
-			if (v.isAireAcondicionado()){	
+			if (v.isAireAcondicionado())	
 			valor = "SI";
-			}else{
+			if (!v.isAireAcondicionado())
 			valor ="NO";
-			}
 			break;
 		}
 		case 10: {
