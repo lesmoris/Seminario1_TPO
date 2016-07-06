@@ -54,12 +54,7 @@ public class vehiculoMapper extends baseMapper {
 						res.getInt("idSucursal")));
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
-				
-				if (res.getString("aireAcondicionado")=="S"){
-					veh.setAC(true);
-				}else{
-					veh.setAC(false);
-				}
+				veh.setAC(res.getString("aireAcondicionado").equals("S"));
 				
 			}
 
@@ -122,12 +117,7 @@ public class vehiculoMapper extends baseMapper {
 						.ListMovimientos(veh));
 				veh.setMantenimientos(mantenimientoMapper.getInstance()
 						.ListMantenimientos(idVehiculo));
-				
-				if (res.getString("aireAcondicionado")=="S"){
-					veh.setAC(true);
-				}else{
-					veh.setAC(false);
-				}
+				veh.setAC(res.getString("aireAcondicionado").equals("S"));
 			}
 
 		} catch (SQLException e) {
@@ -173,12 +163,7 @@ public class vehiculoMapper extends baseMapper {
 						.ListMovimientos(veh));
 				veh.setMantenimientos(mantenimientoMapper.getInstance()
 						.ListMantenimientos(idVehiculo));
-
-				if (res.getString("aireAcondicionado")=="S"){
-					veh.setAC(true);
-				}else{
-					veh.setAC(false);
-				}
+				veh.setAC(res.getString("aireAcondicionado").equals("S"));
 				
 				listavehiculos.add(veh);
 			}
@@ -278,7 +263,6 @@ public class vehiculoMapper extends baseMapper {
 				veh.setTransmision(res.getString("transmision"));
 				veh.setEstado(res.getString("estado"));
 				veh.setPrecioPorDia(res.getFloat("precioPorDia"));
-				
 				veh.setAC(res.getString("aireAcondicionado").equals("S"));
 				
 				listavehiculos.add(veh);
