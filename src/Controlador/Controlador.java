@@ -405,6 +405,7 @@ public class Controlador {
 	
 	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,String  marca,String  modelo,String  ac,
 			String tipoCombustible,String  transmision, int cantPuertas, String color, String tamaño){
+	
 		
 		if (color==""){
 			color = null;
@@ -419,6 +420,8 @@ public class Controlador {
 			tamaño = null;
 		}
 		
+	
+		
 		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>(); 
 		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);
@@ -431,9 +434,25 @@ public class Controlador {
 		
 	}
 	
-	
-	
-	public PresupuestoAlquiler generarPresupuesto(){	
-		return null;
+	public boolean existeCliente (String tipoDoc, String numDoc){
+		
+		Cliente c = clienteMapper.getInstance().Select(numDoc, tipoDoc);
+		
+		return c!=null;
 	}
+	
+	/*public PresupuestoAlquiler generarPresupuesto(String dominio, 
+			String tipoDoc, String numDoc, Date fechaInicio, Date fechaFin, String sucOrigen, String sucDestino,
+			String ){	
+		
+		PresupuestoAlquiler p = new PresupuestoAlquiler();
+		
+		p.setCliente(buscarCliente(numDoc, tipoDoc));
+		//p.setFechaEmision(FECHA DE HOY);
+		p.setFechaInicio(fechaInicio);
+		//p.setFechaVencimiento(FECHA DE HOY + X DIAS);
+		//p.set
+		//p.set
+		return null;
+	}*/
 }

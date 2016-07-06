@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
@@ -208,7 +209,11 @@ public class generarPresupuesto extends JInternalFrame {
 				numeroDoc = numeroDocTF.getText();
 				
 				
+				if (controlador.existeCliente(tipoDoc, numeroDoc)){
 				mostrarComponentesVehiculo();
+				}else{
+					JOptionPane.showMessageDialog(null, "NO EXISTE CLIENTE, INGRESE UN CLIENTE EXISTENTE");
+				}
 			}
 		});
 		btnBuscarCliente.setBounds(20, 174, 137, 23);
@@ -293,7 +298,7 @@ public class generarPresupuesto extends JInternalFrame {
 				// Aca estoy usando todo con DTOS y String, entiendo que no va en contra de MVC, que lo chekee leo
 			List<VehiculoDTO> listavehiculo = controlador.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem().toString(), "nombre", 
 					marcaTF.getText(),	modeloTF.getText(), ac, combustibleCOMBO.getSelectedItem().toString(), 
-					transmisionCOMBO.getSelectedItem().toString(), Integer.parseInt(cantPuertasTF.getText()), colorCOMBO.getSelectedItem().toString(),
+					transmisionCOMBO.getSelectedItem().toString(),Integer.parseInt(cantPuertasTF.getText()), colorCOMBO.getSelectedItem().toString(),
 					tamañoCOMBO.getSelectedItem().toString());
 				
 			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo);
