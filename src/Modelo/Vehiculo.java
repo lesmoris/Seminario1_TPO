@@ -28,7 +28,9 @@ public class Vehiculo {
 	private List<Movimiento> movimientos;
 	private List<Mantenimiento> mantenimientos;
 	private String estado;
-
+	
+	
+	
 	// Constructor
 	public Vehiculo() {
 		mantenimientos = new ArrayList<Mantenimiento>();

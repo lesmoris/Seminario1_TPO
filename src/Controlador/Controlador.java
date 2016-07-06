@@ -402,5 +402,25 @@ public class Controlador {
 		}
 		return null;
 	}
-
+	
+	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,String  marca,String  modelo,String  ac,
+			String tipoCombustible,String  transmision, int cantPuertas, String color, String tamaño){
+		
+		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>(); 
+		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision,
+				cantPuertas, color, tamaño);
+		
+		for (Vehiculo v: lista){
+			listaDTO.add(v.crearVista());
+		}
+		
+		return listaDTO;
+		
+	}
+	
+	
+	
+	public PresupuestoAlquiler generarPresupuesto(){	
+		return null;
+	}
 }

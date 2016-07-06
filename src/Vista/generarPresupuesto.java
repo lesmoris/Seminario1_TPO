@@ -1,18 +1,24 @@
 package Vista;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
 import DTOs.SucursalDTO;
+import DTOs.VehiculoDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 
@@ -44,6 +50,7 @@ public class generarPresupuesto extends JInternalFrame {
 	private String dominio;
 	private String sucursalOrigen;
 	private String sucursalDestino;
+	private JButton verVehiculosBOTON;
 	
 	
 	
@@ -68,6 +75,8 @@ public class generarPresupuesto extends JInternalFrame {
 
 		tiposComb = HelperValoresFijos.getInstance().getTiposComb();
 	
+			
+		combustibleCOMBO.addItem(" ");
 		for (String s: tiposComb){
 			combustibleCOMBO.addItem(s);
 		}
@@ -77,6 +86,8 @@ public class generarPresupuesto extends JInternalFrame {
 
 
 	private void cargarColores() {
+		
+		colorCOMBO.addItem(" ");
 		
 		this.colores = HelperValoresFijos.getInstance().getColores();
 		
@@ -90,6 +101,8 @@ public class generarPresupuesto extends JInternalFrame {
 
 	private void cargarTamaños() {
 		
+		tamañoCOMBO.addItem(" ");
+		
 		this.tamaños = HelperValoresFijos.getInstance().getTamaños();
 		
 		for (String t: tamaños){
@@ -100,6 +113,8 @@ public class generarPresupuesto extends JInternalFrame {
 
 
 	private void cargarTransmisiones() {
+		
+		transmisionCOMBO.addItem(" ");
 		
 		this.transmisiones = HelperValoresFijos.getInstance().getTransmisiones();
 		
@@ -112,6 +127,9 @@ public class generarPresupuesto extends JInternalFrame {
 
 	private void cargarTiposDoc(){
 		
+		
+		
+		
 		this.tiposDoc=HelperValoresFijos.getInstance().getTiposDoc();
 		
 		for (String td: tiposDoc){
@@ -123,19 +141,32 @@ public class generarPresupuesto extends JInternalFrame {
 
 		this.sucursalestodas = controlador.getSucursales();
 
+		ComboBoxItem cb = new ComboBoxItem();
+		cb.setNombre("");
+		cb.setCodigo(0);
+		
+		sucDestinoCOMBO.addItem(cb);
+		
 		for (SucursalDTO s : this.sucursalestodas) {
 
 			ComboBoxItem cbi = new ComboBoxItem();
 			cbi.setCodigo(s.getIdSucursal());
 			cbi.setNombre(s.getNombre());
 
+			
+			
+			
 			sucDestinoCOMBO.addItem(cbi);
 			sucOrigenCOMBO.addItem(cbi);
 		}
 
 	}
 
-	
+	private void mostrarComponentesVehiculo(){
+		
+		verVehiculosBOTON.setVisible(true);
+		
+	}
 	
 	private void iniciarComponentes() {
 
@@ -171,6 +202,16 @@ public class generarPresupuesto extends JInternalFrame {
 		numeroDocTF.setColumns(10);
 		
 		JButton btnBuscarCliente = new JButton("Buscar Cliente");
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				tipoDoc = tipoDocCOMBO.getSelectedItem().toString();
+				numeroDoc = numeroDocTF.getText();
+				
+				
+				mostrarComponentesVehiculo();
+			}
+		});
 		btnBuscarCliente.setBounds(20, 174, 137, 23);
 		getContentPane().add(btnBuscarCliente);
 		
@@ -216,6 +257,7 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(tamañoCOMBO);
 		
 		cantPuertasTF = new JTextField();
+		cantPuertasTF.setText("4");
 		cantPuertasTF.setBounds(353, 162, 86, 20);
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
@@ -233,21 +275,57 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(marcaTF);
 		marcaTF.setColumns(10);
 		
-		JButton btnBuscarAuto = new JButton("Buscar Vehiculo");
-		btnBuscarAuto.setBounds(548, 191, 137, 23);
-		getContentPane().add(btnBuscarAuto);
+		verVehiculosBOTON = new JButton("Ver Vehiculos");
+		verVehiculosBOTON.setVisible(false);
+		verVehiculosBOTON.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String ac;
+				if (aireAcondicionadoCB.isSelected()){
+					ac = "S";
+				}else{
+					ac = "N";
+				}
+				
+				
+				// VER COMO HACER PARA DEVOLVER NULL CUANDO NO SE ELIJAN OPCIONES DE LOS COMBOBOX
+				// Ver  que hace el parametro NOMBRE
+				// Aca estoy usando todo con DTOS y String, entiendo que no va en contra de MVC, que lo chekee leo
+			List<VehiculoDTO> listavehiculo = controlador.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem().toString(), "nombre", 
+					marcaTF.getText(),	modeloTF.getText(), ac, combustibleCOMBO.getSelectedItem().toString(), 
+					transmisionCOMBO.getSelectedItem().toString(), Integer.parseInt(cantPuertasTF.getText()), colorCOMBO.getSelectedItem().toString(),
+					tamañoCOMBO.getSelectedItem().toString());
+				
+			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo);
+				// Vamos a la ventana con el cliente cargado, y los vehiculos filtrados
+				menuPrincipal.getInstance().irAVentana(a);
+				
+				
+			}
+		});
+		verVehiculosBOTON.setBounds(301, 367, 137, 23);
+		getContentPane().add(verVehiculosBOTON);
 		
 		JLabel lblInicio = new JLabel("Fecha Inicio:");
-		lblInicio.setBounds(524, 121, 74, 14);
+		lblInicio.setBounds(30, 254, 74, 14);
 		getContentPane().add(lblInicio);
 		
-		fechaInicioTF = new JTextField();
-		fechaInicioTF.setBounds(626, 118, 86, 20);
+
+		MaskFormatter mf = null;
+		try {
+			mf = new MaskFormatter("##/##/####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		fechaInicioTF = new JFormattedTextField(mf);
+		
+		fechaInicioTF.setBounds(132, 251, 86, 20);
 		getContentPane().add(fechaInicioTF);
 		fechaInicioTF.setColumns(10);
 		
 		JLabel lblSucursal = new JLabel("Sucursal Origen");
-		lblSucursal.setBounds(504, 81, 106, 14);
+		lblSucursal.setBounds(10, 214, 106, 14);
 		getContentPane().add(lblSucursal);
 		
 		JLabel lblFechaFin = new JLabel("Fecha Fin:");
@@ -255,10 +333,15 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(lblFechaFin);
 		
 		sucOrigenCOMBO = new JComboBox();
-		sucOrigenCOMBO.setBounds(620, 78, 92, 20);
+		sucOrigenCOMBO.setBounds(126, 211, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
 		
-		fechaFinTF = new JTextField();
+		
+			fechaFinTF = new JFormattedTextField(mf);
+		
+		
+		
+
 		fechaFinTF.setBounds(104, 308, 86, 20);
 		getContentPane().add(fechaFinTF);
 		fechaFinTF.setColumns(10);
@@ -270,22 +353,6 @@ public class generarPresupuesto extends JInternalFrame {
 		sucDestinoCOMBO = new JComboBox();
 		sucDestinoCOMBO.setBounds(137, 368, 92, 20);
 		getContentPane().add(sucDestinoCOMBO);
-		
-		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(592, 387, 106, 23);
-		getContentPane().add(btnConfirmar);
-		
-		JButton btnCalcularPrecio = new JButton("Calcular Precio");
-		btnCalcularPrecio.setBounds(458, 341, 121, 23);
-		getContentPane().add(btnCalcularPrecio);
-		
-		JLabel lblPrecioCalculado = new JLabel("Precio Calculado:");
-		lblPrecioCalculado.setBounds(365, 387, 132, 23);
-		getContentPane().add(lblPrecioCalculado);
-		
-		JLabel precioLABEL = new JLabel("\"PRECIO\"");
-		precioLABEL.setBounds(472, 391, 71, 14);
-		getContentPane().add(precioLABEL);
 		
 		JLabel lblCombustible = new JLabel("Combustible");
 		lblCombustible.setBounds(245, 251, 86, 20);

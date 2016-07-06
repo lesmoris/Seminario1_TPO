@@ -5,7 +5,6 @@ import java.util.List;
 
 public class HelperValoresFijos {
 
-
 	private List<String> tamaños;
 	private List<String> transmisiones;
 	private List<String> tiposDoc;
