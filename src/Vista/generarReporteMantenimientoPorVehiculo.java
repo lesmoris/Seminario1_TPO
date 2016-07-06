@@ -22,14 +22,14 @@ import Interfaces.TMmantenimientosPorVehiculoTABLA;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class generarReporteHistoricoMantenimientoVehiculo extends
+public class generarReporteMantenimientoPorVehiculo extends
 		JInternalFrame {
 	private JTable HistorialMantenimientosTABLA;
 	private TMmantenimientosPorVehiculoTABLA TM;
 	private JTextField dominioTF;
 	private Controlador controlador;
 
-	public generarReporteHistoricoMantenimientoVehiculo() {
+	public generarReporteMantenimientoPorVehiculo() {
 		this.controlador = Controlador.getInstance();
 
 		iniciarComponentes();
@@ -48,11 +48,11 @@ public class generarReporteHistoricoMantenimientoVehiculo extends
 		getContentPane().add(lblHistorialMantenimiento);
 
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
-		lblDominioVehiculo.setBounds(281, 116, 116, 14);
+		lblDominioVehiculo.setBounds(222, 116, 116, 14);
 		getContentPane().add(lblDominioVehiculo);
 
 		dominioTF = new JTextField();
-		dominioTF.setBounds(406, 113, 86, 20);
+		dominioTF.setBounds(312, 113, 86, 20);
 		getContentPane().add(dominioTF);
 		dominioTF.setColumns(10);
 
@@ -80,11 +80,11 @@ public class generarReporteHistoricoMantenimientoVehiculo extends
 				}
 			}
 		});
-		btnBuscar.setBounds(354, 393, 89, 23);
+		btnBuscar.setBounds(431, 112, 89, 23);
 		getContentPane().add(btnBuscar);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(71, 152, 633, 230);
+		scrollPane.setBounds(10, 152, 764, 230);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmantenimientosPorVehiculoTABLA(new ArrayList<MantenimientoDTO>());

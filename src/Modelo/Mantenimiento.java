@@ -13,6 +13,8 @@ public class Mantenimiento {
 	private String problema;
 	private String solucion;
 	private int idMantenimiento;
+	private Vehiculo vehiculo;
+	private Sucursal sucursal;
 
 	// Constructor
 	public Mantenimiento() {
@@ -32,22 +34,22 @@ public class Mantenimiento {
 	}
 
 	// Manejo de BD
-	public int Insert(int idVehiculo) throws Exception {
-		return mantenimientoMapper.getInstance().Insert(this, idVehiculo);
+	public int Insert(Vehiculo vehiculo) throws Exception {
+		return mantenimientoMapper.getInstance().Insert(this, vehiculo);
 	}
 
 	public void Update() throws Exception {
 		mantenimientoMapper.getInstance().Update(this);
 	}
-	
-	
-	public MantenimientoDTO crearVista(){
-		
-		MantenimientoDTO m = new MantenimientoDTO(fechaFin, fechaFin, problema, solucion, idMantenimiento);
-		
+
+	public MantenimientoDTO crearVista() {
+
+		MantenimientoDTO m = new MantenimientoDTO(fechaInicio, fechaFin, problema,
+				solucion, idMantenimiento, vehiculo.getDominio(), sucursal.getNombre());
+
 		return m;
 	}
-	
+
 	// Getters and Setters
 	public Date getFechaInicio() {
 		return fechaInicio;
@@ -87,6 +89,22 @@ public class Mantenimiento {
 
 	public void setIdMantenimiento(int idMantenimiento) {
 		this.idMantenimiento = idMantenimiento;
+	}
+
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 
 }

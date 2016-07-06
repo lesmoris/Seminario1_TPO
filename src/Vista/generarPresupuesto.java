@@ -239,7 +239,7 @@ public class generarPresupuesto extends JInternalFrame {
 		lblColor.setBounds(272, 198, 46, 14);
 		getContentPane().add(lblColor);
 		
-		JCheckBox aireAcondicionadoCB = new JCheckBox("Aire Acondicionado");
+		final JCheckBox aireAcondicionadoCB = new JCheckBox("Aire Acondicionado");
 		aireAcondicionadoCB.setBounds(272, 278, 146, 23);
 		getContentPane().add(aireAcondicionadoCB);
 		

@@ -1,7 +1,7 @@
-USE [RENT_A_CAR]
+USE [Rent_A_Car]
 GO
 
-/****** Object:  Table [dbo].[ALQUILER]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[ALQUILER]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[ALQUILER](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[CLIENTE]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[CLIENTE]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -48,7 +48,7 @@ CREATE TABLE [dbo].[CLIENTE](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -62,6 +62,7 @@ CREATE TABLE [dbo].[MANTENIMIENTO](
 	[fechaFin] [date] NULL,
 	[problema] [varchar](250) NOT NULL,
 	[solucion] [varchar](250) NULL,
+	[idsucursal] [int] NOT NULL,
  CONSTRAINT [PK__MANTENIM__1090A6709DFF4ED9] PRIMARY KEY CLUSTERED 
 (
 	[idmantenimiento] ASC
@@ -71,7 +72,7 @@ CREATE TABLE [dbo].[MANTENIMIENTO](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +91,7 @@ CREATE TABLE [dbo].[MOVIMIENTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +113,7 @@ CREATE TABLE [dbo].[PRESUPUESTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -138,7 +139,7 @@ UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[VEHICULO]    Script Date: 04/07/2016 08:40:45 p.m. ******/
+/****** Object:  Table [dbo].[VEHICULO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,6 +183,11 @@ ALTER TABLE [dbo].[ALQUILER]  WITH CHECK ADD  CONSTRAINT [fk_sucursalDestino_alq
 REFERENCES [dbo].[SUCURSAL] ([idsucursal])
 GO
 ALTER TABLE [dbo].[ALQUILER] CHECK CONSTRAINT [fk_sucursalDestino_alquiler]
+GO
+ALTER TABLE [dbo].[MANTENIMIENTO]  WITH CHECK ADD  CONSTRAINT [FK_MANTENIMIENTO_SUCURSAL] FOREIGN KEY([idsucursal])
+REFERENCES [dbo].[SUCURSAL] ([idsucursal])
+GO
+ALTER TABLE [dbo].[MANTENIMIENTO] CHECK CONSTRAINT [FK_MANTENIMIENTO_SUCURSAL]
 GO
 ALTER TABLE [dbo].[MANTENIMIENTO]  WITH CHECK ADD  CONSTRAINT [fk_vehiculo_mantenimiento] FOREIGN KEY([idvehiculo])
 REFERENCES [dbo].[VEHICULO] ([idvehiculo])

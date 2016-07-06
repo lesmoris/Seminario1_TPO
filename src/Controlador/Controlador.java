@@ -241,6 +241,7 @@ public class Controlador {
 		if (vehiculo.estasEnMovimiento()) {
 			try {
 				vehiculo.recibir(sucDestino);
+				actualizarVehiculoParaBusqueda(dominioVehiculo);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
@@ -266,6 +267,7 @@ public class Controlador {
 		if (vehiculo.estasDisponible()) {
 			try {
 				nroOrden = vehiculo.agregarMantenimiento(problema);
+				actualizarVehiculoParaBusqueda(dominioVehiculo);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
@@ -291,6 +293,7 @@ public class Controlador {
 		if (vehiculo.estasEnMantenimiento()) {
 			try {
 				vehiculo.cerrarMantenimiento(solucion);
+				actualizarVehiculoParaBusqueda(dominioVehiculo);
 			} catch (Exception e) {
 				return new ResultadoOperacion(false, e.getMessage());
 			}
@@ -324,6 +327,33 @@ public class Controlador {
 			return new ResultadoOperacionHistorialMantenimiento(
 					false,
 					"No hay mantenimientos efectuados para el vehiculo seleccionado",
+					null);
+		}
+	}
+	
+	public ResultadoOperacionHistorialMantenimiento reporteMantenimientosAbiertosPorSucursal(
+			String sucursal) {
+		
+		if (sucursal.trim().isEmpty())
+			return new ResultadoOperacionHistorialMantenimiento(false, "Ingrese una sucursal, por favor", null);
+		
+		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance()
+				.ListMantenimientosAbiertos(sucursal);
+
+		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
+
+		if (mantenimientos.size() > 0) {
+			for (Mantenimiento m : mantenimientos) {
+				mantenimientosDTO.add(m.crearVista());
+			}
+
+			return new ResultadoOperacionHistorialMantenimiento(true, "",
+					mantenimientosDTO);
+
+		} else {
+			return new ResultadoOperacionHistorialMantenimiento(
+					false,
+					"No hay mantenimientos efectuados para la sucursal seleccionada",
 					null);
 		}
 	}
