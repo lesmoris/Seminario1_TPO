@@ -28,9 +28,7 @@ public class Vehiculo {
 	private List<Movimiento> movimientos;
 	private List<Mantenimiento> mantenimientos;
 	private String estado;
-	
-	
-	
+
 	// Constructor
 	public Vehiculo() {
 		mantenimientos = new ArrayList<Mantenimiento>();
@@ -79,7 +77,7 @@ public class Vehiculo {
 
 		if (!this.estasEnMovimiento())
 			throw new Exception("Vehiculo no esta en movimiento");
-		
+
 		Movimiento movimiento = movimientoActivo();
 		movimiento.setDestino(destino);
 		movimiento.cerrar();
@@ -97,13 +95,15 @@ public class Vehiculo {
 
 		Mantenimiento mantenimiento = new Mantenimiento();
 		mantenimiento.setProblema(problema);
-		int id = mantenimiento.Insert(this.idVehiculo);
+		mantenimiento.setVehiculo(this);
+		mantenimiento.setSucursal(this.sucursal);
+		int id = mantenimiento.Insert(this);
 
 		this.mantenimientos.add(mantenimiento);
-		
+
 		this.setEstado("ENMANTENIMIENTO");
 		vehiculoMapper.getInstance().SetStatus(this, "ENMANTENIMIENTO");
-		
+
 		return id;
 	}
 
@@ -135,8 +135,6 @@ public class Vehiculo {
 		}
 		return null;
 	}
-
-
 
 	// Getters and Setters
 	public String getDominio() {
@@ -268,21 +266,22 @@ public class Vehiculo {
 	}
 
 	public VehiculoDTO crearVista() {
-		
+
 		List<MovimientoDTO> movimientosDTO = new ArrayList<MovimientoDTO>();
-		for (Movimiento m: this.movimientos){
+		for (Movimiento m : this.movimientos) {
 			movimientosDTO.add(m.crearVista());
 		}
-		
+
 		List<MantenimientoDTO> mantenimientosDTO = new ArrayList<MantenimientoDTO>();
-		for (Mantenimiento m: this.mantenimientos){
+		for (Mantenimiento m : this.mantenimientos) {
 			mantenimientosDTO.add(m.crearVista());
-		}	
-		
-		VehiculoDTO v = new VehiculoDTO(idVehiculo, dominio, marca, modelo, kilometraje, cantidadPuertas, 
-				color, sucursal.crearVista(), tamaño, transmision, tipoCombustible, aireAcondicionado,
+		}
+
+		VehiculoDTO v = new VehiculoDTO(idVehiculo, dominio, marca, modelo,
+				kilometraje, cantidadPuertas, color, sucursal.crearVista(),
+				tamaño, transmision, tipoCombustible, aireAcondicionado,
 				precioPorDia, movimientosDTO, mantenimientosDTO, estado);
-		
+
 		return v;
 	}
 }

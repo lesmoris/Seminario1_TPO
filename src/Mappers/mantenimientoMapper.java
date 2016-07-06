@@ -34,7 +34,7 @@ public class mantenimientoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento where idVehiculo = ?";
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, idSucursal FROM mantenimiento where idVehiculo = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
@@ -48,7 +48,9 @@ public class mantenimientoMapper extends baseMapper {
 				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
 				mant.setProblema(res.getString("problema"));
 				mant.setSolucion(res.getString("solucion"));
-
+				mant.setVehiculo(vehiculoMapper.getInstance().SelectPorID(idVehiculo));
+				mant.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
+				
 				listMants.add(mant);
 
 			}
@@ -70,7 +72,7 @@ public class mantenimientoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo where v.dominio = ? and m.fechaFin is not null";
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo where v.dominio = ? and m.fechaFin is not null";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setString(1, dominio);
@@ -84,6 +86,46 @@ public class mantenimientoMapper extends baseMapper {
 				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
 				mant.setProblema(res.getString("problema"));
 				mant.setSolucion(res.getString("solucion"));
+				mant.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+				mant.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
+
+				listMants.add(mant);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listMants;
+	}
+	
+	public List<Mantenimiento> ListMantenimientos(String sucursal) {
+		List<Mantenimiento> listMants = new ArrayList<Mantenimiento>();
+
+		Connection con = null;
+
+		try {
+			con = Conectar();
+
+			String senten = "SELECT idmantenimiento, fechaInicio, fechaFin, problema, solucion, m.idVehiculo, m.idSucursal FROM mantenimiento m inner join vehiculo v on v.idVehiculo = m.idVehiculo inner join sucursal s on s.where s.nombre = ?";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setString(1, sucursal);
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Mantenimiento mant = new Mantenimiento();
+
+				mant.setFechaInicio(res.getDate("fechaInicio"));
+				mant.setFechaFin(res.getDate("fechaFin"));
+				mant.setIdMantenimiento(res.getInt("idMantenimiento"));
+				mant.setProblema(res.getString("problema"));
+				mant.setSolucion(res.getString("solucion"));
+				mant.setVehiculo(vehiculoMapper.getInstance().SelectPorID(res.getInt("idVehiculo")));
+				mant.setSucursal(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursal")));
 
 				listMants.add(mant);
 
@@ -98,7 +140,7 @@ public class mantenimientoMapper extends baseMapper {
 		return listMants;
 	}
 
-	public int Insert(Mantenimiento mantenimiento, int idVehiculo) throws Exception {
+	public int Insert(Mantenimiento mantenimiento, Vehiculo vehiculo) throws Exception {
 		
 		Connection con = null;
 
@@ -106,15 +148,16 @@ public class mantenimientoMapper extends baseMapper {
 			con = Conectar();
 			con.setAutoCommit(false);
 			
-			String senten = "INSERT INTO MANTENIMIENTO(fechaInicio, fechaFin, idvehiculo, problema, solucion) "
+			String senten = "INSERT INTO MANTENIMIENTO(fechaInicio, fechaFin, idvehiculo, problema, solucion, idsucursal) "
 					      + "VALUES (?, ?, ?, ?, ?); ";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);			
 			ps.setDate(1, mantenimiento.getFechaInicio());
 			ps.setDate(2, mantenimiento.getFechaFin());
-			ps.setInt(3, idVehiculo);
+			ps.setInt(3, vehiculo.getIdVehiculo());
 			ps.setString(4, mantenimiento.getProblema());
 			ps.setString(5, mantenimiento.getSolucion());
+			ps.setInt(6, vehiculo.getSucursal().getIdSucursal());
 			ps.execute();
 			
 			mantenimiento.setIdMantenimiento(DBUtils.getLastInsertedID(con, "MANTENIMIENTO"));
