@@ -36,13 +36,16 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private Controlador controlador;
 	private List<SucursalDTO> sucursales;
 	private List<String> tiposDNI;
-	private List<SucursalDTO> tamanios;
-	private List<SucursalDTO> transmision;
-	private List<SucursalDTO> color;
+	private List<String> tamanios;
+	private List<String> transmisiones;
+	private List<String> colores;
 	private JComboBox<ComboBoxItem> cmbOrigen;
 	private JComboBox<ComboBoxItem> cmbDestino;
 	private JComboBox<String> cmbTipoDoc;
-
+	private JComboBox<String> cmbTamanio;
+	private JComboBox<String> cmbTransmision;
+	private JComboBox<String> cmbColor;
+	
 	public generarReporteAlquileres() {
 		iniciarComponentes();
 
@@ -71,12 +74,36 @@ public class generarReporteAlquileres extends JInternalFrame {
 	}
 
 	private void cargarTamanio() {
+		this.tamanios = HelperValoresFijos.getTamaños();
+
+		cmbTamanio.addItem("");
+
+		for (String s : this.tamanios) {
+
+			cmbTamanio.addItem(s);
+		}
 	}
 	
 	private void cargarTransmision() {
+		this.transmisiones = HelperValoresFijos.getTransmisiones();
+
+		cmbTransmision.addItem("");
+
+		for (String s : this.transmisiones) {
+
+			cmbTransmision.addItem(s);
+		}
 	}
 	
 	private void cargarColor() {
+		this.colores = HelperValoresFijos.getColores();
+
+		cmbColor.addItem("");
+
+		for (String s : this.colores) {
+
+			cmbColor.addItem(s);
+		}
 	}
 	
 	// Cargamos los ComboBox
@@ -229,7 +256,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(modeloTF);
 		modeloTF.setColumns(10);
 
-		JComboBox cmbColor = new JComboBox();
+		cmbColor = new JComboBox();
 		cmbColor.setBounds(52, 202, 86, 20);
 		getContentPane().add(cmbColor);
 
@@ -258,11 +285,11 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblTransmision.setBounds(436, 171, 83, 14);
 		getContentPane().add(lblTransmision);
 
-		JComboBox cmbTamanio = new JComboBox();
+		cmbTamanio = new JComboBox();
 		cmbTamanio.setBounds(198, 168, 86, 20);
 		getContentPane().add(cmbTamanio);
 
-		JComboBox cmbTransmision = new JComboBox();
+		cmbTransmision = new JComboBox();
 		cmbTransmision.setBounds(512, 168, 76, 20);
 		getContentPane().add(cmbTransmision);
 
