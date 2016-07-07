@@ -1,7 +1,6 @@
 USE [Rent_A_Car]
 GO
-
-/****** Object:  Table [dbo].[ALQUILER]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[ALQUILER]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +13,7 @@ CREATE TABLE [dbo].[ALQUILER](
 	[importe] [float] NULL,
 	[idsucursaldestino] [int] NULL,
 	[punitorio] [float] NULL,
-	[fechaemision] [datetime] NOT NULL,
+	[fechaemision] [datetime] NOT NULL CONSTRAINT [DF_ALQUILER_fechaemision]  DEFAULT (getdate()),
  CONSTRAINT [PK__ALQUILER__3AFF8BE1C2E14901] PRIMARY KEY CLUSTERED 
 (
 	[idalquiler] ASC
@@ -22,7 +21,7 @@ CREATE TABLE [dbo].[ALQUILER](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[CLIENTE]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[CLIENTE]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -47,7 +46,7 @@ CREATE TABLE [dbo].[CLIENTE](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[MANTENIMIENTO]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -71,7 +70,7 @@ CREATE TABLE [dbo].[MANTENIMIENTO](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[MOVIMIENTO]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,14 +89,14 @@ CREATE TABLE [dbo].[MOVIMIENTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[PRESUPUESTO]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PRESUPUESTO](
 	[idpresupuesto] [int] IDENTITY(1,1) NOT NULL,
-	[fechaemision] [datetime] NOT NULL,
+	[fechaemision] [date] NOT NULL CONSTRAINT [DF_PRESUPUESTO_fechaemision]  DEFAULT (getdate()),
 	[fechaInicio] [date] NOT NULL,
 	[fechaFin] [date] NOT NULL,
 	[importe] [float] NOT NULL,
@@ -105,6 +104,7 @@ CREATE TABLE [dbo].[PRESUPUESTO](
 	[idsucursalorigen] [int] NULL,
 	[idsucursaldestino] [int] NOT NULL,
 	[idvehiculo] [int] NOT NULL,
+	[fechaVencimiento] [date] NOT NULL,
  CONSTRAINT [PK__PRESUPUE__ABD6637A0AB51094] PRIMARY KEY CLUSTERED 
 (
 	[idpresupuesto] ASC
@@ -112,7 +112,7 @@ CREATE TABLE [dbo].[PRESUPUESTO](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[SUCURSAL]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -138,7 +138,7 @@ UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[VEHICULO]    Script Date: 06/07/2016 10:20:28 a.m. ******/
+/****** Object:  Table [dbo].[VEHICULO]    Script Date: 07/07/2016 08:24:52 p.m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,10 +168,6 @@ CREATE TABLE [dbo].[VEHICULO](
 
 GO
 SET ANSI_PADDING OFF
-GO
-ALTER TABLE [dbo].[ALQUILER] ADD  CONSTRAINT [DF_ALQUILER_fechaemision]  DEFAULT (getdate()) FOR [fechaemision]
-GO
-ALTER TABLE [dbo].[PRESUPUESTO] ADD  CONSTRAINT [DF_PRESUPUESTO_fechaemision]  DEFAULT (getdate()) FOR [fechaemision]
 GO
 ALTER TABLE [dbo].[ALQUILER]  WITH CHECK ADD  CONSTRAINT [FK_ALQUILER_PRESUPUESTO] FOREIGN KEY([idPresupuesto])
 REFERENCES [dbo].[PRESUPUESTO] ([idpresupuesto])
