@@ -1,6 +1,8 @@
 package Controlador;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
+import Helpers.HelperDate;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
@@ -486,16 +489,31 @@ public class Controlador {
 
 		
 	}
-
-	/*
-	 * public PresupuestoAlquiler generarPresupuesto(String dominio, String
-	 * tipoDoc, String numDoc, Date fechaInicio, Date fechaFin, String
-	 * sucOrigen, String sucDestino, String ){
-	 * 
-	 * PresupuestoAlquiler p = new PresupuestoAlquiler();
-	 * 
-	 * p.setCliente(buscarCliente(numDoc, tipoDoc)); //p.setFechaEmision(FECHA
-	 * DE HOY); p.setFechaInicio(fechaInicio); //p.setFechaVencimiento(FECHA DE
-	 * HOY + X DIAS); //p.set //p.set return null; }
+	
+	public ResultadoOperacion calcularPrecio(float precioPorDia, String FechaInicio,String FechaFin, 
+			boolean devuelveEnMismaSucursal){
+		return null;
+	}
+	
+	
+	 public PresupuestoAlquiler generarPresupuesto(String dominio, String
+	  tipoDoc, String numDoc, String fechaInicio, String fechaFin, String
+	  sucOrigen, String sucDestino){
+	  
+		 PresupuestoAlquiler p = new PresupuestoAlquiler();
+	 /* 
+	  p.setCliente(buscarCliente(numDoc, tipoDoc));
+	  p.setFechaEmision(	  DE HOY);
+	  p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
+	  p.setFechaVencimiento(FECHA DE  HOY + X DIAS);
 	 */
+		 
+		 
+	  return p; 
+	  
+		 
+		
+		 
+	 }
+	
 }
