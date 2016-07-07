@@ -58,41 +58,39 @@ public class contratoMapper extends baseMapper {
 		}
 		return cont;
 	}
-	public void insert (ContratoAlquiler cont) throws Exception {
-		
+
+	public void insert(ContratoAlquiler cont) throws Exception {
+
 		// Conectamos la BD
 		Connection con = null;
 		try {
 			con = Conectar();
-	
-		
-		String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, idsucursaldestino) VALUES (?,?,?,?,?) ";
-		
-		// PONERSE DE ACUERDO SI VAMOS A USAR SQL.DATE O UTIL.DATE
-		
-		PreparedStatement ps = null;
-		ps = con.prepareStatement(senten);
-		ps.setDate(1, (Date) cont.getFechaInicio());
-		ps.setDate(2, (Date) cont.getFechaFin());
-		ps.setDate(3, (Date) cont.getFechaEmision());
-		ps.setFloat(4, cont.getImporte());
-		ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
-		
-		ps.execute();
-		
-		// Cerramos conexion a BD
-		
-		con.commit();
-		
+
+			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, idsucursaldestino) VALUES (?,?,?,?,?) ";
+
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setDate(1, (Date) cont.getFechaInicio());
+			ps.setDate(2, (Date) cont.getFechaFin());
+			ps.setDate(3, (Date) cont.getFechaEmision());
+			ps.setFloat(4, cont.getImporte());
+			ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
+
+			ps.execute();
+
+			con.commit();
+
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
 		} finally {
 			DBUtils.closeQuietly(con);
-		}	
-		
-		
-		
+		}
+
 	}
 	
+	public void SelectAll() {
+		
+	}
+
 }

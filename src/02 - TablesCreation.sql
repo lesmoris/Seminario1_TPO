@@ -7,14 +7,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ALQUILER](
-	[idalquiler] [int] IDENTITY(1,1) NOT NULL,
+	[idPresupuesto] [int] IDENTITY(1,1) NOT NULL,
+	[idalquiler] [int] NOT NULL,
 	[fechainicio] [date] NOT NULL,
 	[fechafin] [date] NULL,
-	[estado] [int] NOT NULL,
 	[importe] [float] NULL,
 	[idsucursaldestino] [int] NULL,
 	[punitorio] [float] NULL,
-	[idPresupuesto] [int] NOT NULL,
 	[fechaemision] [datetime] NOT NULL,
  CONSTRAINT [PK__ALQUILER__3AFF8BE1C2E14901] PRIMARY KEY CLUSTERED 
 (
@@ -251,7 +250,7 @@ ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([estado])='DISPONIBL
 GO
 ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tamaño])='CHICO' OR upper([tamaño])='MEDIANO' OR upper([tamaño])='GRANDE'))
 GO
-ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tipoCombustible])='NAFTA' OR upper([tipoCombustible])='DIESEL' OR upper([tipoCombustible])='GNC'))
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tipoCombustible])='NAFTA' OR upper([tipoCombustible])='GASOIL' OR upper([tipoCombustible])='GNC'))
 GO
 ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([transmision])='MANUAL' OR upper([transmision])='AUTOMATICO'))
 GO
