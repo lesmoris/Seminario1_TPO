@@ -40,6 +40,9 @@ public class generarReporteAlquileres extends JInternalFrame {
 
 	public generarReporteAlquileres() {
 		iniciarComponentes();
+		
+		this.controlador = Controlador.getInstance();
+		
 		cargarSucursales(sucursales);
 	}
 	
@@ -82,7 +85,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblNewLabel.setBounds(388, 94, 99, 14);
 		getContentPane().add(lblNewLabel);
 
-		JComboBox cmbDestino = new JComboBox();
+		cmbDestino = new JComboBox();
 		cmbDestino.setBounds(492, 116, 96, 20);
 		getContentPane().add(cmbDestino);
 
