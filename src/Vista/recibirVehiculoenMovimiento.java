@@ -78,7 +78,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 						menuPrincipal.getInstance().irAMenuPrincipal();
 						
 				}else{
-					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN VEHICULO PARA RECIBIR");
+					JOptionPane.showMessageDialog(null, "Seleccione un vehiculo, por favor");
 				}
 			}
 		});

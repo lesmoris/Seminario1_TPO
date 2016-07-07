@@ -219,9 +219,16 @@ public class Controlador {
 					"Se ha generado el Movimiento del Vehiculo de dominio: "
 							+ dominioVehiculo + " a la Sucursal: "
 							+ sucursalDestino);
-		} else
+		} else if (vehiculo.estasEnMantenimiento()) {
 			return new ResultadoOperacion(false,
-					"El Vehiculo no esta disponible para movimiento");
+					"El Vehiculo esta mantenimiento");
+		} else if (vehiculo.estasEnMovimiento()) {
+			return new ResultadoOperacion(false,
+					"El Vehiculo ya se encuentra actualmente en movimiento");
+		} else {
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta disponible para movimientos");
+		}
 	}
 
 	public ResultadoOperacion recibirVehiculo(String sucursalDestino,
@@ -247,9 +254,13 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true,
 					"Vehiculo recibido en sucursal con exito");
-		} else
+		} else if (vehiculo.estasEnMantenimiento()) {
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta en movimiento, esta en mantenimiento");
+		} else {
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en movimiento");
+		}
 	}
 
 	public ResultadoOperacion solicitarMantenimiento(String dominioVehiculo,
@@ -262,7 +273,7 @@ public class Controlador {
 
 		if (problema.trim().isEmpty())
 			return new ResultadoOperacion(false,
-					"Debe ingresa un problema a solucionar");
+					"Debe ingresar un problema a solucionar");
 
 		if (vehiculo.estasDisponible()) {
 			try {
@@ -273,9 +284,15 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " en mantenimiento. Nro de Orden : " + nroOrden);
-		} else
+		} else if (vehiculo.estasEnMovimiento()) {
+			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para mantenimiento, esta en movimiento");
+		} else if (vehiculo.estasEnMantenimiento()) {
+			return new ResultadoOperacion(false,
+					"El Vehiculo ya se encuentra actualmente en mantenimiento");
+		} else {
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta disponible para mantenimiento");
+		}
 	}
 
 	public ResultadoOperacion cerrarMantenimiento(String dominioVehiculo,
@@ -299,6 +316,8 @@ public class Controlador {
 			}
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " devuelto de mantenimiento con exito");
+		} else if (vehiculo.estasEnMovimiento()) {
+			return new ResultadoOperacion(false, "El Vehiculo no esta en mantenimiento, esta en movimiento");
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en mantenimiento");
@@ -306,10 +325,11 @@ public class Controlador {
 
 	public ResultadoOperacionHistorialMantenimiento historialMantenimientosPorVehiculo(
 			String dominio) {
-		
+
 		if (dominio.trim().isEmpty())
-			return new ResultadoOperacionHistorialMantenimiento(false, "Ingrese un dominio, por favor", null);
-		
+			return new ResultadoOperacionHistorialMantenimiento(false,
+					"Ingrese un dominio, por favor", null);
+
 		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance()
 				.ListMantenimientosCerrados(dominio);
 
@@ -330,13 +350,14 @@ public class Controlador {
 					null);
 		}
 	}
-	
+
 	public ResultadoOperacionHistorialMantenimiento reporteMantenimientosAbiertosPorSucursal(
 			String sucursal) {
-		
+
 		if (sucursal.trim().isEmpty())
-			return new ResultadoOperacionHistorialMantenimiento(false, "Ingrese una sucursal, por favor", null);
-		
+			return new ResultadoOperacionHistorialMantenimiento(false,
+					"Ingrese una sucursal, por favor", null);
+
 		List<Mantenimiento> mantenimientos = mantenimientoMapper.getInstance()
 				.ListMantenimientosAbiertos(sucursal);
 
@@ -359,11 +380,13 @@ public class Controlador {
 	}
 
 	public ResultadoOperacionReporteMovimientosVehiculos generarReporteDeMovimientoDeVehiculos(
-			String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde,
-			String fechaFinHasta, String sucursalOrigen, String sucursalDestino) {
+			String fechaInicioDesde, String fechaInicioHasta,
+			String fechaFinDesde, String fechaFinHasta, String sucursalOrigen,
+			String sucursalDestino) {
 
-		// Valido solo que las fechas tengan sentido (Desde no puede ser mayor a Hasta)
-		
+		// Valido solo que las fechas tengan sentido (Desde no puede ser mayor a
+		// Hasta)
+
 		// No valido por que pueden venir vacios, ahi trae todo
 		List<Movimiento> movimientos = movimientoMapper.getInstance()
 				.ListMovimientos(fechaInicioDesde, fechaInicioHasta,
@@ -432,57 +455,53 @@ public class Controlador {
 		}
 		return null;
 	}
-	
-	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,String  marca,String  modelo,String  ac,
-			String tipoCombustible,String  transmision, int cantPuertas, String color, String tamaño){
-	
-		
-		if (color==""){
+
+	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,
+			String marca, String modelo, String ac, String tipoCombustible,
+			String transmision, int cantPuertas, String color, String tamaño) {
+
+		if (color == "") {
 			color = null;
 		}
-		if (color == null){
+		if (color == null) {
 			System.out.println("FUNCIONO");
 		}
-		if (tipoCombustible==""){
+		if (tipoCombustible == "") {
 			tipoCombustible = null;
 		}
-		if (tamaño==""){
+		if (tamaño == "") {
 			tamaño = null;
 		}
-		
-	
-		
-		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>(); 
-		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision,
+
+		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
+		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
+				nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);
-		
-		for (Vehiculo v: lista){
+
+		for (Vehiculo v : lista) {
 			listaDTO.add(v.crearVista());
 		}
-		
+
 		return listaDTO;
-		
+
 	}
-	
-	public boolean existeCliente (String tipoDoc, String numDoc){
-		
+
+	public boolean existeCliente(String tipoDoc, String numDoc) {
+
 		Cliente c = clienteMapper.getInstance().Select(numDoc, tipoDoc);
-		
-		return c!=null;
+
+		return c != null;
 	}
-	
-	/*public PresupuestoAlquiler generarPresupuesto(String dominio, 
-			String tipoDoc, String numDoc, Date fechaInicio, Date fechaFin, String sucOrigen, String sucDestino,
-			String ){	
-		
-		PresupuestoAlquiler p = new PresupuestoAlquiler();
-		
-		p.setCliente(buscarCliente(numDoc, tipoDoc));
-		//p.setFechaEmision(FECHA DE HOY);
-		p.setFechaInicio(fechaInicio);
-		//p.setFechaVencimiento(FECHA DE HOY + X DIAS);
-		//p.set
-		//p.set
-		return null;
-	}*/
+
+	/*
+	 * public PresupuestoAlquiler generarPresupuesto(String dominio, String
+	 * tipoDoc, String numDoc, Date fechaInicio, Date fechaFin, String
+	 * sucOrigen, String sucDestino, String ){
+	 * 
+	 * PresupuestoAlquiler p = new PresupuestoAlquiler();
+	 * 
+	 * p.setCliente(buscarCliente(numDoc, tipoDoc)); //p.setFechaEmision(FECHA
+	 * DE HOY); p.setFechaInicio(fechaInicio); //p.setFechaVencimiento(FECHA DE
+	 * HOY + X DIAS); //p.set //p.set return null; }
+	 */
 }
