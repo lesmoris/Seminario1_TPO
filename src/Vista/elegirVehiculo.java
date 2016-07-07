@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
+import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
+import Interfaces.ComboBoxItem;
 import Interfaces.TMVehiculoTABLA;
 
 
@@ -23,10 +26,16 @@ public class elegirVehiculo extends JInternalFrame {
 	private JTable vehiculosTABLA;
 	private Controlador controlador;
 	private JTextField fechaFinTF;
+	private List<SucursalDTO> sucursales;
+	public JComboBox<ComboBoxItem> sucursalDestinoCOMBO;
 	
-	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos) {
+	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio) {
 
 		this.controlador=Controlador.getInstance();
+		
+		this.sucursales=Controlador.getInstance().getSucursales();
+		
+	
 		
 		setBounds(100, 100, 800, 500);
 		
@@ -40,7 +49,7 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().add(lblElegirVehiculo);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(138, 53, 578, 287);
+		scrollPane.setBounds(138, 53, 578, 241);
 		getContentPane().add(scrollPane);
 		
 		vehiculosTABLA = new JTable();
@@ -50,11 +59,10 @@ public class elegirVehiculo extends JInternalFrame {
 		vehiculosTABLA.setModel(modelo);
 		
 		scrollPane.setViewportView(vehiculosTABLA);
+
 		
 		
-		
-		
-		JLabel lblTipoDoc = new JLabel("Tipo Doc:");
+		JLabel lblTipoDoc = new JLabel("Tipo:");
 		lblTipoDoc.setBounds(10, 67, 46, 14);
 		getContentPane().add(lblTipoDoc);
 		
@@ -64,7 +72,7 @@ public class elegirVehiculo extends JInternalFrame {
 		tipoDOCLABEL.setText(tipoDoc);
 		
 		
-		JLabel lblNumDoc = new JLabel("num Doc:");
+		JLabel lblNumDoc = new JLabel("num:");
 		lblNumDoc.setBounds(10, 107, 46, 14);
 		getContentPane().add(lblNumDoc);
 		
@@ -82,7 +90,7 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().add(btnCalcularPrecio);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(577, 384, 89, 23);
+		btnConfirmar.setBounds(627, 384, 89, 23);
 		getContentPane().add(btnConfirmar);
 		
 		MaskFormatter mf = null;
@@ -92,12 +100,11 @@ public class elegirVehiculo extends JInternalFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
 		fechaFinTF = new JFormattedTextField(mf);
 		fechaFinTF.setBounds(265, 353, 86, 20);
 		getContentPane().add(fechaFinTF);
 		fechaFinTF.setColumns(10);
+		
 		
 		JLabel lblFechaFinalizacion = new JLabel("Fecha Finalizacion:");
 		lblFechaFinalizacion.setBounds(107, 356, 109, 14);
@@ -110,8 +117,37 @@ public class elegirVehiculo extends JInternalFrame {
 		JLabel precioLABEL = new JLabel("label dinamico");
 		precioLABEL.setBounds(263, 388, 102, 14);
 		getContentPane().add(precioLABEL);
+		
+		JLabel lblSucursalDestino = new JLabel("Sucursal Destino: ");
+		lblSucursalDestino.setBounds(107, 308, 109, 14);
+		getContentPane().add(lblSucursalDestino);
+		
+		sucursalDestinoCOMBO = new JComboBox();
+		sucursalDestinoCOMBO.setBounds(255, 305, 96, 20);
+		getContentPane().add(sucursalDestinoCOMBO);
+		
+		cargarSucursales(sucursales);
 	}
 	
+	
+	private void cargarSucursales(List<SucursalDTO> sucursales) {
+		
+		for (SucursalDTO s: sucursales){
+			
+			ComboBoxItem cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
+			
+			this.sucursalDestinoCOMBO.addItem(cbi);	
+			
+		}
+		
+		
+		
+		
+	}
+
+
 	public boolean tablaseleccionada (JTable tabla){
 		
 		boolean seleccionado = false;
@@ -125,5 +161,4 @@ public class elegirVehiculo extends JInternalFrame {
 		}
 		return seleccionado;
 	}
-	
 }

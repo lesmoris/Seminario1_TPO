@@ -460,25 +460,13 @@ public class Controlador {
 			String marca, String modelo, String ac, String tipoCombustible,
 			String transmision, int cantPuertas, String color, String tamaño) {
 
-		if (color == "") {
-			color = null;
-		}
-		if (color == null) {
-			System.out.println("FUNCIONO");
-		}
-		if (tipoCombustible == "") {
-			tipoCombustible = null;
-		}
-		if (tamaño == "") {
-			tamaño = null;
-		}
-
-		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
-		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
+			List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
+			List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
 				nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);
 
-		for (Vehiculo v : lista) {
+		
+			for (Vehiculo v : lista) {
 			listaDTO.add(v.crearVista());
 		}
 
@@ -486,11 +474,17 @@ public class Controlador {
 
 	}
 
-	public boolean existeCliente(String tipoDoc, String numDoc) {
+	public ResultadoOperacion existeCliente(String tipoDoc, String numDoc) {
 
-		Cliente c = clienteMapper.getInstance().Select(numDoc, tipoDoc);
+		Cliente c = buscarCliente(numDoc, tipoDoc);
+		
+		if (c!=null)
+			return new ResultadoOperacion(true, "Cliente existe");
+		else
+			return new ResultadoOperacion(false, "Cliente inexistente");
+		
 
-		return c != null;
+		
 	}
 
 	/*

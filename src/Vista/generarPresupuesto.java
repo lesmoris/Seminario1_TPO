@@ -22,6 +22,7 @@ import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
+import Interfaces.ResultadoOperacion;
 
 public class generarPresupuesto extends JInternalFrame {
 	private JTextField numeroDocTF;
@@ -29,14 +30,12 @@ public class generarPresupuesto extends JInternalFrame {
 	private JTextField cantPuertasTF;
 	private JTextField marcaTF;
 	private JTextField fechaInicioTF;
-	private JTextField fechaFinTF;
 	private Controlador controlador;
 	private JComboBox<String> tipoDocCOMBO;
 	private JComboBox<String> tamañoCOMBO;
 	private JComboBox<String> colorCOMBO;
 	private JComboBox<String> transmisionCOMBO;
 	private JComboBox<ComboBoxItem> sucOrigenCOMBO;
-	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
 	private JComboBox<String> combustibleCOMBO;
 	private JButton verVehiculosBOTON;
 	private List<SucursalDTO> sucursalestodas;
@@ -51,7 +50,7 @@ public class generarPresupuesto extends JInternalFrame {
 	private String dominio;
 	private String sucursalOrigen;
 	private String sucursalDestino;
-	
+	private String fechaInicio;
 	
 	
 	public generarPresupuesto() {
@@ -145,18 +144,11 @@ public class generarPresupuesto extends JInternalFrame {
 		cb.setNombre("");
 		cb.setCodigo(0);
 		
-		sucDestinoCOMBO.addItem(cb);
-		
 		for (SucursalDTO s : this.sucursalestodas) {
 
 			ComboBoxItem cbi = new ComboBoxItem();
 			cbi.setCodigo(s.getIdSucursal());
 			cbi.setNombre(s.getNombre());
-
-			
-			
-			
-			sucDestinoCOMBO.addItem(cbi);
 			sucOrigenCOMBO.addItem(cbi);
 		}
 
@@ -207,12 +199,13 @@ public class generarPresupuesto extends JInternalFrame {
 				
 				tipoDoc = tipoDocCOMBO.getSelectedItem().toString();
 				numeroDoc = numeroDocTF.getText();
+				fechaInicio = fechaInicioTF.getText();
 				
-				
-				if (controlador.existeCliente(tipoDoc, numeroDoc)){
+				ResultadoOperacion res = controlador.existeCliente(tipoDoc, numeroDoc);
+				if (res.sosExitoso()){
 				mostrarComponentesVehiculo();
 				}else{
-					JOptionPane.showMessageDialog(null, "NO EXISTE CLIENTE, INGRESE UN CLIENTE EXISTENTE");
+					JOptionPane.showMessageDialog(null, res.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -291,17 +284,14 @@ public class generarPresupuesto extends JInternalFrame {
 					ac = "N";
 				}
 				
-				
-				
+
 				// VER COMO HACER PARA DEVOLVER NULL CUANDO NO SE ELIJAN OPCIONES DE LOS COMBOBOX
-				// Ver  que hace el parametro NOMBRE
-				// Aca estoy usando todo con DTOS y String, entiendo que no va en contra de MVC, que lo chekee leo
-			List<VehiculoDTO> listavehiculo = controlador.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem().toString(), "nombre", 
+				List<VehiculoDTO> listavehiculo = controlador.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem().toString(), "nombre", 
 					marcaTF.getText(),	modeloTF.getText(), ac, combustibleCOMBO.getSelectedItem().toString(), 
 					transmisionCOMBO.getSelectedItem().toString(),Integer.parseInt(cantPuertasTF.getText()), colorCOMBO.getSelectedItem().toString(),
 					tamañoCOMBO.getSelectedItem().toString());
 				
-			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo);
+			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo, fechaInicio);
 				// Vamos a la ventana con el cliente cargado, y los vehiculos filtrados
 				menuPrincipal.getInstance().irAVentana(a);
 				
@@ -340,24 +330,6 @@ public class generarPresupuesto extends JInternalFrame {
 		sucOrigenCOMBO = new JComboBox();
 		sucOrigenCOMBO.setBounds(126, 211, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
-		
-		
-			fechaFinTF = new JFormattedTextField(mf);
-		
-		
-		
-
-		fechaFinTF.setBounds(104, 308, 86, 20);
-		getContentPane().add(fechaFinTF);
-		fechaFinTF.setColumns(10);
-		
-		JLabel lblSucursalDestino = new JLabel("Sucursal Destino:");
-		lblSucursalDestino.setBounds(10, 371, 116, 14);
-		getContentPane().add(lblSucursalDestino);
-		
-		sucDestinoCOMBO = new JComboBox();
-		sucDestinoCOMBO.setBounds(137, 368, 92, 20);
-		getContentPane().add(sucDestinoCOMBO);
 		
 		JLabel lblCombustible = new JLabel("Combustible");
 		lblCombustible.setBounds(245, 251, 86, 20);
