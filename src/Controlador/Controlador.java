@@ -285,7 +285,8 @@ public class Controlador {
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " en mantenimiento. Nro de Orden : " + nroOrden);
 		} else if (vehiculo.estasEnMovimiento()) {
-			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para mantenimiento, esta en movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta disponible para mantenimiento, esta en movimiento");
 		} else if (vehiculo.estasEnMantenimiento()) {
 			return new ResultadoOperacion(false,
 					"El Vehiculo ya se encuentra actualmente en mantenimiento");
@@ -317,7 +318,8 @@ public class Controlador {
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " devuelto de mantenimiento con exito");
 		} else if (vehiculo.estasEnMovimiento()) {
-			return new ResultadoOperacion(false, "El Vehiculo no esta en mantenimiento, esta en movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta en mantenimiento, esta en movimiento");
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en mantenimiento");

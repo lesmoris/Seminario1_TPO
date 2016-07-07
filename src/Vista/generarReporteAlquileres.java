@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 
 import Controlador.Controlador;
 import DTOs.SucursalDTO;
+import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 
 import java.awt.event.ActionListener;
@@ -34,40 +35,72 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private JTextField cantPuertasTF;
 	private Controlador controlador;
 	private List<SucursalDTO> sucursales;
+	private List<String> tiposDNI;
+	private List<SucursalDTO> tamanios;
+	private List<SucursalDTO> transmision;
+	private List<SucursalDTO> color;
 	private JComboBox<ComboBoxItem> cmbOrigen;
 	private JComboBox<ComboBoxItem> cmbDestino;
-	
+	private JComboBox<String> cmbTipoDoc;
 
 	public generarReporteAlquileres() {
 		iniciarComponentes();
-		
+
 		this.controlador = Controlador.getInstance();
-		
-		cargarSucursales(sucursales);
+
+		cargarCombos();
+	}
+
+	private void cargarCombos() {
+		cargarSucursales();
+		cargarTipoDNI();
+		cargarTamanio();
+		cargarTransmision();
+		cargarColor();
+	}
+
+	private void cargarTipoDNI() {
+		this.tiposDNI = HelperValoresFijos.getTiposDoc();
+
+		cmbTipoDoc.addItem("");
+
+		for (String s : this.tiposDNI) {
+
+			cmbTipoDoc.addItem(s);
+		}
+	}
+
+	private void cargarTamanio() {
+	}
+	
+	private void cargarTransmision() {
+	}
+	
+	private void cargarColor() {
 	}
 	
 	// Cargamos los ComboBox
-		private void cargarSucursales(List<SucursalDTO> sucursales) {
+	private void cargarSucursales() {
 
-			this.sucursales = controlador.getSucursales();
+		this.sucursales = controlador.getSucursales();
 
-			ComboBoxItem cbi = new ComboBoxItem();
-			cbi.setCodigo(0);
-			cbi.setNombre("");
+		ComboBoxItem cbi = new ComboBoxItem();
+		cbi.setCodigo(0);
+		cbi.setNombre("");
+
+		cmbOrigen.addItem(cbi);
+		cmbDestino.addItem(cbi);
+
+		for (SucursalDTO s : this.sucursales) {
+
+			cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
 
 			cmbOrigen.addItem(cbi);
 			cmbDestino.addItem(cbi);
-
-			for (SucursalDTO s : this.sucursales) {
-
-				cbi = new ComboBoxItem();
-				cbi.setCodigo(s.getIdSucursal());
-				cbi.setNombre(s.getNombre());
-
-				cmbOrigen.addItem(cbi);
-				cmbDestino.addItem(cbi);
-			}
 		}
+	}
 
 	private void iniciarComponentes() {
 
@@ -153,7 +186,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblTipoDoc.setBounds(613, 94, 65, 14);
 		getContentPane().add(lblTipoDoc);
 
-		JComboBox cmbTipoDoc = new JComboBox();
+		cmbTipoDoc = new JComboBox();
 		cmbTipoDoc.setBounds(688, 91, 86, 20);
 		getContentPane().add(cmbTipoDoc);
 

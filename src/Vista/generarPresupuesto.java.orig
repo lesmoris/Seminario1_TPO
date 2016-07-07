@@ -22,7 +22,6 @@ import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
-import Interfaces.ResultadoOperacion;
 
 public class generarPresupuesto extends JInternalFrame {
 	private JTextField numeroDocTF;
@@ -30,12 +29,14 @@ public class generarPresupuesto extends JInternalFrame {
 	private JTextField cantPuertasTF;
 	private JTextField marcaTF;
 	private JTextField fechaInicioTF;
+	private JTextField fechaFinTF;
 	private Controlador controlador;
 	private JComboBox<String> tipoDocCOMBO;
 	private JComboBox<String> tamañoCOMBO;
 	private JComboBox<String> colorCOMBO;
 	private JComboBox<String> transmisionCOMBO;
 	private JComboBox<ComboBoxItem> sucOrigenCOMBO;
+	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
 	private JComboBox<String> combustibleCOMBO;
 	private JButton verVehiculosBOTON;
 	private List<SucursalDTO> sucursalestodas;
@@ -51,13 +52,7 @@ public class generarPresupuesto extends JInternalFrame {
 	private String dominio;
 	private String sucursalOrigen;
 	private String sucursalDestino;
-<<<<<<< HEAD
-	private String fechaInicio;
-	
-	
-=======
 
->>>>>>> origin/master
 	public generarPresupuesto() {
 
 		iniciarComponentes();
@@ -70,6 +65,7 @@ public class generarPresupuesto extends JInternalFrame {
 		cargarTamaños();
 		cargarColores();
 		cargarCombustible();
+		
 	}
 
 	private void cargarCombustible() {
@@ -136,23 +132,16 @@ public class generarPresupuesto extends JInternalFrame {
 		ComboBoxItem cb = new ComboBoxItem();
 		cb.setNombre("");
 		cb.setCodigo(0);
-<<<<<<< HEAD
-		
-=======
 
 		sucDestinoCOMBO.addItem(cb);
 
->>>>>>> origin/master
 		for (SucursalDTO s : this.sucursalestodas) {
 
 			ComboBoxItem cbi = new ComboBoxItem();
 			cbi.setCodigo(s.getIdSucursal());
 			cbi.setNombre(s.getNombre());
-<<<<<<< HEAD
-=======
 
 			sucDestinoCOMBO.addItem(cbi);
->>>>>>> origin/master
 			sucOrigenCOMBO.addItem(cbi);
 		}
 
@@ -203,22 +192,17 @@ public class generarPresupuesto extends JInternalFrame {
 
 				tipoDoc = tipoDocCOMBO.getSelectedItem().toString();
 				numeroDoc = numeroDocTF.getText();
-<<<<<<< HEAD
-				fechaInicio = fechaInicioTF.getText();
-				
-				ResultadoOperacion res = controlador.existeCliente(tipoDoc, numeroDoc);
-				if (res.sosExitoso()){
-				mostrarComponentesVehiculo();
-				}else{
-					JOptionPane.showMessageDialog(null, res.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-=======
 
 				if (controlador.existeCliente(tipoDoc, numeroDoc)) {
 					mostrarComponentesVehiculo();
 				} else {
+<<<<<<< HEAD
+					JOptionPane.showMessageDialog(null, res.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+						
+=======
 					JOptionPane.showMessageDialog(null,
 							"NO EXISTE CLIENTE, INGRESE UN CLIENTE EXISTENTE");
->>>>>>> origin/master
+>>>>>>> Fixes varios
 				}
 			}
 		});
@@ -290,31 +274,26 @@ public class generarPresupuesto extends JInternalFrame {
 		verVehiculosBOTON.setVisible(false);
 		verVehiculosBOTON.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString(); 
+				
 				String ac;
 				if (aireAcondicionadoCB.isSelected()) {
 					ac = "S";
 				} else {
 					ac = "N";
 				}
+
 <<<<<<< HEAD
-				
 
-				// VER COMO HACER PARA DEVOLVER NULL CUANDO NO SE ELIJAN OPCIONES DE LOS COMBOBOX
-				List<VehiculoDTO> listavehiculo = controlador.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem().toString(), "nombre", 
-					marcaTF.getText(),	modeloTF.getText(), ac, combustibleCOMBO.getSelectedItem().toString(), 
-					transmisionCOMBO.getSelectedItem().toString(),Integer.parseInt(cantPuertasTF.getText()), colorCOMBO.getSelectedItem().toString(),
-					tamañoCOMBO.getSelectedItem().toString());
 				
-			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo, fechaInicio);
-				// Vamos a la ventana con el cliente cargado, y los vehiculos filtrados
 =======
-
 				// VER COMO HACER PARA DEVOLVER NULL CUANDO NO SE ELIJAN
 				// OPCIONES DE LOS COMBOBOX
 				// Ver que hace el parametro NOMBRE
 				// Aca estoy usando todo con DTOS y String, entiendo que no va
 				// en contra de MVC, que lo chekee leo
+>>>>>>> Fixes varios
 				List<VehiculoDTO> listavehiculo = controlador
 						.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem()
 								.toString(), "nombre", marcaTF.getText(),
@@ -325,11 +304,15 @@ public class generarPresupuesto extends JInternalFrame {
 								colorCOMBO.getSelectedItem().toString(),
 								tamañoCOMBO.getSelectedItem().toString());
 
+<<<<<<< HEAD
+			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo, fechaInicio, sucursalOrigen);
+						
+=======
 				elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc,
 						listavehiculo);
+>>>>>>> Fixes varios
 				// Vamos a la ventana con el cliente cargado, y los vehiculos
 				// filtrados
->>>>>>> origin/master
 				menuPrincipal.getInstance().irAVentana(a);
 
 			}
@@ -365,9 +348,6 @@ public class generarPresupuesto extends JInternalFrame {
 		sucOrigenCOMBO = new JComboBox();
 		sucOrigenCOMBO.setBounds(126, 211, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
-<<<<<<< HEAD
-		
-=======
 
 		fechaFinTF = new JFormattedTextField(mf);
 
@@ -383,7 +363,6 @@ public class generarPresupuesto extends JInternalFrame {
 		sucDestinoCOMBO.setBounds(137, 368, 92, 20);
 		getContentPane().add(sucDestinoCOMBO);
 
->>>>>>> origin/master
 		JLabel lblCombustible = new JLabel("Combustible");
 		lblCombustible.setBounds(245, 251, 86, 20);
 		getContentPane().add(lblCombustible);
