@@ -29,7 +29,7 @@ public class elegirVehiculo extends JInternalFrame {
 	private List<SucursalDTO> sucursales;
 	public JComboBox<ComboBoxItem> sucursalDestinoCOMBO;
 	
-	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio) {
+	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio, String sucOrigen) {
 
 		this.controlador=Controlador.getInstance();
 		
@@ -62,31 +62,31 @@ public class elegirVehiculo extends JInternalFrame {
 
 		
 		
-		JLabel lblTipoDoc = new JLabel("Tipo:");
-		lblTipoDoc.setBounds(10, 67, 46, 14);
+		JLabel lblTipoDoc = new JLabel("Tipo Doc Cliente:");
+		lblTipoDoc.setBounds(10, 54, 118, 14);
 		getContentPane().add(lblTipoDoc);
 		
 		JLabel tipoDOCLABEL = new JLabel(" tipoDoc");
-		tipoDOCLABEL.setBounds(61, 67, 67, 14);
+		tipoDOCLABEL.setBounds(10, 82, 67, 14);
 		getContentPane().add(tipoDOCLABEL);
 		tipoDOCLABEL.setText(tipoDoc);
 		
 		
-		JLabel lblNumDoc = new JLabel("num:");
-		lblNumDoc.setBounds(10, 107, 46, 14);
+		JLabel lblNumDoc = new JLabel("num Doc Cliente:");
+		lblNumDoc.setBounds(10, 107, 118, 14);
 		getContentPane().add(lblNumDoc);
 		
 		JLabel numDocLABEL = new JLabel("New label");
-		numDocLABEL.setBounds(61, 107, 67, 14);
+		numDocLABEL.setBounds(10, 132, 67, 14);
 		getContentPane().add(numDocLABEL);
 		numDocLABEL.setText(numeroDoc);
 		
 		JLabel lblCliente = new JLabel("CLIENTE:");
-		lblCliente.setBounds(36, 39, 65, 14);
+		lblCliente.setBounds(32, 22, 65, 14);
 		getContentPane().add(lblCliente);
 		
 		JButton btnCalcularPrecio = new JButton("Calcular Precio");
-		btnCalcularPrecio.setBounds(376, 351, 109, 23);
+		btnCalcularPrecio.setBounds(392, 352, 109, 23);
 		getContentPane().add(btnCalcularPrecio);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
@@ -125,6 +125,26 @@ public class elegirVehiculo extends JInternalFrame {
 		sucursalDestinoCOMBO = new JComboBox();
 		sucursalDestinoCOMBO.setBounds(255, 305, 96, 20);
 		getContentPane().add(sucursalDestinoCOMBO);
+		
+		JLabel lblInicio = new JLabel("Fecha Inicio:");
+		lblInicio.setBounds(10, 157, 91, 14);
+		getContentPane().add(lblInicio);
+		
+		JLabel fechaInicioLABEL = new JLabel("New label");
+		fechaInicioLABEL.setBounds(10, 175, 67, 14);
+		getContentPane().add(fechaInicioLABEL);
+		
+		fechaInicioLABEL.setText(fechaInicio);
+		
+		JLabel lblSucOrigen = new JLabel("Suc Origen:");
+		lblSucOrigen.setBounds(4, 200, 93, 14);
+		getContentPane().add(lblSucOrigen);
+		
+		JLabel sucOrigenLABEL = new JLabel("");
+		sucOrigenLABEL.setBounds(10, 225, 91, 14);
+		getContentPane().add(sucOrigenLABEL);
+		
+		sucOrigenLABEL.setText(sucOrigen);
 		
 		cargarSucursales(sucursales);
 	}

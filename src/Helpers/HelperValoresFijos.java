@@ -13,23 +13,44 @@ public class HelperValoresFijos {
 
 	public HelperValoresFijos() {
 
-		tamaños = new ArrayList<String>();
-		transmisiones = new ArrayList<String>();
-		tiposDoc = new ArrayList<String>();
-		colores = new ArrayList<String>();
-		tiposComb = new ArrayList<String>();
+	}
 
+	public static List<String> getTamaños() {
+		
+		tamaños = new ArrayList<String>();
 		tamaños.add("CHICO");
 		tamaños.add("MEDIANO");
 		tamaños.add("GRANDE");
+		
+		
+		return tamaños;
+	}
 
+	public static List<String> getTransmisiones() {
+		
+		transmisiones = new ArrayList<String>();
 		transmisiones.add("MANUAL");
 		transmisiones.add("AUTOMATICA");
+		
+		return transmisiones;
+	}
 
+	public static List<String> getTiposDoc() {
+		
+		
+		tiposDoc = new ArrayList<String>();
 		tiposDoc.add("DNI");
 		tiposDoc.add("CUIT");
 		tiposDoc.add("CUIL");
+		
+		
+		
+		return tiposDoc;
+	}
 
+	public static List<String> getColores() {
+		
+		colores = new ArrayList<String>();
 		colores.add("BLANCO");
 		colores.add("NEGRO");
 		colores.add("ROJO");
@@ -39,30 +60,17 @@ public class HelperValoresFijos {
 		colores.add("AMARILLO");
 		colores.add("CELESTE");
 		colores.add("BORDO");
-
-		tiposComb.add("GNC");
-		tiposComb.add("NAFTA");
-		tiposComb.add("GASOIL");
-
-	}
-
-	public static List<String> getTamaños() {
-		return tamaños;
-	}
-
-	public static List<String> getTransmisiones() {
-		return transmisiones;
-	}
-
-	public static List<String> getTiposDoc() {
-		return tiposDoc;
-	}
-
-	public static List<String> getColores() {
+		
 		return colores;
 	}
 
 	public static List<String> getTiposComb() {
+		
+		tiposComb = new ArrayList<String>();
+		tiposComb.add("GNC");
+		tiposComb.add("NAFTA");
+		tiposComb.add("GASOIL");
+		
 		return tiposComb;
 	}
 
