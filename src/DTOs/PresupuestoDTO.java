@@ -11,6 +11,7 @@ public class PresupuestoDTO {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaEmision;
+	private Date fechaVencimiento;
 	private float importe;
 	private String cliente;
 	private String vehiculo;
@@ -18,13 +19,14 @@ public class PresupuestoDTO {
 	private String sucursalDestino;
 
 	public PresupuestoDTO(int idPresupuesto, Date fechaInicio, Date fechaFin,
-			Date fechaEmision, float importe, String cliente, String vehiculo,
+			Date fechaEmision, Date fechaVencimiento, float importe, String cliente, String vehiculo,
 			String sucursalOrigen, String sucursalDestino) {
 		super();
 		this.idPresupuesto = idPresupuesto;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.fechaEmision = fechaEmision;
+		this.fechaVencimiento = fechaVencimiento;
 		this.importe = importe;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
@@ -102,6 +104,14 @@ public class PresupuestoDTO {
 
 	public void setSucursalDestino(String sucursalDestino) {
 		this.sucursalDestino = sucursalDestino;
+	}
+
+	public Date getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+	public void setFechaVencimiento(Date fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
 	}
 
 }

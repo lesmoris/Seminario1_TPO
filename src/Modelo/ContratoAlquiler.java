@@ -1,35 +1,33 @@
 package Modelo;
 
-import java.util.Date;
+import java.sql.Date;
+
+import DTOs.ContratoAlquilerDTO;
 
 public class ContratoAlquiler {
-	
+
 	private int numero;
 	private String estado;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaEmision;
 	private float importe;
+	private float punitorio;
 	private Sucursal sucursalOrigen;
 	private Sucursal sucursalDestino;
 	private PresupuestoAlquiler presupuesto;
-	
-	// Metodos
-	public boolean sosDeLaSucursalOrigenODestino (String sucOr, String sucDes) {
-		return this.sucursalOrigen.getNombre().equals(sucOr) && this.sucursalDestino.getNombre().equals(sucDes);
-	}
-	
-//	public boolean estasEnRango(Date fechaInicio, Date fechaFin) {
-//		if ((fechaInicio <= this.fechaInicio <= fechaFin) && (fechaInicio<=this.fechaFin<=fechaFin))
-//			if ((fechaInico.after(this.fechaInicio)) && (this.fechaInicio<=fechaFin))
-//			return true;
-//		return false;
-//	}
 
+	// Metodos
 	public boolean sosContrato(int numero) {
 		return numero == this.numero;
 	}
-	
+
+	public ContratoAlquilerDTO crearVista() {
+		return new ContratoAlquilerDTO(this.numero, this.fechaInicio,
+				this.fechaFin, this.fechaEmision, this.importe, this.punitorio,
+				this.sucursalDestino.getNombre(), this.presupuesto.crearVista());
+	}
+
 	// Getters and Setters
 	public int getNumero() {
 		return numero;
@@ -94,5 +92,13 @@ public class ContratoAlquiler {
 	public void setPresupuesto(PresupuestoAlquiler presupuesto) {
 		this.presupuesto = presupuesto;
 	}
-	
+
+	public Sucursal getSucursalOrigen() {
+		return sucursalOrigen;
+	}
+
+	public void setSucursalOrigen(Sucursal sucursalOrigen) {
+		this.sucursalOrigen = sucursalOrigen;
+	}
+
 }

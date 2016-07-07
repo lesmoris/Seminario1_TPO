@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.ContratoAlquilerDTO;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
@@ -14,6 +15,7 @@ import Helpers.HelperDate;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
+import Interfaces.ResultadoOperacionReporteAlquileres;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
@@ -288,7 +290,8 @@ public class Controlador {
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " en mantenimiento. Nro de Orden : " + nroOrden);
 		} else if (vehiculo.estasEnMovimiento()) {
-			return new ResultadoOperacion(false, "El Vehiculo no esta disponible para mantenimiento, esta en movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta disponible para mantenimiento, esta en movimiento");
 		} else if (vehiculo.estasEnMantenimiento()) {
 			return new ResultadoOperacion(false,
 					"El Vehiculo ya se encuentra actualmente en mantenimiento");
@@ -320,7 +323,8 @@ public class Controlador {
 			return new ResultadoOperacion(true, "Vehiculo " + dominioVehiculo
 					+ " devuelto de mantenimiento con exito");
 		} else if (vehiculo.estasEnMovimiento()) {
-			return new ResultadoOperacion(false, "El Vehiculo no esta en mantenimiento, esta en movimiento");
+			return new ResultadoOperacion(false,
+					"El Vehiculo no esta en mantenimiento, esta en movimiento");
 		} else
 			return new ResultadoOperacion(false,
 					"El Vehiculo no esta en mantenimiento");
@@ -463,13 +467,12 @@ public class Controlador {
 			String marca, String modelo, String ac, String tipoCombustible,
 			String transmision, int cantPuertas, String color, String tamaño) {
 
-			List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
-			List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
+		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
+		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
 				nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);
 
-		
-			for (Vehiculo v : lista) {
+		for (Vehiculo v : lista) {
 			listaDTO.add(v.crearVista());
 		}
 
@@ -480,14 +483,12 @@ public class Controlador {
 	public ResultadoOperacion existeCliente(String tipoDoc, String numDoc) {
 
 		Cliente c = buscarCliente(numDoc, tipoDoc);
-		
-		if (c!=null)
+
+		if (c != null)
 			return new ResultadoOperacion(true, "Cliente existe");
 		else
 			return new ResultadoOperacion(false, "Cliente inexistente");
-		
 
-		
 	}
 	
 	public ResultadoOperacion calcularPrecio(float precioPorDia, String FechaInicio,String FechaFin, 
@@ -507,13 +508,28 @@ public class Controlador {
 	  p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
 	  p.setFechaVencimiento(FECHA DE  HOY + X DIAS);
 	 */
-		 
-		 
-	  return p; 
-	  
-		 
-		
-		 
-	 }
-	
+
+	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(String sucursal, String nombre,
+			String marca, String modelo, String ac, String tipoCombustible,
+			String transmision, int cantPuertas, String color, String tamaño) {
+			
+		// No valido por que pueden venir vacios, ahi trae todo
+		List<ContratoAlquiler> alquileres = contratoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision, cantPuertas, color, tamaño);
+
+		List<ContratoAlquilerDTO> alquileresDTO = new ArrayList<ContratoAlquilerDTO>();
+
+		if (alquileres.size() > 0) {
+			for (ContratoAlquiler c : alquileres) {
+				alquileresDTO.add(c.crearVista());
+			}
+
+			return new ResultadoOperacionReporteAlquileres(true, "", alquileresDTO);
+
+		} else {
+			return new ResultadoOperacionReporteAlquileres(
+					false,
+					"No hay movimientos efectuados para los filtros ingresados",
+					null);
+		}
+	}
 }
