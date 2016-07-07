@@ -490,31 +490,36 @@ public class Controlador {
 			return new ResultadoOperacion(false, "Cliente inexistente");
 
 	}
-	
-	public ResultadoOperacion calcularPrecio(float precioPorDia, String FechaInicio,String FechaFin, 
-			boolean devuelveEnMismaSucursal){
+
+	public ResultadoOperacion calcularPrecio(float precioPorDia,
+			String FechaInicio, String FechaFin, boolean devuelveEnMismaSucursal) {
 		return null;
 	}
-	
-	
-	 public PresupuestoAlquiler generarPresupuesto(String dominio, String
-	  tipoDoc, String numDoc, String fechaInicio, String fechaFin, String
-	  sucOrigen, String sucDestino){
-	  
-		 PresupuestoAlquiler p = new PresupuestoAlquiler();
-	 /* 
-	  p.setCliente(buscarCliente(numDoc, tipoDoc));
-	  p.setFechaEmision(	  DE HOY);
-	  p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
-	  p.setFechaVencimiento(FECHA DE  HOY + X DIAS);
-	 */
 
-	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(String sucursal, String nombre,
-			String marca, String modelo, String ac, String tipoCombustible,
-			String transmision, int cantPuertas, String color, String tamaño) {
-			
+	public PresupuestoAlquiler generarPresupuesto(String dominio,
+			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
+			String sucOrigen, String sucDestino) {
+
+		PresupuestoAlquiler p = new PresupuestoAlquiler();
+		/*
+		 * p.setCliente(buscarCliente(numDoc, tipoDoc)); p.setFechaEmision( DE
+		 * HOY); p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
+		 * p.setFechaVencimiento(FECHA DE HOY + X DIAS);
+		 */
+
+		return p;
+	}
+
+	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(
+			String sucursal, String nombre, String marca, String modelo,
+			String ac, String tipoCombustible, String transmision,
+			int cantPuertas, String color, String tamaño) {
+
 		// No valido por que pueden venir vacios, ahi trae todo
-		List<ContratoAlquiler> alquileres = contratoMapper.getInstance().SelectAll(sucursal, nombre, marca, modelo, ac, tipoCombustible, transmision, cantPuertas, color, tamaño);
+		List<ContratoAlquiler> alquileres = contratoMapper.getInstance()
+				.SelectAll(sucursal, nombre, marca, modelo, ac,
+						tipoCombustible, transmision, cantPuertas, color,
+						tamaño);
 
 		List<ContratoAlquilerDTO> alquileresDTO = new ArrayList<ContratoAlquilerDTO>();
 
@@ -523,7 +528,8 @@ public class Controlador {
 				alquileresDTO.add(c.crearVista());
 			}
 
-			return new ResultadoOperacionReporteAlquileres(true, "", alquileresDTO);
+			return new ResultadoOperacionReporteAlquileres(true, "",
+					alquileresDTO);
 
 		} else {
 			return new ResultadoOperacionReporteAlquileres(
