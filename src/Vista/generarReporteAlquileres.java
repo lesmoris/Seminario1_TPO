@@ -1,28 +1,29 @@
 package Vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JPanel;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
+import DTOs.ContratoAlquilerDTO;
 import DTOs.SucursalDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import Interfaces.ResultadoOperacionReporteAlquileres;
+import Interfaces.TMalquileresTABLA;
 
 public class generarReporteAlquileres extends JInternalFrame {
 	private JTextField fechaInicioDesdeTF;
@@ -45,6 +46,9 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private JComboBox<String> cmbTamanio;
 	private JComboBox<String> cmbTransmision;
 	private JComboBox<String> cmbColor;
+
+	private JTable AlquileresTABLA;
+	private TMalquileresTABLA TM;
 	
 	public generarReporteAlquileres() {
 		iniciarComponentes();
@@ -83,7 +87,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 			cmbTamanio.addItem(s);
 		}
 	}
-	
+
 	private void cargarTransmision() {
 		this.transmisiones = HelperValoresFijos.getTransmisiones();
 
@@ -94,7 +98,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 			cmbTransmision.addItem(s);
 		}
 	}
-	
+
 	private void cargarColor() {
 		this.colores = HelperValoresFijos.getColores();
 
@@ -105,7 +109,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 			cmbColor.addItem(s);
 		}
 	}
-	
+
 	// Cargamos los ComboBox
 	private void cargarSucursales() {
 
@@ -265,13 +269,59 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
-		JCheckBox chckbxAireAcondicionado = new JCheckBox("Aire Acondicionado");
+		final JCheckBox chckbxAireAcondicionado = new JCheckBox(
+				"Aire Acondicionado");
 		chckbxAireAcondicionado.setBounds(144, 201, 178, 23);
 		getContentPane().add(chckbxAireAcondicionado);
 
 		JButton btnGenerar = new JButton("Generar");
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Obtengo los datos de la pantalla
+				String fechaInicioDesde = fechaInicioDesdeTF.getText();
+				String fechaInicioHasta = fechaInicioHastaTF.getText();
+				String fechaFinDesde = fechaFinDesdeTF.getText();
+				String fechaFinHasta = fechaFinHastaTF.getText();
+
+				String sucursalOrigen = ((ComboBoxItem) cmbOrigen
+						.getSelectedItem()).getNombre();
+
+				String sucursalDestino = ((ComboBoxItem) cmbDestino
+						.getSelectedItem()).getNombre();
+
+				String tipoDoc = (String) cmbTipoDoc.getSelectedItem();
+				String nroDoc = nroDocTF.getText();
+
+				String marca = marcaTF.getText();
+				String tamanio = (String) cmbTamanio.getSelectedItem();
+				String modelo = modeloTF.getText();
+				String transmision = (String) cmbTransmision.getSelectedItem();
+				String cantPuertas = cantPuertasTF.getText();
+				String color = (String) cmbColor.getSelectedItem();
+				String ac = chckbxAireAcondicionado.isSelected() ? "S" : "N";
+
+				// Mando el mensaje
+				ResultadoOperacionReporteAlquileres res = null;
+				// controlador
+				// .generarReporteDeMovimientoDeVehiculos(
+				// fechaInicioDesde, fechaInicioHasta,
+				// fechaFinDesde, fechaFinHasta, sucursalOrigen,
+				// sucursalDestino);
+
+				// Recibo y muestro el resultado
+				if (res.sosExitoso()) {
+					TM = new TMalquileresTABLA(res.getAlquileresDTO());
+					AlquileresTABLA.setModel(TM);
+
+				} else {
+					TM = new TMalquileresTABLA(
+							new ArrayList<ContratoAlquilerDTO>());
+					AlquileresTABLA.setModel(TM);
+
+					JOptionPane.showMessageDialog(null, res.getMessage(),
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
 		});
 		btnGenerar.setBounds(627, 201, 147, 23);
@@ -296,6 +346,12 @@ public class generarReporteAlquileres extends JInternalFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 230, 764, 199);
 		getContentPane().add(scrollPane);
+
+		TM = new TMalquileresTABLA(new ArrayList<ContratoAlquilerDTO>());
+
+		AlquileresTABLA = new JTable();
+		AlquileresTABLA.setModel(TM);
+		scrollPane.setViewportView(AlquileresTABLA);
 
 	}
 }
