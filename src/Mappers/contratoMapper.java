@@ -70,7 +70,8 @@ public class contratoMapper extends baseMapper {
 
 			con.setAutoCommit(false);
 
-			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, idsucursaldestino) VALUES (?,?,?,?,?) ";
+			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, "
+					+ "idsucursaldestino, idPresupuesto) VALUES (?,?,?,?,?,?) ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
@@ -79,6 +80,7 @@ public class contratoMapper extends baseMapper {
 			ps.setDate(3, (Date) cont.getFechaEmision());
 			ps.setFloat(4, cont.getImporte());
 			ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
+			ps.setInt(6, cont.getPresupuesto().getIdPresupuesto());
 
 			ps.execute();
 
@@ -187,22 +189,38 @@ public class contratoMapper extends baseMapper {
 
 			con.setAutoCommit(false);
 
-			// NO HAY ID de CLIENTE EN LA TABLA ALQUILER, VER COMO HACEMOS, SI LO SACAMOS DEL PRESUPUESTO
-			// O LO AGREGAMOS
-			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, importe, "
-					+ "idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where id";
+			String senten = "SELECT p.idPresupuesto, idCliente, idalquiler, a.fechainicio, a.fechafin, a.importe,"
+					+ " a.idsucursaldestino, punitorio, a.fechaemision FROM ALQUILER a "
+					+ "INNER JOIN PRESUPUESTO p on  a.idPresupuesto = p.idPresupuesto";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
-			
+
 			ResultSet res = ps.executeQuery();
-			
-			while (res.next()){
-				
+
+			while (res.next()) {
+
+				ContratoAlquiler ca = new ContratoAlquiler();
+				ca.setFechaEmision(res.getDate("fechaemision"));
+				ca.setFechaFin(res.getDate("fechafin"));
+				ca.setFechaInicio(res.getDate("fechainicio"));
+				ca.setImporte(res.getFloat("importe"));
+				ca.setNumero(res.getInt("idalquiler"));
+				ca.setPunitorio(0); // REVISAR ESTO, O SI PASARLO COMO NULL EN
+									// ESTE MOMENTO
+				ca.setSucursalDestino(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idsucursaldestino")));
+				ca.setPresupuesto(presupuestoMapper.getInstance().Select(
+						res.getInt("idPresupuesto")));
+
+				resultado.add(ca);
+
 			}
-			
+
 			con.commit();
 
+			return resultado;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

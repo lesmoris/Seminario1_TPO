@@ -284,4 +284,14 @@ public class Vehiculo {
 
 		return v;
 	}
+
+	public void alquilar() throws Exception {
+		
+		// Setear el estado del vehiculo a ENALQUILER
+		
+		this.setEstado("ENALQUILER");
+		vehiculoMapper.getInstance().SetStatus(this, "ENALQUILER");
+		
+		
+	}
 }

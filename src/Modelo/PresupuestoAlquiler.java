@@ -85,6 +85,14 @@ public class PresupuestoAlquiler {
 		presupuestoMapper.getInstance().insert(this);
 
 	}
+	
+	public void realizar(){
+		// Cuando este presupuesto fue aceptado, y se procede a crear un alquiler con el
+		
+		this.setFechaVencimiento(HelperDate.obtenerFechaHoy());
+		
+	}
+	
 
 	// Getters y Setters
 	public int getIdPresupuesto() {
@@ -140,7 +148,7 @@ public class PresupuestoAlquiler {
 	}
 
 	public void setFechaVencimiento(Date fechaVencimiento) {
-		fechaVencimiento = fechaVencimiento;
+		this.fechaVencimiento = fechaVencimiento;
 	}
 
 	public Cliente getCliente() {

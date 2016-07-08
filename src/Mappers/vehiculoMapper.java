@@ -34,7 +34,7 @@ public class vehiculoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT dominio, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
+			String senten = "SELECT dominio, marca, modelo, estado, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal FROM vehiculo where idvehiculo = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, idVehiculo);
@@ -55,7 +55,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setTamaño(res.getString("tamaño"));
 				veh.setTransmision(res.getString("transmision"));
 				veh.setAC(res.getString("aireAcondicionado").equals("S"));
-				
+				veh.setEstado(res.getString("estado"));
 			}
 
 		} catch (SQLException e) {
@@ -188,7 +188,7 @@ public class vehiculoMapper extends baseMapper {
 			ps = con.prepareStatement(senten);
 			ps.setString(1, estado);
 			ps.setInt(2, vehiculo.getIdVehiculo());
-			ps.execute();
+			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new Exception(e.getMessage());

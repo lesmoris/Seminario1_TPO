@@ -9,20 +9,23 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
+import DTOs.ContratoAlquilerDTO;
 import DTOs.SucursalDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetContratos;
+import Interfaces.TMElegirContrato;
 
 public class cierreAlquiler extends JInternalFrame {
-	private JTextField textField;
+	private JTextField numDocTF;
 	private JTable contratosTABLA;
 	private JLabel lblSucursalDestino;
 	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
@@ -33,7 +36,11 @@ public class cierreAlquiler extends JInternalFrame {
 	private List<String> tiposDoc;
 	private List<SucursalDTO> sucursalestodas;
 	private Controlador controlador;
-
+	private String tipoDocumento;
+	private String numeroDocumento;
+	private List<ContratoAlquilerDTO> contratos;	
+	
+	
 	public cierreAlquiler() {
 
 		controlador = Controlador.getInstance();
@@ -63,14 +70,40 @@ public class cierreAlquiler extends JInternalFrame {
 
 	private void mostrarcontratos() {
 
-		lblSucursalDestino.setVisible(true);
-		lblContratosVigentes.setVisible(true);
-		scrollPane.setVisible(true);
-		btnFinalizarContrato.setVisible(true);
-		contratosTABLA.setVisible(true);
-		sucDestinoCOMBO.setVisible(true);
-		cargarSucursales();
+		
+		
+		this.numeroDocumento =  numDocTF.getText();
+		this.tipoDocumento = tipoDocCOMBO.getSelectedItem().toString();
+		
+		ResultadoOperacionGetContratos res = controlador.buscarContratodeCliente(numeroDocumento, tipoDocumento);
+		
+		
+		
+		if (res.sosExitoso()){
+			
+			lblSucursalDestino.setVisible(true);
+			lblContratosVigentes.setVisible(true);
+			scrollPane.setVisible(true);
+			btnFinalizarContrato.setVisible(true);
+			sucDestinoCOMBO.setVisible(true);
+			cargarSucursales();
 
+		
+			
+			this.contratos = res.getContratos();
+		
+		TMElegirContrato modelo = new TMElegirContrato(contratos);
+		
+		contratosTABLA.setModel(modelo);
+		contratosTABLA.setVisible(true);
+
+			
+		}else{
+			JOptionPane.showMessageDialog(null, res.getMessage(),
+					"Error", JOptionPane.ERROR_MESSAGE);
+			
+		}
+		
 	}
 
 	private void iniciarComponentes() {
@@ -92,10 +125,10 @@ public class cierreAlquiler extends JInternalFrame {
 		lblNumeroDocumento.setBounds(10, 145, 114, 14);
 		getContentPane().add(lblNumeroDocumento);
 
-		textField = new JTextField();
-		textField.setBounds(142, 142, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		numDocTF = new JTextField();
+		numDocTF.setBounds(142, 142, 86, 20);
+		getContentPane().add(numDocTF);
+		numDocTF.setColumns(10);
 
 		JButton btnBuscarContrato = new JButton("Buscar Contratos");
 		btnBuscarContrato.addActionListener(new ActionListener() {

@@ -80,73 +80,62 @@ public class Controlador {
 		return vehiculo;
 	}
 
-	public ResultadoOperacionGetContratos buscarPresupuestodeCliente(String numDoc, String tipoDoc){
-		
+	public ResultadoOperacionGetContratos buscarContratodeCliente(
+			String numDoc, String tipoDoc) {
+
 		Cliente c = buscarCliente(numDoc, tipoDoc);
 
 		if (c == null) {
-			return new ResultadoOperacionGetContratos(
-					false, "no se encontro cliente", null);
+			return new ResultadoOperacionGetContratos(false,
+					"no se encontro cliente", null);
 		}
- 
-		
-		List<ContratoAlquiler> lista = contratoMapper.getInstance().SelectDeUnCliente(c.getIdCliente());
-				
-		
+
+		List<ContratoAlquiler> lista = contratoMapper.getInstance()
+				.SelectDeUnCliente(c.getIdCliente());
+
 		List<ContratoAlquilerDTO> resultado = new ArrayList<ContratoAlquilerDTO>();
-		
-		
+
 		for (ContratoAlquiler pa : lista) {
-			
+
 			resultado.add(pa.crearVista());
+			
 		}
 
-		
 		if (resultado.isEmpty()) {
-			return  new ResultadoOperacionGetContratos(
-					false, "no hay contratos de ese cliente", null);
+			return new ResultadoOperacionGetContratos(false,
+					"no hay contratos de ese cliente", null);
 		}
 
-		
-		
-		
-		return new ResultadoOperacionGetContratos(true, "Presupuestos:",
+		return new ResultadoOperacionGetContratos(true, "contratos:",
 				resultado);
 
-		
-		
 	}
-	
+
 	public ResultadoOperacionGetPresupuestos buscarPresupuestosDeCliente(
 			String numDoc, String tipoDoc) {
 
 		Cliente c = buscarCliente(numDoc, tipoDoc);
 
 		if (c == null) {
-			return new ResultadoOperacionGetPresupuestos(
-					false, "no se encontro cliente", null);
+			return new ResultadoOperacionGetPresupuestos(false,
+					"no se encontro cliente", null);
 		}
 
 		List<PresupuestoAlquiler> lista = presupuestoMapper.getInstance()
 				.SelectPresupuestosDeUnCliente(c.getIdCliente());
-		
+
 		List<PresupuestoDTO> resultado = new ArrayList<PresupuestoDTO>();
-		
-		
+
 		for (PresupuestoAlquiler pa : lista) {
-			
+
 			resultado.add(pa.crearVista());
 		}
 
-		
 		if (resultado.isEmpty()) {
-			return  new ResultadoOperacionGetPresupuestos(
-					false, "no hay presupuestos de ese cliente", null);
+			return new ResultadoOperacionGetPresupuestos(false,
+					"no hay presupuestos de ese cliente", null);
 		}
 
-		
-		
-		
 		return new ResultadoOperacionGetPresupuestos(true, "Presupuestos:",
 				resultado);
 
@@ -468,7 +457,7 @@ public class Controlador {
 		// Hasta)
 
 		// No valido por que pueden venir vacios, ahi trae todo
-		
+
 		List<Movimiento> movimientos = movimientoMapper.getInstance()
 				.ListMovimientos(fechaInicioDesde, fechaInicioHasta,
 						fechaFinDesde, fechaFinHasta, sucursalOrigen,
@@ -510,7 +499,7 @@ public class Controlador {
 
 		return p;
 	}
-	
+
 	// LEO : Devuelve modelo a la vista, cambiar
 	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
 			String TipoDNI, String DNI) {
@@ -571,12 +560,13 @@ public class Controlador {
 		return null;
 	}
 
-	public void generarPresupuesto(String dominio,
-			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
+	public void generarPresupuesto(String dominio, String tipoDoc,
+			String numDoc, String fechaInicio, String fechaFin,
 			String sucOrigen, String sucDestino) throws Exception {
 
-		 // LEO : Validacion de parametros. Si alguno falta o esta mal, tirar error y que la vista lo muestre
-		
+		// LEO : Validacion de parametros. Si alguno falta o esta mal, tirar
+		// error y que la vista lo muestre
+
 		PresupuestoAlquiler p = new PresupuestoAlquiler();
 
 		p.setCliente(buscarCliente(numDoc, tipoDoc));
@@ -614,7 +604,6 @@ public class Controlador {
 		// Se agrega al cache
 		presupuestosAlquiler.add(p);
 
-		
 	}
 
 	// Borrar este metodo luego
@@ -669,28 +658,52 @@ public class Controlador {
 					null);
 		}
 	}
+
 	
-	public void generarContratoAlquiler(int idPresupuesto) throws Exception{
-		
+	
+	public void generarContratoAlquiler(int idPresupuesto) throws Exception {
+
 		// LEO : Valudacion de presupuesto
-		
+
 		ContratoAlquiler ca = new ContratoAlquiler();
-		ca.setFechaEmision(HelperDate.obtenerFechaHoy()); // LEO : Esto deberia ser un getdate en la BD. si no esta, lo agregamos.
-		
-		// Ver si estos atributos los seteamos, o si los borramos y los buscamos desde el presupuesto asociado
+		ca.setFechaEmision(HelperDate.obtenerFechaHoy()); // LEO : Esto deberia
+															// ser un getdate en
+															// la BD. si no
+															// esta, lo
+															// agregamos.
+
+		// Ver si estos atributos los seteamos, o si los borramos y los buscamos
+		// desde el presupuesto asociado
 		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
 		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
-		ca.setPunitorio(0);// LEO : punitorio tiene que estar null hasta que se cierra el contrato.
+		//ca.setPunitorio(0);// LEO : punitorio tiene que estar null hasta que se
+							// cierra el contrato.
 		ca.setImporte(ca.getPresupuesto().getImporte());
 		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
-		
+
 		// Agregamos a la BD, y obtenemos el ID generado por los identity
 		ca.Insert();
-		
-		
+
+		// Seteamos el vehiculo del alquiler en estado de "ENALQUILER"
+
+		// Lo deje comentado al Alquilar del vehiculo porque al hacer el update
+		// de estado,
+		// me tira error de CHECK Constratint en la BD, y no pude entender
+		// todavia por que
+
+		// ca.getPresupuesto().getVehiculo().alquilar();
+
+		System.out.println(ca.getPresupuesto().getVehiculo().getEstado());
+
 		// Agregamos al cache
 		this.contratosAlquiler.add(ca);
+	
+		// REVISAR COMO HACEMOS PARA RALIZAR LOS PRESUPUESTOS QUE DESPUES GENERAN CONTRATOS
+		ca.getPresupuesto().realizar();
+		
 	}
+
+	
 	
 }
