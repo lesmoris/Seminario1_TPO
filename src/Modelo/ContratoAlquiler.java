@@ -7,13 +7,11 @@ import DTOs.ContratoAlquilerDTO;
 public class ContratoAlquiler {
 
 	private int numero;
-	private String estado;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaEmision;
 	private float importe;
 	private float punitorio;
-	private Sucursal sucursalOrigen;
 	private Sucursal sucursalDestino;
 	private PresupuestoAlquiler presupuesto;
 
@@ -35,14 +33,6 @@ public class ContratoAlquiler {
 
 	public void setNumero(int numero) {
 		this.numero = numero;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public Date getFechaInicio() {
@@ -93,12 +83,12 @@ public class ContratoAlquiler {
 		this.presupuesto = presupuesto;
 	}
 
-	public Sucursal getSucursalOrigen() {
-		return sucursalOrigen;
+	public float getPunitorio() {
+		return punitorio;
 	}
 
-	public void setSucursalOrigen(Sucursal sucursalOrigen) {
-		this.sucursalOrigen = sucursalOrigen;
+	public void setPunitorio(float punitorio) {
+		this.punitorio = punitorio;
 	}
 
 }

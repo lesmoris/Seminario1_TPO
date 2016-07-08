@@ -11,7 +11,6 @@ import java.util.List;
 
 import Helpers.DBUtils;
 import Modelo.ContratoAlquiler;
-import Modelo.Vehiculo;
 
 public class contratoMapper extends baseMapper {
 
@@ -35,7 +34,7 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, estado, importe, idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where numeroContrato = ?";
+			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, importe, idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where numeroContrato = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, numeroContrato);
@@ -44,7 +43,6 @@ public class contratoMapper extends baseMapper {
 			while (res.next()) {
 				cont = new ContratoAlquiler();
 
-				cont.setEstado(res.getString("estado"));
 				cont.setFechaInicio(res.getDate("fechaInicio"));
 				cont.setFechaFin(res.getDate("fechaFin"));
 				cont.setFechaEmision(res.getDate("fechaemision"));
@@ -97,8 +95,8 @@ public class contratoMapper extends baseMapper {
 			String fechaInicioHasta, String fechaFinDesde,
 			String fechaFinHasta, String sucursalOrigen,
 			String sucursalDestino, String tipoDoc, String nroDoc,
-			String marca, String tamanio, String modelo, String transmision, int cantPuertas,
-			String color, String ac, String tipoCombustible) {
+			String marca, String tamanio, String modelo, String transmision,
+			int cantPuertas, String color, String ac, String tipoCombustible) {
 
 		List<ContratoAlquiler> listaContratos = new ArrayList<ContratoAlquiler>();
 		Connection con = null;
@@ -106,7 +104,7 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String SP_ListAlquileres = "{call SP_ListAlquileres(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String SP_ListAlquileres = "{call SP_ListAlquileres(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )}";
 			CallableStatement callableStatement = con
 					.prepareCall(SP_ListAlquileres);
 
@@ -125,53 +123,44 @@ public class contratoMapper extends baseMapper {
 			callableStatement.setString(6,
 					!sucursalDestino.trim().isEmpty() ? sucursalDestino : null);
 
-			callableStatement.setString(2, tipoDoc != null
+			callableStatement.setString(7, tipoDoc != null
 					&& !tipoDoc.trim().isEmpty() ? tipoDoc : null);
-			callableStatement.setString(2, nroDoc != null
+			callableStatement.setString(8, nroDoc != null
 					&& !nroDoc.trim().isEmpty() ? nroDoc : null);
 
-			callableStatement.setString(2, marca != null
+			callableStatement.setString(9, marca != null
 					&& !marca.trim().isEmpty() ? marca : null);
-			callableStatement.setString(3, modelo != null
+			callableStatement.setString(10, modelo != null
 					&& !modelo.trim().isEmpty() ? modelo : null);
-			callableStatement.setString(4,
+			callableStatement.setString(11,
 					ac != null && !ac.trim().isEmpty() ? ac : null);
-			callableStatement.setString(5, tipoCombustible != null
+			callableStatement.setString(12, tipoCombustible != null
 					&& !tipoCombustible.trim().isEmpty() ? tipoCombustible
 					: null);
-			callableStatement.setString(6, transmision != null
+			callableStatement.setString(13, transmision != null
 					&& !transmision.trim().isEmpty() ? transmision : null);
-			callableStatement.setInt(7, cantPuertas);
-			callableStatement.setString(8, color != null
+			callableStatement.setInt(14, cantPuertas);
+			callableStatement.setString(15, color != null
 					&& !color.trim().isEmpty() ? color : null);
-			callableStatement.setString(9, tamanio != null
+			callableStatement.setString(16, tamanio != null
 					&& !tamanio.trim().isEmpty() ? tamanio : null);
 
-			// ResultSet res = callableStatement.executeQuery();
+			ResultSet res = callableStatement.executeQuery();
 
-			// while (res.next()) {
-			// Contrato cont = new Contrato();
+			while (res.next()) {
+				ContratoAlquiler cont = new ContratoAlquiler();
 
-			// int idVehiculo = res.getInt("idVehiculo");
-			//
-			// veh.setIdVehiculo(idVehiculo);
-			// veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
-			// veh.setColor(res.getString("color"));
-			// veh.setDominio(res.getString("dominio"));
-			// veh.setKilometraje(res.getInt("kilometraje"));
-			// veh.setMarca(res.getString("marca"));
-			// veh.setModelo(res.getString("modelo"));
-			// veh.setTipoCombustible(res.getString("tipoCombustible"));
-			// veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
-			// res.getInt("idSucursal")));
-			// veh.setTamaño(res.getString("tamaño"));
-			// veh.setTransmision(res.getString("transmision"));
-			// veh.setEstado(res.getString("estado"));
-			// veh.setPrecioPorDia(res.getFloat("precioPorDia"));
-			// veh.setAC(res.getString("aireAcondicionado").equals("S"));
-
-			// listaContratos.add(cont);
-			// }
+				cont.setNumero(res.getInt("idAlquiler"));
+				cont.setFechaEmision(res.getDate("fechaEmision"));
+				cont.setFechaFin(res.getDate("fechaFin"));
+				cont.setFechaInicio(res.getDate("fechaInicio"));
+				cont.setImporte(res.getFloat("importe"));
+				cont.setPunitorio(res.getFloat("punitorio"));
+				cont.setPresupuesto(presupuestoMapper.getInstance().Select(res.getInt("idPresupuesto")));
+				cont.setSucursalDestino(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalDestino")));
+				
+				listaContratos.add(cont);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

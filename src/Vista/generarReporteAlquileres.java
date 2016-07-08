@@ -310,7 +310,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 				String tamanio = (String) cmbTamanio.getSelectedItem();
 				String modelo = modeloTF.getText();
 				String transmision = (String) cmbTransmision.getSelectedItem();
-				int cantPuertas = Integer.parseInt(cantPuertasTF.getText());
+				int cantPuertas = Integer.parseInt(cantPuertasTF.getText().trim().isEmpty() ? "0" : cantPuertasTF.getText().trim());
 				String color = (String) cmbColor.getSelectedItem();
 				String ac = chckbxAireAcondicionado.isSelected() ? "S" : "N";
 				String tipoCombustible = (String) cmbTipoCombustible.getSelectedItem();
