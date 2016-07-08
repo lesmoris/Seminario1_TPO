@@ -468,6 +468,7 @@ public class Controlador {
 		// Hasta)
 
 		// No valido por que pueden venir vacios, ahi trae todo
+		
 		List<Movimiento> movimientos = movimientoMapper.getInstance()
 				.ListMovimientos(fechaInicioDesde, fechaInicioHasta,
 						fechaFinDesde, fechaFinHasta, sucursalOrigen,
@@ -570,7 +571,7 @@ public class Controlador {
 		return null;
 	}
 
-	public PresupuestoAlquiler generarPresupuesto(String dominio,
+	public void generarPresupuesto(String dominio,
 			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
 			String sucOrigen, String sucDestino) throws Exception {
 
@@ -613,7 +614,7 @@ public class Controlador {
 		// Se agrega al cache
 		presupuestosAlquiler.add(p);
 
-		return p; // LEO : devuelve modelo a la vista, cambiar por ResultadoOperacion
+		
 	}
 
 	// Borrar este metodo luego

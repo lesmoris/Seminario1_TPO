@@ -8,6 +8,7 @@ import javax.swing.table.TableModel;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.VehiculoDTO;
+import Helpers.HelperDate;
 import Modelo.Vehiculo;
 
 public class TMmantenimientosPorVehiculoTABLA implements TableModel {
@@ -76,11 +77,11 @@ public class TMmantenimientosPorVehiculoTABLA implements TableModel {
 			break;
 		}
 		case 2: {
-			valor = m.getFechaInicio().toString();
+			valor = HelperDate.obtenerStringDeDate(m.getFechaInicio());
 			break;
 		}
 		case 3: {
-			valor = m.getFechaFin().toString();
+			valor = HelperDate.obtenerStringDeDate(m.getFechaFin());
 			break;
 		}
 		}

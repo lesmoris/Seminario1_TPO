@@ -104,22 +104,17 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 				ResultadoOperacionGetPresupuestos res = controlador
 						.buscarPresupuestosDeCliente(numeroDocumento,
-								tipoDocumento);
-
-				// LEO : Esto no deberia estar en el else?
-				JOptionPane.showMessageDialog(null, res.getMessage(), res
-						.sosExitoso() ? "Informacion" : "Error", res
-						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
-						: JOptionPane.ERROR_MESSAGE);
-
+								tipoDocumento);				
 				if (res.sosExitoso()) {
 					mostrarPresupuestos();
 					establecerPresupuestos(res.getPresupuestos());
 
 				} else {
-
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 		});
 		btnBuscarCliente.setBounds(34, 199, 150, 23);
@@ -139,8 +134,6 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 					int idPresupuesto = Integer
 							.parseInt((String) PresupuestoTABLA.getValueAt(
 									fila, 0));
-
-					// LEO : Manejo de errores
 					try {
 						controlador.generarContratoAlquiler(idPresupuesto);
 					} catch (Exception e) {
@@ -150,9 +143,8 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"DEBE SELECCIONAR UN PRESUPUESTO"); // LEO : Mensajes en minuscula
+							"debe seleccionar un presupuesto");
 				}
-
 			}
 		});
 		btnGenerarContrato.setBounds(413, 334, 137, 23);

@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 
+
+
 public class menuPrincipal extends JFrame {
 
 	private JPanel contentPane;
