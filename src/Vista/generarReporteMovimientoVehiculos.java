@@ -40,8 +40,6 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 	public generarReporteMovimientoVehiculos() {
 		this.controlador = Controlador.getInstance();
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Movimiento Vehiculos");
-		
 		iniciarComponentes();
 
 		cargarSucursales(sucursales);
@@ -76,11 +74,6 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblReporteMovimientos = new JLabel("REPORTE MOVIMIENTOS");
-		lblReporteMovimientos.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblReporteMovimientos.setBounds(163, 11, 265, 51);
-		getContentPane().add(lblReporteMovimientos);
 
 		JLabel lblFechaInicio = new JLabel("FECHA INICIO");
 		lblFechaInicio.setBounds(20, 70, 84, 14);

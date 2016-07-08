@@ -34,16 +34,13 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 	private Controlador controlador;
 	private String tipoDocumento;
 	private String numeroDocumento;
-	
-	
+
 	public nuevoContratoAlquiler() {
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - NUEVO CONTRATO"); 
-		
 		iniciarComponentes();
 
 		this.controlador = Controlador.getInstance();
-		
+
 		cargarTiposDoc();
 
 	}
@@ -67,7 +64,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		tipoDocCOMBO.setEnabled(false);
 		numeroDocTF.setEditable(false);
 		btnBuscarCliente.setVisible(false);
-		
+
 	}
 
 	private void iniciarComponentes() {
@@ -76,11 +73,6 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblNuevoContratoAlquiler = new JLabel("Nuevo Contrato Alquiler");
-		lblNuevoContratoAlquiler.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNuevoContratoAlquiler.setBounds(273, 11, 237, 56);
-		getContentPane().add(lblNuevoContratoAlquiler);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
 		lblTipoDocumento.setBounds(20, 104, 118, 14);
@@ -109,25 +101,23 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 				tipoDocumento = tipoDocCOMBO.getSelectedItem().toString();
 				numeroDocumento = numeroDocTF.getText();
-				
-				
-				ResultadoOperacionGetPresupuestos res = controlador.buscarPresupuestosDeCliente(numeroDocumento, tipoDocumento);
-				
+
+				ResultadoOperacionGetPresupuestos res = controlador
+						.buscarPresupuestosDeCliente(numeroDocumento,
+								tipoDocumento);
+
 				JOptionPane.showMessageDialog(null, res.getMessage(), res
 						.sosExitoso() ? "Informacion" : "Error", res
 						.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 						: JOptionPane.ERROR_MESSAGE);
-				
-				if (res.sosExitoso()){
+
+				if (res.sosExitoso()) {
 					mostrarPresupuestos();
 					establecerPresupuestos(res.getPresupuestos());
-					
-				}else{
-					
-					
+
+				} else {
+
 				}
-				
-				
 
 			}
 		});
@@ -141,23 +131,26 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		btnGenerarContrato = new JButton("Generar Contrato");
 		btnGenerarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if (tablaseleccionada(PresupuestoTABLA)){
-				
-				int fila = PresupuestoTABLA.getSelectedRow();
-				int idPresupuesto = Integer.parseInt((String) PresupuestoTABLA.getValueAt(fila, 0));
-				
-				try {
-					controlador.generarContratoAlquiler(idPresupuesto);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+				if (tablaseleccionada(PresupuestoTABLA)) {
+
+					int fila = PresupuestoTABLA.getSelectedRow();
+					int idPresupuesto = Integer
+							.parseInt((String) PresupuestoTABLA.getValueAt(
+									fila, 0));
+
+					try {
+						controlador.generarContratoAlquiler(idPresupuesto);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"DEBE SELECCIONAR UN PRESUPUESTO");
 				}
 
-				}else{
-					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN PRESUPUESTO");
-				}
-				
 			}
 		});
 		btnGenerarContrato.setBounds(413, 334, 137, 23);
@@ -189,13 +182,13 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		}
 		return seleccionado;
 	}
-	
-	private void establecerPresupuestos(List<PresupuestoDTO> presupuestos){
-		
+
+	private void establecerPresupuestos(List<PresupuestoDTO> presupuestos) {
+
 		TMElegirPresupuesto modelo = new TMElegirPresupuesto(presupuestos);
-		
+
 		PresupuestoTABLA.setModel(modelo);
-		
+
 	}
-	
+
 }

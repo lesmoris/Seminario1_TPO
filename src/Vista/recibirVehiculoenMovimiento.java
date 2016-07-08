@@ -28,81 +28,80 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 	private Controlador controlador;
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> sucursalCOMBO;
-	
+
 	public recibirVehiculoenMovimiento() {
-		
+
 		this.controlador = Controlador.getInstance();
-		
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Recibir Vehiculo");
-		
+
 		this.sucursales = controlador.getSucursales();
-		
+
 		this.movimientos = controlador.getMovimientosEnCurso();
-		
+
 		iniciarComponentes();
 	}
 
 	private void iniciarComponentes() {
-		
+
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-		
+
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-		
-		JLabel lblAltaDeVehiculo = new JLabel("ALTA DE VEHICULO EN SUCURSAL");
-		lblAltaDeVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblAltaDeVehiculo.setBounds(188, 11, 333, 44);
-		getContentPane().add(lblAltaDeVehiculo);
-		
-		JButton btnConfirmarRecepcionVehiculo = new JButton("Confirmar Recepcion");
+
+		JButton btnConfirmarRecepcionVehiculo = new JButton(
+				"Confirmar Recepcion");
 		btnConfirmarRecepcionVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				// Comprobamos si se selecciono alguna fila de la tabla
-				if (tablaseleccionada(VehiculosEnMovimientoTABLA)){
-				
-				// Obtenemos el dominio del vehiculo seleccionado y lo buscamos
-					
+				if (tablaseleccionada(VehiculosEnMovimientoTABLA)) {
+
+					// Obtenemos el dominio del vehiculo seleccionado y lo
+					// buscamos
+
 					int fila = VehiculosEnMovimientoTABLA.getSelectedRow();
-					String dominio = VehiculosEnMovimientoTABLA.getValueAt(fila, 0).toString();
-					String sucursalDestino = sucursalCOMBO.getSelectedItem().toString();
-					
+					String dominio = VehiculosEnMovimientoTABLA.getValueAt(
+							fila, 0).toString();
+					String sucursalDestino = sucursalCOMBO.getSelectedItem()
+							.toString();
+
 					// Llamamos al controlador
-					
-					ResultadoOperacion res = controlador.recibirVehiculo(sucursalDestino, dominio);
-					
+
+					ResultadoOperacion res = controlador.recibirVehiculo(
+							sucursalDestino, dominio);
+
 					JOptionPane.showMessageDialog(null, res.getMessage(), res
 							.sosExitoso() ? "Informacion" : "Error", res
 							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 							: JOptionPane.ERROR_MESSAGE);
-				
+
 					if (res.sosExitoso())
 						menuPrincipal.getInstance().irAMenuPrincipal();
-						
-				}else{
-					JOptionPane.showMessageDialog(null, "Seleccione un vehiculo, por favor");
+
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Seleccione un vehiculo, por favor");
 				}
 			}
 		});
 		btnConfirmarRecepcionVehiculo.setBounds(328, 324, 155, 23);
 		getContentPane().add(btnConfirmarRecepcionVehiculo);
-		
+
 		JLabel lblNumeroDeOrden = new JLabel("Sucursal Que Recibe:");
 		lblNumeroDeOrden.setBounds(44, 262, 125, 23);
 		getContentPane().add(lblNumeroDeOrden);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(43, 164, 525, 64);
 		getContentPane().add(scrollPane);
-		
+
 		// Llenamos El TableModel
-		
+
 		TM = new TMrecibirvehiculoTABLA(movimientos);
-		
+
 		VehiculosEnMovimientoTABLA = new JTable();
 		VehiculosEnMovimientoTABLA.setModel(TM);
 		scrollPane.setViewportView(VehiculosEnMovimientoTABLA);
-		
+
 		sucursalCOMBO = new JComboBox();
 		sucursalCOMBO.setBounds(171, 263, 103, 20);
 		getContentPane().add(sucursalCOMBO);
@@ -116,19 +115,19 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 			sucursalCOMBO.addItem(cbi);
 		}
 	}
-	
-	public boolean tablaseleccionada (JTable tabla){
-		
+
+	public boolean tablaseleccionada(JTable tabla) {
+
 		boolean seleccionado = false;
-		
-		for (int i=0; i<tabla.getRowCount();i++){
-			for (int j=0; j<tabla.getColumnCount();j++){
-				if (tabla.isCellSelected(i, j)){
-					seleccionado=true;
+
+		for (int i = 0; i < tabla.getRowCount(); i++) {
+			for (int j = 0; j < tabla.getColumnCount(); j++) {
+				if (tabla.isCellSelected(i, j)) {
+					seleccionado = true;
 				}
 			}
 		}
 		return seleccionado;
 	}
-	
+
 }

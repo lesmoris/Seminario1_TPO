@@ -65,14 +65,11 @@ public class generarPresupuesto extends JInternalFrame {
 	private JLabel lblVehiculo;
 	private JButton btnBuscarCliente;
 	private JButton btnEstablecerInicio;
+
 	public generarPresupuesto() {
 
-		
-		
 		iniciarComponentes();
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Nuevo Presupuesto");
-		
 		this.controlador = Controlador.getInstance();
 
 		cargarTiposDoc();
@@ -81,12 +78,11 @@ public class generarPresupuesto extends JInternalFrame {
 		cargarTamaños();
 		cargarColores();
 		cargarCombustible();
-		
+
 	}
 
-	private void mostrarComponentesInicio(){
-		
-		
+	private void mostrarComponentesInicio() {
+
 		sucOrigenCOMBO.setVisible(true);
 		lblInicio.setVisible(true);
 		lblSucursal.setVisible(true);
@@ -96,15 +92,15 @@ public class generarPresupuesto extends JInternalFrame {
 		tipoDocCOMBO.setEnabled(false);
 		numeroDocTF.setEditable(false);
 		btnBuscarCliente.setVisible(false);
-		
+
 	}
-	
+
 	private void mostrarComponentesVehiculo() {
 
 		sucOrigenCOMBO.setEnabled(false);
 		btnEstablecerInicio.setVisible(false);
 		fechaInicioTF.setEditable(false);
-		
+
 		verVehiculosBOTON.setVisible(true);
 		tamañoCOMBO.setVisible(true);
 		colorCOMBO.setVisible(true);
@@ -112,7 +108,7 @@ public class generarPresupuesto extends JInternalFrame {
 		combustibleCOMBO.setVisible(true);
 		cantPuertasTF.setVisible(true);
 		marcaTF.setVisible(true);
-		
+
 		modeloTF.setVisible(true);
 		lblCantPuertas.setVisible(true);
 		lblColor.setVisible(true);
@@ -123,11 +119,9 @@ public class generarPresupuesto extends JInternalFrame {
 		lblTransmision.setVisible(true);
 		lblVehiculo.setVisible(true);
 		aireAcondicionadoCB.setVisible(true);
-		
+
 	}
-	
-	
-	
+
 	private void cargarCombustible() {
 
 		tiposComb = HelperValoresFijos.getTiposComb();
@@ -193,7 +187,6 @@ public class generarPresupuesto extends JInternalFrame {
 		cb.setNombre("");
 		cb.setCodigo(0);
 
-
 		for (SucursalDTO s : this.sucursalestodas) {
 
 			ComboBoxItem cbi = new ComboBoxItem();
@@ -204,19 +197,12 @@ public class generarPresupuesto extends JInternalFrame {
 
 	}
 
-	
-
 	private void iniciarComponentes() {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblNuevoPresupuesto = new JLabel("Nuevo Presupuesto");
-		lblNuevoPresupuesto.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNuevoPresupuesto.setBounds(117, 11, 214, 40);
-		getContentPane().add(lblNuevoPresupuesto);
 
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(58, 62, 46, 14);
@@ -245,14 +231,15 @@ public class generarPresupuesto extends JInternalFrame {
 
 				tipoDoc = tipoDocCOMBO.getSelectedItem().toString();
 				numeroDoc = numeroDocTF.getText();
-				
 
-				ResultadoOperacion res = controlador.existeCliente(tipoDoc, numeroDoc);
-				if (res.sosExitoso()){
+				ResultadoOperacion res = controlador.existeCliente(tipoDoc,
+						numeroDoc);
+				if (res.sosExitoso()) {
 					mostrarComponentesInicio();
 				} else {
-					JOptionPane.showMessageDialog(null, res.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-						
+					JOptionPane.showMessageDialog(null, res.getMessage(),
+							"Error", JOptionPane.ERROR_MESSAGE);
+
 				}
 			}
 		});
@@ -279,8 +266,7 @@ public class generarPresupuesto extends JInternalFrame {
 		lblColor.setBounds(328, 210, 46, 14);
 		getContentPane().add(lblColor);
 
-		aireAcondicionadoCB = new JCheckBox(
-				"Aire Acondicionado");
+		aireAcondicionadoCB = new JCheckBox("Aire Acondicionado");
 		aireAcondicionadoCB.setBounds(536, 186, 146, 23);
 		getContentPane().add(aireAcondicionadoCB);
 
@@ -324,11 +310,11 @@ public class generarPresupuesto extends JInternalFrame {
 		verVehiculosBOTON.setVisible(false);
 		verVehiculosBOTON.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				fechaInicio = fechaInicioTF.getText();
-				
-				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString(); 
-				
+
+				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString();
+
 				String ac;
 				if (aireAcondicionadoCB.isSelected()) {
 					ac = "S";
@@ -336,8 +322,6 @@ public class generarPresupuesto extends JInternalFrame {
 					ac = "N";
 				}
 
-
-				
 				List<VehiculoDTO> listavehiculo = controlador
 						.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem()
 								.toString(), "nombre", marcaTF.getText(),
@@ -348,8 +332,9 @@ public class generarPresupuesto extends JInternalFrame {
 								colorCOMBO.getSelectedItem().toString(),
 								tamañoCOMBO.getSelectedItem().toString());
 
-			elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc, listavehiculo, fechaInicio, sucursalOrigen);
-						
+				elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc,
+						listavehiculo, fechaInicio, sucursalOrigen);
+
 				// Vamos a la ventana con el cliente cargado, y los vehiculos
 				// filtrados
 				menuPrincipal.getInstance().irAVentana(a);
@@ -384,8 +369,6 @@ public class generarPresupuesto extends JInternalFrame {
 		sucOrigenCOMBO.setBounds(126, 277, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
 
-
-
 		lblCombustible = new JLabel("Combustible");
 		lblCombustible.setBounds(301, 263, 86, 20);
 		getContentPane().add(lblCombustible);
@@ -393,13 +376,13 @@ public class generarPresupuesto extends JInternalFrame {
 		combustibleCOMBO = new JComboBox();
 		combustibleCOMBO.setBounds(409, 263, 86, 20);
 		getContentPane().add(combustibleCOMBO);
-		
+
 		btnEstablecerInicio = new JButton("Establecer Inicio");
 		btnEstablecerInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				mostrarComponentesVehiculo();
-				
+
 			}
 		});
 		btnEstablecerInicio.setBounds(60, 357, 158, 32);

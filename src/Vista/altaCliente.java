@@ -25,11 +25,6 @@ public class altaCliente extends JInternalFrame {
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
-		JLabel lblAltaCliente = new JLabel("Alta Cliente");
-		lblAltaCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblAltaCliente.setBounds(336, 11, 111, 41);
-		getContentPane().add(lblAltaCliente);
-		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(292, 78, 111, 14);
 		getContentPane().add(lblNombre);

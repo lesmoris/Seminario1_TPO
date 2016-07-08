@@ -30,8 +30,6 @@ public class moverVehiculo extends JInternalFrame {
 	// Constructor
 	public moverVehiculo() {
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Mover Vehiculo");
-		
 		iniciarcomponentes();
 		sucursales = new ArrayList<SucursalDTO>();
 		this.controlador = Controlador.getInstance();
@@ -59,11 +57,6 @@ public class moverVehiculo extends JInternalFrame {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblMoverVehiculoDe = new JLabel("MOVER VEHICULO DE SUCURSAL");
-		lblMoverVehiculoDe.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMoverVehiculoDe.setBounds(237, 11, 325, 50);
-		getContentPane().add(lblMoverVehiculoDe);
 
 		JLabel lblDominio = new JLabel("Dominio");
 		lblDominio.setBounds(21, 133, 46, 14);
@@ -134,7 +127,8 @@ public class moverVehiculo extends JInternalFrame {
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
-					SucursalOrigenTF.setText(res.getVehiculoDTO().getSucursal().getNombre());
+					SucursalOrigenTF.setText(res.getVehiculoDTO().getSucursal()
+							.getNombre());
 
 					btnIniciarMovimiento.setEnabled(true);
 				} else {

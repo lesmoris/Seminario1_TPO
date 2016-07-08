@@ -23,7 +23,8 @@ import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.TMmantenimientosPorSucursalTABLA;
 import Interfaces.TMmantenimientosPorVehiculoTABLA;
 
-public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFrame {
+public class generarReporteMantenimientosAbiertosPorSucursal extends
+		JInternalFrame {
 	private Controlador controlador;
 	private JTable HistorialMantenimientosTABLA;
 	private TMmantenimientosPorSucursalTABLA TM;
@@ -33,8 +34,6 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFr
 	public generarReporteMantenimientosAbiertosPorSucursal() {
 		this.controlador = Controlador.getInstance();
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Mantenimientos Por Sucursal");
-		
 		iniciarComponentes();
 
 		cargarSucursales(sucursales);
@@ -61,11 +60,6 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFr
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 
-		JLabel lblReporteMantenimiento = new JLabel("Reporte Mantenimiento");
-		lblReporteMantenimiento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblReporteMantenimiento.setBounds(267, 22, 215, 59);
-		getContentPane().add(lblReporteMantenimiento);
-
 		JLabel lblSucursal = new JLabel("Sucursal");
 		lblSucursal.setBounds(135, 92, 69, 20);
 		getContentPane().add(lblSucursal);
@@ -87,8 +81,8 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFr
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
-					TM = new TMmantenimientosPorSucursalTABLA(
-							res.getMantenimientosDTO());
+					TM = new TMmantenimientosPorSucursalTABLA(res
+							.getMantenimientosDTO());
 					HistorialMantenimientosTABLA.setModel(TM);
 
 				} else {

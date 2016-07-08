@@ -25,8 +25,6 @@ public class solicitarMantenimiento extends JInternalFrame {
 	public solicitarMantenimiento() {
 		iniciarcomponentes();
 		
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Solicitar Mantenimiento");
-		
 		this.controlador = Controlador.getInstance();
 	}
 
@@ -35,11 +33,6 @@ public class solicitarMantenimiento extends JInternalFrame {
 
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblSolicitarMantenimiento = new JLabel("SOLICITAR MANTENIMIENTO");
-		lblSolicitarMantenimiento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSolicitarMantenimiento.setBounds(212, 11, 306, 49);
-		getContentPane().add(lblSolicitarMantenimiento);
 
 		final JTextArea descripcionFallaTF = new JTextArea();
 		descripcionFallaTF.setBorder(new LineBorder(new Color(0, 0, 0)));

@@ -22,8 +22,7 @@ import Interfaces.TMmantenimientosPorVehiculoTABLA;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class generarReporteMantenimientoPorVehiculo extends
-		JInternalFrame {
+public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 	private JTable HistorialMantenimientosTABLA;
 	private TMmantenimientosPorVehiculoTABLA TM;
 	private JTextField dominioTF;
@@ -32,24 +31,15 @@ public class generarReporteMantenimientoPorVehiculo extends
 	public generarReporteMantenimientoPorVehiculo() {
 		this.controlador = Controlador.getInstance();
 
-		menuPrincipal.getInstance().setTitle("RENT A CAR - Mantenimiento de Vehiculo");
-		
 		iniciarComponentes();
 	}
 
 	private void iniciarComponentes() {
 
-		
-		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-
-		JLabel lblHistorialMantenimiento = new JLabel("Historial Mantenimiento");
-		lblHistorialMantenimiento.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblHistorialMantenimiento.setBounds(281, 11, 221, 44);
-		getContentPane().add(lblHistorialMantenimiento);
 
 		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
 		lblDominioVehiculo.setBounds(222, 116, 116, 14);
@@ -72,11 +62,13 @@ public class generarReporteMantenimientoPorVehiculo extends
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
-					TM = new TMmantenimientosPorVehiculoTABLA(res.getMantenimientosDTO());
+					TM = new TMmantenimientosPorVehiculoTABLA(res
+							.getMantenimientosDTO());
 					HistorialMantenimientosTABLA.setModel(TM);
 
 				} else {
-					TM = new TMmantenimientosPorVehiculoTABLA(new ArrayList<MantenimientoDTO>());
+					TM = new TMmantenimientosPorVehiculoTABLA(
+							new ArrayList<MantenimientoDTO>());
 					HistorialMantenimientosTABLA.setModel(TM);
 
 					JOptionPane.showMessageDialog(null, res.getMessage(),
@@ -91,7 +83,8 @@ public class generarReporteMantenimientoPorVehiculo extends
 		scrollPane.setBounds(10, 152, 764, 230);
 		getContentPane().add(scrollPane);
 
-		TM = new TMmantenimientosPorVehiculoTABLA(new ArrayList<MantenimientoDTO>());
+		TM = new TMmantenimientosPorVehiculoTABLA(
+				new ArrayList<MantenimientoDTO>());
 
 		HistorialMantenimientosTABLA = new JTable();
 		HistorialMantenimientosTABLA.setModel(TM);

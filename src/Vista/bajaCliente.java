@@ -23,11 +23,6 @@ public class bajaCliente extends JInternalFrame {
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
-		JLabel lblBajaCliente = new JLabel("Baja Cliente");
-		lblBajaCliente.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblBajaCliente.setBounds(167, 11, 123, 36);
-		getContentPane().add(lblBajaCliente);
-		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
 		lblTipoDocumento.setBounds(45, 83, 103, 21);
 		getContentPane().add(lblTipoDocumento);

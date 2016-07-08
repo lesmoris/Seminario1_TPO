@@ -29,11 +29,6 @@ public class altaVehiculo extends JInternalFrame {
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
-		JLabel lblAltaVehiculo = new JLabel("Alta Vehiculo");
-		lblAltaVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblAltaVehiculo.setBounds(136, 11, 158, 29);
-		getContentPane().add(lblAltaVehiculo);
-		
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setBounds(68, 61, 68, 14);
 		getContentPane().add(lblMarca);
