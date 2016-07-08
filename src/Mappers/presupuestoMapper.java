@@ -55,8 +55,9 @@ public class presupuestoMapper extends baseMapper {
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
 
-				Vehiculo v = vehiculoMapper.getInstance().SelectPorIDConMovimientosYMantenimientos(
-						res.getInt("idvehiculo"));
+				Vehiculo v = vehiculoMapper.getInstance()
+						.SelectPorIDConMovimientosYMantenimientos(
+								res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 
 				Cliente c = clienteMapper.getInstance().SelectPORID(
@@ -108,8 +109,9 @@ public class presupuestoMapper extends baseMapper {
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
 
-				Vehiculo v = vehiculoMapper.getInstance().SelectPorIDConMovimientosYMantenimientos(
-						res.getInt("idvehiculo"));
+				Vehiculo v = vehiculoMapper.getInstance()
+						.SelectPorIDConMovimientosYMantenimientos(
+								res.getInt("idvehiculo"));
 				pa.setVehiculo(v);
 
 				Cliente c = clienteMapper.getInstance().SelectPORID(
@@ -141,9 +143,11 @@ public class presupuestoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
+			con.setAutoCommit(false);
+
 			String senten = "INSERT INTO PRESUPUESTO (fecha, fechaInicio, fechaFin, importe, "
 					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo) "
-					+ "VALUES (?,?,?,?,?,?,?,?) ; SELECT SCOPE_IDENTITY() as idPresupuesto";
+					+ "VALUES (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
@@ -156,18 +160,23 @@ public class presupuestoMapper extends baseMapper {
 			ps.setInt(6, p.getSucursalOrigen().getIdSucursal());
 			ps.setInt(7, p.getSucursalDestino().getIdSucursal());
 			ps.setInt(8, p.getVehiculo().getIdVehiculo());
-
 			ps.execute();
-			// Ver si este resultset funciona con el SELECT de la senten,o sino
-			// hacer dos preparedStatement separados
-			ResultSet resID = ps.executeQuery();
 
-			while (resID.next()) {
+			p.setIdPresupuesto(DBUtils.getLastInsertedID(con, "PRESUPUESTO"));
 
-				p.setIdPresupuesto(resID.getInt("idPresupuesto"));
+			senten = "SELECT fechaVencimiento FROM PRESUPUESTO WHERE idPresupuesto = ?";
+			ps = null;
+			ps.setInt(1, p.getIdPresupuesto());
 
-			}
+			ResultSet res = ps.executeQuery();
+
+			res.next();
+			p.setFechaVencimiento(res.getDate("fechaVencimiento"));
+
+			con.commit();
+
 		} catch (SQLException e) {
+			con.rollback();
 			throw new Exception(e.getMessage());
 		} finally {
 			DBUtils.closeQuietly(con);

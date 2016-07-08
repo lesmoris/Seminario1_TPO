@@ -188,7 +188,7 @@ public class generarPresupuesto extends JInternalFrame {
 
 				tipoDoc = tipoDocCOMBO.getSelectedItem().toString();
 				numeroDoc = numeroDocTF.getText();
-				fechaInicio = fechaInicioTF.getText();
+				
 
 				ResultadoOperacion res = controlador.existeCliente(tipoDoc, numeroDoc);
 				if (res.sosExitoso()){
@@ -267,6 +267,8 @@ public class generarPresupuesto extends JInternalFrame {
 		verVehiculosBOTON.setVisible(false);
 		verVehiculosBOTON.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				fechaInicio = fechaInicioTF.getText();
 				
 				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString(); 
 				

@@ -1,8 +1,7 @@
 package Controlador;
 
-import java.text.DateFormat;
+import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -498,16 +497,47 @@ public class Controlador {
 
 	public PresupuestoAlquiler generarPresupuesto(String dominio,
 			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
-			String sucOrigen, String sucDestino) {
+			String sucOrigen, String sucDestino) throws Exception {
 
 		PresupuestoAlquiler p = new PresupuestoAlquiler();
-		/*
-		 * p.setCliente(buscarCliente(numDoc, tipoDoc)); p.setFechaEmision( DE
-		 * HOY); p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
-		 * p.setFechaVencimiento(FECHA DE HOY + X DIAS);
-		 */
+
+		p.setCliente(buscarCliente(numDoc, tipoDoc));
+		p.setFechaEmision(HelperDate.obtenerFechaHoy());
+		p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
+		// Acordarse de que la BD genere la fecha de vencimiento
+		p.setSucursalDestino(buscarSucursal(sucDestino));
+		p.setSucursalOrigen(buscarSucursal(sucOrigen));
+		p.setVehiculo(buscarVehiculo(dominio));
+		p.calcularImporte();
+		p.setFechaFin(HelperDate.obtenerFechadeString(fechaFin));
+		// EL ID LO AGREGA LA BD
+
+		// Inserta a la BD
+		presupuestoMapper.getInstance().insert(p);
+
+		// Se agrega al cache
+		presupuestosAlquiler.add(p);
 
 		return p;
+	}
+// Borrar este metodo luego
+	public void pruebacambios() {
+
+		Date fechasql = HelperDate.obtenerFechaHoy();
+		System.out.println("FECHA DE HOY SQL ORIGINAL: " + fechasql);
+
+		java.util.Date fechautil = HelperDate.ConvertirSQLAUtil(fechasql);
+
+		System.out.println("FECHA ORIGINAL CONVERTIDA A UTIL: " + fechautil);
+
+		Date fechasqlconvertida = HelperDate.ConvertirUtilASQL(fechautil);
+
+		System.out.println("FECHA UTIL CONVERTIDA A SQL" + fechasqlconvertida);
+
+		int diferencia = HelperDate.diferenciaEntreDosfechas(fechasql,fechasql);
+		
+		System.out.println(diferencia);
+
 	}
 
 	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(

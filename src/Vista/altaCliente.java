@@ -1,16 +1,17 @@
 package Vista;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import Controlador.Controlador;
 
 public class altaCliente extends JInternalFrame {
 	private JTextField nombreTF;
@@ -74,6 +75,13 @@ public class altaCliente extends JInternalFrame {
 		textField_1.setColumns(10);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Controlador.getInstance().pruebacambios();
+				
+			}
+		});
 		btnAceptar.setBounds(346, 298, 90, 23);
 		getContentPane().add(btnAceptar);
 		

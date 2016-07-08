@@ -3,6 +3,8 @@ package Modelo;
 import java.sql.Date;
 
 import DTOs.PresupuestoDTO;
+import Helpers.HelperDate;
+import Mappers.presupuestoMapper;
 
 public class PresupuestoAlquiler {
 
@@ -24,6 +26,26 @@ public class PresupuestoAlquiler {
 	private Vehiculo vehiculo;
 
 	// Metodos
+
+	public void calcularImporte() {
+
+		
+		int cantidadDias = HelperDate.diferenciaEntreDosfechas(this.getFechaInicio(),
+				this.getFechaFin()); 
+		
+		float precioPorDia = this.getVehiculo().getPrecioPorDia();
+
+		float importe = precioPorDia*cantidadDias;
+		
+		float recargo = 0;
+		
+		if (!this.getSucursalDestino().sosSucursal(this.getSucursalOrigen().getNombre())) {
+		recargo = (float) (importe * 0.2);	  
+		importe = importe + recargo;
+		}
+		this.setImporte(importe);
+	}
+
 	public boolean sosDelCliente(String numero, String tipo) {
 
 		if (this.cliente.sosCliente(numero, tipo)) {
@@ -49,10 +71,15 @@ public class PresupuestoAlquiler {
 
 	public PresupuestoDTO crearVista() {
 		return new PresupuestoDTO(this.idPresupuesto, this.fechaInicio,
-				this.fechaFin, this.fechaEmision, this.fechaVencimiento, this.importe,
-				this.cliente.getNombre(), this.vehiculo.getDominio(),
-				this.sucursalOrigen.getNombre(),
+				this.fechaFin, this.fechaEmision, this.fechaVencimiento,
+				this.importe, this.cliente.getNombre(),
+				this.vehiculo.getDominio(), this.sucursalOrigen.getNombre(),
 				this.sucursalDestino.getNombre());
+	}
+
+	public void Insert(PresupuestoAlquiler p) throws Exception {
+		presupuestoMapper.getInstance().insert(p);
+
 	}
 
 	// Getters y Setters

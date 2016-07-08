@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -27,6 +28,7 @@ import java.awt.event.ActionEvent;
 
 
 public class elegirVehiculo extends JInternalFrame {
+	
 	private JTable vehiculosTABLA;
 	private Controlador controlador;
 	private JTextField fechaFinTF;
@@ -39,14 +41,24 @@ public class elegirVehiculo extends JInternalFrame {
 	private JLabel sucOrigenLABEL;
 	private JLabel precioActualLABEL;
 	private String preciopordiaVehiculoActual;
+	private String idPresupuestoActual ="";
+	private String sucDestino;
+	private String fechaFin;
+	private String tipoDocumento;
+	private String fechaDeInicio;
+	private String numDoc;
+	private String sucursalOrigen;
 	
 	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio, String sucOrigen) {
 
+		this.fechaDeInicio = fechaInicio;
+		this.numDoc = numeroDoc;
+		this.tipoDocumento = tipoDoc;
+		this.sucursalOrigen = sucOrigen;
+		
 		this.controlador=Controlador.getInstance();
 		
 		this.sucursales=Controlador.getInstance().getSucursales();
-		
-	
 		
 		setBounds(100, 100, 800, 500);
 		
@@ -100,7 +112,34 @@ public class elegirVehiculo extends JInternalFrame {
 		btnCalcularPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-			
+				if (tablaseleccionada(vehiculosTABLA)){
+					
+				// Obtenemos el dominio del vehiculo seleccionado y lo buscamos
+					
+					int fila = vehiculosTABLA.getSelectedRow();
+					String dominio = vehiculosTABLA.getValueAt(fila, 0).toString();
+				
+				
+				
+				
+				fechaFin = fechaFinTF.getText();
+				sucDestino = sucursalDestinoCOMBO.getSelectedItem().toString();
+				
+				System.out.println(fechaFin);
+				System.out.println(fechaDeInicio);
+				
+				try {
+					controlador.generarPresupuesto(dominio, tipoDocumento, numDoc, 
+							fechaDeInicio, fechaFin, sucursalOrigen, sucDestino);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}else{
+					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN VEHICULO");
+				}
 				
 			}
 		});
