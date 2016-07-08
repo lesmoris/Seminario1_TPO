@@ -36,8 +36,7 @@ public class presupuestoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT (fecha, fechaInicio, fechaFin, importe, "
-					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo, idpresupuesto, estado) FROM PRESUPUESTO "
+			String senten = "SELECT fechaEmision, fechaInicio, fechaFin, importe, idcliente, idsucursalorigen, idsucursaldestino, idvehiculo, idpresupuesto FROM PRESUPUESTO "
 					+ "WHERE idpresupuesto = ?";
 
 			PreparedStatement ps = null;
@@ -50,7 +49,7 @@ public class presupuestoMapper extends baseMapper {
 
 				pa = new PresupuestoAlquiler();
 				pa.setIdPresupuesto(res.getInt("idpresupuesto"));
-				pa.setFechaEmision(res.getDate("fecha"));
+				pa.setFechaEmision(res.getDate("fechaEmision"));
 				pa.setFechaInicio(res.getDate("fechaInicio"));
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
