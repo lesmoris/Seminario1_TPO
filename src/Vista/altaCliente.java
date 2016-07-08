@@ -78,7 +78,7 @@ public class altaCliente extends JInternalFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Controlador.getInstance().pruebacambios();
+			
 				
 			}
 		});

@@ -33,6 +33,8 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends JInternalFr
 	public generarReporteMantenimientosAbiertosPorSucursal() {
 		this.controlador = Controlador.getInstance();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Mantenimientos Por Sucursal");
+		
 		iniciarComponentes();
 
 		cargarSucursales(sucursales);

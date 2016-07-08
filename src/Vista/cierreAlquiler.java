@@ -1,84 +1,173 @@
 package Vista;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import Controlador.Controlador;
+import DTOs.SucursalDTO;
+import Helpers.HelperValoresFijos;
+import Interfaces.ComboBoxItem;
+import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetContratos;
 
 public class cierreAlquiler extends JInternalFrame {
 	private JTextField textField;
-	private JTextField textField_1;
-
+	private JTable contratosTABLA;
+	private JLabel lblSucursalDestino;
+	private JComboBox<ComboBoxItem> sucDestinoCOMBO;
+	private JButton btnFinalizarContrato;
+	private JLabel lblContratosVigentes;
+	private JComboBox<String> tipoDocCOMBO;
+	private JScrollPane scrollPane;
+	private List<String> tiposDoc;
+	private List<SucursalDTO> sucursalestodas;
+	private Controlador controlador;
+	
 	
 	public cierreAlquiler() {
+
+		controlador = Controlador.getInstance();
 		
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Cerrar Alquiler");
+		iniciarComponentes();
+		cargarTiposDoc();
+		
+	}
+
+	
+	private void cargarSucursales() {
+
+		this.sucursalestodas = controlador.getSucursales();
+
+		ComboBoxItem cb = new ComboBoxItem();
+		cb.setNombre("");
+		cb.setCodigo(0);
+
+
+		for (SucursalDTO s : this.sucursalestodas) {
+
+			ComboBoxItem cbi = new ComboBoxItem();
+			cbi.setCodigo(s.getIdSucursal());
+			cbi.setNombre(s.getNombre());
+			sucDestinoCOMBO.addItem(cbi);
+		}
+
+	}
+	
+	private void mostrarcontratos(){
+		
+		lblSucursalDestino.setVisible(true);
+		lblContratosVigentes.setVisible(true);
+		scrollPane.setVisible(true);
+		btnFinalizarContrato.setVisible(true);
+		contratosTABLA.setVisible(true);
+		sucDestinoCOMBO.setVisible(true);
+		cargarSucursales();
+		
+	}
+	
+	private void iniciarComponentes() {
+
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-		
+
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
-		
+
 		JLabel lblCierreContrato = new JLabel("CIERRE CONTRATO ALQUILER");
 		lblCierreContrato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCierreContrato.setBounds(216, 22, 285, 50);
 		getContentPane().add(lblCierreContrato);
-		
+
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
 		lblTipoDocumento.setBounds(10, 109, 100, 14);
 		getContentPane().add(lblTipoDocumento);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(146, 106, 60, 20);
-		getContentPane().add(comboBox);
-		
+
+		tipoDocCOMBO = new JComboBox();
+		tipoDocCOMBO.setBounds(146, 106, 60, 20);
+		getContentPane().add(tipoDocCOMBO);
+
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
 		lblNumeroDocumento.setBounds(10, 145, 114, 14);
 		getContentPane().add(lblNumeroDocumento);
-		
+
 		textField = new JTextField();
 		textField.setBounds(142, 142, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
-		JButton btnBuscarContrato = new JButton("Buscar Contrato");
-		btnBuscarContrato.setBounds(63, 201, 143, 23);
+
+		JButton btnBuscarContrato = new JButton("Buscar Contratos");
+		btnBuscarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//ResultadoOperacionGetContratos = 
+				
+				mostrarcontratos();
+				
+				
+			}
+		});
+		btnBuscarContrato.setBounds(41, 199, 143, 23);
 		getContentPane().add(btnBuscarContrato);
-		
-		JLabel lblContratosVigentes = new JLabel("Contratos Vigentes");
-		lblContratosVigentes.setBounds(288, 109, 139, 14);
+
+		lblContratosVigentes = new JLabel("Contratos Vigentes");
+		lblContratosVigentes.setBounds(341, 84, 139, 14);
 		getContentPane().add(lblContratosVigentes);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(421, 106, 164, 20);
-		getContentPane().add(comboBox_1);
-		
-		JLabel lblFechaFinContrato = new JLabel("Fecha Fin Contrato");
-		lblFechaFinContrato.setBounds(284, 180, 126, 14);
-		getContentPane().add(lblFechaFinContrato);
-		
-		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(288, 226, 112, 14);
+
+		lblSucursalDestino = new JLabel("Sucursal De Devolucion");
+		lblSucursalDestino.setBounds(216, 280, 143, 14);
 		getContentPane().add(lblSucursalDestino);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(415, 177, 86, 20);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(416, 223, 169, 20);
-		getContentPane().add(comboBox_2);
-		
-		JButton btnFinalizarContrato = new JButton("Finalizar Contrato");
-		btnFinalizarContrato.setBounds(271, 320, 139, 23);
+
+		sucDestinoCOMBO = new JComboBox();
+		sucDestinoCOMBO.setBounds(387, 277, 133, 20);
+		getContentPane().add(sucDestinoCOMBO);
+
+		btnFinalizarContrato = new JButton("Finalizar Contrato");
+		btnFinalizarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				// Aca realizar el metodo de cierre de contrato, y calcular, si existe, el punitorio en base
+				//  a la cantidad de dias de atraso en la devolucion y/o devolucion en sucursal distinta a la del
+				// contrato de alquiler
+				
+			}
+		});
+		btnFinalizarContrato.setBounds(436, 363, 139, 23);
 		getContentPane().add(btnFinalizarContrato);
 
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(248, 109, 478, 160);
+		getContentPane().add(scrollPane);
+
+		contratosTABLA = new JTable();
+		scrollPane.setViewportView(contratosTABLA);
+
+		lblSucursalDestino.setVisible(false);
+		lblContratosVigentes.setVisible(false);
+		scrollPane.setVisible(false);
+		btnFinalizarContrato.setVisible(false);
+		contratosTABLA.setVisible(false);
+		sucDestinoCOMBO.setVisible(false);
+		
+	}
+	private void cargarTiposDoc() {
+
+		this.tiposDoc = HelperValoresFijos.getTiposDoc();
+
+		for (String td : tiposDoc) {
+			tipoDocCOMBO.addItem(td);
+		}
 	}
 
 }

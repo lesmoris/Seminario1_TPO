@@ -33,6 +33,8 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		
 		this.controlador = Controlador.getInstance();
 		
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Recibir Vehiculo");
+		
 		this.sucursales = controlador.getSucursales();
 		
 		this.movimientos = controlador.getMovimientosEnCurso();

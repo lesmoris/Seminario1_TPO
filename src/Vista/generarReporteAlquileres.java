@@ -57,6 +57,8 @@ public class generarReporteAlquileres extends JInternalFrame {
 	public generarReporteAlquileres() {
 		iniciarComponentes();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Reporte Alquileres");
+		
 		this.controlador = Controlador.getInstance();
 
 		cargarCombos();

@@ -1,17 +1,19 @@
 package Controlador;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import DTOs.ContratoAlquilerDTO;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
+import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
+import Interfaces.ResultadoOperacionGetContratos;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetPresupuestos;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.ResultadoOperacionReporteAlquileres;
@@ -76,6 +78,78 @@ public class Controlador {
 			vehiculos.add(vehiculo);
 
 		return vehiculo;
+	}
+
+	public ResultadoOperacionGetContratos buscarPresupuestodeCliente(String numDoc, String tipoDoc){
+		
+		Cliente c = buscarCliente(numDoc, tipoDoc);
+
+		if (c == null) {
+			return new ResultadoOperacionGetContratos(
+					false, "no se encontro cliente", null);
+		}
+ 
+		
+		List<ContratoAlquiler> lista = contratoMapper.getInstance().SelectDeUnCliente(c.getIdCliente());
+				
+		
+		List<ContratoAlquilerDTO> resultado = new ArrayList<ContratoAlquilerDTO>();
+		
+		
+		for (ContratoAlquiler pa : lista) {
+			
+			resultado.add(pa.crearVista());
+		}
+
+		
+		if (resultado.isEmpty()) {
+			return  new ResultadoOperacionGetContratos(
+					false, "no hay contratos de ese cliente", null);
+		}
+
+		
+		
+		
+		return new ResultadoOperacionGetContratos(true, "Presupuestos:",
+				resultado);
+
+		
+		
+	}
+	
+	public ResultadoOperacionGetPresupuestos buscarPresupuestosDeCliente(
+			String numDoc, String tipoDoc) {
+
+		Cliente c = buscarCliente(numDoc, tipoDoc);
+
+		if (c == null) {
+			return new ResultadoOperacionGetPresupuestos(
+					false, "no se encontro cliente", null);
+		}
+
+		List<PresupuestoAlquiler> lista = presupuestoMapper.getInstance()
+				.SelectPresupuestosDeUnCliente(c.getIdCliente());
+		
+		List<PresupuestoDTO> resultado = new ArrayList<PresupuestoDTO>();
+		
+		
+		for (PresupuestoAlquiler pa : lista) {
+			
+			resultado.add(pa.crearVista());
+		}
+
+		
+		if (resultado.isEmpty()) {
+			return  new ResultadoOperacionGetPresupuestos(
+					false, "no hay presupuestos de ese cliente", null);
+		}
+
+		
+		
+		
+		return new ResultadoOperacionGetPresupuestos(true, "Presupuestos:",
+				resultado);
+
 	}
 
 	private void actualizarVehiculoParaBusqueda(String dominio) {
@@ -503,24 +577,43 @@ public class Controlador {
 
 		p.setCliente(buscarCliente(numDoc, tipoDoc));
 		p.setFechaEmision(HelperDate.obtenerFechaHoy());
-		p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
-		// Acordarse de que la BD genere la fecha de vencimiento
+
+		p.setFechaInicio(HelperDate.obtenerFechadeString(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicio)));
+		p.setFechaFin(HelperDate.obtenerFechadeString(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFin)));
+
 		p.setSucursalDestino(buscarSucursal(sucDestino));
 		p.setSucursalOrigen(buscarSucursal(sucOrigen));
 		p.setVehiculo(buscarVehiculo(dominio));
+
 		p.calcularImporte();
-		p.setFechaFin(HelperDate.obtenerFechadeString(fechaFin));
-		// EL ID LO AGREGA LA BD
+
+		// EL ID y la fecha de venc LOS AGREGA LA BD
+
+		System.out.println("FECHA DE INICIO 1: " + fechaInicio);
+		System.out.println("FECHA DE FIN 1: " + fechaFin);
+
+		System.out.println("CLIENTE: " + p.getCliente().getIdCliente());
+		System.out.println("FECHA EMISION: " + p.getFechaEmision());
+		System.out.println("FECHA INICIO: " + p.getFechaInicio());
+		System.out.println("Sucursal Destino: "
+				+ p.getSucursalDestino().getIdSucursal());
+		System.out.println("Sucursal Origen: "
+				+ p.getSucursalOrigen().getIdSucursal());
+		System.out.println("Vehiculo: " + p.getVehiculo().getDominio());
+		System.out.println("FECHA FIN: " + p.getFechaFin());
 
 		// Inserta a la BD
-		presupuestoMapper.getInstance().insert(p);
+		p.Insert();
 
 		// Se agrega al cache
 		presupuestosAlquiler.add(p);
 
 		return p;
 	}
-// Borrar este metodo luego
+
+	// Borrar este metodo luego
 	public void pruebacambios() {
 
 		Date fechasql = HelperDate.obtenerFechaHoy();
@@ -534,19 +627,26 @@ public class Controlador {
 
 		System.out.println("FECHA UTIL CONVERTIDA A SQL" + fechasqlconvertida);
 
-		int diferencia = HelperDate.diferenciaEntreDosfechas(fechasql,fechasql);
-		
+		int diferencia = HelperDate
+				.diferenciaEntreDosfechas(fechasql, fechasql);
+
 		System.out.println(diferencia);
 
 	}
 
-	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde, String fechaFinHasta, String sucursalorigen, String sucursalDestino, String tipoDoc, String nroDoc,
-			String marca, String tamanio, String modelo, String transmision, int cantPuertas, String color, String ac, String tipoCombustible) {
+	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(
+			String fechaInicioDesde, String fechaInicioHasta,
+			String fechaFinDesde, String fechaFinHasta, String sucursalorigen,
+			String sucursalDestino, String tipoDoc, String nroDoc,
+			String marca, String tamanio, String modelo, String transmision,
+			int cantPuertas, String color, String ac, String tipoCombustible) {
 
 		// No valido por que pueden venir vacios, ahi trae todo
 		List<ContratoAlquiler> alquileres = contratoMapper.getInstance()
-				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde, fechaFinHasta, sucursalorigen, sucursalDestino, tipoDoc, nroDoc,
-						 marca, tamanio, modelo, transmision, cantPuertas, color, ac, tipoCombustible);
+				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde,
+						fechaFinHasta, sucursalorigen, sucursalDestino,
+						tipoDoc, nroDoc, marca, tamanio, modelo, transmision,
+						cantPuertas, color, ac, tipoCombustible);
 
 		List<ContratoAlquilerDTO> alquileresDTO = new ArrayList<ContratoAlquilerDTO>();
 
@@ -565,4 +665,26 @@ public class Controlador {
 					null);
 		}
 	}
+	
+	public void generarContratoAlquiler(int idPresupuesto) throws Exception{
+		
+		ContratoAlquiler ca = new ContratoAlquiler();
+		ca.setFechaEmision(HelperDate.obtenerFechaHoy());
+		
+		// Ver si estos atributos los seteamos, o si los borramos y los buscamos desde el presupuesto asociado
+		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
+		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
+		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
+		ca.setPunitorio(0);
+		ca.setImporte(ca.getPresupuesto().getImporte());
+		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
+		
+		// Agregamos a la BD, y obtenemos el ID generado por los identity
+		ca.Insert();
+		
+		
+		// Agregamos al cache
+		this.contratosAlquiler.add(ca);
+	}
+	
 }

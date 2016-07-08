@@ -51,6 +51,8 @@ public class elegirVehiculo extends JInternalFrame {
 	
 	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio, String sucOrigen) {
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Elegir Vehiculo para Presupuesto");
+		
 		this.fechaDeInicio = fechaInicio;
 		this.numDoc = numeroDoc;
 		this.tipoDocumento = tipoDoc;
@@ -131,6 +133,9 @@ public class elegirVehiculo extends JInternalFrame {
 				try {
 					controlador.generarPresupuesto(dominio, tipoDocumento, numDoc, 
 							fechaDeInicio, fechaFin, sucursalOrigen, sucDestino);
+					
+					menuPrincipal.getInstance().irAMenuPrincipal();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

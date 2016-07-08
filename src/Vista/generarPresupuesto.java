@@ -52,10 +52,27 @@ public class generarPresupuesto extends JInternalFrame {
 	private String sucursalOrigen;
 	private String sucursalDestino;
 	private String fechaInicio;
+	private JLabel lblModelo;
+	private JLabel lblTamap;
+	private JLabel lblCantPuertas;
+	private JLabel lblColor;
+	private JLabel lblTransmision;
+	private JLabel lblCombustible;
+	private JCheckBox aireAcondicionadoCB;
+	private JLabel lblMarca;
+	private JLabel lblInicio;
+	private JLabel lblSucursal;
+	private JLabel lblVehiculo;
+	private JButton btnBuscarCliente;
+	private JButton btnEstablecerInicio;
 	public generarPresupuesto() {
 
+		
+		
 		iniciarComponentes();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Nuevo Presupuesto");
+		
 		this.controlador = Controlador.getInstance();
 
 		cargarTiposDoc();
@@ -67,6 +84,50 @@ public class generarPresupuesto extends JInternalFrame {
 		
 	}
 
+	private void mostrarComponentesInicio(){
+		
+		
+		sucOrigenCOMBO.setVisible(true);
+		lblInicio.setVisible(true);
+		lblSucursal.setVisible(true);
+		btnEstablecerInicio.setVisible(true);
+		fechaInicioTF.setVisible(true);
+		btnBuscarCliente.setVisible(false);
+		tipoDocCOMBO.setEnabled(false);
+		numeroDocTF.setEditable(false);
+		btnBuscarCliente.setVisible(false);
+		
+	}
+	
+	private void mostrarComponentesVehiculo() {
+
+		sucOrigenCOMBO.setEnabled(false);
+		btnEstablecerInicio.setVisible(false);
+		fechaInicioTF.setEditable(false);
+		
+		verVehiculosBOTON.setVisible(true);
+		tamañoCOMBO.setVisible(true);
+		colorCOMBO.setVisible(true);
+		transmisionCOMBO.setVisible(true);
+		combustibleCOMBO.setVisible(true);
+		cantPuertasTF.setVisible(true);
+		marcaTF.setVisible(true);
+		
+		modeloTF.setVisible(true);
+		lblCantPuertas.setVisible(true);
+		lblColor.setVisible(true);
+		lblCombustible.setVisible(true);
+		lblMarca.setVisible(true);
+		lblModelo.setVisible(true);
+		lblTamap.setVisible(true);
+		lblTransmision.setVisible(true);
+		lblVehiculo.setVisible(true);
+		aireAcondicionadoCB.setVisible(true);
+		
+	}
+	
+	
+	
 	private void cargarCombustible() {
 
 		tiposComb = HelperValoresFijos.getTiposComb();
@@ -143,11 +204,7 @@ public class generarPresupuesto extends JInternalFrame {
 
 	}
 
-	private void mostrarComponentesVehiculo() {
-
-		verVehiculosBOTON.setVisible(true);
-
-	}
+	
 
 	private void iniciarComponentes() {
 
@@ -162,7 +219,7 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(lblNuevoPresupuesto);
 
 		JLabel lblCliente = new JLabel("Cliente");
-		lblCliente.setBounds(10, 59, 46, 14);
+		lblCliente.setBounds(58, 62, 46, 14);
 		getContentPane().add(lblCliente);
 
 		JLabel lblTipoDoc = new JLabel("Tipo Doc");
@@ -182,7 +239,7 @@ public class generarPresupuesto extends JInternalFrame {
 		getContentPane().add(numeroDocTF);
 		numeroDocTF.setColumns(10);
 
-		JButton btnBuscarCliente = new JButton("Buscar Cliente");
+		btnBuscarCliente = new JButton("Buscar Cliente");
 		btnBuscarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -192,7 +249,7 @@ public class generarPresupuesto extends JInternalFrame {
 
 				ResultadoOperacion res = controlador.existeCliente(tipoDoc, numeroDoc);
 				if (res.sosExitoso()){
-					mostrarComponentesVehiculo();
+					mostrarComponentesInicio();
 				} else {
 					JOptionPane.showMessageDialog(null, res.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 						
@@ -202,64 +259,64 @@ public class generarPresupuesto extends JInternalFrame {
 		btnBuscarCliente.setBounds(20, 174, 137, 23);
 		getContentPane().add(btnBuscarCliente);
 
-		JLabel lblVehiculo = new JLabel("Vehiculo");
-		lblVehiculo.setBounds(313, 62, 74, 14);
+		lblVehiculo = new JLabel("Vehiculo");
+		lblVehiculo.setBounds(437, 62, 74, 14);
 		getContentPane().add(lblVehiculo);
 
-		JLabel lblModelo = new JLabel("Modelo");
-		lblModelo.setBounds(272, 87, 46, 14);
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(502, 99, 46, 14);
 		getContentPane().add(lblModelo);
 
-		JLabel lblTamap = new JLabel("Tama\u00F1o");
-		lblTamap.setBounds(272, 127, 46, 14);
+		lblTamap = new JLabel("Tama\u00F1o");
+		lblTamap.setBounds(328, 139, 46, 14);
 		getContentPane().add(lblTamap);
 
-		JLabel lblCantPuertas = new JLabel("Cant Puertas");
-		lblCantPuertas.setBounds(245, 165, 98, 14);
+		lblCantPuertas = new JLabel("Cant Puertas");
+		lblCantPuertas.setBounds(301, 177, 98, 14);
 		getContentPane().add(lblCantPuertas);
 
-		JLabel lblColor = new JLabel("Color");
-		lblColor.setBounds(272, 198, 46, 14);
+		lblColor = new JLabel("Color");
+		lblColor.setBounds(328, 210, 46, 14);
 		getContentPane().add(lblColor);
 
-		final JCheckBox aireAcondicionadoCB = new JCheckBox(
+		aireAcondicionadoCB = new JCheckBox(
 				"Aire Acondicionado");
-		aireAcondicionadoCB.setBounds(272, 278, 146, 23);
+		aireAcondicionadoCB.setBounds(536, 186, 146, 23);
 		getContentPane().add(aireAcondicionadoCB);
 
-		JLabel lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(257, 223, 86, 14);
+		lblTransmision = new JLabel("Transmision");
+		lblTransmision.setBounds(313, 235, 86, 14);
 		getContentPane().add(lblTransmision);
 
-		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(220, 311, 46, 14);
+		lblMarca = new JLabel("Marca");
+		lblMarca.setBounds(328, 99, 46, 14);
 		getContentPane().add(lblMarca);
 
 		modeloTF = new JTextField();
-		modeloTF.setBounds(353, 87, 86, 20);
+		modeloTF.setBounds(558, 96, 86, 20);
 		getContentPane().add(modeloTF);
 		modeloTF.setColumns(10);
 
 		tamañoCOMBO = new JComboBox();
-		tamañoCOMBO.setBounds(355, 124, 84, 20);
+		tamañoCOMBO.setBounds(411, 136, 84, 20);
 		getContentPane().add(tamañoCOMBO);
 
 		cantPuertasTF = new JTextField();
 		cantPuertasTF.setText("4");
-		cantPuertasTF.setBounds(353, 162, 86, 20);
+		cantPuertasTF.setBounds(409, 174, 86, 20);
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
 		colorCOMBO = new JComboBox();
-		colorCOMBO.setBounds(353, 195, 86, 20);
+		colorCOMBO.setBounds(409, 207, 86, 20);
 		getContentPane().add(colorCOMBO);
 
 		transmisionCOMBO = new JComboBox();
-		transmisionCOMBO.setBounds(353, 220, 86, 20);
+		transmisionCOMBO.setBounds(409, 232, 86, 20);
 		getContentPane().add(transmisionCOMBO);
 
 		marcaTF = new JTextField();
-		marcaTF.setBounds(301, 308, 86, 20);
+		marcaTF.setBounds(384, 99, 86, 20);
 		getContentPane().add(marcaTF);
 		marcaTF.setColumns(10);
 
@@ -299,11 +356,11 @@ public class generarPresupuesto extends JInternalFrame {
 
 			}
 		});
-		verVehiculosBOTON.setBounds(301, 367, 137, 23);
+		verVehiculosBOTON.setBounds(438, 319, 137, 23);
 		getContentPane().add(verVehiculosBOTON);
 
-		JLabel lblInicio = new JLabel("Fecha Inicio:");
-		lblInicio.setBounds(30, 254, 74, 14);
+		lblInicio = new JLabel("Fecha Inicio:");
+		lblInicio.setBounds(30, 311, 74, 14);
 		getContentPane().add(lblInicio);
 
 		MaskFormatter mf = null;
@@ -315,31 +372,60 @@ public class generarPresupuesto extends JInternalFrame {
 		}
 		fechaInicioTF = new JFormattedTextField(mf);
 
-		fechaInicioTF.setBounds(132, 251, 86, 20);
+		fechaInicioTF.setBounds(126, 308, 86, 20);
 		getContentPane().add(fechaInicioTF);
 		fechaInicioTF.setColumns(10);
 
-		JLabel lblSucursal = new JLabel("Sucursal Origen");
-		lblSucursal.setBounds(10, 214, 106, 14);
+		lblSucursal = new JLabel("Sucursal Origen");
+		lblSucursal.setBounds(10, 282, 106, 14);
 		getContentPane().add(lblSucursal);
 
-		JLabel lblFechaFin = new JLabel("Fecha Fin:");
-		lblFechaFin.setBounds(20, 311, 61, 14);
-		getContentPane().add(lblFechaFin);
-
 		sucOrigenCOMBO = new JComboBox();
-		sucOrigenCOMBO.setBounds(126, 211, 92, 20);
+		sucOrigenCOMBO.setBounds(126, 277, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
 
 
 
-		JLabel lblCombustible = new JLabel("Combustible");
-		lblCombustible.setBounds(245, 251, 86, 20);
+		lblCombustible = new JLabel("Combustible");
+		lblCombustible.setBounds(301, 263, 86, 20);
 		getContentPane().add(lblCombustible);
 
 		combustibleCOMBO = new JComboBox();
-		combustibleCOMBO.setBounds(353, 251, 86, 20);
+		combustibleCOMBO.setBounds(409, 263, 86, 20);
 		getContentPane().add(combustibleCOMBO);
+		
+		btnEstablecerInicio = new JButton("Establecer Inicio");
+		btnEstablecerInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				mostrarComponentesVehiculo();
+				
+			}
+		});
+		btnEstablecerInicio.setBounds(60, 357, 158, 32);
+		getContentPane().add(btnEstablecerInicio);
 
+		verVehiculosBOTON.setVisible(false);
+		tamañoCOMBO.setVisible(false);
+		colorCOMBO.setVisible(false);
+		transmisionCOMBO.setVisible(false);
+		sucOrigenCOMBO.setVisible(false);
+		combustibleCOMBO.setVisible(false);
+		cantPuertasTF.setVisible(false);
+		marcaTF.setVisible(false);
+		fechaInicioTF.setVisible(false);
+		modeloTF.setVisible(false);
+		lblCantPuertas.setVisible(false);
+		lblColor.setVisible(false);
+		lblCombustible.setVisible(false);
+		lblInicio.setVisible(false);
+		lblMarca.setVisible(false);
+		lblModelo.setVisible(false);
+		lblSucursal.setVisible(false);
+		lblTamap.setVisible(false);
+		lblTransmision.setVisible(false);
+		lblVehiculo.setVisible(false);
+		aireAcondicionadoCB.setVisible(false);
+		btnEstablecerInicio.setVisible(false);
 	}
 }

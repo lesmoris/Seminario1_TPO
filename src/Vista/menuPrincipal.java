@@ -367,6 +367,8 @@ public class menuPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		getContentPane().setVisible(true);
 
+		setTitle("RENT A CAR");
+		
 	}
 
 	public void irAVentana(JInternalFrame i) {

@@ -30,6 +30,8 @@ public class cerrarMantenimiento extends JInternalFrame {
 	public cerrarMantenimiento() {
 		iniciarcomponentes();
 		
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Cerrar Mantenimiento");
+		
 		this.controlador = Controlador.getInstance();
 	}
 
