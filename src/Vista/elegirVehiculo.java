@@ -129,18 +129,29 @@ public class elegirVehiculo extends JInternalFrame {
 					try {
 						controlador.generarPresupuesto(dominio, tipoDocumento,
 								numDoc, fechaDeInicio, fechaFin,
-								sucursalOrigen, sucDestino);
+								sucursalOrigen, sucDestino); // LEO: Esta
+																// devolviendo
+																// un
+																// PresupuestoAlquiler.
+																// A la vista no
+																// leo tiene que
+																// llegar
+																// entidades del
+																// modelo
 
 						menuPrincipal.getInstance().irAMenuPrincipal();
 
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						e.printStackTrace(); // LEO: Deberia estar el manejo de
+												// errores como en otras
+												// pantallas
 					}
 
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"DEBE SELECCIONAR UN VEHICULO");
+							"DEBE SELECCIONAR UN VEHICULO"); // LEO: Mensajes en
+																// minuscula
 				}
 
 			}

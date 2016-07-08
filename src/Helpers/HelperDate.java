@@ -88,18 +88,18 @@ public class HelperDate {
 		return cantidadDias;
 	}
 
-	
 	public static int diferenciaEntreDosfechas(java.sql.Date fechaInicio,
 			java.sql.Date fechaFin) {
 
 		java.util.Date fechaInicioModificada = ConvertirSQLAUtil(fechaInicio);
-		java.util.Date fechaFinModificada =  ConvertirSQLAUtil(fechaFin);
-		
+		java.util.Date fechaFinModificada = ConvertirSQLAUtil(fechaFin);
+
 		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 
-		int cantidadDias = (int) ((fechaInicioModificada.getTime() - fechaFinModificada.getTime()) / MILLSECS_PER_DAY);
+		int cantidadDias = (int) ((fechaInicioModificada.getTime() - fechaFinModificada
+				.getTime()) / MILLSECS_PER_DAY);
 
 		return cantidadDias;
 	}
-	
+
 }

@@ -509,7 +509,8 @@ public class Controlador {
 
 		return p;
 	}
-
+	
+	// LEO : Devuelve modelo a la vista, cambiar
 	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
 			String TipoDNI, String DNI) {
 
@@ -573,6 +574,8 @@ public class Controlador {
 			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
 			String sucOrigen, String sucDestino) throws Exception {
 
+		 // LEO : Validacion de parametros. Si alguno falta o esta mal, tirar error y que la vista lo muestre
+		
 		PresupuestoAlquiler p = new PresupuestoAlquiler();
 
 		p.setCliente(buscarCliente(numDoc, tipoDoc));
@@ -610,7 +613,7 @@ public class Controlador {
 		// Se agrega al cache
 		presupuestosAlquiler.add(p);
 
-		return p;
+		return p; // LEO : devuelve modelo a la vista, cambiar por ResultadoOperacion
 	}
 
 	// Borrar este metodo luego
@@ -668,14 +671,16 @@ public class Controlador {
 	
 	public void generarContratoAlquiler(int idPresupuesto) throws Exception{
 		
+		// LEO : Valudacion de presupuesto
+		
 		ContratoAlquiler ca = new ContratoAlquiler();
-		ca.setFechaEmision(HelperDate.obtenerFechaHoy());
+		ca.setFechaEmision(HelperDate.obtenerFechaHoy()); // LEO : Esto deberia ser un getdate en la BD. si no esta, lo agregamos.
 		
 		// Ver si estos atributos los seteamos, o si los borramos y los buscamos desde el presupuesto asociado
 		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
 		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
-		ca.setPunitorio(0);
+		ca.setPunitorio(0);// LEO : punitorio tiene que estar null hasta que se cierra el contrato.
 		ca.setImporte(ca.getPresupuesto().getImporte());
 		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
 		

@@ -315,12 +315,7 @@ public class generarPresupuesto extends JInternalFrame {
 
 				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString();
 
-				String ac;
-				if (aireAcondicionadoCB.isSelected()) {
-					ac = "S";
-				} else {
-					ac = "N";
-				}
+				String ac = aireAcondicionadoCB.isSelected() ? "S" : "N";
 
 				List<VehiculoDTO> listavehiculo = controlador
 						.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem()
@@ -335,6 +330,8 @@ public class generarPresupuesto extends JInternalFrame {
 				elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc,
 						listavehiculo, fechaInicio, sucursalOrigen);
 
+				// LEO: Que pasa si no hay vehiculos? Va igual a la pantalla?
+				
 				// Vamos a la ventana con el cliente cargado, y los vehiculos
 				// filtrados
 				menuPrincipal.getInstance().irAVentana(a);
