@@ -27,7 +27,7 @@ public class TMmantenimientosPorSucursalTABLA implements TableModel {
 	}
 
 	public int getColumnCount() {
-		return 5;
+		return 3;
 	}
 
 	public String getColumnName(int arg0) {
@@ -44,15 +44,7 @@ public class TMmantenimientosPorSucursalTABLA implements TableModel {
 			break;
 		}
 		case 2: {
-			valor = "Solucion";
-			break;
-		}
-		case 3: {
 			valor = "Fecha Inicio";
-			break;
-		}
-		case 4: {
-			valor = "Fecha Finalizacion";
 			break;
 		}
 		}
@@ -80,15 +72,7 @@ public class TMmantenimientosPorSucursalTABLA implements TableModel {
 			break;
 		}
 		case 2: {
-			valor = m.getSolucion();
-			break;
-		}
-		case 3: {
 			valor = m.getFechaInicio().toString();
-			break;
-		}
-		case 4: {
-			valor = m.getFechaFin() != null ? m.getFechaFin().toString() : "";
 			break;
 		}
 		}
