@@ -22,11 +22,6 @@ public class bajaVehiculo extends JInternalFrame {
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		
-		JLabel lblBajaVehiculo = new JLabel("Baja Vehiculo");
-		lblBajaVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblBajaVehiculo.setBounds(133, 11, 181, 25);
-		getContentPane().add(lblBajaVehiculo);
-		
 		JLabel lblDominioDelVeh = new JLabel("Dominio del Vehiculo");
 		lblDominioDelVeh.setBounds(34, 106, 149, 14);
 		getContentPane().add(lblDominioDelVeh);
