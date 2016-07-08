@@ -40,23 +40,23 @@ public class cerrarMantenimiento extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblDominio = new JLabel("Dominio");
-		lblDominio.setBounds(39, 83, 87, 14);
+		lblDominio.setBounds(34, 121, 87, 14);
 		getContentPane().add(lblDominio);
 
 		dominioTF = new JTextField();
-		dominioTF.setBounds(142, 80, 86, 20);
+		dominioTF.setBounds(97, 119, 86, 20);
 		getContentPane().add(dominioTF);
 		dominioTF.setColumns(10);
 
 		JLabel lblDescripcionDelMantenimiento = new JLabel(
-				"Descripcion del mantenimiento realizado:");
-		lblDescripcionDelMantenimiento.setBounds(39, 111, 245, 14);
+				"Descripci\u00F3n del mantenimiento realizado:");
+		lblDescripcionDelMantenimiento.setBounds(213, 123, 245, 14);
 		getContentPane().add(lblDescripcionDelMantenimiento);
 
 		final JTextArea descripcionTA = new JTextArea();
 		descripcionTA.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionTA.setLineWrap(true);
-		descripcionTA.setBounds(39, 136, 420, 103);
+		descripcionTA.setBounds(214, 146, 529, 138);
 		descripcionTA.setEnabled(false);
 		getContentPane().add(descripcionTA);
 
@@ -84,7 +84,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 
 			}
 		});
-		btnConfirmar.setBounds(484, 216, 106, 23);
+		btnConfirmar.setBounds(637, 297, 106, 23);
 		getContentPane().add(btnConfirmar);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -111,7 +111,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscar.setBounds(248, 79, 89, 23);
+		btnBuscar.setBounds(98, 149, 89, 23);
 		getContentPane().add(btnBuscar);
 
 	}

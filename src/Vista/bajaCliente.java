@@ -24,24 +24,24 @@ public class bajaCliente extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(45, 83, 103, 21);
+		lblTipoDocumento.setBounds(246, 135, 103, 21);
 		getContentPane().add(lblTipoDocumento);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(167, 83, 123, 20);
+		comboBox.setBounds(368, 135, 123, 20);
 		getContentPane().add(comboBox);
 		
 		JLabel lblNumeroDocumento = new JLabel("Nro Documento:");
-		lblNumeroDocumento.setBounds(45, 136, 103, 14);
+		lblNumeroDocumento.setBounds(246, 169, 103, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
 		textField = new JTextField();
-		textField.setBounds(167, 133, 123, 20);
+		textField.setBounds(368, 166, 123, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(299, 197, 117, 36);
+		btnConfirmar.setBounds(307, 197, 103, 23);
 		getContentPane().add(btnConfirmar);
 
 	}

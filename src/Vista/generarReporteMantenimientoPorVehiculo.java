@@ -41,7 +41,7 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 
-		JLabel lblDominioVehiculo = new JLabel("Dominio Vehiculo");
+		JLabel lblDominioVehiculo = new JLabel("Dominio");
 		lblDominioVehiculo.setBounds(222, 116, 116, 14);
 		getContentPane().add(lblDominioVehiculo);
 

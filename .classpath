@@ -2,6 +2,25 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="./../Seminario1_TPO/src/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/synthetica.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaAluOxide.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBatik.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlackEye.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlackMoon.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlackStar.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlueIce.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlueLight.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlueMoon.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaBlueSteel.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaClassy.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaGreenDream.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaMauveMetallic.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaOrangeMetallic.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaPlain.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaSilverMoon.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaSimple2D.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaSkyMetallic.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaWhiteVision.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

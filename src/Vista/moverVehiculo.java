@@ -59,7 +59,7 @@ public class moverVehiculo extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblDominio = new JLabel("Dominio");
-		lblDominio.setBounds(21, 133, 46, 14);
+		lblDominio.setBounds(21, 133, 86, 14);
 		getContentPane().add(lblDominio);
 
 		dominioTF = new JTextField();
@@ -140,7 +140,7 @@ public class moverVehiculo extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscarVehiculo.setBounds(286, 129, 120, 23);
+		btnBuscarVehiculo.setBounds(286, 129, 145, 23);
 		getContentPane().add(btnBuscarVehiculo);
 
 	}

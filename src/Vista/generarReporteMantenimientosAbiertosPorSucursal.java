@@ -61,11 +61,11 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 		getContentPane().setLayout(null);
 
 		JLabel lblSucursal = new JLabel("Sucursal");
-		lblSucursal.setBounds(135, 92, 69, 20);
+		lblSucursal.setBounds(144, 11, 69, 20);
 		getContentPane().add(lblSucursal);
 
 		cmbSucursal = new JComboBox();
-		cmbSucursal.setBounds(214, 92, 140, 20);
+		cmbSucursal.setBounds(223, 11, 140, 20);
 		getContentPane().add(cmbSucursal);
 
 		JButton btnGenerarReporte = new JButton("Generar Reporte");
@@ -95,11 +95,11 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 				}
 			}
 		});
-		btnGenerarReporte.setBounds(399, 92, 164, 23);
+		btnGenerarReporte.setBounds(408, 11, 164, 23);
 		getContentPane().add(btnGenerarReporte);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 139, 764, 285);
+		scrollPane.setBounds(10, 43, 764, 381);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmantenimientosPorSucursalTABLA(

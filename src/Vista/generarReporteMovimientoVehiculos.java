@@ -76,63 +76,63 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblFechaInicio = new JLabel("FECHA INICIO");
-		lblFechaInicio.setBounds(20, 70, 84, 14);
+		lblFechaInicio.setBounds(20, 25, 84, 14);
 		getContentPane().add(lblFechaInicio);
 
 		JLabel lblFechaFin = new JLabel("FECHA FIN");
-		lblFechaFin.setBounds(179, 71, 76, 13);
+		lblFechaFin.setBounds(179, 26, 76, 13);
 		getContentPane().add(lblFechaFin);
 
 		JLabel lblDesde = new JLabel("Desde");
-		lblDesde.setBounds(20, 98, 46, 14);
+		lblDesde.setBounds(20, 53, 46, 14);
 		getContentPane().add(lblDesde);
 
 		JLabel lblHasta = new JLabel("Hasta");
-		lblHasta.setBounds(20, 134, 46, 14);
+		lblHasta.setBounds(20, 78, 46, 14);
 		getContentPane().add(lblHasta);
 
 		fechaInicioDesdeTF = new JTextField();
-		fechaInicioDesdeTF.setBounds(66, 95, 86, 20);
+		fechaInicioDesdeTF.setBounds(66, 50, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
 		fechaInicioDesdeTF.setColumns(10);
 
 		fechaInicioHastaTF = new JTextField();
-		fechaInicioHastaTF.setBounds(66, 131, 86, 20);
+		fechaInicioHastaTF.setBounds(66, 75, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
 		fechaInicioHastaTF.setColumns(10);
 
 		JLabel lblDesde_1 = new JLabel("Desde");
-		lblDesde_1.setBounds(179, 95, 46, 14);
+		lblDesde_1.setBounds(179, 50, 46, 14);
 		getContentPane().add(lblDesde_1);
 
 		JLabel lblHasta_1 = new JLabel("Hasta");
-		lblHasta_1.setBounds(179, 134, 46, 14);
+		lblHasta_1.setBounds(179, 78, 46, 14);
 		getContentPane().add(lblHasta_1);
 
 		fechaFinDesdeTF = new JTextField();
-		fechaFinDesdeTF.setBounds(235, 95, 86, 20);
+		fechaFinDesdeTF.setBounds(235, 50, 86, 20);
 		getContentPane().add(fechaFinDesdeTF);
 		fechaFinDesdeTF.setColumns(10);
 
 		fechaFinHastaTF = new JTextField();
-		fechaFinHastaTF.setBounds(235, 131, 86, 20);
+		fechaFinHastaTF.setBounds(235, 75, 86, 20);
 		getContentPane().add(fechaFinHastaTF);
 		fechaFinHastaTF.setColumns(10);
 
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(361, 95, 106, 14);
+		lblSucursalOrigen.setBounds(361, 50, 106, 14);
 		getContentPane().add(lblSucursalOrigen);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(361, 134, 106, 14);
+		lblSucursalDestino.setBounds(361, 78, 106, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		cmbOrigen = new JComboBox();
-		cmbOrigen.setBounds(459, 92, 100, 20);
+		cmbOrigen.setBounds(459, 47, 100, 20);
 		getContentPane().add(cmbOrigen);
 
 		cmbDestino = new JComboBox();
-		cmbDestino.setBounds(459, 131, 100, 20);
+		cmbDestino.setBounds(459, 75, 100, 20);
 		getContentPane().add(cmbDestino);
 
 		JButton btnConfirmar = new JButton("Generar Reporte");
@@ -174,11 +174,11 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 			}
 
 		});
-		btnConfirmar.setBounds(608, 108, 131, 23);
+		btnConfirmar.setBounds(607, 60, 131, 23);
 		getContentPane().add(btnConfirmar);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 193, 764, 217);
+		scrollPane.setBounds(10, 116, 764, 294);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmovimientosDeVehiculosTABLA(new ArrayList<MovimientoDTO>());

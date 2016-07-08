@@ -83,7 +83,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 				}
 			}
 		});
-		btnConfirmarRecepcionVehiculo.setBounds(328, 324, 155, 23);
+		btnConfirmarRecepcionVehiculo.setBounds(582, 262, 155, 23);
 		getContentPane().add(btnConfirmarRecepcionVehiculo);
 
 		JLabel lblNumeroDeOrden = new JLabel("Sucursal Que Recibe:");
@@ -91,7 +91,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		getContentPane().add(lblNumeroDeOrden);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(43, 164, 525, 64);
+		scrollPane.setBounds(43, 125, 694, 103);
 		getContentPane().add(scrollPane);
 
 		// Llenamos El TableModel

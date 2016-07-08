@@ -12,7 +12,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 
 public class menuPrincipal extends JFrame {
 
@@ -20,14 +23,13 @@ public class menuPrincipal extends JFrame {
 	private static menuPrincipal instancia;
 	private static menuPrincipal frame;
 	private static String title = "Rent-A-Car";
-	private static String separator= " - ";
+	private static String separator = " - ";
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// UIManager.setLookAndFeel(new
-					// SyntheticaPlainLookAndFeel());
+					UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
 					frame = new menuPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -150,8 +152,9 @@ public class menuPrincipal extends JFrame {
 		mntmModificarPrecioPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				frame.setTitle(title + separator + mntmModificarPrecioPor.getText());
-				
+				frame.setTitle(title + separator
+						+ mntmModificarPrecioPor.getText());
+
 				modificacionVehiculo a = new modificacionVehiculo();
 
 				irAVentana(a);
@@ -178,8 +181,9 @@ public class menuPrincipal extends JFrame {
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmHistorialMantenimientoPor.getText());
-				
+				frame.setTitle(title + separator
+						+ mntmHistorialMantenimientoPor.getText());
+
 				generarReporteMantenimientoPorVehiculo a = new generarReporteMantenimientoPorVehiculo();
 
 				irAVentana(a);
@@ -189,8 +193,9 @@ public class menuPrincipal extends JFrame {
 		mntmCerrarMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmCerrarMantenimiento.getText());
-				
+				frame.setTitle(title + separator
+						+ mntmCerrarMantenimiento.getText());
+
 				cerrarMantenimiento a = new cerrarMantenimiento();
 
 				irAVentana(a);
@@ -200,7 +205,8 @@ public class menuPrincipal extends JFrame {
 		mntmSolicitudMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmSolicitudMantenimiento.getText());
+				frame.setTitle(title + separator
+						+ mntmSolicitudMantenimiento.getText());
 
 				solicitarMantenimiento a = new solicitarMantenimiento();
 
@@ -221,7 +227,8 @@ public class menuPrincipal extends JFrame {
 		mntmRecibirVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmRecibirVehiculo.getText());
+				frame.setTitle(title + separator
+						+ mntmRecibirVehiculo.getText());
 
 				recibirVehiculoenMovimiento a = new recibirVehiculoenMovimiento();
 
@@ -244,11 +251,13 @@ public class menuPrincipal extends JFrame {
 		JMenu mnAlquileres = new JMenu("Alquileres");
 		menuBar.add(mnAlquileres);
 
-		final JMenuItem mntmGenerarPresupuesto = new JMenuItem("Generar Presupuesto");
+		final JMenuItem mntmGenerarPresupuesto = new JMenuItem(
+				"Generar Presupuesto");
 		mntmGenerarPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmGenerarPresupuesto.getText());
+				frame.setTitle(title + separator
+						+ mntmGenerarPresupuesto.getText());
 
 				generarPresupuesto a = new generarPresupuesto();
 
@@ -308,7 +317,8 @@ public class menuPrincipal extends JFrame {
 		mntmMovimientoVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmMovimientoVehiculos.getText());
+				frame.setTitle(title + separator
+						+ mntmMovimientoVehiculos.getText());
 
 				generarReporteMovimientoVehiculos a = new generarReporteMovimientoVehiculos();
 
@@ -323,7 +333,8 @@ public class menuPrincipal extends JFrame {
 		mntmVehiculosEnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmVehiculosEnMantenimiento.getText());
+				frame.setTitle(title + separator
+						+ mntmVehiculosEnMantenimiento.getText());
 
 				generarReporteMantenimientosAbiertosPorSucursal a = new generarReporteMantenimientosAbiertosPorSucursal();
 
@@ -368,7 +379,7 @@ public class menuPrincipal extends JFrame {
 		getContentPane().setVisible(true);
 
 		setTitle("RENT A CAR");
-		
+
 	}
 
 	public void irAVentana(JInternalFrame i) {

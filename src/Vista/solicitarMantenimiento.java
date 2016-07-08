@@ -37,16 +37,16 @@ public class solicitarMantenimiento extends JInternalFrame {
 		final JTextArea descripcionFallaTF = new JTextArea();
 		descripcionFallaTF.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionFallaTF.setLineWrap(true);
-		descripcionFallaTF.setBounds(355, 116, 351, 165);
+		descripcionFallaTF.setBounds(212, 146, 530, 135);
 		descripcionFallaTF.setEnabled(false);
 		getContentPane().add(descripcionFallaTF);
 
 		JLabel lblDominio = new JLabel("Dominio");
-		lblDominio.setBounds(34, 121, 46, 14);
+		lblDominio.setBounds(34, 121, 66, 14);
 		getContentPane().add(lblDominio);
 
 		dominioTF = new JTextField();
-		dominioTF.setBounds(95, 118, 86, 20);
+		dominioTF.setBounds(95, 118, 89, 20);
 		getContentPane().add(dominioTF);
 		dominioTF.setColumns(10);
 
@@ -77,7 +77,7 @@ public class solicitarMantenimiento extends JInternalFrame {
 
 			}
 		});
-		btnConfirmar.setBounds(617, 305, 89, 23);
+		btnConfirmar.setBounds(646, 294, 97, 23);
 		getContentPane().add(btnConfirmar);
 
 		JButton btnBuscarVehiculo = new JButton("Buscar");

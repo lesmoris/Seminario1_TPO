@@ -169,126 +169,126 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Sucursal Origen");
-		lblNewLabel.setBounds(388, 94, 99, 14);
+		lblNewLabel.setBounds(388, 36, 99, 14);
 		getContentPane().add(lblNewLabel);
 
 		cmbDestino = new JComboBox();
-		cmbDestino.setBounds(492, 116, 96, 20);
+		cmbDestino.setBounds(492, 58, 96, 20);
 		getContentPane().add(cmbDestino);
 
 		JLabel lblFechaDesde = new JLabel("Desde");
-		lblFechaDesde.setBounds(10, 94, 71, 14);
+		lblFechaDesde.setBounds(10, 36, 71, 14);
 		getContentPane().add(lblFechaDesde);
 
 		JLabel lblFechaHasta = new JLabel("Hasta");
-		lblFechaHasta.setBounds(10, 119, 71, 14);
+		lblFechaHasta.setBounds(10, 61, 71, 14);
 		getContentPane().add(lblFechaHasta);
 
 		JLabel lblFechaInicio = new JLabel("FECHA INICIO");
-		lblFechaInicio.setBounds(10, 69, 83, 14);
+		lblFechaInicio.setBounds(10, 11, 83, 14);
 		getContentPane().add(lblFechaInicio);
 
 		JLabel lblFechaFin = new JLabel("FECHA FIN");
-		lblFechaFin.setBounds(173, 69, 71, 14);
+		lblFechaFin.setBounds(173, 11, 71, 14);
 		getContentPane().add(lblFechaFin);
 
 		fechaInicioDesdeTF = new JTextField();
-		fechaInicioDesdeTF.setBounds(52, 91, 86, 20);
+		fechaInicioDesdeTF.setBounds(52, 33, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
 		fechaInicioDesdeTF.setColumns(10);
 
 		fechaInicioHastaTF = new JTextField();
-		fechaInicioHastaTF.setBounds(52, 116, 86, 20);
+		fechaInicioHastaTF.setBounds(52, 58, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
 		fechaInicioHastaTF.setColumns(10);
 
 		JLabel lblDesde = new JLabel("Desde");
-		lblDesde.setBounds(173, 94, 46, 14);
+		lblDesde.setBounds(173, 36, 46, 14);
 		getContentPane().add(lblDesde);
 
 		JLabel lblHasta = new JLabel("Hasta");
-		lblHasta.setBounds(173, 119, 46, 14);
+		lblHasta.setBounds(173, 61, 46, 14);
 		getContentPane().add(lblHasta);
 
 		fechaFinDesdeTF = new JTextField();
-		fechaFinDesdeTF.setBounds(254, 91, 86, 20);
+		fechaFinDesdeTF.setBounds(254, 33, 86, 20);
 		getContentPane().add(fechaFinDesdeTF);
 		fechaFinDesdeTF.setColumns(10);
 
 		fechaFinHastaTF = new JTextField();
-		fechaFinHastaTF.setBounds(254, 116, 86, 20);
+		fechaFinHastaTF.setBounds(254, 58, 86, 20);
 		getContentPane().add(fechaFinHastaTF);
 		fechaFinHastaTF.setColumns(10);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(388, 119, 99, 14);
+		lblSucursalDestino.setBounds(388, 61, 99, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		cmbOrigen = new JComboBox();
-		cmbOrigen.setBounds(492, 91, 96, 20);
+		cmbOrigen.setBounds(492, 33, 96, 20);
 		getContentPane().add(cmbOrigen);
 
 		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(613, 69, 76, 14);
+		lblCliente.setBounds(613, 11, 76, 14);
 		getContentPane().add(lblCliente);
 
 		JLabel lblSucursales = new JLabel("SUCURSALES");
-		lblSucursales.setBounds(388, 69, 91, 14);
+		lblSucursales.setBounds(388, 11, 91, 14);
 		getContentPane().add(lblSucursales);
 
 		JLabel lblTipoDoc = new JLabel("Tipo Doc");
-		lblTipoDoc.setBounds(613, 94, 65, 14);
+		lblTipoDoc.setBounds(613, 36, 65, 14);
 		getContentPane().add(lblTipoDoc);
 
 		cmbTipoDoc = new JComboBox();
-		cmbTipoDoc.setBounds(688, 91, 86, 20);
+		cmbTipoDoc.setBounds(672, 33, 86, 20);
 		getContentPane().add(cmbTipoDoc);
 
 		JLabel lblNroDoc = new JLabel("Nro Doc");
-		lblNroDoc.setBounds(613, 119, 65, 14);
+		lblNroDoc.setBounds(613, 61, 65, 14);
 		getContentPane().add(lblNroDoc);
 
 		nroDocTF = new JTextField();
-		nroDocTF.setBounds(688, 116, 86, 20);
+		nroDocTF.setBounds(672, 58, 86, 20);
 		getContentPane().add(nroDocTF);
 		nroDocTF.setColumns(10);
 
 		JLabel lblVehiculo = new JLabel("VEHICULO");
-		lblVehiculo.setBounds(10, 147, 83, 14);
+		lblVehiculo.setBounds(10, 89, 83, 14);
 		getContentPane().add(lblVehiculo);
 
 		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(10, 171, 46, 14);
+		lblMarca.setBounds(10, 113, 46, 14);
 		getContentPane().add(lblMarca);
 
 		JLabel lblModelo = new JLabel("Modelo");
-		lblModelo.setBounds(294, 171, 46, 14);
+		lblModelo.setBounds(294, 113, 46, 14);
 		getContentPane().add(lblModelo);
 
 		JLabel lblColor = new JLabel("Color");
-		lblColor.setBounds(10, 205, 46, 14);
+		lblColor.setBounds(10, 147, 46, 14);
 		getContentPane().add(lblColor);
 
 		JLabel lblCantPuertas = new JLabel("Cant Puertas");
-		lblCantPuertas.setBounds(613, 171, 108, 14);
+		lblCantPuertas.setBounds(613, 113, 108, 14);
 		getContentPane().add(lblCantPuertas);
 
 		marcaTF = new JTextField();
-		marcaTF.setBounds(52, 171, 86, 20);
+		marcaTF.setBounds(52, 113, 86, 20);
 		getContentPane().add(marcaTF);
 		marcaTF.setColumns(10);
 
 		modeloTF = new JTextField();
-		modeloTF.setBounds(340, 168, 86, 20);
+		modeloTF.setBounds(340, 110, 86, 20);
 		getContentPane().add(modeloTF);
 		modeloTF.setColumns(10);
 
 		cmbColor = new JComboBox();
-		cmbColor.setBounds(52, 202, 86, 20);
+		cmbColor.setBounds(52, 144, 86, 20);
 		getContentPane().add(cmbColor);
 
 		cantPuertasTF = new JTextField();
-		cantPuertasTF.setBounds(703, 168, 71, 20);
+		cantPuertasTF.setBounds(687, 110, 71, 20);
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
@@ -346,27 +346,27 @@ public class generarReporteAlquileres extends JInternalFrame {
 
 			}
 		});
-		btnGenerar.setBounds(627, 201, 147, 23);
+		btnGenerar.setBounds(611, 143, 147, 23);
 		getContentPane().add(btnGenerar);
 
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
-		lblTamao.setBounds(148, 171, 65, 14);
+		lblTamao.setBounds(148, 113, 65, 14);
 		getContentPane().add(lblTamao);
 
 		JLabel lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(436, 171, 83, 14);
+		lblTransmision.setBounds(436, 113, 83, 14);
 		getContentPane().add(lblTransmision);
 
 		cmbTamanio = new JComboBox();
-		cmbTamanio.setBounds(198, 168, 86, 20);
+		cmbTamanio.setBounds(198, 110, 86, 20);
 		getContentPane().add(cmbTamanio);
 
 		cmbTransmision = new JComboBox();
-		cmbTransmision.setBounds(512, 168, 76, 20);
+		cmbTransmision.setBounds(512, 110, 76, 20);
 		getContentPane().add(cmbTransmision);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 230, 764, 199);
+		scrollPane.setBounds(10, 182, 764, 247);
 		getContentPane().add(scrollPane);
 
 		TM = new TMalquileresTABLA(new ArrayList<ContratoAlquilerDTO>());
@@ -376,19 +376,19 @@ public class generarReporteAlquileres extends JInternalFrame {
 		scrollPane.setViewportView(AlquileresTABLA);
 
 		JLabel lblTipoCombustible = new JLabel("Tipo Combustible");
-		lblTipoCombustible.setBounds(403, 205, 99, 14);
+		lblTipoCombustible.setBounds(403, 147, 99, 14);
 		getContentPane().add(lblTipoCombustible);
 
 		cmbTipoCombustible = new JComboBox();
-		cmbTipoCombustible.setBounds(512, 202, 76, 20);
+		cmbTipoCombustible.setBounds(512, 144, 76, 20);
 		getContentPane().add(cmbTipoCombustible);
 
-		JLabel lblAireAcondicionado = new JLabel("Aire Acondicionado");
-		lblAireAcondicionado.setBounds(148, 205, 108, 14);
+		JLabel lblAireAcondicionado = new JLabel("Aire Acond");
+		lblAireAcondicionado.setBounds(148, 147, 108, 14);
 		getContentPane().add(lblAireAcondicionado);
 
 		cmbAC = new JComboBox();
-		cmbAC.setBounds(256, 202, 28, 20);
+		cmbAC.setBounds(219, 144, 65, 20);
 		getContentPane().add(cmbAC);
 
 	}

@@ -33,7 +33,7 @@ public class altaCliente extends JInternalFrame {
 		lblTipoDocumento.setBounds(292, 115, 111, 14);
 		getContentPane().add(lblTipoDocumento);
 		
-		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
+		JLabel lblNumeroDocumento = new JLabel("Nro Documento");
 		lblNumeroDocumento.setBounds(292, 150, 111, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
@@ -69,7 +69,7 @@ public class altaCliente extends JInternalFrame {
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		JButton btnAceptar = new JButton("Confirmar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -77,7 +77,7 @@ public class altaCliente extends JInternalFrame {
 				
 			}
 		});
-		btnAceptar.setBounds(346, 298, 90, 23);
+		btnAceptar.setBounds(344, 299, 100, 23);
 		getContentPane().add(btnAceptar);
 		
 		JLabel mailLB = new JLabel("Mail");

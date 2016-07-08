@@ -27,67 +27,67 @@ public class modificarCliente extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(10, 65, 123, 14);
+		lblTipoDocumento.setBounds(216, 134, 109, 14);
 		getContentPane().add(lblTipoDocumento);
 
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(121, 62, 86, 20);
+		comboBox.setBounds(327, 131, 86, 20);
 		getContentPane().add(comboBox);
 
 		JLabel lblNumeroDocumento = new JLabel("Nro Documento");
-		lblNumeroDocumento.setBounds(10, 93, 109, 14);
+		lblNumeroDocumento.setBounds(216, 162, 109, 14);
 		getContentPane().add(lblNumeroDocumento);
 
 		textField = new JTextField();
-		textField.setBounds(121, 90, 86, 20);
+		textField.setBounds(327, 159, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 
 		JButton btnBuscarCliente = new JButton("Buscar Cliente");
-		btnBuscarCliente.setBounds(276, 61, 123, 23);
+		btnBuscarCliente.setBounds(482, 130, 123, 23);
 		getContentPane().add(btnBuscarCliente);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 128, 46, 14);
+		lblNombre.setBounds(216, 197, 109, 14);
 		getContentPane().add(lblNombre);
 
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
-		textField_1.setBounds(121, 125, 86, 20);
+		textField_1.setBounds(327, 194, 86, 20);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		lblDomicilio.setBounds(10, 159, 84, 14);
+		lblDomicilio.setBounds(216, 228, 109, 14);
 		getContentPane().add(lblDomicilio);
 
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(10, 190, 84, 14);
+		lblTelefono.setBounds(216, 259, 109, 14);
 		getContentPane().add(lblTelefono);
 
 		textField_2 = new JTextField();
 		textField_2.setEnabled(false);
-		textField_2.setBounds(121, 156, 86, 20);
+		textField_2.setBounds(327, 225, 86, 20);
 		getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 
 		textField_3 = new JTextField();
 		textField_3.setEnabled(false);
-		textField_3.setBounds(121, 187, 86, 20);
+		textField_3.setBounds(327, 256, 86, 20);
 		getContentPane().add(textField_3);
 		textField_3.setColumns(10);
 
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setEnabled(false);
-		btnConfirmar.setBounds(276, 89, 123, 23);
+		btnConfirmar.setBounds(482, 158, 123, 23);
 		getContentPane().add(btnConfirmar);
 
 		JLabel lblMail = new JLabel("Mail");
-		lblMail.setBounds(10, 221, 46, 14);
+		lblMail.setBounds(216, 290, 109, 14);
 		getContentPane().add(lblMail);
 
 		mailTF = new JTextField();
-		mailTF.setBounds(121, 218, 86, 20);
+		mailTF.setBounds(327, 287, 86, 20);
 		getContentPane().add(mailTF);
 		mailTF.setColumns(10);
 
