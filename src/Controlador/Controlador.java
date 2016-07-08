@@ -93,10 +93,10 @@ public class Controlador {
 		List<ContratoAlquiler> lista = contratoMapper.getInstance().SelectDeUnCliente(c.getIdCliente());
 				
 		
-		List<PresupuestoDTO> resultado = new ArrayList<PresupuestoDTO>();
+		List<ContratoAlquilerDTO> resultado = new ArrayList<ContratoAlquilerDTO>();
 		
 		
-		for (PresupuestoAlquiler pa : lista) {
+		for (ContratoAlquiler pa : lista) {
 			
 			resultado.add(pa.crearVista());
 		}

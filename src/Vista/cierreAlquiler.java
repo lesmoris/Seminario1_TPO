@@ -19,6 +19,7 @@ import DTOs.SucursalDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetContratos;
 
 public class cierreAlquiler extends JInternalFrame {
 	private JTextField textField;
@@ -109,7 +110,7 @@ public class cierreAlquiler extends JInternalFrame {
 		btnBuscarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ResultadoOperacion = 
+				//ResultadoOperacionGetContratos = 
 				
 				mostrarcontratos();
 				
