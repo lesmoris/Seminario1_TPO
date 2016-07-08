@@ -131,6 +131,9 @@ public class elegirVehiculo extends JInternalFrame {
 				try {
 					controlador.generarPresupuesto(dominio, tipoDocumento, numDoc, 
 							fechaDeInicio, fechaFin, sucursalOrigen, sucDestino);
+					
+					menuPrincipal.getInstance().irAMenuPrincipal();
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

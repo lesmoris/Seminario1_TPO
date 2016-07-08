@@ -118,6 +118,7 @@ public class vehiculoMapper extends baseMapper {
 				veh.setMantenimientos(mantenimientoMapper.getInstance()
 						.ListMantenimientos(idVehiculo));
 				veh.setAC(res.getString("aireAcondicionado").equals("S"));
+				veh.setPrecioPorDia(res.getFloat("precioPorDia"));
 			}
 
 		} catch (SQLException e) {

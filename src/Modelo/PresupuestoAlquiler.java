@@ -30,11 +30,15 @@ public class PresupuestoAlquiler {
 	public void calcularImporte() {
 
 		
-		int cantidadDias = HelperDate.diferenciaEntreDosfechas(this.getFechaInicio(),
-				this.getFechaFin()); 
+		int cantidadDias = HelperDate.diferenciaEntreDosfechas(this.getFechaFin(),
+				this.getFechaInicio()); 
+		
+		System.out.println("Dias del presupuesto: "+cantidadDias);
 		
 		float precioPorDia = this.getVehiculo().getPrecioPorDia();
 
+		System.out.println("Precio del Vehiculo por dia: "+precioPorDia);
+		
 		float importe = precioPorDia*cantidadDias;
 		
 		float recargo = 0;
@@ -77,8 +81,8 @@ public class PresupuestoAlquiler {
 				this.sucursalDestino.getNombre());
 	}
 
-	public void Insert(PresupuestoAlquiler p) throws Exception {
-		presupuestoMapper.getInstance().insert(p);
+	public void Insert() throws Exception {
+		presupuestoMapper.getInstance().insert(this);
 
 	}
 

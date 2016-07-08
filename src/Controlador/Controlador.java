@@ -503,24 +503,43 @@ public class Controlador {
 
 		p.setCliente(buscarCliente(numDoc, tipoDoc));
 		p.setFechaEmision(HelperDate.obtenerFechaHoy());
-		p.setFechaInicio(HelperDate.obtenerFechadeString(fechaInicio));
-		// Acordarse de que la BD genere la fecha de vencimiento
+
+		p.setFechaInicio(HelperDate.obtenerFechadeString(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicio)));
+		p.setFechaFin(HelperDate.obtenerFechadeString(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFin)));
+
 		p.setSucursalDestino(buscarSucursal(sucDestino));
 		p.setSucursalOrigen(buscarSucursal(sucOrigen));
 		p.setVehiculo(buscarVehiculo(dominio));
+
 		p.calcularImporte();
-		p.setFechaFin(HelperDate.obtenerFechadeString(fechaFin));
-		// EL ID LO AGREGA LA BD
+
+		// EL ID y la fecha de venc LOS AGREGA LA BD
+
+		System.out.println("FECHA DE INICIO 1: " + fechaInicio);
+		System.out.println("FECHA DE FIN 1: " + fechaFin);
+
+		System.out.println("CLIENTE: " + p.getCliente().getIdCliente());
+		System.out.println("FECHA EMISION: " + p.getFechaEmision());
+		System.out.println("FECHA INICIO: " + p.getFechaInicio());
+		System.out.println("Sucursal Destino: "
+				+ p.getSucursalDestino().getIdSucursal());
+		System.out.println("Sucursal Origen: "
+				+ p.getSucursalOrigen().getIdSucursal());
+		System.out.println("Vehiculo: " + p.getVehiculo().getDominio());
+		System.out.println("FECHA FIN: " + p.getFechaFin());
 
 		// Inserta a la BD
-		presupuestoMapper.getInstance().insert(p);
+		p.Insert();
 
 		// Se agrega al cache
 		presupuestosAlquiler.add(p);
 
 		return p;
 	}
-// Borrar este metodo luego
+
+	// Borrar este metodo luego
 	public void pruebacambios() {
 
 		Date fechasql = HelperDate.obtenerFechaHoy();
@@ -534,19 +553,26 @@ public class Controlador {
 
 		System.out.println("FECHA UTIL CONVERTIDA A SQL" + fechasqlconvertida);
 
-		int diferencia = HelperDate.diferenciaEntreDosfechas(fechasql,fechasql);
-		
+		int diferencia = HelperDate
+				.diferenciaEntreDosfechas(fechasql, fechasql);
+
 		System.out.println(diferencia);
 
 	}
 
-	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde, String fechaFinHasta, String sucursalorigen, String sucursalDestino, String tipoDoc, String nroDoc,
-			String marca, String tamanio, String modelo, String transmision, int cantPuertas, String color, String ac, String tipoCombustible) {
+	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(
+			String fechaInicioDesde, String fechaInicioHasta,
+			String fechaFinDesde, String fechaFinHasta, String sucursalorigen,
+			String sucursalDestino, String tipoDoc, String nroDoc,
+			String marca, String tamanio, String modelo, String transmision,
+			int cantPuertas, String color, String ac, String tipoCombustible) {
 
 		// No valido por que pueden venir vacios, ahi trae todo
 		List<ContratoAlquiler> alquileres = contratoMapper.getInstance()
-				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde, fechaFinHasta, sucursalorigen, sucursalDestino, tipoDoc, nroDoc,
-						 marca, tamanio, modelo, transmision, cantPuertas, color, ac, tipoCombustible);
+				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde,
+						fechaFinHasta, sucursalorigen, sucursalDestino,
+						tipoDoc, nroDoc, marca, tamanio, modelo, transmision,
+						cantPuertas, color, ac, tipoCombustible);
 
 		List<ContratoAlquilerDTO> alquileresDTO = new ArrayList<ContratoAlquilerDTO>();
 
