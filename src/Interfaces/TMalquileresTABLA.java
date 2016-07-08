@@ -25,7 +25,7 @@ public class TMalquileresTABLA implements TableModel {
 	}
 
 	public int getColumnCount() {
-		return 5;
+		return 9;
 	}
 
 	public String getColumnName(int arg0) {
@@ -34,23 +34,39 @@ public class TMalquileresTABLA implements TableModel {
 		switch (arg0) {
 
 		case 0: {
-			valor = "Dominio";
+			valor = "Sucursal Origen";
 			break;
 		}
 		case 1: {
-			valor = "Origen";
+			valor = "Sucursal Destino";
 			break;
 		}
 		case 2: {
-			valor = "Destino";
-			break;
-		}
-		case 3: {
 			valor = "Fecha Inicio";
 			break;
 		}
+		case 3: {
+			valor = "Fecha Fin";
+			break;
+		}
 		case 4: {
-			valor = "Fecha Finalizacion";
+			valor = "Importe";
+			break;
+		}
+		case 5: {
+			valor = "Punitorio";
+			break;
+		}
+		case 6: {
+			valor = "Cliente";
+			break;
+		}
+		case 7: {
+			valor = "Vehiculo";
+			break;
+		}
+		case 8: {
+			valor = "Fecha Emision";
 			break;
 		}
 		}
@@ -63,28 +79,49 @@ public class TMalquileresTABLA implements TableModel {
 
 	public Object getValueAt(int fila, int columna) {
 
-		ContratoAlquilerDTO m = alquileres.get(fila);
+		ContratoAlquilerDTO c = alquileres.get(fila);
 
 		String valor = null;
 
 		switch (columna) {
 
 		case 0: {
-//			valor = m.getDominio();
+			valor = c.getPresupuesto().getSucursalOrigen();
 			break;
 		}
 		case 1: {
+			valor = c.getSucursalDestino();
 			break;
 		}
 		case 2: {
+			valor = c.getFechaInicio().toString();
 			break;
-		}		
+		}
 		case 3: {
+			valor = c.getFechaFin().toString();
 			break;
 		}
 		case 4: {
+			valor = Float.toString(c.getImporte());
 			break;
 		}
+		case 5: {
+			valor = Float.toString(c.getPunitorio());
+			break;
+		}
+		case 6: {
+			valor = c.getPresupuesto().getCliente();
+			break;
+		}
+		case 7: {
+			valor = c.getPresupuesto().getVehiculo();
+			break;
+		}
+		case 8: {
+			valor = c.getFechaEmision().toString();
+			break;
+		}
+
 		}
 		return valor;
 

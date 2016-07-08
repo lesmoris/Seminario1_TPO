@@ -41,6 +41,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private List<String> transmisiones;
 	private List<String> colores;
 	private List<String> tiposCombustible;
+	private List<String> ac;
 	private JComboBox<ComboBoxItem> cmbOrigen;
 	private JComboBox<ComboBoxItem> cmbDestino;
 	private JComboBox<String> cmbTipoDoc;
@@ -48,6 +49,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private JComboBox<String> cmbTransmision;
 	private JComboBox<String> cmbColor;
 	private JComboBox<String> cmbTipoCombustible;
+	private JComboBox<String> cmbAC;
 
 	private JTable AlquileresTABLA;
 	private TMalquileresTABLA TM;
@@ -67,6 +69,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		cargarTransmision();
 		cargarColor();
 		cargarTipoCombustible();
+		cargarAireAcondicionado();
 	}
 
 	private void cargarTipoDNI() {
@@ -124,6 +127,17 @@ public class generarReporteAlquileres extends JInternalFrame {
 		}
 	}
 
+	private void cargarAireAcondicionado() {
+		this.ac = HelperValoresFijos.getAireAcondicionado();
+
+		cmbAC.addItem("");
+
+		for (String s : this.ac) {
+
+			cmbAC.addItem(s);
+		}
+	}
+	
 	// Cargamos los ComboBox
 	private void cargarSucursales() {
 
@@ -283,11 +297,6 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
-		final JCheckBox chckbxAireAcondicionado = new JCheckBox(
-				"Aire Acondicionado");
-		chckbxAireAcondicionado.setBounds(144, 201, 178, 23);
-		getContentPane().add(chckbxAireAcondicionado);
-
 		JButton btnGenerar = new JButton("Generar");
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -312,7 +321,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 				String transmision = (String) cmbTransmision.getSelectedItem();
 				int cantPuertas = Integer.parseInt(cantPuertasTF.getText().trim().isEmpty() ? "0" : cantPuertasTF.getText().trim());
 				String color = (String) cmbColor.getSelectedItem();
-				String ac = chckbxAireAcondicionado.isSelected() ? "S" : "N";
+				String ac = (String) cmbAC.getSelectedItem();
 				String tipoCombustible = (String) cmbTipoCombustible.getSelectedItem();
 
 				// Mando el mensaje
@@ -372,6 +381,14 @@ public class generarReporteAlquileres extends JInternalFrame {
 		cmbTipoCombustible = new JComboBox();
 		cmbTipoCombustible.setBounds(512, 202, 76, 20);
 		getContentPane().add(cmbTipoCombustible);
+		
+		JLabel lblAireAcondicionado = new JLabel("Aire Acondicionado");
+		lblAireAcondicionado.setBounds(148, 205, 108, 14);
+		getContentPane().add(lblAireAcondicionado);
+		
+		cmbAC = new JComboBox();
+		cmbAC.setBounds(256, 202, 28, 20);
+		getContentPane().add(cmbAC);
 
 	}
 }
