@@ -40,16 +40,18 @@ public class generarReporteAlquileres extends JInternalFrame {
 	private List<String> tamanios;
 	private List<String> transmisiones;
 	private List<String> colores;
+	private List<String> tiposCombustible;
 	private JComboBox<ComboBoxItem> cmbOrigen;
 	private JComboBox<ComboBoxItem> cmbDestino;
 	private JComboBox<String> cmbTipoDoc;
 	private JComboBox<String> cmbTamanio;
 	private JComboBox<String> cmbTransmision;
 	private JComboBox<String> cmbColor;
+	private JComboBox<String> cmbTipoCombustible;
 
 	private JTable AlquileresTABLA;
 	private TMalquileresTABLA TM;
-	
+
 	public generarReporteAlquileres() {
 		iniciarComponentes();
 
@@ -64,6 +66,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		cargarTamanio();
 		cargarTransmision();
 		cargarColor();
+		cargarTipoCombustible();
 	}
 
 	private void cargarTipoDNI() {
@@ -107,6 +110,17 @@ public class generarReporteAlquileres extends JInternalFrame {
 		for (String s : this.colores) {
 
 			cmbColor.addItem(s);
+		}
+	}
+	
+	private void cargarTipoCombustible() {
+		this.tiposCombustible = HelperValoresFijos.getTiposComb();
+
+		cmbTipoCombustible.addItem("");
+
+		for (String s : this.tiposCombustible) {
+
+			cmbTipoCombustible.addItem(s);
 		}
 	}
 
@@ -296,17 +310,15 @@ public class generarReporteAlquileres extends JInternalFrame {
 				String tamanio = (String) cmbTamanio.getSelectedItem();
 				String modelo = modeloTF.getText();
 				String transmision = (String) cmbTransmision.getSelectedItem();
-				String cantPuertas = cantPuertasTF.getText();
+				int cantPuertas = Integer.parseInt(cantPuertasTF.getText());
 				String color = (String) cmbColor.getSelectedItem();
 				String ac = chckbxAireAcondicionado.isSelected() ? "S" : "N";
+				String tipoCombustible = (String) cmbTipoCombustible.getSelectedItem();
 
 				// Mando el mensaje
-				ResultadoOperacionReporteAlquileres res = null;
-				// controlador
-				// .generarReporteDeMovimientoDeVehiculos(
-				// fechaInicioDesde, fechaInicioHasta,
-				// fechaFinDesde, fechaFinHasta, sucursalOrigen,
-				// sucursalDestino);
+				ResultadoOperacionReporteAlquileres res = controlador
+						.generarReporteDeAlquileres(fechaInicioDesde, fechaInicioHasta, fechaFinDesde, fechaFinHasta, sucursalOrigen, sucursalDestino, tipoDoc, nroDoc,
+								marca, tamanio, modelo, transmision, cantPuertas, color, ac, tipoCombustible);
 
 				// Recibo y muestro el resultado
 				if (res.sosExitoso()) {
@@ -352,6 +364,14 @@ public class generarReporteAlquileres extends JInternalFrame {
 		AlquileresTABLA = new JTable();
 		AlquileresTABLA.setModel(TM);
 		scrollPane.setViewportView(AlquileresTABLA);
+		
+		JLabel lblTipoCombustible = new JLabel("Tipo Combustible");
+		lblTipoCombustible.setBounds(403, 205, 99, 14);
+		getContentPane().add(lblTipoCombustible);
+		
+		cmbTipoCombustible = new JComboBox();
+		cmbTipoCombustible.setBounds(512, 202, 76, 20);
+		getContentPane().add(cmbTipoCombustible);
 
 	}
 }

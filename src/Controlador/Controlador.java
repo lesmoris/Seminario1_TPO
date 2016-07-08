@@ -510,16 +510,13 @@ public class Controlador {
 		return p;
 	}
 
-	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(
-			String sucursal, String nombre, String marca, String modelo,
-			String ac, String tipoCombustible, String transmision,
-			int cantPuertas, String color, String tamaño) {
+	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(String fechaInicioDesde, String fechaInicioHasta, String fechaFinDesde, String fechaFinHasta, String sucursalorigen, String sucursalDestino, String tipoDoc, String nroDoc,
+			String marca, String tamanio, String modelo, String transmision, int cantPuertas, String color, String ac, String tipoCombustible) {
 
 		// No valido por que pueden venir vacios, ahi trae todo
 		List<ContratoAlquiler> alquileres = contratoMapper.getInstance()
-				.SelectAll(sucursal, nombre, marca, modelo, ac,
-						tipoCombustible, transmision, cantPuertas, color,
-						tamaño);
+				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde, fechaFinHasta, sucursalorigen, sucursalDestino, tipoDoc, nroDoc,
+						 marca, tamanio, modelo, transmision, cantPuertas, color, ac, tipoCombustible);
 
 		List<ContratoAlquilerDTO> alquileresDTO = new ArrayList<ContratoAlquilerDTO>();
 

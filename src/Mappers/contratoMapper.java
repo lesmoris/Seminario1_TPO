@@ -92,61 +92,93 @@ public class contratoMapper extends baseMapper {
 		}
 
 	}
-	
-	public List<ContratoAlquiler> SelectAll(String sucursal, String nombre,
-				String marca, String modelo, String ac, String tipoCombustible,
-				String transmision, int cantPuertas, String color, String tamaño) {
-		
-			List<ContratoAlquiler> listaContratos = new ArrayList<ContratoAlquiler>();
-			Connection con = null;
 
-			try {
-				con = Conectar();
+	public List<ContratoAlquiler> SelectAll(String fechaInicioDesde,
+			String fechaInicioHasta, String fechaFinDesde,
+			String fechaFinHasta, String sucursalOrigen,
+			String sucursalDestino, String tipoDoc, String nroDoc,
+			String marca, String tamanio, String modelo, String transmision, int cantPuertas,
+			String color, String ac, String tipoCombustible) {
 
-//				String SP_ListVehiculos = "{call SP_ListVehiculos(?,?,?,?,?,?,?,?,?)}";
-//				CallableStatement callableStatement = con.prepareCall(SP_ListVehiculos);
-//				callableStatement.setString(1, sucursal);
-//				callableStatement.setString(2, marca != null && !marca.trim().isEmpty() ? marca : null);
-//				callableStatement.setString(3, modelo != null && !modelo.trim().isEmpty() ? modelo : null);
-//				callableStatement.setString(4, ac != null && !ac.trim().isEmpty() ? ac : null);
-//				callableStatement.setString(5, tipoCombustible != null && !tipoCombustible.trim().isEmpty() ? tipoCombustible : null);
-//				callableStatement.setString(6, transmision != null && !transmision.trim().isEmpty() ? transmision : null);
-//				callableStatement.setInt(7, cantPuertas);
-//				callableStatement.setString(8, color != null && !color.trim().isEmpty() ? color : null);
-//				callableStatement.setString(9, tamaño != null && !tamaño.trim().isEmpty() ? tamaño : null);
-				
-//				ResultSet res = callableStatement.executeQuery();
-				
-//				while (res.next()) {
-//					Contrato cont = new Contrato();
+		List<ContratoAlquiler> listaContratos = new ArrayList<ContratoAlquiler>();
+		Connection con = null;
 
-//					int idVehiculo = res.getInt("idVehiculo");
-//
-//					veh.setIdVehiculo(idVehiculo);
-//					veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
-//					veh.setColor(res.getString("color"));
-//					veh.setDominio(res.getString("dominio"));
-//					veh.setKilometraje(res.getInt("kilometraje"));
-//					veh.setMarca(res.getString("marca"));
-//					veh.setModelo(res.getString("modelo"));
-//					veh.setTipoCombustible(res.getString("tipoCombustible"));
-//					veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
-//							res.getInt("idSucursal")));
-//					veh.setTamaño(res.getString("tamaño"));
-//					veh.setTransmision(res.getString("transmision"));
-//					veh.setEstado(res.getString("estado"));
-//					veh.setPrecioPorDia(res.getFloat("precioPorDia"));
-//					veh.setAC(res.getString("aireAcondicionado").equals("S"));
-					
-//					listaContratos.add(cont);
-//				}
+		try {
+			con = Conectar();
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				DBUtils.closeQuietly(con);
-			}
-			return listaContratos;
+			String SP_ListAlquileres = "{call SP_ListAlquileres(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			CallableStatement callableStatement = con
+					.prepareCall(SP_ListAlquileres);
+
+			callableStatement.setString(1,
+					!fechaInicioDesde.trim().isEmpty() ? fechaInicioDesde
+							: null);
+			callableStatement.setString(2,
+					!fechaInicioHasta.trim().isEmpty() ? fechaInicioHasta
+							: null);
+			callableStatement.setString(3,
+					!fechaFinDesde.trim().isEmpty() ? fechaFinDesde : null);
+			callableStatement.setString(4,
+					!fechaFinHasta.trim().isEmpty() ? fechaFinHasta : null);
+			callableStatement.setString(5,
+					!sucursalOrigen.trim().isEmpty() ? sucursalOrigen : null);
+			callableStatement.setString(6,
+					!sucursalDestino.trim().isEmpty() ? sucursalDestino : null);
+
+			callableStatement.setString(2, tipoDoc != null
+					&& !tipoDoc.trim().isEmpty() ? tipoDoc : null);
+			callableStatement.setString(2, nroDoc != null
+					&& !nroDoc.trim().isEmpty() ? nroDoc : null);
+
+			callableStatement.setString(2, marca != null
+					&& !marca.trim().isEmpty() ? marca : null);
+			callableStatement.setString(3, modelo != null
+					&& !modelo.trim().isEmpty() ? modelo : null);
+			callableStatement.setString(4,
+					ac != null && !ac.trim().isEmpty() ? ac : null);
+			callableStatement.setString(5, tipoCombustible != null
+					&& !tipoCombustible.trim().isEmpty() ? tipoCombustible
+					: null);
+			callableStatement.setString(6, transmision != null
+					&& !transmision.trim().isEmpty() ? transmision : null);
+			callableStatement.setInt(7, cantPuertas);
+			callableStatement.setString(8, color != null
+					&& !color.trim().isEmpty() ? color : null);
+			callableStatement.setString(9, tamanio != null
+					&& !tamanio.trim().isEmpty() ? tamanio : null);
+
+			// ResultSet res = callableStatement.executeQuery();
+
+			// while (res.next()) {
+			// Contrato cont = new Contrato();
+
+			// int idVehiculo = res.getInt("idVehiculo");
+			//
+			// veh.setIdVehiculo(idVehiculo);
+			// veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
+			// veh.setColor(res.getString("color"));
+			// veh.setDominio(res.getString("dominio"));
+			// veh.setKilometraje(res.getInt("kilometraje"));
+			// veh.setMarca(res.getString("marca"));
+			// veh.setModelo(res.getString("modelo"));
+			// veh.setTipoCombustible(res.getString("tipoCombustible"));
+			// veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+			// res.getInt("idSucursal")));
+			// veh.setTamaño(res.getString("tamaño"));
+			// veh.setTransmision(res.getString("transmision"));
+			// veh.setEstado(res.getString("estado"));
+			// veh.setPrecioPorDia(res.getFloat("precioPorDia"));
+			// veh.setAC(res.getString("aireAcondicionado").equals("S"));
+
+			// listaContratos.add(cont);
+			// }
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return listaContratos;
 	}
 
 }
