@@ -139,6 +139,27 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		getContentPane().add(lblPresupuesto);
 
 		btnGenerarContrato = new JButton("Generar Contrato");
+		btnGenerarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (tablaseleccionada(PresupuestoTABLA)){
+				
+				int fila = PresupuestoTABLA.getSelectedRow();
+				int idPresupuesto = Integer.parseInt((String) PresupuestoTABLA.getValueAt(fila, 0));
+				
+				try {
+					controlador.generarContratoAlquiler(idPresupuesto);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				}else{
+					JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN PRESUPUESTO");
+				}
+				
+			}
+		});
 		btnGenerarContrato.setBounds(413, 334, 137, 23);
 		getContentPane().add(btnGenerarContrato);
 

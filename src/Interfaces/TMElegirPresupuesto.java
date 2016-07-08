@@ -27,7 +27,7 @@ public class TMElegirPresupuesto implements TableModel{
 	}
 
 	public int getColumnCount() {
-		return 4;
+		return 6;
 	}
 
 	public String getColumnName(int arg0) {
@@ -55,7 +55,10 @@ public class TMElegirPresupuesto implements TableModel{
 			valor = "Inicio";
 			break;
 		}
-		
+		case 5: {
+			valor = "Precio";
+			break;
+		}
 				}
 		return valor;
 	}
@@ -92,7 +95,10 @@ public class TMElegirPresupuesto implements TableModel{
 			valor = HelperDate.obtenerStringDeDate(p.getFechaInicio());
 			break;
 		}
-		
+		case 5: {
+			valor = String.valueOf(p.getImporte());
+			break;
+		}
 		
 		}
 		return valor;

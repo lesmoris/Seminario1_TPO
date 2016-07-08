@@ -68,6 +68,8 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
+			con.setAutoCommit(false);
+			
 			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, idsucursaldestino) VALUES (?,?,?,?,?) ";
 
 			PreparedStatement ps = null;
@@ -79,9 +81,13 @@ public class contratoMapper extends baseMapper {
 			ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
 
 			ps.execute();
-
+			
 			con.commit();
 
+			
+			
+			cont.setNumero(DBUtils.getLastInsertedID(con, "ALQUILER"));
+			
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());

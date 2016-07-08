@@ -627,4 +627,26 @@ public class Controlador {
 					null);
 		}
 	}
+	
+	public void generarContratoAlquiler(int idPresupuesto) throws Exception{
+		
+		ContratoAlquiler ca = new ContratoAlquiler();
+		ca.setFechaEmision(HelperDate.obtenerFechaHoy());
+		
+		// Ver si estos atributos los seteamos, o si los borramos y los buscamos desde el presupuesto asociado
+		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
+		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
+		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
+		ca.setPunitorio(0);
+		ca.setImporte(ca.getPresupuesto().getImporte());
+		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
+		
+		// Agregamos a la BD, y obtenemos el ID generado por los identity
+		ca.Insert();
+		
+		
+		// Agregamos al cache
+		this.contratosAlquiler.add(ca);
+	}
+	
 }

@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 
 import DTOs.ContratoAlquilerDTO;
+import Mappers.contratoMapper;
 
 public class ContratoAlquiler {
 
@@ -20,6 +21,13 @@ public class ContratoAlquiler {
 		return numero == this.numero;
 	}
 
+	
+	
+	public void Insert () throws Exception{
+		contratoMapper.getInstance().insert(this);
+		
+	}
+	
 	public ContratoAlquilerDTO crearVista() {
 		return new ContratoAlquilerDTO(this.numero, this.fechaInicio,
 				this.fechaFin, this.fechaEmision, this.importe, this.punitorio,
