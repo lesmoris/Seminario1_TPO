@@ -51,7 +51,7 @@ public class presupuestoMapper extends baseMapper {
 				pa.setIdPresupuesto(res.getInt("idpresupuesto"));
 				pa.setFechaEmision(res.getDate("fechaEmision"));
 				pa.setFechaInicio(res.getDate("fechaInicio"));
-				pa.setFechaVencimiento(res.getDate("fechaFin"));
+				pa.setFechaFin(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));
 
 				Vehiculo v = vehiculoMapper.getInstance()
@@ -81,6 +81,70 @@ public class presupuestoMapper extends baseMapper {
 
 	}
 
+	public List<PresupuestoAlquiler> SelectPresupuestosDeUnCliente(int idCliente){
+
+		List<PresupuestoAlquiler> lista = null;
+		Connection con = null;
+
+		System.out.println(idCliente);
+		
+		try {
+
+			lista = new ArrayList<PresupuestoAlquiler>();
+			con = Conectar();
+
+			String senten = "SELECT fechaemision, fechaInicio, fechaFin, importe,"
+					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo, idpresupuesto FROM PRESUPUESTO where idcliente = ?";
+
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setInt(1, idCliente);
+			
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+
+				PresupuestoAlquiler pa = new PresupuestoAlquiler();
+				pa.setIdPresupuesto(res.getInt("idpresupuesto"));
+				pa.setFechaEmision(res.getDate("fechaemision"));
+				pa.setFechaInicio(res.getDate("fechaInicio"));
+				pa.setFechaVencimiento(res.getDate("fechaFin"));
+				pa.setImporte(res.getFloat("importe"));
+
+				Vehiculo v = vehiculoMapper.getInstance()
+						.SelectPorIDConMovimientosYMantenimientos(
+								res.getInt("idvehiculo"));
+				pa.setVehiculo(v);
+
+				Cliente c = clienteMapper.getInstance().SelectPORID(
+						res.getInt("idcliente"));
+				pa.setCliente(c);
+
+				Sucursal origen = sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idsucursalorigen"));
+				pa.setSucursalOrigen(origen);
+
+				Sucursal destino = sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idsucursaldestino"));
+				pa.setSucursalDestino(destino);
+
+				lista.add(pa);
+
+				
+				
+			}
+
+		} catch (SQLException e) {
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		return lista;
+
+		
+		
+		
+	}
+	
 	public List<PresupuestoAlquiler> SelectAll() {
 
 		List<PresupuestoAlquiler> lista = null;
@@ -103,7 +167,7 @@ public class presupuestoMapper extends baseMapper {
 
 				PresupuestoAlquiler pa = new PresupuestoAlquiler();
 				pa.setIdPresupuesto(res.getInt("idpresupuesto"));
-				pa.setFechaEmision(res.getDate("fecha"));
+				pa.setFechaEmision(res.getDate("fechaemision"));
 				pa.setFechaInicio(res.getDate("fechaInicio"));
 				pa.setFechaVencimiento(res.getDate("fechaFin"));
 				pa.setImporte(res.getFloat("importe"));

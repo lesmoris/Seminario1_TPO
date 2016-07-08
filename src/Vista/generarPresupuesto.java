@@ -67,8 +67,12 @@ public class generarPresupuesto extends JInternalFrame {
 	private JButton btnEstablecerInicio;
 	public generarPresupuesto() {
 
+		
+		
 		iniciarComponentes();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Nuevo Presupuesto");
+		
 		this.controlador = Controlador.getInstance();
 
 		cargarTiposDoc();

@@ -32,11 +32,15 @@ public class generarReporteMantenimientoPorVehiculo extends
 	public generarReporteMantenimientoPorVehiculo() {
 		this.controlador = Controlador.getInstance();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Mantenimiento de Vehiculo");
+		
 		iniciarComponentes();
 	}
 
 	private void iniciarComponentes() {
 
+		
+		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
 		setBounds(100, 100, 800, 500);

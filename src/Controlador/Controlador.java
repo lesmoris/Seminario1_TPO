@@ -1,17 +1,18 @@
 package Controlador;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import DTOs.ContratoAlquilerDTO;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
+import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetPresupuestos;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.ResultadoOperacionReporteAlquileres;
@@ -76,6 +77,41 @@ public class Controlador {
 			vehiculos.add(vehiculo);
 
 		return vehiculo;
+	}
+
+	public ResultadoOperacionGetPresupuestos buscarPresupuestosDeCliente(
+			String numDoc, String tipoDoc) {
+
+		Cliente c = buscarCliente(numDoc, tipoDoc);
+
+		if (c == null) {
+			return new ResultadoOperacionGetPresupuestos(
+					false, "no se encontro cliente", null);
+		}
+
+		List<PresupuestoAlquiler> lista = presupuestoMapper.getInstance()
+				.SelectPresupuestosDeUnCliente(c.getIdCliente());
+		
+		List<PresupuestoDTO> resultado = new ArrayList<PresupuestoDTO>();
+		
+		
+		for (PresupuestoAlquiler pa : lista) {
+			
+			resultado.add(pa.crearVista());
+		}
+
+		
+		if (resultado.isEmpty()) {
+			return  new ResultadoOperacionGetPresupuestos(
+					false, "no hay presupuestos de ese cliente", null);
+		}
+
+		
+		
+		
+		return new ResultadoOperacionGetPresupuestos(true, "Presupuestos:",
+				resultado);
+
 	}
 
 	private void actualizarVehiculoParaBusqueda(String dominio) {

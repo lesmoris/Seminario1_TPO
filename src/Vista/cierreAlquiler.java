@@ -21,6 +21,8 @@ public class cierreAlquiler extends JInternalFrame {
 		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Cerrar Alquiler");
+		
 		setBounds(100, 100, 800, 500);
 		getContentPane().setLayout(null);
 		

@@ -45,7 +45,7 @@ public class menuPrincipal extends JFrame {
 
 		instancia = this;
 
-		setTitle("Rent-A-Car");
+		setTitle("RENT A CAR");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 
@@ -334,6 +334,8 @@ public class menuPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		getContentPane().setVisible(true);
 
+		setTitle("RENT A CAR");
+		
 	}
 
 	public void irAVentana(JInternalFrame i) {

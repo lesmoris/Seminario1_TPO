@@ -40,6 +40,8 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 	public generarReporteMovimientoVehiculos() {
 		this.controlador = Controlador.getInstance();
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Movimiento Vehiculos");
+		
 		iniciarComponentes();
 
 		cargarSucursales(sucursales);

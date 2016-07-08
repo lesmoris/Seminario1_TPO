@@ -51,6 +51,8 @@ public class elegirVehiculo extends JInternalFrame {
 	
 	public elegirVehiculo(String tipoDoc, String numeroDoc, List<VehiculoDTO> vehiculos, String fechaInicio, String sucOrigen) {
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Elegir Vehiculo para Presupuesto");
+		
 		this.fechaDeInicio = fechaInicio;
 		this.numDoc = numeroDoc;
 		this.tipoDocumento = tipoDoc;

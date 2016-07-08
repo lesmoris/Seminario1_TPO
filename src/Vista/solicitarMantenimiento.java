@@ -25,6 +25,8 @@ public class solicitarMantenimiento extends JInternalFrame {
 	public solicitarMantenimiento() {
 		iniciarcomponentes();
 		
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Solicitar Mantenimiento");
+		
 		this.controlador = Controlador.getInstance();
 	}
 

@@ -30,6 +30,8 @@ public class moverVehiculo extends JInternalFrame {
 	// Constructor
 	public moverVehiculo() {
 
+		menuPrincipal.getInstance().setTitle("RENT A CAR - Mover Vehiculo");
+		
 		iniciarcomponentes();
 		sucursales = new ArrayList<SucursalDTO>();
 		this.controlador = Controlador.getInstance();
