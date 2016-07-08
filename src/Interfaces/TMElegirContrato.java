@@ -26,7 +26,7 @@ public class TMElegirContrato implements TableModel{
 	}
 
 	public int getColumnCount() {
-		return 7;
+		return 8;
 	}
 
 	public String getColumnName(int arg0) {
@@ -35,30 +35,34 @@ public class TMElegirContrato implements TableModel{
 		switch (arg0) {
 
 		case 0: {
-			valor = "Sucursal Origen";
+			valor = "ID Contrato";
 			break;
 		}
 		case 1: {
-			valor = "Sucursal Destino";
+			valor = "Sucursal Origen";
 			break;
 		}
 		case 2: {
-			valor = "Fecha Inicio";
+			valor = "Sucursal Destino";
 			break;
 		}
 		case 3: {
-			valor = "Fecha Fin";
+			valor = "Fecha Inicio";
 			break;
 		}
 		case 4: {
-			valor = "Importe";
+			valor = "Fecha Fin";
 			break;
 		}
 		case 5: {
-			valor = "Cliente";
+			valor = "Importe";
 			break;
 		}
 		case 6: {
+			valor = "Cliente";
+			break;
+		}
+		case 7: {
 			valor = "Vehiculo";
 			break;
 		}
@@ -80,31 +84,35 @@ public class TMElegirContrato implements TableModel{
 		switch (columna) {
 
 		case 0: {
-			valor = c.getPresupuesto().getSucursalOrigen();
+			valor = String.valueOf(c.getIdContratoAlquiler());
 			break;
 		}
 		case 1: {
-			valor = c.getSucursalDestino();
+			valor = c.getPresupuesto().getSucursalOrigen();
 			break;
 		}
 		case 2: {
-			valor = c.getFechaInicio().toString();
+			valor = c.getSucursalDestino();
 			break;
 		}
 		case 3: {
-			valor = c.getFechaFin().toString();
+			valor = c.getFechaInicio().toString();
 			break;
 		}
 		case 4: {
+			valor = c.getFechaFin().toString();
+			break;
+		}
+		case 5: {
 			valor = Float.toString(c.getImporte());
 			break;
 		}
 		
-		case 5: {
+		case 6: {
 			valor = c.getPresupuesto().getCliente();
 			break;
 		}
-		case 6: {
+		case 7: {
 			valor = c.getPresupuesto().getVehiculo();
 			break;
 		}

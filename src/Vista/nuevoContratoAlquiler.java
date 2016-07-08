@@ -95,7 +95,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		getContentPane().add(numeroDocTF);
 		numeroDocTF.setColumns(10);
 
-		btnBuscarCliente = new JButton("Buscar Cliente");
+		btnBuscarCliente = new JButton("Buscar Presupuestos");
 		btnBuscarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

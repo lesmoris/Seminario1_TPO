@@ -699,11 +699,13 @@ public class Controlador {
 		// Agregamos al cache
 		this.contratosAlquiler.add(ca);
 	
-		// REVISAR COMO HACEMOS PARA RALIZAR LOS PRESUPUESTOS QUE DESPUES GENERAN CONTRATOS
+		// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES GENERAN CONTRATOS
 		ca.getPresupuesto().realizar();
 		
 	}
 
+	//public ResultadoOperacion FinalizarContrato()
+	
 	
 	
 }
