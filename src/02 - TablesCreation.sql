@@ -6,8 +6,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ALQUILER](
-	[idPresupuesto] [int] IDENTITY(1,1) NOT NULL,
-	[idalquiler] [int] NOT NULL,
+	[idalquiler] [int] IDENTITY(1,1) NOT NULL,
+	[idPresupuesto] [int] NOT NULL,
 	[fechainicio] [date] NOT NULL,
 	[fechafin] [date] NULL,
 	[importe] [float] NULL,
