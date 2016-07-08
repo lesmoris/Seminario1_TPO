@@ -11,6 +11,7 @@ import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
+import Interfaces.ResultadoOperacionGetContratos;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGetPresupuestos;
 import Interfaces.ResultadoOperacionGetVehiculo;
@@ -79,6 +80,43 @@ public class Controlador {
 		return vehiculo;
 	}
 
+	public ResultadoOperacionGetContratos buscarPresupuestodeCliente(String numDoc, String tipoDoc){
+		
+		Cliente c = buscarCliente(numDoc, tipoDoc);
+
+		if (c == null) {
+			return new ResultadoOperacionGetContratos(
+					false, "no se encontro cliente", null);
+		}
+ 
+		
+		List<ContratoAlquiler> lista = contratoMapper.getInstance().SelectDeUnCliente(c.getIdCliente());
+				
+		
+		List<PresupuestoDTO> resultado = new ArrayList<PresupuestoDTO>();
+		
+		
+		for (PresupuestoAlquiler pa : lista) {
+			
+			resultado.add(pa.crearVista());
+		}
+
+		
+		if (resultado.isEmpty()) {
+			return  new ResultadoOperacionGetContratos(
+					false, "no hay contratos de ese cliente", null);
+		}
+
+		
+		
+		
+		return new ResultadoOperacionGetContratos(true, "Presupuestos:",
+				resultado);
+
+		
+		
+	}
+	
 	public ResultadoOperacionGetPresupuestos buscarPresupuestosDeCliente(
 			String numDoc, String tipoDoc) {
 

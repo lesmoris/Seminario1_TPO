@@ -69,7 +69,7 @@ public class contratoMapper extends baseMapper {
 			con = Conectar();
 
 			con.setAutoCommit(false);
-			
+
 			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, idsucursaldestino) VALUES (?,?,?,?,?) ";
 
 			PreparedStatement ps = null;
@@ -81,13 +81,11 @@ public class contratoMapper extends baseMapper {
 			ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
 
 			ps.execute();
-			
+
 			con.commit();
 
-			
-			
 			cont.setNumero(DBUtils.getLastInsertedID(con, "ALQUILER"));
-			
+
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
@@ -162,9 +160,11 @@ public class contratoMapper extends baseMapper {
 				cont.setFechaInicio(res.getDate("fechaInicio"));
 				cont.setImporte(res.getFloat("importe"));
 				cont.setPunitorio(res.getFloat("punitorio"));
-				cont.setPresupuesto(presupuestoMapper.getInstance().Select(res.getInt("idPresupuesto")));
-				cont.setSucursalDestino(sucursalMapper.getInstance().SelectPORID(res.getInt("idSucursalDestino")));
-				
+				cont.setPresupuesto(presupuestoMapper.getInstance().Select(
+						res.getInt("idPresupuesto")));
+				cont.setSucursalDestino(sucursalMapper.getInstance()
+						.SelectPORID(res.getInt("idSucursalDestino")));
+
 				listaContratos.add(cont);
 			}
 
@@ -174,6 +174,43 @@ public class contratoMapper extends baseMapper {
 			DBUtils.closeQuietly(con);
 		}
 		return listaContratos;
+	}
+
+	public List<ContratoAlquiler> SelectDeUnCliente(int idCliente) {
+
+		Connection con = null;
+
+		List<ContratoAlquiler> resultado = new ArrayList<ContratoAlquiler>();
+
+		try {
+			con = Conectar();
+
+			con.setAutoCommit(false);
+
+			// NO HAY ID de CLIENTE EN LA TABLA ALQUILER, VER COMO HACEMOS, SI LO SACAMOS DEL PRESUPUESTO
+			// O LO AGREGAMOS
+			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, importe, "
+					+ "idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where id";
+
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			
+			ResultSet res = ps.executeQuery();
+			
+			while (res.next()){
+				
+			}
+			
+			con.commit();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+
+		return null;
 	}
 
 }
