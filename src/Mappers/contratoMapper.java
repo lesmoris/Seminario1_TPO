@@ -196,15 +196,15 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			con.setAutoCommit(false);
-
 			String senten = "SELECT p.idPresupuesto, idCliente, idalquiler, a.fechainicio, a.fechafin, a.importe,"
 					+ " a.idsucursaldestino, punitorio, a.fechaemision FROM ALQUILER a "
-					+ "INNER JOIN PRESUPUESTO p on  a.idPresupuesto = p.idPresupuesto";
+					+ "INNER JOIN PRESUPUESTO p on  a.idPresupuesto = p.idPresupuesto "
+					+ "where p.idCliente = ? ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
-
+			ps.setInt(1, idCliente);
+			
 			ResultSet res = ps.executeQuery();
 
 			while (res.next()) {
@@ -226,12 +226,9 @@ public class contratoMapper extends baseMapper {
 
 			}
 
-			con.commit();
-
 			return resultado;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);

@@ -3,6 +3,7 @@ package Vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -38,15 +39,15 @@ public class cierreAlquiler extends JInternalFrame {
 	private Controlador controlador;
 	private String tipoDocumento;
 	private String numeroDocumento;
-	private List<ContratoAlquilerDTO> contratos;	
-	
-	
+	private List<ContratoAlquilerDTO> contratos;
+
 	public cierreAlquiler() {
 
 		controlador = Controlador.getInstance();
 
 		iniciarComponentes();
 		cargarTiposDoc();
+		cargarSucursales();
 
 	}
 
@@ -70,40 +71,46 @@ public class cierreAlquiler extends JInternalFrame {
 
 	private void mostrarcontratos() {
 
-		
-		
-		this.numeroDocumento =  numDocTF.getText();
+		this.numeroDocumento = numDocTF.getText();
 		this.tipoDocumento = tipoDocCOMBO.getSelectedItem().toString();
-		
-		ResultadoOperacionGetContratos res = controlador.buscarContratodeCliente(numeroDocumento, tipoDocumento);
-		
-		
-		
-		if (res.sosExitoso()){
-			
+
+		ResultadoOperacionGetContratos res = controlador
+				.buscarContratodeCliente(numeroDocumento, tipoDocumento);
+
+		if (res.sosExitoso()) {
+
 			lblSucursalDestino.setVisible(true);
 			lblContratosVigentes.setVisible(true);
 			scrollPane.setVisible(true);
 			btnFinalizarContrato.setVisible(true);
 			sucDestinoCOMBO.setVisible(true);
-			cargarSucursales();
 
-		
-			
 			this.contratos = res.getContratos();
-		
-		TMElegirContrato modelo = new TMElegirContrato(contratos);
-		
-		contratosTABLA.setModel(modelo);
-		contratosTABLA.setVisible(true);
 
-			
-		}else{
-			JOptionPane.showMessageDialog(null, res.getMessage(),
-					"Error", JOptionPane.ERROR_MESSAGE);
-			
+			TMElegirContrato modelo = new TMElegirContrato(contratos);
+
+			contratosTABLA.setModel(modelo);
+			contratosTABLA.setVisible(true);
+
+		} else {
+			lblSucursalDestino.setVisible(false);
+			lblContratosVigentes.setVisible(false);
+			scrollPane.setVisible(false);
+			btnFinalizarContrato.setVisible(false);
+			sucDestinoCOMBO.setVisible(false);
+
+			this.contratos = new ArrayList<ContratoAlquilerDTO>();
+
+			TMElegirContrato modelo = new TMElegirContrato(contratos);
+
+			contratosTABLA.setModel(modelo);
+			contratosTABLA.setVisible(false);
+
+			JOptionPane.showMessageDialog(null, res.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+
 		}
-		
+
 	}
 
 	private void iniciarComponentes() {
@@ -133,8 +140,6 @@ public class cierreAlquiler extends JInternalFrame {
 		JButton btnBuscarContrato = new JButton("Buscar Contratos");
 		btnBuscarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				// ResultadoOperacionGetContratos =
 
 				mostrarcontratos();
 

@@ -85,6 +85,14 @@ public class Controlador {
 	public ResultadoOperacionGetContratos buscarContratodeCliente(
 			String numDoc, String tipoDoc) {
 
+		if (tipoDoc.trim().isEmpty())
+			return new ResultadoOperacionGetContratos(false,
+					"Ingrese un tipo de documento, por favor", null);
+
+		if (numDoc.trim().isEmpty())
+			return new ResultadoOperacionGetContratos(false,
+					"Ingrese un numero de documento, por favor", null);
+		
 		Cliente c = buscarCliente(numDoc, tipoDoc);
 
 		if (c == null) {
