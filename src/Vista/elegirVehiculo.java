@@ -21,6 +21,7 @@ import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGenerarPresupuesto;
 import Interfaces.TMVehiculoTABLA;
 
 import java.awt.event.ActionListener;
@@ -111,7 +112,6 @@ public class elegirVehiculo extends JInternalFrame {
 							fechaFin, sucursalOrigen, sucDestino);
 
 					if (res.sosExitoso()) {
-						menuPrincipal.getInstance().irAMenuPrincipal();
 
 						JOptionPane.showMessageDialog(null, res.getMessage(),
 								"Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -146,10 +146,6 @@ public class elegirVehiculo extends JInternalFrame {
 		JLabel lblFechaFinalizacion = new JLabel("Fecha Finalizacion:");
 		lblFechaFinalizacion.setBounds(247, 364, 109, 14);
 		getContentPane().add(lblFechaFinalizacion);
-
-		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(247, 389, 65, 14);
-		getContentPane().add(lblPrecio);
 
 		precioActualLABEL = new JLabel("");
 		precioActualLABEL.setBounds(356, 389, 102, 14);

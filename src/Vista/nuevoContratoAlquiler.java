@@ -181,8 +181,8 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		TMElegirPresupuesto modelo = new TMElegirPresupuesto(presupuestos);
 
 		PresupuestoTABLA.setModel(modelo);
-		PresupuestoTABLA.removeColumn(PresupuestoTABLA.getColumnModel()
-				.getColumn(0)); // Ocultamos el id
+		PresupuestoTABLA.getColumnModel().getColumn(0).setResizable(false);
+		PresupuestoTABLA.getColumnModel().getColumn(0).setMaxWidth(1);
 
 	}
 

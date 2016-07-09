@@ -13,6 +13,7 @@ import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGenerarPresupuesto;
 import Interfaces.ResultadoOperacionGetContratos;
 import Interfaces.ResultadoOperacionGetListaVehiculos;
 import Interfaces.ResultadoOperacionGetPresupuestos;
@@ -679,7 +680,9 @@ public class Controlador {
 
 			presupuestosAlquiler.add(p);
 
-			return new ResultadoOperacion(true, "Contrato generado con exito");
+			String mensaje = ("Presupuesto generado con exito, el Costo el mismo es de: " +p.getImporte());
+			
+			return new ResultadoOperacionGenerarPresupuesto(true, mensaje , p.getImporte());
 		} catch (Exception ex) {
 			return new ResultadoOperacion(false, "Fallo al generar contrato : "
 					+ ex.getMessage());
