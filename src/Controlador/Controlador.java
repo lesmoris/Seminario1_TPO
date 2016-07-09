@@ -476,31 +476,30 @@ public class Controlador {
 		// Hasta)
 
 		// Validaciones
-		if (!fechaInicioDesde.trim().isEmpty()
-				&& !HelperDate.esFechaValida(fechaInicioDesde))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicioDesde)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha Inicio Desde no es valida", null);
 
-		if (!fechaInicioHasta.trim().isEmpty()
-				&& !HelperDate.esFechaValida(fechaInicioHasta))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicioHasta)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha Inicio Hasta no es valida", null);
 
-		if (!fechaFinDesde.trim().isEmpty()
-				&& !HelperDate.esFechaValida(fechaFinDesde))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFinDesde)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha Fin Desde no es valida", null);
 
-		if (!fechaFinHasta.trim().isEmpty()
-				&& !HelperDate.esFechaValida(fechaFinHasta))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFinHasta)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha Fin Hasta no es valida", null);
 
 		try {
-			if (!fechaInicioDesde.trim().isEmpty()
-					&& !fechaInicioHasta.trim().isEmpty()
-					&& HelperDate.diferenciaEntreDosfechas(fechaInicioDesde,
-							fechaInicioHasta) < 0)
+			if (HelperDate.diferenciaEntreDosfechas(
+					HelperDate.FormateaFechaDDMMYYYY(fechaInicioDesde),
+					HelperDate.FormateaFechaDDMMYYYY(fechaInicioHasta)) < 0)
 				return new ResultadoOperacionReporteMovimientosVehiculos(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -510,10 +509,9 @@ public class Controlador {
 		}
 
 		try {
-			if (!fechaFinDesde.trim().isEmpty()
-					&& !fechaFinHasta.trim().isEmpty()
-					&& HelperDate.diferenciaEntreDosfechas(fechaFinDesde,
-							fechaFinHasta) < 0)
+			if (HelperDate.diferenciaEntreDosfechas(
+					HelperDate.FormateaFechaDDMMYYYY(fechaFinDesde),
+					HelperDate.FormateaFechaDDMMYYYY(fechaFinHasta)) < 0)
 				return new ResultadoOperacionReporteMovimientosVehiculos(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -566,7 +564,7 @@ public class Controlador {
 
 		} else {
 			return new ResultadoOperacionGetListaVehiculos(
-					true,
+					false,
 					"No hay vehiculos disponibles para los filtros seleccionados",
 					null);
 
@@ -575,6 +573,14 @@ public class Controlador {
 	}
 
 	public ResultadoOperacion existeCliente(String tipoDoc, String numDoc) {
+
+		if (tipoDoc.trim().isEmpty())
+			return new ResultadoOperacion(false,
+					"Ingrese un tipo de documento, por favor");
+
+		if (numDoc.trim().isEmpty())
+			return new ResultadoOperacion(false,
+					"Ingrese un numero de documento, por favor");
 
 		Cliente c = buscarCliente(numDoc, tipoDoc);
 
@@ -587,7 +593,7 @@ public class Controlador {
 
 	public ResultadoOperacion generarPresupuesto(String dominio,
 			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
-			String sucOrigen, String sucDestino) throws Exception {
+			String sucOrigen, String sucDestino) {
 
 		// LEO : Validacion de parametros. Si alguno falta o esta mal, tirar
 		// error y que la vista lo muestre
@@ -606,24 +612,31 @@ public class Controlador {
 			return new ResultadoOperacion(false, "Elija un vehiculo, por favor");
 
 		if (!fechaInicio.trim().isEmpty()
-				&& !HelperDate.esFechaValida(fechaInicio))
+				&& !HelperDate.esFechaValida(HelperDate
+						.FormateaFechaDDMMYYYY(fechaInicio)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha de Inicio no es valida", null);
 
-		if (!fechaFin.trim().isEmpty() && !HelperDate.esFechaValida(fechaFin))
+		if (!fechaFin.trim().isEmpty()
+				&& !HelperDate.esFechaValida(HelperDate
+						.FormateaFechaDDMMYYYY(fechaFin))
+				&& !HelperDate.esMenorAHoy(HelperDate
+						.FormateaFechaDDMMYYYY(fechaFin)))
 			return new ResultadoOperacionReporteMovimientosVehiculos(false,
 					"La fecha de Fin no es valida", null);
 
+		if (HelperDate.esMenorAHoy(HelperDate.FormateaFechaDDMMYYYY(fechaFin)))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha de Fin es menor a hoy", null);
+
 		try {
-			if (!fechaInicio.trim().isEmpty()
-					&& !fechaFin.trim().isEmpty()
-					&& HelperDate.diferenciaEntreDosfechas(fechaInicio,
-							fechaFin) < 0)
+			if (HelperDate.diferenciaEntreDosfechas(
+					HelperDate.FormateaFechaDDMMYYYY(fechaInicio),
+					HelperDate.FormateaFechaDDMMYYYY(fechaFin)) > 0)
 				return new ResultadoOperacionReporteMovimientosVehiculos(false,
-						"La fecha Inicio no puede ser mayor a la fecha de Fin",
-						null);
-		} catch (ParseException e) {
-			e.printStackTrace();
+						"La fecha de Fin es menor a la fecha de Inicio", null);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
 
 		try {
@@ -649,7 +662,7 @@ public class Controlador {
 
 			return new ResultadoOperacion(true, "Contrato generado con exito");
 		} catch (Exception ex) {
-			return new ResultadoOperacion(true, "Fallo al generar contrato : "
+			return new ResultadoOperacion(false, "Fallo al generar contrato : "
 					+ ex.getMessage());
 		}
 	}
@@ -662,25 +675,30 @@ public class Controlador {
 			int cantPuertas, String color, String ac, String tipoCombustible) {
 
 		// Validaciones
-		if (!HelperDate.esFechaValida(fechaInicioDesde))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicioDesde)))
 			return new ResultadoOperacionReporteAlquileres(false,
 					"La fecha Inicio Desde no es valida", null);
 
-		if (!HelperDate.esFechaValida(fechaInicioHasta))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaInicioHasta)))
 			return new ResultadoOperacionReporteAlquileres(false,
 					"La fecha Inicio Hasta no es valida", null);
 
-		if (!HelperDate.esFechaValida(fechaFinDesde))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFinDesde)))
 			return new ResultadoOperacionReporteAlquileres(false,
 					"La fecha Fin Desde no es valida", null);
 
-		if (!HelperDate.esFechaValida(fechaFinHasta))
+		if (!HelperDate.esFechaValida(HelperDate
+				.FormateaFechaDDMMYYYY(fechaFinHasta)))
 			return new ResultadoOperacionReporteAlquileres(false,
 					"La fecha Fin Hasta no es valida", null);
 
 		try {
-			if (HelperDate.diferenciaEntreDosfechas(fechaInicioDesde,
-					fechaInicioHasta) < 0)
+			if (HelperDate.diferenciaEntreDosfechas(
+					HelperDate.FormateaFechaDDMMYYYY(fechaInicioDesde),
+					HelperDate.FormateaFechaDDMMYYYY(fechaInicioHasta)) < 0)
 				return new ResultadoOperacionReporteAlquileres(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -690,8 +708,9 @@ public class Controlador {
 		}
 
 		try {
-			if (HelperDate.diferenciaEntreDosfechas(fechaFinDesde,
-					fechaFinHasta) < 0)
+			if (HelperDate.diferenciaEntreDosfechas(
+					HelperDate.FormateaFechaDDMMYYYY(fechaFinDesde),
+					HelperDate.FormateaFechaDDMMYYYY(fechaFinHasta)) < 0)
 				return new ResultadoOperacionReporteAlquileres(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",

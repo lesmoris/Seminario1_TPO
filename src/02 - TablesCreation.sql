@@ -104,7 +104,7 @@ CREATE TABLE [dbo].[PRESUPUESTO](
 	[idsucursalorigen] [int] NULL,
 	[idsucursaldestino] [int] NOT NULL,
 	[idvehiculo] [int] NOT NULL,
-	[fechaVencimiento] [date] NOT NULL  CONSTRAINT [DF_PRESUPUESTO_fechaemision]  DEFAULT (DATEADD(dd, 30, getdate())),
+	[fechaVencimiento] [date] NOT NULL  CONSTRAINT [DF_PRESUPUESTO_fechavencimiento]  DEFAULT (DATEADD(dd, 30, getdate())),
  CONSTRAINT [PK__PRESUPUE__ABD6637A0AB51094] PRIMARY KEY CLUSTERED 
 (
 	[idpresupuesto] ASC

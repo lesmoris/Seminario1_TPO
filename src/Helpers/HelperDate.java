@@ -120,4 +120,31 @@ public class HelperDate {
 		}
 	}
 
+	public static boolean esMayorOIgualAHoy(String fecha) {
+
+		try {
+			Date fechaDate = obtenerFechadeString(fecha);
+			if (diferenciaEntreDosfechas(obtenerFechaHoy(), fechaDate) <= 0)
+				return true;
+			else
+				return false;
+
+		} catch (java.text.ParseException e) {
+			return false;
+		}
+	}
+
+	public static boolean esMenorAHoy(String fecha) {
+
+		try {
+			Date fechaDate = obtenerFechadeString(fecha);
+			if (diferenciaEntreDosfechas(obtenerFechaHoy(), fechaDate) > 0)
+				return true;
+			else
+				return false;
+
+		} catch (java.text.ParseException e) {
+			return false;
+		}
+	}
 }

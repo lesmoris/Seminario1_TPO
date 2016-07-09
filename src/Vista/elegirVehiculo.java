@@ -106,9 +106,6 @@ public class elegirVehiculo extends JInternalFrame {
 
 				if (tablaseleccionada(vehiculosTABLA)) {
 
-					// Obtenemos el dominio del vehiculo seleccionado y lo
-					// buscamos
-
 					int fila = vehiculosTABLA.getSelectedRow();
 					String dominio = vehiculosTABLA.getValueAt(fila, 0)
 							.toString();
@@ -117,23 +114,24 @@ public class elegirVehiculo extends JInternalFrame {
 					sucDestino = sucursalDestinoCOMBO.getSelectedItem()
 							.toString();
 
-					System.out.println(fechaFin);
-					System.out.println(fechaDeInicio);
+					ResultadoOperacion res = controlador.generarPresupuesto(
+							dominio, tipoDocumento, numDoc, fechaDeInicio,
+							fechaFin, sucursalOrigen, sucDestino);
 
-					try {
-						controlador.generarPresupuesto(dominio, tipoDocumento,
-								numDoc, fechaDeInicio, fechaFin,
-								sucursalOrigen, sucDestino); 
+					if (res.sosExitoso()) {
 						menuPrincipal.getInstance().irAMenuPrincipal();
 
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace(); 
+						JOptionPane.showMessageDialog(null, res.getMessage(),
+								"Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+					} else {
+						JOptionPane.showMessageDialog(null, res.getMessage(),
+								"Error", JOptionPane.ERROR_MESSAGE);
 					}
 
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"debe seleccionar un vehiculo"); 
+							"Debe seleccionar un vehiculo");
 				}
 
 			}
