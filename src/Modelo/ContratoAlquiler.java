@@ -16,7 +16,9 @@ public class ContratoAlquiler {
 	private float punitorio;
 	private Sucursal sucursalDestino;
 	private PresupuestoAlquiler presupuesto;
-
+	
+	
+	
 	// Metodos
 	public boolean sosContrato(int numero) {
 		return numero == this.numero;
@@ -33,13 +35,33 @@ public class ContratoAlquiler {
 	public void cerrar(Sucursal sucDestino) throws Exception {
 
 		this.setFechaFin(HelperDate.obtenerFechaHoy());
+		this.calcularImporteYPunitorios(sucDestino);
 		this.setSucursalDestino(sucDestino);
-		this.calcularImporteYPunitorios();
 		this.Update();
+		
+		// Ponemos al vehiculo en disponible y le asignamos la sucursal
+		this.getPresupuesto().getVehiculo().ponerDisponibleEnSucursal(sucDestino);
 	}
 	
-	private void calcularImporteYPunitorios() {
+	private void calcularImporteYPunitorios(Sucursal sucFinal) {
 		
+		float punitorio = 0;
+		
+		
+		if (HelperDate.ConvertirSQLAUtil(this.getFechaFin()).before(HelperDate.obtenerFechaHoy())){
+			System.out.println ("DETECTO FECHA");
+			int diasDeAtraso = HelperDate.diferenciaEntreDosfechas(this.getFechaFin(), HelperDate.obtenerFechaHoy());
+			punitorio = 100 * diasDeAtraso;
+			
+		}
+		
+		if (!this.getSucursalDestino().sosSucursal(sucFinal.getNombre())){
+			System.out.println ("DETECTO CAMBIO DE SUCURSAL");
+			punitorio = (float) (punitorio + (this.getImporte()*0.2));
+		}
+		
+		
+		this.setPunitorio(punitorio);
 	}
 
 	public ContratoAlquilerDTO crearVista() {

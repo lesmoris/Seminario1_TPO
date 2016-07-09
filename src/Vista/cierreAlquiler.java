@@ -171,7 +171,7 @@ public class cierreAlquiler extends JInternalFrame {
 					int nroContrato = Integer.parseInt((String) contratosTABLA
 							.getValueAt(fila, 0));
 					
-					String sucursalDestino = (String) cmbSucDestino.getSelectedItem();
+					String sucursalDestino = cmbSucDestino.getSelectedItem().toString();
 
 					ResultadoOperacion res = controlador
 							.cerrarContratoAlquiler(nroContrato, sucursalDestino);
@@ -182,8 +182,9 @@ public class cierreAlquiler extends JInternalFrame {
 							: JOptionPane.ERROR_MESSAGE);
 
 					if (res.sosExitoso())
+						
 						menuPrincipal.getInstance().irAMenuPrincipal();
-
+						
 				}
 			}
 		});

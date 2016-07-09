@@ -35,7 +35,7 @@ public class contratoMapper extends baseMapper {
 		try {
 			con = Conectar();
 
-			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, importe, idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where numeroContrato = ?";
+			String senten = "SELECT idalquiler, fechainicio, fechafin, fechaemision, importe, idsucursaldestino, punitorio, idPresupuesto FROM ALQUILER where idalquiler = ?";
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, numeroContrato);
@@ -51,7 +51,7 @@ public class contratoMapper extends baseMapper {
 				cont.setNumero(res.getInt("idAlquiler"));
 				cont.setSucursalDestino(sucursalMapper.getInstance()
 						.SelectPORID(res.getInt("idsucursaldestino")));
-
+				cont.setPresupuesto(presupuestoMapper.getInstance().Select(res.getInt("idPresupuesto")));
 			}
 			con.close();
 		} catch (SQLException e) {

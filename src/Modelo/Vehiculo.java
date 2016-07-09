@@ -293,4 +293,12 @@ public class Vehiculo {
 
 		return v;
 	}
+
+	public void ponerDisponibleEnSucursal(Sucursal sucDestino) throws Exception {
+		
+		this.setEstado("DISPONIBLE");
+		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+		vehiculoMapper.getInstance().UpdateSucursal(this, sucDestino);
+		
+	}
 }
