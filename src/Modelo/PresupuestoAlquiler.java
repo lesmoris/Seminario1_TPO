@@ -29,23 +29,23 @@ public class PresupuestoAlquiler {
 
 	public void calcularImporte() {
 
-		
-		int cantidadDias = HelperDate.diferenciaEntreDosfechas(this.getFechaFin(),
-				this.getFechaInicio()); 
-		
-		System.out.println("Dias del presupuesto: "+cantidadDias);
-		
+		int cantidadDias = HelperDate.diferenciaEntreDosfechas(
+				this.getFechaFin(), this.getFechaInicio());
+
+		System.out.println("Dias del presupuesto: " + cantidadDias);
+
 		float precioPorDia = this.getVehiculo().getPrecioPorDia();
 
-		System.out.println("Precio del Vehiculo por dia: "+precioPorDia);
-		
-		float importe = precioPorDia*cantidadDias;
-		
+		System.out.println("Precio del Vehiculo por dia: " + precioPorDia);
+
+		float importe = precioPorDia * cantidadDias;
+
 		float recargo = 0;
-		
-		if (!this.getSucursalDestino().sosSucursal(this.getSucursalOrigen().getNombre())) {
-		recargo = (float) (importe * 0.2);	  
-		importe = importe + recargo;
+
+		if (!this.getSucursalDestino().sosSucursal(
+				this.getSucursalOrigen().getNombre())) {
+			recargo = (float) (importe * 0.2);
+			importe = importe + recargo;
 		}
 		this.setImporte(importe);
 	}
@@ -83,16 +83,16 @@ public class PresupuestoAlquiler {
 
 	public void Insert() throws Exception {
 		presupuestoMapper.getInstance().insert(this);
+	}
+
+	public void realizar() {
+		// Cuando este presupuesto fue aceptado, y se procede a crear un
+		// alquiler con el
+
+		// LEO : ??? Esto que mas hace?
+		this.setFechaVencimiento(HelperDate.obtenerFechaHoy());
 
 	}
-	
-	public void realizar(){
-		// Cuando este presupuesto fue aceptado, y se procede a crear un alquiler con el
-		
-		this.setFechaVencimiento(HelperDate.obtenerFechaHoy());
-		
-	}
-	
 
 	// Getters y Setters
 	public int getIdPresupuesto() {

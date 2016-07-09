@@ -1,6 +1,5 @@
 package Vista;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -19,10 +18,10 @@ import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
 import DTOs.SucursalDTO;
-import DTOs.VehiculoDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetListaVehiculos;
 
 public class generarPresupuesto extends JInternalFrame {
 	private JTextField numeroDocTF;
@@ -311,13 +310,9 @@ public class generarPresupuesto extends JInternalFrame {
 		verVehiculosBOTON.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				fechaInicio = fechaInicioTF.getText();
-
-				sucursalOrigen = sucOrigenCOMBO.getSelectedItem().toString();
-
 				String ac = aireAcondicionadoCB.isSelected() ? "S" : "N";
 
-				List<VehiculoDTO> listavehiculo = controlador
+				ResultadoOperacionGetListaVehiculos res = controlador
 						.getvehiculosFiltro(sucOrigenCOMBO.getSelectedItem()
 								.toString(), "nombre", marcaTF.getText(),
 								modeloTF.getText(), ac, combustibleCOMBO
@@ -327,15 +322,22 @@ public class generarPresupuesto extends JInternalFrame {
 								colorCOMBO.getSelectedItem().toString(),
 								tamañoCOMBO.getSelectedItem().toString());
 
-				elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc,
-						listavehiculo, fechaInicio, sucursalOrigen);
+				if (res.sosExitoso()) {
+					fechaInicio = fechaInicioTF.getText();
 
-				// LEO: Que pasa si no hay vehiculos? Va igual a la pantalla?
-				
-				// Vamos a la ventana con el cliente cargado, y los vehiculos
-				// filtrados
-				menuPrincipal.getInstance().irAVentana(a);
+					sucursalOrigen = sucOrigenCOMBO.getSelectedItem()
+							.toString();
+					elegirVehiculo a = new elegirVehiculo(tipoDoc, numeroDoc,
+							res.getListaVehiculosDTO(), fechaInicio,
+							sucursalOrigen);
 
+					// Vamos a la ventana con el cliente cargado, y los
+					// vehiculos filtrados
+					menuPrincipal.getInstance().irAVentana(a);
+				} else {
+					JOptionPane.showMessageDialog(null, res.getMessage(),
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		verVehiculosBOTON.setBounds(438, 319, 137, 23);

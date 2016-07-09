@@ -1,14 +1,14 @@
 package Vista;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
 import DTOs.ContratoAlquilerDTO;
@@ -192,12 +193,20 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblFechaFin.setBounds(173, 11, 71, 14);
 		getContentPane().add(lblFechaFin);
 
-		fechaInicioDesdeTF = new JTextField();
+		MaskFormatter mf = null;
+		try {
+			mf = new MaskFormatter("##/##/####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		fechaInicioDesdeTF = new JFormattedTextField(mf);
 		fechaInicioDesdeTF.setBounds(52, 33, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
 		fechaInicioDesdeTF.setColumns(10);
 
-		fechaInicioHastaTF = new JTextField();
+		fechaInicioHastaTF = new JFormattedTextField(mf);
 		fechaInicioHastaTF.setBounds(52, 58, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
 		fechaInicioHastaTF.setColumns(10);
@@ -210,12 +219,12 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblHasta.setBounds(173, 61, 46, 14);
 		getContentPane().add(lblHasta);
 
-		fechaFinDesdeTF = new JTextField();
+		fechaFinDesdeTF = new JFormattedTextField(mf);
 		fechaFinDesdeTF.setBounds(254, 33, 86, 20);
 		getContentPane().add(fechaFinDesdeTF);
 		fechaFinDesdeTF.setColumns(10);
 
-		fechaFinHastaTF = new JTextField();
+		fechaFinHastaTF = new JFormattedTextField(mf);
 		fechaFinHastaTF.setBounds(254, 58, 86, 20);
 		getContentPane().add(fechaFinHastaTF);
 		fechaFinHastaTF.setColumns(10);

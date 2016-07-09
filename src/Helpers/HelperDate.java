@@ -88,6 +88,15 @@ public class HelperDate {
 		return cantidadDias;
 	}
 
+	public static int diferenciaEntreDosfechas(String fechaInicio,
+			String fechaFin) throws java.text.ParseException {
+
+		Date fechaInicioDate = obtenerFechadeString(fechaInicio);
+		Date fechaFinDate = obtenerFechadeString(fechaFin);
+		return diferenciaEntreDosfechas(fechaInicioDate, fechaFinDate);
+
+	}
+
 	public static int diferenciaEntreDosfechas(java.sql.Date fechaInicio,
 			java.sql.Date fechaFin) {
 
@@ -100,6 +109,15 @@ public class HelperDate {
 				.getTime()) / MILLSECS_PER_DAY);
 
 		return cantidadDias;
+	}
+
+	public static boolean esFechaValida(String fecha) {
+		try {
+			obtenerFechadeString(fecha);
+			return true;
+		} catch (java.text.ParseException e) {
+			return false;
+		}
 	}
 
 }

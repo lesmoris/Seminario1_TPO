@@ -242,7 +242,7 @@ ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([aireAcondicionado])
 GO
 ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  (([cantidadPuertas]<(5)))
 GO
-ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([estado])='DISPONIBLE' OR upper([estado])='ENMOVIMIENTO' OR upper([estado])='ENMANTENIMIENTO'))
+ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([estado])='DISPONIBLE' OR upper([estado])='ENMOVIMIENTO' OR upper([estado])='ENMANTENIMIENTO' OR upper([estado])='ENALQUILER'))
 GO
 ALTER TABLE [dbo].[VEHICULO]  WITH CHECK ADD CHECK  ((upper([tamaño])='CHICO' OR upper([tamaño])='MEDIANO' OR upper([tamaño])='GRANDE'))
 GO

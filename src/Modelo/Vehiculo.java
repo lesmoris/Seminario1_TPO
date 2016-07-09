@@ -136,6 +136,15 @@ public class Vehiculo {
 		return null;
 	}
 
+	public void alquilar() throws Exception {
+
+		// Setear el estado del vehiculo a ENALQUILER
+
+		this.setEstado("ENALQUILER");
+		vehiculoMapper.getInstance().SetStatus(this, "ENALQUILER");
+
+	}
+
 	// Getters and Setters
 	public String getDominio() {
 		return dominio;
@@ -283,15 +292,5 @@ public class Vehiculo {
 				precioPorDia, movimientosDTO, mantenimientosDTO, estado);
 
 		return v;
-	}
-
-	public void alquilar() throws Exception {
-		
-		// Setear el estado del vehiculo a ENALQUILER
-		
-		this.setEstado("ENALQUILER");
-		vehiculoMapper.getInstance().SetStatus(this, "ENALQUILER");
-		
-		
 	}
 }

@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
-import Interfaces.ResultadoOperacionGetContratos;
 import Interfaces.ResultadoOperacion;
+import Interfaces.ResultadoOperacionGetContratos;
+import Interfaces.ResultadoOperacionGetListaVehiculos;
 import Interfaces.ResultadoOperacionGetPresupuestos;
 import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
@@ -87,7 +89,7 @@ public class Controlador {
 
 		if (c == null) {
 			return new ResultadoOperacionGetContratos(false,
-					"no se encontro cliente", null);
+					"No se encontro cliente", null);
 		}
 
 		List<ContratoAlquiler> lista = contratoMapper.getInstance()
@@ -98,16 +100,15 @@ public class Controlador {
 		for (ContratoAlquiler pa : lista) {
 
 			resultado.add(pa.crearVista());
-			
+
 		}
 
 		if (resultado.isEmpty()) {
 			return new ResultadoOperacionGetContratos(false,
-					"no hay contratos de ese cliente", null);
+					"No hay contratos de ese cliente", null);
 		}
 
-		return new ResultadoOperacionGetContratos(true, "contratos:",
-				resultado);
+		return new ResultadoOperacionGetContratos(true, "contratos:", resultado);
 
 	}
 
@@ -118,7 +119,7 @@ public class Controlador {
 
 		if (c == null) {
 			return new ResultadoOperacionGetPresupuestos(false,
-					"no se encontro cliente", null);
+					"No se encontro cliente", null);
 		}
 
 		List<PresupuestoAlquiler> lista = presupuestoMapper.getInstance()
@@ -133,7 +134,7 @@ public class Controlador {
 
 		if (resultado.isEmpty()) {
 			return new ResultadoOperacionGetPresupuestos(false,
-					"no hay presupuestos de ese cliente", null);
+					"No hay presupuestos de ese cliente", null);
 		}
 
 		return new ResultadoOperacionGetPresupuestos(true, "Presupuestos:",
@@ -202,6 +203,24 @@ public class Controlador {
 
 		return sucursal;
 
+	}
+
+	private PresupuestoAlquiler buscarPresupuesto(int idPresupuesto) {
+
+		for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
+
+			if (pa.getIdPresupuesto() == idPresupuesto) {
+				return pa;
+			}
+		}
+
+		PresupuestoAlquiler p = presupuestoMapper.getInstance().Select(
+				idPresupuesto);
+
+		if (p != null)
+			presupuestosAlquiler.add(p);
+
+		return p;
 	}
 
 	private void actualizarSucursales() {
@@ -456,6 +475,53 @@ public class Controlador {
 		// Valido solo que las fechas tengan sentido (Desde no puede ser mayor a
 		// Hasta)
 
+		// Validaciones
+		if (!fechaInicioDesde.trim().isEmpty()
+				&& !HelperDate.esFechaValida(fechaInicioDesde))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha Inicio Desde no es valida", null);
+
+		if (!fechaInicioHasta.trim().isEmpty()
+				&& !HelperDate.esFechaValida(fechaInicioHasta))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha Inicio Hasta no es valida", null);
+
+		if (!fechaFinDesde.trim().isEmpty()
+				&& !HelperDate.esFechaValida(fechaFinDesde))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha Fin Desde no es valida", null);
+
+		if (!fechaFinHasta.trim().isEmpty()
+				&& !HelperDate.esFechaValida(fechaFinHasta))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha Fin Hasta no es valida", null);
+
+		try {
+			if (!fechaInicioDesde.trim().isEmpty()
+					&& !fechaInicioHasta.trim().isEmpty()
+					&& HelperDate.diferenciaEntreDosfechas(fechaInicioDesde,
+							fechaInicioHasta) < 0)
+				return new ResultadoOperacionReporteMovimientosVehiculos(
+						false,
+						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
+						null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (!fechaFinDesde.trim().isEmpty()
+					&& !fechaFinHasta.trim().isEmpty()
+					&& HelperDate.diferenciaEntreDosfechas(fechaFinDesde,
+							fechaFinHasta) < 0)
+				return new ResultadoOperacionReporteMovimientosVehiculos(
+						false,
+						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
+						null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		// No valido por que pueden venir vacios, ahi trae todo
 
 		List<Movimiento> movimientos = movimientoMapper.getInstance()
@@ -481,66 +547,30 @@ public class Controlador {
 		}
 	}
 
-	private PresupuestoAlquiler buscarPresupuesto(int idPresupuesto) {
-
-		for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
-
-			if (pa.getIdPresupuesto() == idPresupuesto) {
-				return pa;
-			}
-		}
-
-		PresupuestoAlquiler p = null;
-		// Terminar el meotodo de SelectPresupuesto
-		p = presupuestoMapper.getInstance().Select(idPresupuesto);
-
-		if (p != null)
-			presupuestosAlquiler.add(p);
-
-		return p;
-	}
-
-	// LEO : Devuelve modelo a la vista, cambiar
-	public List<PresupuestoAlquiler> consultaPresupuestoAlquiler(
-			String TipoDNI, String DNI) {
-
-		List<PresupuestoAlquiler> res = new ArrayList<PresupuestoAlquiler>();
-		Cliente cli;
-
-		// Busco cliente
-
-		cli = this.buscarCliente(DNI, TipoDNI);
-
-		// Cliente existe?
-		if (cli != null) {
-
-			// Falta
-			for (PresupuestoAlquiler pa : this.presupuestosAlquiler) {
-
-				if (pa.getCliente() == cli && pa.estasActivo()) {
-					res.add(pa);
-				}
-
-			}
-			return res;
-		}
-		return null;
-	}
-
-	public List<VehiculoDTO> getvehiculosFiltro(String sucursal, String nombre,
-			String marca, String modelo, String ac, String tipoCombustible,
-			String transmision, int cantPuertas, String color, String tamaño) {
+	public ResultadoOperacionGetListaVehiculos getvehiculosFiltro(
+			String sucursal, String nombre, String marca, String modelo,
+			String ac, String tipoCombustible, String transmision,
+			int cantPuertas, String color, String tamaño) {
 
 		List<VehiculoDTO> listaDTO = new ArrayList<VehiculoDTO>();
 		List<Vehiculo> lista = vehiculoMapper.getInstance().SelectAll(sucursal,
 				nombre, marca, modelo, ac, tipoCombustible, transmision,
 				cantPuertas, color, tamaño);
 
-		for (Vehiculo v : lista) {
-			listaDTO.add(v.crearVista());
-		}
+		if (lista.size() > 0) {
+			for (Vehiculo v : lista) {
+				listaDTO.add(v.crearVista());
+			}
 
-		return listaDTO;
+			return new ResultadoOperacionGetListaVehiculos(true, "", listaDTO);
+
+		} else {
+			return new ResultadoOperacionGetListaVehiculos(
+					true,
+					"No hay vehiculos disponibles para los filtros seleccionados",
+					null);
+
+		}
 
 	}
 
@@ -555,76 +585,73 @@ public class Controlador {
 
 	}
 
-	public ResultadoOperacion calcularPrecio(float precioPorDia,
-			String FechaInicio, String FechaFin, boolean devuelveEnMismaSucursal) {
-		return null;
-	}
-
-	public void generarPresupuesto(String dominio, String tipoDoc,
-			String numDoc, String fechaInicio, String fechaFin,
+	public ResultadoOperacion generarPresupuesto(String dominio,
+			String tipoDoc, String numDoc, String fechaInicio, String fechaFin,
 			String sucOrigen, String sucDestino) throws Exception {
 
 		// LEO : Validacion de parametros. Si alguno falta o esta mal, tirar
 		// error y que la vista lo muestre
+		if (sucOrigen.trim().isEmpty())
+			return new ResultadoOperacion(false,
+					"Elija una sucursal de origen, por favor");
 
-		PresupuestoAlquiler p = new PresupuestoAlquiler();
+		if (sucDestino.trim().isEmpty())
+			return new ResultadoOperacion(false,
+					"Elija una sucursal de destino, por favor");
 
-		p.setCliente(buscarCliente(numDoc, tipoDoc));
-		p.setFechaEmision(HelperDate.obtenerFechaHoy());
+		if (numDoc.trim().isEmpty())
+			return new ResultadoOperacion(false, "Elija un cliente, por favor");
 
-		p.setFechaInicio(HelperDate.obtenerFechadeString(HelperDate
-				.FormateaFechaDDMMYYYY(fechaInicio)));
-		p.setFechaFin(HelperDate.obtenerFechadeString(HelperDate
-				.FormateaFechaDDMMYYYY(fechaFin)));
+		if (dominio.trim().isEmpty())
+			return new ResultadoOperacion(false, "Elija un vehiculo, por favor");
 
-		p.setSucursalDestino(buscarSucursal(sucDestino));
-		p.setSucursalOrigen(buscarSucursal(sucOrigen));
-		p.setVehiculo(buscarVehiculo(dominio));
+		if (!fechaInicio.trim().isEmpty()
+				&& !HelperDate.esFechaValida(fechaInicio))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha de Inicio no es valida", null);
 
-		p.calcularImporte();
+		if (!fechaFin.trim().isEmpty() && !HelperDate.esFechaValida(fechaFin))
+			return new ResultadoOperacionReporteMovimientosVehiculos(false,
+					"La fecha de Fin no es valida", null);
 
-		// EL ID y la fecha de venc LOS AGREGA LA BD
+		try {
+			if (!fechaInicio.trim().isEmpty()
+					&& !fechaFin.trim().isEmpty()
+					&& HelperDate.diferenciaEntreDosfechas(fechaInicio,
+							fechaFin) < 0)
+				return new ResultadoOperacionReporteMovimientosVehiculos(false,
+						"La fecha Inicio no puede ser mayor a la fecha de Fin",
+						null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
-		System.out.println("FECHA DE INICIO 1: " + fechaInicio);
-		System.out.println("FECHA DE FIN 1: " + fechaFin);
+		try {
 
-		System.out.println("CLIENTE: " + p.getCliente().getIdCliente());
-		System.out.println("FECHA EMISION: " + p.getFechaEmision());
-		System.out.println("FECHA INICIO: " + p.getFechaInicio());
-		System.out.println("Sucursal Destino: "
-				+ p.getSucursalDestino().getIdSucursal());
-		System.out.println("Sucursal Origen: "
-				+ p.getSucursalOrigen().getIdSucursal());
-		System.out.println("Vehiculo: " + p.getVehiculo().getDominio());
-		System.out.println("FECHA FIN: " + p.getFechaFin());
+			PresupuestoAlquiler p = new PresupuestoAlquiler();
 
-		// Inserta a la BD
-		p.Insert();
+			p.setCliente(buscarCliente(numDoc, tipoDoc));
 
-		// Se agrega al cache
-		presupuestosAlquiler.add(p);
+			p.setFechaInicio(HelperDate.obtenerFechadeString(HelperDate
+					.FormateaFechaDDMMYYYY(fechaInicio)));
+			p.setFechaFin(HelperDate.obtenerFechadeString(HelperDate
+					.FormateaFechaDDMMYYYY(fechaFin)));
 
-	}
+			p.setSucursalDestino(buscarSucursal(sucDestino));
+			p.setSucursalOrigen(buscarSucursal(sucOrigen));
+			p.setVehiculo(buscarVehiculo(dominio));
 
-	// Borrar este metodo luego
-	public void pruebacambios() {
+			p.calcularImporte();
 
-		Date fechasql = HelperDate.obtenerFechaHoy();
-		System.out.println("FECHA DE HOY SQL ORIGINAL: " + fechasql);
+			p.Insert();
 
-		java.util.Date fechautil = HelperDate.ConvertirSQLAUtil(fechasql);
+			presupuestosAlquiler.add(p);
 
-		System.out.println("FECHA ORIGINAL CONVERTIDA A UTIL: " + fechautil);
-
-		Date fechasqlconvertida = HelperDate.ConvertirUtilASQL(fechautil);
-
-		System.out.println("FECHA UTIL CONVERTIDA A SQL" + fechasqlconvertida);
-
-		int diferencia = HelperDate
-				.diferenciaEntreDosfechas(fechasql, fechasql);
-
-		System.out.println(diferencia);
-
+			return new ResultadoOperacion(true, "Contrato generado con exito");
+		} catch (Exception ex) {
+			return new ResultadoOperacion(true, "Fallo al generar contrato : "
+					+ ex.getMessage());
+		}
 	}
 
 	public ResultadoOperacionReporteAlquileres generarReporteDeAlquileres(
@@ -634,7 +661,47 @@ public class Controlador {
 			String marca, String tamanio, String modelo, String transmision,
 			int cantPuertas, String color, String ac, String tipoCombustible) {
 
-		// No valido por que pueden venir vacios, ahi trae todo
+		// Validaciones
+		if (!HelperDate.esFechaValida(fechaInicioDesde))
+			return new ResultadoOperacionReporteAlquileres(false,
+					"La fecha Inicio Desde no es valida", null);
+
+		if (!HelperDate.esFechaValida(fechaInicioHasta))
+			return new ResultadoOperacionReporteAlquileres(false,
+					"La fecha Inicio Hasta no es valida", null);
+
+		if (!HelperDate.esFechaValida(fechaFinDesde))
+			return new ResultadoOperacionReporteAlquileres(false,
+					"La fecha Fin Desde no es valida", null);
+
+		if (!HelperDate.esFechaValida(fechaFinHasta))
+			return new ResultadoOperacionReporteAlquileres(false,
+					"La fecha Fin Hasta no es valida", null);
+
+		try {
+			if (HelperDate.diferenciaEntreDosfechas(fechaInicioDesde,
+					fechaInicioHasta) < 0)
+				return new ResultadoOperacionReporteAlquileres(
+						false,
+						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
+						null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			if (HelperDate.diferenciaEntreDosfechas(fechaFinDesde,
+					fechaFinHasta) < 0)
+				return new ResultadoOperacionReporteAlquileres(
+						false,
+						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
+						null);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		// El resto no lo valido por que pueden venir vacios, ahi trae todo
+
 		List<ContratoAlquiler> alquileres = contratoMapper.getInstance()
 				.SelectAll(fechaInicioDesde, fechaInicioHasta, fechaFinDesde,
 						fechaFinHasta, sucursalorigen, sucursalDestino,
@@ -659,53 +726,30 @@ public class Controlador {
 		}
 	}
 
-	
-	
 	public void generarContratoAlquiler(int idPresupuesto) throws Exception {
 
 		// LEO : Valudacion de presupuesto
 
 		ContratoAlquiler ca = new ContratoAlquiler();
-		ca.setFechaEmision(HelperDate.obtenerFechaHoy()); // LEO : Esto deberia
-															// ser un getdate en
-															// la BD. si no
-															// esta, lo
-															// agregamos.
 
 		// Ver si estos atributos los seteamos, o si los borramos y los buscamos
-		// desde el presupuesto asociado
+		// desde el presupuesto asociado.
 		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
 		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
-		//ca.setPunitorio(0);// LEO : punitorio tiene que estar null hasta que se
-							// cierra el contrato.
 		ca.setImporte(ca.getPresupuesto().getImporte());
 		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
 
-		// Agregamos a la BD, y obtenemos el ID generado por los identity
 		ca.Insert();
 
-		// Seteamos el vehiculo del alquiler en estado de "ENALQUILER"
-
-		// Lo deje comentado al Alquilar del vehiculo porque al hacer el update
-		// de estado,
-		// me tira error de CHECK Constratint en la BD, y no pude entender
-		// todavia por que
-
-		// ca.getPresupuesto().getVehiculo().alquilar();
-
-		System.out.println(ca.getPresupuesto().getVehiculo().getEstado());
+		ca.getPresupuesto().getVehiculo().alquilar();
 
 		// Agregamos al cache
 		this.contratosAlquiler.add(ca);
-	
-		// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES GENERAN CONTRATOS
-		ca.getPresupuesto().realizar();
-		
-	}
 
-	//public ResultadoOperacion FinalizarContrato()
-	
-	
-	
+		// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES
+		// GENERAN CONTRATOS
+		ca.getPresupuesto().realizar();
+
+	}
 }

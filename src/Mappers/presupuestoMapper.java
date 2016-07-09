@@ -81,13 +81,13 @@ public class presupuestoMapper extends baseMapper {
 
 	}
 
-	public List<PresupuestoAlquiler> SelectPresupuestosDeUnCliente(int idCliente){
+	public List<PresupuestoAlquiler> SelectPresupuestosDeUnCliente(int idCliente) {
 
 		List<PresupuestoAlquiler> lista = null;
 		Connection con = null;
 
 		System.out.println(idCliente);
-		
+
 		try {
 
 			lista = new ArrayList<PresupuestoAlquiler>();
@@ -99,7 +99,7 @@ public class presupuestoMapper extends baseMapper {
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, idCliente);
-			
+
 			ResultSet res = ps.executeQuery();
 
 			while (res.next()) {
@@ -130,8 +130,6 @@ public class presupuestoMapper extends baseMapper {
 
 				lista.add(pa);
 
-				
-				
 			}
 
 		} catch (SQLException e) {
@@ -140,11 +138,8 @@ public class presupuestoMapper extends baseMapper {
 		}
 		return lista;
 
-		
-		
-		
 	}
-	
+
 	public List<PresupuestoAlquiler> SelectAll() {
 
 		List<PresupuestoAlquiler> lista = null;
@@ -236,7 +231,7 @@ public class presupuestoMapper extends baseMapper {
 
 			res.next();
 			p.setFechaVencimiento(res.getDate("fechaVencimiento"));
-			
+
 			con.commit();
 
 		} catch (SQLException e) {

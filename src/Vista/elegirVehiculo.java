@@ -66,12 +66,6 @@ public class elegirVehiculo extends JInternalFrame {
 
 		getContentPane().setLayout(null);
 
-		JLabel lblElegirVehiculo = new JLabel("ELEGIR VEHICULO");
-		lblElegirVehiculo.setFont(new Font("Trebuchet MS", Font.BOLD
-				| Font.ITALIC, 19));
-		lblElegirVehiculo.setBounds(255, 11, 190, 31);
-		getContentPane().add(lblElegirVehiculo);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(138, 53, 578, 241);
 		getContentPane().add(scrollPane);
