@@ -1,9 +1,12 @@
 package Controlador;
 
-import java.sql.Date;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import DTOs.ContratoAlquilerDTO;
 import DTOs.MantenimientoDTO;
@@ -21,6 +24,8 @@ import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.ResultadoOperacionReporteAlquileres;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
+import Interfaces.TMVerVehiculos;
+import Interfaces.crearExcel;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.mantenimientoMapper;
@@ -846,6 +851,16 @@ public class Controlador {
 		List<VehiculoDTO> resultado = vehiculoMapper.getInstance().SelectAllVehiculos();
 		
 		return resultado;
+	}
+
+	public void crearExcel(JTable tabla) throws FileNotFoundException {
+		
+		
+		if (tabla.getRowCount()>0){
+		new crearExcel(tabla).crearExcel();
+		}else{
+			JOptionPane.showMessageDialog(null, "LA COLUMNA ESTA VACIA");
+		}
 	}
 	
 }

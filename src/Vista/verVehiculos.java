@@ -10,7 +10,14 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import Controlador.Controlador;
 import DTOs.VehiculoDTO;
 import Interfaces.TMVerVehiculos;
+import Interfaces.crearExcel;
 import Mappers.vehiculoMapper;
+
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 
 public class verVehiculos extends JInternalFrame {
 
@@ -37,7 +44,7 @@ public class verVehiculos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 32, 729, 356);
+		scrollPane.setBounds(21, 32, 729, 338);
 		getContentPane().add(scrollPane);
 		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -48,6 +55,22 @@ public class verVehiculos extends JInternalFrame {
 		TMVerVehiculos modelo = new TMVerVehiculos(controlador.getVehiculos());
 		
 		vehiculosTABLA.setModel(modelo);
+		
+		JButton btnExportarAExcel = new JButton("Exportar a Excel");
+		btnExportarAExcel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					controlador.crearExcel(vehiculosTABLA);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		btnExportarAExcel.setBounds(31, 381, 142, 23);
+		getContentPane().add(btnExportarAExcel);
 		
 		
 		
