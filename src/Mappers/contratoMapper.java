@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.DBUtils;
+import Helpers.HelperDate;
 import Modelo.ContratoAlquiler;
 
 public class contratoMapper extends baseMapper {
@@ -96,7 +97,7 @@ public class contratoMapper extends baseMapper {
 			cont.setFechaEmision(res.getDate("fechaEmision"));
 
 			con.commit();
-			
+
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
@@ -123,16 +124,22 @@ public class contratoMapper extends baseMapper {
 			CallableStatement callableStatement = con
 					.prepareCall(SP_ListAlquileres);
 
-			callableStatement.setString(1,
-					!fechaInicioDesde.trim().isEmpty() ? fechaInicioDesde
-							: null);
-			callableStatement.setString(2,
-					!fechaInicioHasta.trim().isEmpty() ? fechaInicioHasta
-							: null);
-			callableStatement.setString(3,
-					!fechaFinDesde.trim().isEmpty() ? fechaFinDesde : null);
-			callableStatement.setString(4,
-					!fechaFinHasta.trim().isEmpty() ? fechaFinHasta : null);
+			callableStatement.setString(
+					1,
+					!fechaInicioDesde.trim().isEmpty() ? HelperDate
+							.FormateaFechaYYYYMMDD(fechaInicioDesde) : null);
+			callableStatement.setString(
+					2,
+					!fechaInicioHasta.trim().isEmpty() ? HelperDate
+							.FormateaFechaYYYYMMDD(fechaInicioHasta) : null);
+			callableStatement.setString(
+					3,
+					!fechaFinDesde.trim().isEmpty() ? HelperDate
+							.FormateaFechaYYYYMMDD(fechaFinDesde) : null);
+			callableStatement.setString(
+					4,
+					!fechaFinHasta.trim().isEmpty() ? HelperDate
+							.FormateaFechaYYYYMMDD(fechaFinHasta) : null);
 			callableStatement.setString(5,
 					!sucursalOrigen.trim().isEmpty() ? sucursalOrigen : null);
 			callableStatement.setString(6,
@@ -204,7 +211,7 @@ public class contratoMapper extends baseMapper {
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, idCliente);
-			
+
 			ResultSet res = ps.executeQuery();
 
 			while (res.next()) {
@@ -227,7 +234,7 @@ public class contratoMapper extends baseMapper {
 			}
 
 			return resultado;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

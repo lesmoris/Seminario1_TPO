@@ -395,9 +395,9 @@ public class generarPresupuesto extends JInternalFrame {
 				String fechaInicio = fechaInicioTF.getText();
 
 				if (HelperDate.esFechaValida(HelperDate
-						.FormateaFechaDDMMYYYY(fechaInicio))
+						.FormateaFechaYYYYMMDD(fechaInicio))
 						&& HelperDate.esMayorOIgualAHoy(HelperDate
-								.FormateaFechaDDMMYYYY(fechaInicio))) {
+								.FormateaFechaYYYYMMDD(fechaInicio))) {
 					mostrarComponentesVehiculo();
 				} else {
 					JOptionPane

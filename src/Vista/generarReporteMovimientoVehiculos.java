@@ -21,6 +21,7 @@ import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
 import Interfaces.ComboBoxItem;
+import Interfaces.JFormattedDateTextField;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
 import Interfaces.TMmantenimientosPorVehiculoTABLA;
 import Interfaces.TMmovimientosDeVehiculosTABLA;
@@ -91,16 +92,14 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		lblHasta.setBounds(20, 78, 46, 14);
 		getContentPane().add(lblHasta);
 
-		fechaInicioDesdeTF = new JTextField();
+		final JFormattedDateTextField fechaInicioDesdeTF = new JFormattedDateTextField();
 		fechaInicioDesdeTF.setBounds(66, 50, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
-		fechaInicioDesdeTF.setColumns(10);
 
-		fechaInicioHastaTF = new JTextField();
+		final JFormattedDateTextField fechaInicioHastaTF = new JFormattedDateTextField();
 		fechaInicioHastaTF.setBounds(66, 75, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
-		fechaInicioHastaTF.setColumns(10);
-
+		
 		JLabel lblDesde_1 = new JLabel("Desde");
 		lblDesde_1.setBounds(179, 50, 46, 14);
 		getContentPane().add(lblDesde_1);
@@ -109,15 +108,13 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		lblHasta_1.setBounds(179, 78, 46, 14);
 		getContentPane().add(lblHasta_1);
 
-		fechaFinDesdeTF = new JTextField();
+		final JFormattedDateTextField fechaFinDesdeTF = new JFormattedDateTextField();
 		fechaFinDesdeTF.setBounds(235, 50, 86, 20);
 		getContentPane().add(fechaFinDesdeTF);
-		fechaFinDesdeTF.setColumns(10);
 
-		fechaFinHastaTF = new JTextField();
+		final JFormattedDateTextField fechaFinHastaTF = new JFormattedDateTextField();
 		fechaFinHastaTF.setBounds(235, 75, 86, 20);
 		getContentPane().add(fechaFinHastaTF);
-		fechaFinHastaTF.setColumns(10);
 
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
 		lblSucursalOrigen.setBounds(361, 50, 106, 14);
@@ -139,10 +136,10 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Obtengo los datos de la pantalla
-				String fechaInicioDesde = fechaInicioDesdeTF.getText();
-				String fechaInicioHasta = fechaInicioHastaTF.getText();
-				String fechaFinDesde = fechaFinDesdeTF.getText();
-				String fechaFinHasta = fechaFinHastaTF.getText();
+				String fechaInicioDesde = fechaInicioDesdeTF.getDate();
+				String fechaInicioHasta = fechaInicioHastaTF.getDate();
+				String fechaFinDesde = fechaFinDesdeTF.getDate();
+				String fechaFinHasta = fechaFinHastaTF.getDate();
 
 				String sucursalOrigen = ((ComboBoxItem) cmbOrigen
 						.getSelectedItem()).getNombre();

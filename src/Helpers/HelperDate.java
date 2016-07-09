@@ -28,7 +28,7 @@ public class HelperDate {
 		return sqlDate;
 	}
 
-	public static String FormateaFechaDDMMYYYY(String vFecha) {
+	public static String FormateaFechaYYYYMMDD(String vFecha) {
 		String vDia, vMes, vAno;
 		StringTokenizer tokens = new StringTokenizer(vFecha, "/");
 		vDia = tokens.nextToken();

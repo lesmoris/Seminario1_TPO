@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -23,11 +24,12 @@ import DTOs.ContratoAlquilerDTO;
 import DTOs.SucursalDTO;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
+import Interfaces.JFormattedDateTextField;
 import Interfaces.ResultadoOperacionReporteAlquileres;
 import Interfaces.TMalquileresTABLA;
 
 public class generarReporteAlquileres extends JInternalFrame {
-	private JTextField fechaInicioDesdeTF;
+	private JFormattedTextField fechaInicioDesdeTF;
 	private JTextField fechaInicioHastaTF;
 	private JTextField fechaFinDesdeTF;
 	private JTextField fechaFinHastaTF;
@@ -193,23 +195,13 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblFechaFin.setBounds(173, 11, 71, 14);
 		getContentPane().add(lblFechaFin);
 
-		MaskFormatter mf = null;
-		try {
-			mf = new MaskFormatter("##/##/####");
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		fechaInicioDesdeTF = new JFormattedTextField(mf);
+		final JFormattedDateTextField fechaInicioDesdeTF = new JFormattedDateTextField();
 		fechaInicioDesdeTF.setBounds(52, 33, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
-		fechaInicioDesdeTF.setColumns(10);
-
-		fechaInicioHastaTF = new JFormattedTextField(mf);
+		
+		final JFormattedDateTextField fechaInicioHastaTF = new JFormattedDateTextField();
 		fechaInicioHastaTF.setBounds(52, 58, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
-		fechaInicioHastaTF.setColumns(10);
 
 		JLabel lblDesde = new JLabel("Desde");
 		lblDesde.setBounds(173, 36, 46, 14);
@@ -219,15 +211,13 @@ public class generarReporteAlquileres extends JInternalFrame {
 		lblHasta.setBounds(173, 61, 46, 14);
 		getContentPane().add(lblHasta);
 
-		fechaFinDesdeTF = new JFormattedTextField(mf);
+		final JFormattedDateTextField fechaFinDesdeTF = new JFormattedDateTextField();
 		fechaFinDesdeTF.setBounds(254, 33, 86, 20);
 		getContentPane().add(fechaFinDesdeTF);
-		fechaFinDesdeTF.setColumns(10);
 
-		fechaFinHastaTF = new JFormattedTextField(mf);
+		final JFormattedDateTextField fechaFinHastaTF = new JFormattedDateTextField();
 		fechaFinHastaTF.setBounds(254, 58, 86, 20);
 		getContentPane().add(fechaFinHastaTF);
-		fechaFinHastaTF.setColumns(10);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
 		lblSucursalDestino.setBounds(388, 61, 99, 14);
@@ -305,10 +295,10 @@ public class generarReporteAlquileres extends JInternalFrame {
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Obtengo los datos de la pantalla
-				String fechaInicioDesde = fechaInicioDesdeTF.getText();
-				String fechaInicioHasta = fechaInicioHastaTF.getText();
-				String fechaFinDesde = fechaFinDesdeTF.getText();
-				String fechaFinHasta = fechaFinHastaTF.getText();
+				String fechaInicioDesde = fechaInicioDesdeTF.getDate();
+				String fechaInicioHasta = fechaInicioHastaTF.getDate();
+				String fechaFinDesde = fechaFinDesdeTF.getDate();
+				String fechaFinHasta = fechaFinHastaTF.getDate();
 
 				String sucursalOrigen = ((ComboBoxItem) cmbOrigen
 						.getSelectedItem()).getNombre();
