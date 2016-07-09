@@ -67,7 +67,7 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(138, 53, 578, 241);
+		scrollPane.setBounds(121, 22, 653, 328);
 		getContentPane().add(scrollPane);
 
 		vehiculosTABLA = new JTable();
@@ -96,8 +96,8 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().add(numDocLABEL);
 		numDocLABEL.setText(numeroDoc);
 
-		JLabel lblCliente = new JLabel("CLIENTE:");
-		lblCliente.setBounds(32, 22, 65, 14);
+		JLabel lblCliente = new JLabel("CLIENTE");
+		lblCliente.setBounds(10, 23, 86, 14);
 		getContentPane().add(lblCliente);
 
 		JButton btnCalcularPrecio = new JButton("Generar Presupuesto");
@@ -136,7 +136,7 @@ public class elegirVehiculo extends JInternalFrame {
 
 			}
 		});
-		btnCalcularPrecio.setBounds(466, 352, 198, 21);
+		btnCalcularPrecio.setBounds(613, 361, 161, 21);
 		getContentPane().add(btnCalcularPrecio);
 
 		MaskFormatter mf = null;
@@ -147,28 +147,28 @@ public class elegirVehiculo extends JInternalFrame {
 			e1.printStackTrace();
 		}
 		fechaFinTF = new JFormattedTextField(mf);
-		fechaFinTF.setBounds(265, 353, 86, 20);
+		fechaFinTF.setBounds(382, 361, 86, 20);
 		getContentPane().add(fechaFinTF);
 		fechaFinTF.setColumns(10);
 
 		JLabel lblFechaFinalizacion = new JLabel("Fecha Finalizacion:");
-		lblFechaFinalizacion.setBounds(107, 356, 109, 14);
+		lblFechaFinalizacion.setBounds(263, 364, 109, 14);
 		getContentPane().add(lblFechaFinalizacion);
 
 		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(196, 388, 65, 14);
+		lblPrecio.setBounds(478, 364, 65, 14);
 		getContentPane().add(lblPrecio);
 
 		precioActualLABEL = new JLabel("label dinamico");
-		precioActualLABEL.setBounds(263, 388, 102, 14);
+		precioActualLABEL.setBounds(545, 364, 102, 14);
 		getContentPane().add(precioActualLABEL);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino: ");
-		lblSucursalDestino.setBounds(107, 308, 109, 14);
+		lblSucursalDestino.setBounds(10, 364, 109, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		sucursalDestinoCOMBO = new JComboBox();
-		sucursalDestinoCOMBO.setBounds(255, 305, 96, 20);
+		sucursalDestinoCOMBO.setBounds(131, 361, 96, 20);
 		getContentPane().add(sucursalDestinoCOMBO);
 
 		JLabel lblInicio = new JLabel("Fecha Inicio:");
@@ -176,17 +176,17 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().add(lblInicio);
 
 		fechaInicioLABEL = new JLabel("New label");
-		fechaInicioLABEL.setBounds(10, 175, 67, 14);
+		fechaInicioLABEL.setBounds(10, 182, 67, 14);
 		getContentPane().add(fechaInicioLABEL);
 
 		fechaInicioLABEL.setText(fechaInicio);
 
-		JLabel lblSucOrigen = new JLabel("Suc Origen:");
-		lblSucOrigen.setBounds(4, 200, 93, 14);
+		JLabel lblSucOrigen = new JLabel("SUCURSAL ORIGEN");
+		lblSucOrigen.setBounds(10, 221, 118, 14);
 		getContentPane().add(lblSucOrigen);
 
 		sucOrigenLABEL = new JLabel("");
-		sucOrigenLABEL.setBounds(10, 225, 91, 14);
+		sucOrigenLABEL.setBounds(10, 246, 91, 14);
 		getContentPane().add(sucOrigenLABEL);
 
 		sucOrigenLABEL.setText(sucOrigen);
