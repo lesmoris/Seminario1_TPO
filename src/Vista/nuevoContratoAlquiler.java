@@ -27,7 +27,6 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 	private JComboBox tipoDocCOMBO;
 	private JButton btnBuscarCliente;
 	private JButton btnGenerarContrato;
-	private JLabel lblPresupuesto;
 	private JTable PresupuestoTABLA;
 	private JScrollPane scrollPane;
 	private List<String> tiposDoc;
@@ -58,7 +57,6 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 		btnGenerarContrato.setVisible(true);
 		PresupuestoTABLA.setVisible(true);
-		lblPresupuesto.setVisible(true);
 		scrollPane.setVisible(true);
 
 		tipoDocCOMBO.setEnabled(false);
@@ -75,23 +73,23 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(20, 104, 118, 14);
+		lblTipoDocumento.setBounds(20, 36, 118, 14);
 		getContentPane().add(lblTipoDocumento);
 
 		tipoDocCOMBO = new JComboBox();
-		tipoDocCOMBO.setBounds(139, 101, 69, 20);
+		tipoDocCOMBO.setBounds(115, 33, 69, 20);
 		getContentPane().add(tipoDocCOMBO);
 
 		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(56, 69, 69, 14);
+		lblCliente.setBounds(20, 11, 69, 14);
 		getContentPane().add(lblCliente);
 
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
-		lblNumeroDocumento.setBounds(20, 147, 133, 14);
+		lblNumeroDocumento.setBounds(205, 36, 133, 14);
 		getContentPane().add(lblNumeroDocumento);
 
 		numeroDocTF = new JTextField();
-		numeroDocTF.setBounds(139, 144, 86, 20);
+		numeroDocTF.setBounds(328, 33, 102, 20);
 		getContentPane().add(numeroDocTF);
 		numeroDocTF.setColumns(10);
 
@@ -105,6 +103,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 				ResultadoOperacionGetPresupuestos res = controlador
 						.buscarPresupuestosDeCliente(numeroDocumento,
 								tipoDocumento);
+
 				if (res.sosExitoso()) {
 					mostrarPresupuestos();
 					establecerPresupuestos(res.getPresupuestos());
@@ -117,12 +116,8 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscarCliente.setBounds(34, 199, 150, 23);
+		btnBuscarCliente.setBounds(624, 32, 150, 23);
 		getContentPane().add(btnBuscarCliente);
-
-		lblPresupuesto = new JLabel("PRESUPUESTOS");
-		lblPresupuesto.setBounds(464, 78, 97, 14);
-		getContentPane().add(lblPresupuesto);
 
 		btnGenerarContrato = new JButton("Generar Contrato");
 		btnGenerarContrato.addActionListener(new ActionListener() {
@@ -142,28 +137,27 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 							.sosExitoso() ? "Informacion" : "Error", res
 							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 							: JOptionPane.ERROR_MESSAGE);
-					
+
 					if (res.sosExitoso())
 						menuPrincipal.getInstance().irAMenuPrincipal();
-						
+
 				} else {
 					JOptionPane.showMessageDialog(null,
-							"debe seleccionar un presupuesto");
+							"Seleccionar un presupuesto, por favor");
 				}
 			}
 		});
-		btnGenerarContrato.setBounds(413, 334, 137, 23);
+		btnGenerarContrato.setBounds(328, 371, 137, 23);
 		getContentPane().add(btnGenerarContrato);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(273, 103, 468, 184);
+		scrollPane.setBounds(10, 69, 764, 291);
 		getContentPane().add(scrollPane);
 
 		PresupuestoTABLA = new JTable();
 		scrollPane.setViewportView(PresupuestoTABLA);
 
 		btnGenerarContrato.setVisible(false);
-		lblPresupuesto.setVisible(false);
 		PresupuestoTABLA.setVisible(false);
 		scrollPane.setVisible(false);
 	}
@@ -187,6 +181,8 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 		TMElegirPresupuesto modelo = new TMElegirPresupuesto(presupuestos);
 
 		PresupuestoTABLA.setModel(modelo);
+		PresupuestoTABLA.removeColumn(PresupuestoTABLA.getColumnModel()
+				.getColumn(0)); // Ocultamos el id
 
 	}
 

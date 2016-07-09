@@ -35,7 +35,7 @@ public class TMElegirPresupuesto implements TableModel{
 
 		switch (arg0) {
 
-		case 0:{
+		case 0: {
 			valor = "Id";
 			break;
 		}
