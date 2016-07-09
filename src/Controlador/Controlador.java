@@ -782,25 +782,17 @@ public class Controlador {
 		if (presupuesto == null)
 			return new ResultadoOperacion(false,
 					"El presupuesto indicado no existe");
-
 		try {
 			ContratoAlquiler ca = new ContratoAlquiler();
-
-			// Ver si estos atributos los seteamos, o si los borramos y los
-			// buscamos desde el presupuesto asociado.
+		
 			ca.setPresupuesto(presupuesto);
 			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 			ca.setImporte(ca.getPresupuesto().getImporte());
 			ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
-
 			ca.Insert();
-
 			ca.getPresupuesto().getVehiculo().alquilar();
-
 			this.contratosAlquiler.add(ca);
-
-			// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES
-			// GENERAN CONTRATOS
+			
 			ca.getPresupuesto().realizar();
 
 			return new ResultadoOperacion(true, "Contrato generado con exito");
@@ -848,4 +840,12 @@ public class Controlador {
 
 		}
 	}
+	
+	public List<VehiculoDTO> getVehiculos(){
+		
+		List<VehiculoDTO> resultado = vehiculoMapper.getInstance().SelectAllVehiculos();
+		
+		return resultado;
+	}
+	
 }

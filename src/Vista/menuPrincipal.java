@@ -133,6 +133,20 @@ public class menuPrincipal extends JFrame {
 
 			}
 		});
+		
+		JMenuItem mntmVerVehiculos = new JMenuItem("Ver Vehiculos");
+		mntmVerVehiculos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frame.setTitle(title + separator + mntmVerVehiculos.getText());
+				
+				verVehiculos a = new verVehiculos();
+				
+				irAVentana(a);
+				
+			}
+		});
+		mnVehiculos.add(mntmVerVehiculos);
 		mnVehiculos.add(mntmAlta);
 
 		final JMenuItem mntmBaja = new JMenuItem("Baja de Vehiculo");

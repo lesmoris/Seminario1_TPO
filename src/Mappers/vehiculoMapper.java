@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTOs.VehiculoDTO;
 import Helpers.DBUtils;
 import Modelo.Sucursal;
 import Modelo.Vehiculo;
@@ -275,5 +276,63 @@ public class vehiculoMapper extends baseMapper {
 			DBUtils.closeQuietly(con);
 		}
 		return listavehiculos;
+	}
+
+	public List<VehiculoDTO> SelectAllVehiculos() {
+		
+		Connection con = null;
+		List<VehiculoDTO> vehiculos = new ArrayList<VehiculoDTO>();
+		
+		
+		
+		try {
+			con = Conectar();
+
+			String senten = "SELECT dominio, idVehiculo, marca, modelo, aireAcondicionado, tipoCombustible, precioPorDia, transmision, cantidadPuertas, kilometraje, color, tamaño, idSucursal, estado FROM vehiculo";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			
+			ResultSet res = ps.executeQuery();
+
+			while (res.next()) {
+				Vehiculo veh = new Vehiculo();
+
+				int idVehiculo = res.getInt("idVehiculo");
+
+				veh.setIdVehiculo(idVehiculo);
+				veh.setCantidadPuertas(res.getInt("cantidadPuertas"));
+				veh.setColor(res.getString("color"));
+				veh.setDominio(res.getString("dominio"));
+				veh.setKilometraje(res.getInt("kilometraje"));
+				veh.setEstado(res.getString("estado"));
+				veh.setMarca(res.getString("marca"));
+				veh.setModelo(res.getString("modelo"));
+				veh.setSucursal(sucursalMapper.getInstance().SelectPORID(
+						res.getInt("idSucursal")));
+				veh.setTamaño(res.getString("tamaño"));
+				veh.setTransmision(res.getString("transmision"));
+				veh.setTipoCombustible(res.getString("tipoCombustible"));
+				veh.setMovimientos(movimientoMapper.getInstance()
+						.ListMovimientos(veh));
+				veh.setMantenimientos(mantenimientoMapper.getInstance()
+						.ListMantenimientos(idVehiculo));
+				veh.setAC(res.getString("aireAcondicionado").equals("S"));
+				veh.setPrecioPorDia(res.getFloat("precioPorDia"));
+				
+				vehiculos.add(veh.crearVista());
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+		
+		
+		
+		return vehiculos;
+		
+		
 	}
 }
