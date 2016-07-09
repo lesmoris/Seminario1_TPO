@@ -758,8 +758,7 @@ public class Controlador {
 			ContratoAlquiler ca = new ContratoAlquiler();
 
 			// Ver si estos atributos los seteamos, o si los borramos y los
-			// buscamos
-			// desde el presupuesto asociado.
+			// buscamos desde el presupuesto asociado.
 			ca.setPresupuesto(presupuesto);
 			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 			ca.setFechaFin(ca.getPresupuesto().getFechaFin());

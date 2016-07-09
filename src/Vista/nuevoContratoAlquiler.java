@@ -142,6 +142,10 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 							.sosExitoso() ? "Informacion" : "Error", res
 							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
 							: JOptionPane.ERROR_MESSAGE);
+					
+					if (res.sosExitoso())
+						menuPrincipal.getInstance().irAMenuPrincipal();
+						
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"debe seleccionar un presupuesto");

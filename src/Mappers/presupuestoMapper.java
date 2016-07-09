@@ -203,26 +203,25 @@ public class presupuestoMapper extends baseMapper {
 
 			con.setAutoCommit(false);
 
-			String senten = "INSERT INTO PRESUPUESTO (fechaemision, fechaInicio, fechaFin, importe, "
+			String senten = "INSERT INTO PRESUPUESTO (fechaInicio, fechaFin, importe, "
 					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo) "
-					+ "VALUES (?,?,?,?,?,?,?,?)";
+					+ "VALUES (?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 
-			ps.setDate(1, p.getFechaEmision());
-			ps.setDate(2, p.getFechaInicio());
-			ps.setDate(3, p.getFechaFin());
-			ps.setFloat(4, p.getImporte());
-			ps.setInt(5, p.getCliente().getIdCliente());
-			ps.setInt(6, p.getSucursalOrigen().getIdSucursal());
-			ps.setInt(7, p.getSucursalDestino().getIdSucursal());
-			ps.setInt(8, p.getVehiculo().getIdVehiculo());
+			ps.setDate(1, p.getFechaInicio());
+			ps.setDate(2, p.getFechaFin());
+			ps.setFloat(3, p.getImporte());
+			ps.setInt(4, p.getCliente().getIdCliente());
+			ps.setInt(5, p.getSucursalOrigen().getIdSucursal());
+			ps.setInt(6, p.getSucursalDestino().getIdSucursal());
+			ps.setInt(7, p.getVehiculo().getIdVehiculo());
 			ps.execute();
 
 			p.setIdPresupuesto(DBUtils.getLastInsertedID(con, "PRESUPUESTO"));
 
-			senten = "SELECT fechaVencimiento FROM PRESUPUESTO WHERE idPresupuesto = ?";
+			senten = "SELECT fechaEmision, fechaVencimiento FROM PRESUPUESTO WHERE idPresupuesto = ?";
 			ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setInt(1, p.getIdPresupuesto());
@@ -231,6 +230,7 @@ public class presupuestoMapper extends baseMapper {
 
 			res.next();
 			p.setFechaVencimiento(res.getDate("fechaVencimiento"));
+			p.setFechaEmision(res.getDate("fechaEmision"));
 
 			con.commit();
 

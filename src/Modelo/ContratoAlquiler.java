@@ -21,13 +21,11 @@ public class ContratoAlquiler {
 		return numero == this.numero;
 	}
 
-	
-	
-	public void Insert () throws Exception{
+	public void Insert() throws Exception {
 		contratoMapper.getInstance().insert(this);
-		
+
 	}
-	
+
 	public ContratoAlquilerDTO crearVista() {
 		return new ContratoAlquilerDTO(this.numero, this.fechaInicio,
 				this.fechaFin, this.fechaEmision, this.importe, this.punitorio,

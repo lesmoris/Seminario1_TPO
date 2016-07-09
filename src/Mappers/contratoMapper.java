@@ -70,24 +70,33 @@ public class contratoMapper extends baseMapper {
 
 			con.setAutoCommit(false);
 
-			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, fechaemision, importe, "
-					+ "idsucursaldestino, idPresupuesto) VALUES (?,?,?,?,?,?) ";
+			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, importe, "
+					+ "idsucursaldestino, idPresupuesto) VALUES (?,?,?,?,?) ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setDate(1, (Date) cont.getFechaInicio());
 			ps.setDate(2, (Date) cont.getFechaFin());
-			ps.setDate(3, (Date) cont.getFechaEmision());
-			ps.setFloat(4, cont.getImporte());
-			ps.setInt(5, cont.getSucursalDestino().getIdSucursal());
-			ps.setInt(6, cont.getPresupuesto().getIdPresupuesto());
+			ps.setFloat(3, cont.getImporte());
+			ps.setInt(4, cont.getSucursalDestino().getIdSucursal());
+			ps.setInt(5, cont.getPresupuesto().getIdPresupuesto());
 
 			ps.execute();
 
-			con.commit();
-
 			cont.setNumero(DBUtils.getLastInsertedID(con, "ALQUILER"));
 
+			senten = "SELECT fechaEmision FROM ALQUILER WHERE idAlquiler = ?";
+			ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setInt(1, cont.getNumero());
+
+			ResultSet res = ps.executeQuery();
+
+			res.next();
+			cont.setFechaEmision(res.getDate("fechaEmision"));
+
+			con.commit();
+			
 		} catch (SQLException e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
