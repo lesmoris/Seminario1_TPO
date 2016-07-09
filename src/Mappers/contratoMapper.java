@@ -194,7 +194,7 @@ public class contratoMapper extends baseMapper {
 		return listaContratos;
 	}
 
-	public List<ContratoAlquiler> SelectDeUnCliente(int idCliente) {
+	public List<ContratoAlquiler> SelectContratosAbiertosDeCliente(int idCliente) {
 
 		Connection con = null;
 
@@ -206,7 +206,7 @@ public class contratoMapper extends baseMapper {
 			String senten = "SELECT p.idPresupuesto, idCliente, idalquiler, a.fechainicio, a.fechafin, a.importe,"
 					+ " a.idsucursaldestino, punitorio, a.fechaemision FROM ALQUILER a "
 					+ "INNER JOIN PRESUPUESTO p on  a.idPresupuesto = p.idPresupuesto "
-					+ "where p.idCliente = ? ";
+					+ "where p.idCliente = ? " + "and a.fechaFin is null ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
@@ -242,6 +242,32 @@ public class contratoMapper extends baseMapper {
 		}
 
 		return null;
+	}
+
+	public void Update(ContratoAlquiler contrato) throws Exception {
+		Connection con = null;
+		try {
+
+			con = Conectar();
+			String senten = " UPDATE ALQUILER SET fechaFin = ?, idSucursalDestino = ?, importe = ?, punitorio = ? "
+					+ "  WHERE idAlquiler = ? ";
+			PreparedStatement ps = null;
+			ps = con.prepareStatement(senten);
+			ps.setDate(1, (Date) contrato.getFechaFin());
+			ps.setInt(2, contrato.getSucursalDestino().getIdSucursal());
+			ps.setFloat(3, contrato.getImporte());
+			ps.setFloat(4, contrato.getPunitorio());
+			ps.setInt(5, contrato.getNumero());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new Exception(e.getMessage());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DBUtils.closeQuietly(con);
+		}
+
 	}
 
 }

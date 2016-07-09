@@ -83,7 +83,7 @@ public class Controlador {
 		return vehiculo;
 	}
 
-	public ResultadoOperacionGetContratos buscarContratodeCliente(
+	public ResultadoOperacionGetContratos buscarContratosAbiertosDeCliente(
 			String numDoc, String tipoDoc) {
 
 		if (tipoDoc.trim().isEmpty())
@@ -102,7 +102,7 @@ public class Controlador {
 		}
 
 		List<ContratoAlquiler> lista = contratoMapper.getInstance()
-				.SelectDeUnCliente(c.getIdCliente());
+				.SelectContratosAbiertosDeCliente(c.getIdCliente());
 
 		List<ContratoAlquilerDTO> resultado = new ArrayList<ContratoAlquilerDTO>();
 
@@ -695,7 +695,7 @@ public class Controlador {
 			String sucursalDestino, String tipoDoc, String nroDoc,
 			String marca, String tamanio, String modelo, String transmision,
 			int cantPuertas, String color, String ac, String tipoCombustible) {
-		
+
 		// Validaciones
 		if (!fechaInicioDesde.isEmpty()
 				&& !HelperDate.esFechaValida(HelperDate
@@ -741,8 +741,7 @@ public class Controlador {
 					&& HelperDate.diferenciaEntreDosfechas(
 							HelperDate.FormateaFechaYYYYMMDD(fechaFinDesde),
 							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) < 0)
-				return new ResultadoOperacionReporteAlquileres(
-						false,
+				return new ResultadoOperacionReporteAlquileres(false,
 						"La fecha Fin Desde no puede ser mayor a Fin Hasta",
 						null);
 		} catch (ParseException e) {
@@ -791,7 +790,6 @@ public class Controlador {
 			// buscamos desde el presupuesto asociado.
 			ca.setPresupuesto(presupuesto);
 			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
-			ca.setFechaFin(ca.getPresupuesto().getFechaFin());
 			ca.setImporte(ca.getPresupuesto().getImporte());
 			ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
 
@@ -812,5 +810,42 @@ public class Controlador {
 
 		}
 
+	}
+
+	public ResultadoOperacion cerrarContratoAlquiler(int nroContrato,
+			String sucursalDestino) {
+
+		if (nroContrato == 0)
+			return new ResultadoOperacion(false,
+					"Seleccione un contrato a cerrar, por favor");
+
+		// Validaciones
+		ContratoAlquiler contrato = buscarContrato(nroContrato);
+
+		if (contrato == null)
+			return new ResultadoOperacion(false,
+					"El contrato indicado no existe");
+
+		Sucursal sucDestino = buscarSucursal(sucursalDestino);
+
+		if (sucDestino == null)
+			return new ResultadoOperacion(false,
+					"La sucursal de destino no existe");
+
+		try {
+
+			contrato.cerrar(sucDestino);
+
+			float importe = contrato.getImporte();
+			float punitorio = contrato.getPunitorio();
+
+			return new ResultadoOperacion(true,
+					"Contrato cerrado con exito. El importe total es : "
+							+ importe + " - Punitorio : " + punitorio);
+		} catch (Exception ex) {
+			return new ResultadoOperacion(false, "Error al cerrar contrato: "
+					+ ex.getMessage());
+
+		}
 	}
 }

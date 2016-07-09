@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 
 import DTOs.ContratoAlquilerDTO;
+import Helpers.HelperDate;
 import Mappers.contratoMapper;
 
 public class ContratoAlquiler {
@@ -23,13 +24,29 @@ public class ContratoAlquiler {
 
 	public void Insert() throws Exception {
 		contratoMapper.getInstance().Insert(this);
+	}
 
+	public void Update() throws Exception {
+		contratoMapper.getInstance().Update(this);
+	}
+
+	public void cerrar(Sucursal sucDestino) throws Exception {
+
+		this.setFechaFin(HelperDate.obtenerFechaHoy());
+		this.setSucursalDestino(sucDestino);
+		this.calcularImporteYPunitorios();
+		this.Update();
+	}
+	
+	private void calcularImporteYPunitorios() {
+		
 	}
 
 	public ContratoAlquilerDTO crearVista() {
 		return new ContratoAlquilerDTO(this.numero, this.fechaInicio,
 				this.fechaFin, this.fechaEmision, this.importe, this.punitorio,
-				this.sucursalDestino.getNombre(), this.presupuesto.crearVista());
+				this.sucursalDestino != null ? this.sucursalDestino.getNombre()
+						: "", this.presupuesto.crearVista());
 	}
 
 	// Getters and Setters
@@ -96,5 +113,4 @@ public class ContratoAlquiler {
 	public void setPunitorio(float punitorio) {
 		this.punitorio = punitorio;
 	}
-
 }

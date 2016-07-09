@@ -78,12 +78,12 @@ public class ContratoAlquilerDTO {
 		this.sucursalDestino = sucursalDestino;
 	}
 
-	public int getIdContratoAlquiler() {
+	public int getNumeroContratoAlquiler() {
 		return idContratoAlquiler;
 	}
 
-	public void setIdContratoAlquiler(int idContratoAlquiler) {
-		this.idContratoAlquiler = idContratoAlquiler;
+	public void setNumeroContratoAlquiler(int nroContratoAlquiler) {
+		this.idContratoAlquiler = nroContratoAlquiler;
 	}
 
 	public PresupuestoDTO getPresupuesto() {
