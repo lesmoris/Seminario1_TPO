@@ -49,10 +49,10 @@ AS
 	where 1 = 1 '
 
 	if (@fechaInicioDesde is not null)
-		select @sql	= @sql + ' and m.fechaInicio >= @fechaInicioDesde '
+		select @sql	= @sql + ' and a.fechaInicio >= @fechaInicioDesde '
 
 	if (@fechaInicioHasta is not null)
-		select @sql	= @sql + ' and m.fechaInicio <= @fechaInicioHasta '
+		select @sql	= @sql + ' and a.fechaInicio <= @fechaInicioHasta '
 	
 	if (@fechaFinDesde is not null)
 		select @sql	= @sql + ' and v.fechaFin >= @fechaFinDesde '
