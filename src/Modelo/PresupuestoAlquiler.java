@@ -58,12 +58,6 @@ public class PresupuestoAlquiler {
 		return false;
 	}
 
-	public boolean estasActivo() {
-		// TODO: return this.FechaVencimiento.after(FECHA DEL MOMENTO DE LA
-		// LLAMADA AL METODO)
-		return true;
-	}
-
 	public boolean sosDeVehiculo(String dominio) {
 
 		if (this.vehiculo.sosVehiculo(dominio))

@@ -29,9 +29,9 @@ public class cierreAlquiler extends JInternalFrame {
 	private JTextField numDocTF;
 	private JTable contratosTABLA;
 	private JLabel lblSucursalDestino;
+	private JLabel lblCliente;
 	private JComboBox<ComboBoxItem> cmbSucDestino;
 	private JButton btnFinalizarContrato;
-	private JLabel lblContratosVigentes;
 	private JComboBox<String> tipoDocCOMBO;
 	private JScrollPane scrollPane;
 	private List<String> tiposDoc;
@@ -81,7 +81,7 @@ public class cierreAlquiler extends JInternalFrame {
 		if (res.sosExitoso()) {
 
 			lblSucursalDestino.setVisible(true);
-			lblContratosVigentes.setVisible(true);
+			lblCliente.setVisible(true);
 			scrollPane.setVisible(true);
 			btnFinalizarContrato.setVisible(true);
 			cmbSucDestino.setVisible(true);
@@ -95,7 +95,7 @@ public class cierreAlquiler extends JInternalFrame {
 
 		} else {
 			lblSucursalDestino.setVisible(false);
-			lblContratosVigentes.setVisible(false);
+			lblCliente.setVisible(false);
 			scrollPane.setVisible(false);
 			btnFinalizarContrato.setVisible(false);
 			cmbSucDestino.setVisible(false);
@@ -122,19 +122,19 @@ public class cierreAlquiler extends JInternalFrame {
 		getContentPane().setLayout(null);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(10, 109, 100, 14);
+		lblTipoDocumento.setBounds(24, 39, 100, 14);
 		getContentPane().add(lblTipoDocumento);
 
 		tipoDocCOMBO = new JComboBox();
-		tipoDocCOMBO.setBounds(146, 106, 60, 20);
+		tipoDocCOMBO.setBounds(134, 36, 60, 20);
 		getContentPane().add(tipoDocCOMBO);
 
 		JLabel lblNumeroDocumento = new JLabel("Numero Documento");
-		lblNumeroDocumento.setBounds(10, 145, 114, 14);
+		lblNumeroDocumento.setBounds(228, 39, 114, 14);
 		getContentPane().add(lblNumeroDocumento);
 
 		numDocTF = new JTextField();
-		numDocTF.setBounds(142, 142, 86, 20);
+		numDocTF.setBounds(351, 36, 100, 20);
 		getContentPane().add(numDocTF);
 		numDocTF.setColumns(10);
 
@@ -146,19 +146,15 @@ public class cierreAlquiler extends JInternalFrame {
 
 			}
 		});
-		btnBuscarContrato.setBounds(41, 199, 143, 23);
+		btnBuscarContrato.setBounds(631, 35, 143, 23);
 		getContentPane().add(btnBuscarContrato);
 
-		lblContratosVigentes = new JLabel("Contratos Vigentes");
-		lblContratosVigentes.setBounds(341, 84, 139, 14);
-		getContentPane().add(lblContratosVigentes);
-
 		lblSucursalDestino = new JLabel("Sucursal De Devolucion");
-		lblSucursalDestino.setBounds(216, 280, 143, 14);
+		lblSucursalDestino.setBounds(86, 363, 143, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		cmbSucDestino = new JComboBox();
-		cmbSucDestino.setBounds(387, 277, 133, 20);
+		cmbSucDestino.setBounds(228, 360, 133, 20);
 		getContentPane().add(cmbSucDestino);
 
 		btnFinalizarContrato = new JButton("Finalizar Contrato");
@@ -188,18 +184,21 @@ public class cierreAlquiler extends JInternalFrame {
 				}
 			}
 		});
-		btnFinalizarContrato.setBounds(436, 363, 139, 23);
+		btnFinalizarContrato.setBounds(470, 359, 139, 23);
 		getContentPane().add(btnFinalizarContrato);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(248, 109, 478, 160);
+		scrollPane.setBounds(10, 67, 764, 282);
 		getContentPane().add(scrollPane);
 
 		contratosTABLA = new JTable();
 		scrollPane.setViewportView(contratosTABLA);
+		
+		lblCliente = new JLabel("CLIENTE");
+		lblCliente.setBounds(24, 14, 46, 14);
+		getContentPane().add(lblCliente);
 
 		lblSucursalDestino.setVisible(false);
-		lblContratosVigentes.setVisible(false);
 		scrollPane.setVisible(false);
 		btnFinalizarContrato.setVisible(false);
 		contratosTABLA.setVisible(false);
@@ -229,5 +228,4 @@ public class cierreAlquiler extends JInternalFrame {
 		}
 		return seleccionado;
 	}
-
 }
