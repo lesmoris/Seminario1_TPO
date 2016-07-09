@@ -775,7 +775,7 @@ public class Controlador {
 			// GENERAN CONTRATOS
 			ca.getPresupuesto().realizar();
 
-			return new ResultadoOperacion(false, "Contrato generado con exito");
+			return new ResultadoOperacion(true, "Contrato generado con exito");
 		} catch (Exception ex) {
 			return new ResultadoOperacion(false, "Error al generar contrato: "
 					+ ex.getMessage());

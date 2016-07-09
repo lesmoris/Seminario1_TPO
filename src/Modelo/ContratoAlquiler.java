@@ -22,7 +22,7 @@ public class ContratoAlquiler {
 	}
 
 	public void Insert() throws Exception {
-		contratoMapper.getInstance().insert(this);
+		contratoMapper.getInstance().Insert(this);
 
 	}
 

@@ -61,7 +61,7 @@ public class contratoMapper extends baseMapper {
 		return cont;
 	}
 
-	public void insert(ContratoAlquiler cont) throws Exception {
+	public void Insert(ContratoAlquiler cont) throws Exception {
 
 		// Conectamos la BD
 		Connection con = null;

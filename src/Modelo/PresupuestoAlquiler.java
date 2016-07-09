@@ -82,7 +82,7 @@ public class PresupuestoAlquiler {
 	}
 
 	public void Insert() throws Exception {
-		presupuestoMapper.getInstance().insert(this);
+		presupuestoMapper.getInstance().Insert(this);
 	}
 
 	public void realizar() {

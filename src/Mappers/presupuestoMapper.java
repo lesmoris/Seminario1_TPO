@@ -93,8 +93,12 @@ public class presupuestoMapper extends baseMapper {
 			lista = new ArrayList<PresupuestoAlquiler>();
 			con = Conectar();
 
-			String senten = "SELECT fechaemision, fechaInicio, fechaFin, importe,"
-					+ "idcliente, idsucursalorigen, idsucursaldestino, idvehiculo, idpresupuesto FROM PRESUPUESTO where idcliente = ?";
+			String senten = "SELECT p.fechaemision, p.fechaInicio, p.fechaFin, p.importe,"
+					+ "p.idcliente, p.idsucursalorigen, p.idsucursaldestino, p.idvehiculo, p.idpresupuesto "
+					+ "FROM PRESUPUESTO p "
+					+ "left join ALQUILER a on a.idPresupuesto = p.idpresupuesto "
+					+ "where idcliente = ? "
+					+ "and a.idPresupuesto is null ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
@@ -133,6 +137,7 @@ public class presupuestoMapper extends baseMapper {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
@@ -189,13 +194,14 @@ public class presupuestoMapper extends baseMapper {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			DBUtils.closeQuietly(con);
 		}
 		return lista;
 	}
 
-	public void insert(PresupuestoAlquiler p) throws Exception {
+	public void Insert(PresupuestoAlquiler p) throws Exception {
 
 		Connection con = null;
 		try {
