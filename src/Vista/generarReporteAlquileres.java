@@ -291,7 +291,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
-		JButton btnGenerar = new JButton("Generar");
+		JButton btnGenerar = new JButton("Generar Reporte");
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Obtengo los datos de la pantalla

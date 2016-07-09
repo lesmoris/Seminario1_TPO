@@ -178,7 +178,7 @@ public class menuPrincipal extends JFrame {
 		mnMantenimiento.add(mntmCerrarMantenimiento);
 
 		final JMenuItem mntmHistorialMantenimientoPor = new JMenuItem(
-				"Historial Mantenimientos por Vehiculo");
+				"Historial Mantenimientos efectuados por Vehiculo");
 		mnMantenimiento.add(mntmHistorialMantenimientoPor);
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
