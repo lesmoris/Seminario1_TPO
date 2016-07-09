@@ -104,7 +104,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 				ResultadoOperacionGetPresupuestos res = controlador
 						.buscarPresupuestosDeCliente(numeroDocumento,
-								tipoDocumento);				
+								tipoDocumento);
 				if (res.sosExitoso()) {
 					mostrarPresupuestos();
 					establecerPresupuestos(res.getPresupuestos());
@@ -134,13 +134,14 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 					int idPresupuesto = Integer
 							.parseInt((String) PresupuestoTABLA.getValueAt(
 									fila, 0));
-					try {
-						controlador.generarContratoAlquiler(idPresupuesto);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace(); // 
-					}
 
+					ResultadoOperacion res = controlador
+							.generarContratoAlquiler(idPresupuesto);
+
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"debe seleccionar un presupuesto");

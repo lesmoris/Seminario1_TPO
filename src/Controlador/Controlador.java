@@ -726,30 +726,43 @@ public class Controlador {
 		}
 	}
 
-	public void generarContratoAlquiler(int idPresupuesto) throws Exception {
+	public ResultadoOperacion generarContratoAlquiler(int idPresupuesto) {
 
-		// LEO : Valudacion de presupuesto
+		// Validaciones
+		PresupuestoAlquiler presupuesto = buscarPresupuesto(idPresupuesto);
 
-		ContratoAlquiler ca = new ContratoAlquiler();
+		if (presupuesto == null)
+			return new ResultadoOperacion(false,
+					"El presupuesto indicado no existe");
 
-		// Ver si estos atributos los seteamos, o si los borramos y los buscamos
-		// desde el presupuesto asociado.
-		ca.setPresupuesto(buscarPresupuesto(idPresupuesto));
-		ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
-		ca.setFechaFin(ca.getPresupuesto().getFechaFin());
-		ca.setImporte(ca.getPresupuesto().getImporte());
-		ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
+		try {
+			ContratoAlquiler ca = new ContratoAlquiler();
 
-		ca.Insert();
+			// Ver si estos atributos los seteamos, o si los borramos y los
+			// buscamos
+			// desde el presupuesto asociado.
+			ca.setPresupuesto(presupuesto);
+			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
+			ca.setFechaFin(ca.getPresupuesto().getFechaFin());
+			ca.setImporte(ca.getPresupuesto().getImporte());
+			ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
 
-		ca.getPresupuesto().getVehiculo().alquilar();
+			ca.Insert();
 
-		// Agregamos al cache
-		this.contratosAlquiler.add(ca);
+			ca.getPresupuesto().getVehiculo().alquilar();
 
-		// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES
-		// GENERAN CONTRATOS
-		ca.getPresupuesto().realizar();
+			this.contratosAlquiler.add(ca);
+
+			// REVISAR COMO HACEMOS PARA REALIZAR LOS PRESUPUESTOS QUE DESPUES
+			// GENERAN CONTRATOS
+			ca.getPresupuesto().realizar();
+
+			return new ResultadoOperacion(false, "Contrato generado con exito");
+		} catch (Exception ex) {
+			return new ResultadoOperacion(false, "Error al generar contrato: "
+					+ ex.getMessage());
+
+		}
 
 	}
 }
