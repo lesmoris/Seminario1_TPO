@@ -21,12 +21,14 @@ import Interfaces.TMmantenimientosPorVehiculoTABLA;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 
 public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 	private JTable HistorialMantenimientosTABLA;
 	private TMmantenimientosPorVehiculoTABLA TM;
 	private JTextField dominioTF;
 	private Controlador controlador;
+	private JButton btnExportar;
 
 	public generarReporteMantenimientoPorVehiculo() {
 		this.controlador = Controlador.getInstance();
@@ -65,6 +67,7 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 					TM = new TMmantenimientosPorVehiculoTABLA(res
 							.getMantenimientosDTO());
 					HistorialMantenimientosTABLA.setModel(TM);
+					btnExportar.setVisible(true);
 
 				} else {
 					TM = new TMmantenimientosPorVehiculoTABLA(
@@ -89,6 +92,23 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 		HistorialMantenimientosTABLA = new JTable();
 		HistorialMantenimientosTABLA.setModel(TM);
 		scrollPane.setViewportView(HistorialMantenimientosTABLA);
+		
+		btnExportar = new JButton("Exportar");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					controlador.crearExcel(HistorialMantenimientosTABLA, "MANTENIMIENTOS");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnExportar.setVisible(false);
+		btnExportar.setBounds(550, 22, 89, 23);
+		getContentPane().add(btnExportar);
 
 	}
 }
