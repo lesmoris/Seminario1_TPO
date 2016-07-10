@@ -65,13 +65,16 @@ public class crearExcel {
                 for (int j = 0; j < tabla.getColumnCount(); j++) {
                     HSSFCell celda = fila.createCell(j);
                     celda.setCellValue(new HSSFRichTextString(tabla.getColumnModel().getColumn(j).getHeaderValue().toString()));
+                    
                 }
             }else{
             	// Llena con los valores de la tabla
                 for (int j = 0; j < tabla.getColumnCount(); j++) {
                     HSSFCell celda = fila.createCell(j);
                     if(tabla.getValueAt(i, j)!=null)
-                        celda.setCellValue(new HSSFRichTextString(tabla.getValueAt(i-1, j).toString()));
+                    	celda.setCellValue(new HSSFRichTextString(tabla.getValueAt(i-1, j).toString()));
+                    
+                    hoja.autoSizeColumn(j);
                 }
                 
             }
