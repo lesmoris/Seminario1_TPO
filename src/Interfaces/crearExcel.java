@@ -23,9 +23,10 @@ public class crearExcel {
 	String rutaarchivo = System.getProperty("user.home")+"/Rent_A_Car.xls";
 	
 	File archivoxls = new File (rutaarchivo);
-	
-	public crearExcel(JTable tabla){
+	String titulo;
+	public crearExcel(JTable tabla, String titulo){
 		this.tabla=tabla;
+		this.titulo=titulo;
 	}
 	
 	
@@ -58,8 +59,12 @@ public class crearExcel {
 		org.apache.poi.ss.usermodel.Sheet hoja = libro.createSheet("INFORME");
 		
 		
+		HSSFRow filatitulo = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(0);
+		HSSFCell celdatitulo = filatitulo.createCell(4);
+		celdatitulo.setCellValue(titulo);
+		
 		for (int i = 0; i < tabla.getRowCount(); i++) {
-            HSSFRow fila = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(i);          
+            HSSFRow fila = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(i+3);          
             if(i==0){
             	// Llena los nombres de las columnas, los titulos
                 for (int j = 0; j < tabla.getColumnCount(); j++) {
@@ -88,6 +93,8 @@ public class crearExcel {
                  celda.setCellValue(new HSSFRichTextString(tabla.getValueAt(ultimafila, j).toString()));
          }
 		
+		 
+		 
 		libro.write(archivo);
 		
 		

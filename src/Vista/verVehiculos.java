@@ -61,7 +61,7 @@ public class verVehiculos extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-					controlador.crearExcel(vehiculosTABLA);
+					controlador.crearExcel(vehiculosTABLA, "Vehiculos");
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -853,11 +853,11 @@ public class Controlador {
 		return resultado;
 	}
 
-	public void crearExcel(JTable tabla) throws FileNotFoundException {
+	public void crearExcel(JTable tabla, String titulo) throws FileNotFoundException {
 		
 		
 		if (tabla.getRowCount()>0){
-		new crearExcel(tabla).crearExcel();
+		new crearExcel(tabla, titulo).crearExcel();
 		}else{
 			JOptionPane.showMessageDialog(null, "LA COLUMNA ESTA VACIA");
 		}
