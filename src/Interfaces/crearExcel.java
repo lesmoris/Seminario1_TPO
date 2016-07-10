@@ -9,9 +9,11 @@ import java.io.IOException;
 import javax.swing.JTable;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import Controlador.Controlador;
@@ -63,6 +65,8 @@ public class crearExcel {
 		HSSFCell celdatitulo = filatitulo.createCell(4);
 		celdatitulo.setCellValue(titulo);
 		
+		
+				
 		for (int i = 0; i < tabla.getRowCount(); i++) {
             HSSFRow fila = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(i+3);          
             if(i==0){
@@ -86,11 +90,12 @@ public class crearExcel {
 		}
 		int ultimafila = tabla.getRowCount()-1;
 		
-		HSSFRow fila = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(tabla.getRowCount());
+		HSSFRow fila = (HSSFRow) ((org.apache.poi.ss.usermodel.Sheet) hoja).createRow(tabla.getRowCount()+3);
 		 for (int j = 0; j < tabla.getColumnCount(); j++) {
              HSSFCell celda = fila.createCell(j);
-             if(tabla.getValueAt(ultimafila, j)!=null)
+             //if(tabla.getValueAt(ultimafila, j)!=null)
                  celda.setCellValue(new HSSFRichTextString(tabla.getValueAt(ultimafila, j).toString()));
+                 hoja.autoSizeColumn(j);
          }
 		
 		 

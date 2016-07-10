@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -17,14 +18,22 @@ import javax.swing.border.EmptyBorder;
 
 import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 
+import javax.swing.DebugGraphics;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.Color;
+
 public class menuPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private JPanelConFondo contentPane;
 	private static menuPrincipal instancia;
 	private static menuPrincipal frame;
 	private static String title = "Rent-A-Car";
 	private static String separator = " - ";
-
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,16 +47,18 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
 	public menuPrincipal() {
 
-		// initComponents();
-
+	
+		
+	
+	
 		instancia = this;
 
+		
+		
+
+		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -378,7 +389,16 @@ public class menuPrincipal extends JFrame {
 		});
 
 		menuBar.add(btnSalir);
-		contentPane = new JPanel();
+		
+		Image fondopantalla = new ImageIcon(
+                getClass().getResource("/ImagenMenuPrincipal.jpg")
+                ).getImage();
+				
+				//("/ImagenMenuPrincipal.jpg");
+                
+		
+		contentPane =  new JPanelConFondo(fondopantalla);
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -413,4 +433,28 @@ public class menuPrincipal extends JFrame {
 		return instancia;
 
 	}
+	
+	public class JPanelConFondo extends JPanel {
+		 
+	    private Image imagen;
+	    
+	    public JPanelConFondo(Image imagenInicial) {
+	        if (imagenInicial != null) {
+	            imagen = imagenInicial;
+	        }
+	    }
+	 
+	   
+	 
+	    @Override
+	    public void paint(Graphics g) {
+	        g.drawImage(imagen, 0, 0, getWidth(), getHeight(),
+	                        this);
+	 
+	        setOpaque(false);
+	        super.paint(g);
+	    }
+	
+	
+}
 }

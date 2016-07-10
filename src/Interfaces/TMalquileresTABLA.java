@@ -98,7 +98,11 @@ public class TMalquileresTABLA implements TableModel {
 			break;
 		}
 		case 3: {
+			if (c.getFechaFin()!=null){
 			valor = c.getFechaFin().toString();
+			}else{
+				valor = " - ";
+			}
 			break;
 		}
 		case 4: {

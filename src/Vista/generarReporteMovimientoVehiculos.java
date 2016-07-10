@@ -3,6 +3,7 @@ package Vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> cmbOrigen;
 	private JComboBox<ComboBoxItem> cmbDestino;
+	private JButton btnEXPORTAR;
 
 	public generarReporteMovimientoVehiculos() {
 		this.controlador = Controlador.getInstance();
@@ -159,11 +161,13 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 					TM = new TMmovimientosDeVehiculosTABLA(res
 							.getMovimientosDTO());
 					HistorialMovimientosTABLA.setModel(TM);
+					btnEXPORTAR.setVisible(true);
 
 				} else {
 					TM = new TMmovimientosDeVehiculosTABLA(
 							new ArrayList<MovimientoDTO>());
 					HistorialMovimientosTABLA.setModel(TM);
+					
 
 					JOptionPane.showMessageDialog(null, res.getMessage(),
 							"Error", JOptionPane.ERROR_MESSAGE);
@@ -171,7 +175,7 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 			}
 
 		});
-		btnConfirmar.setBounds(607, 60, 131, 23);
+		btnConfirmar.setBounds(606, 47, 131, 23);
 		getContentPane().add(btnConfirmar);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -183,5 +187,23 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		HistorialMovimientosTABLA = new JTable();
 		HistorialMovimientosTABLA.setModel(TM);
 		scrollPane.setViewportView(HistorialMovimientosTABLA);
+		
+		btnEXPORTAR = new JButton("Exportar");
+		btnEXPORTAR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				try {
+					controlador.crearExcel(HistorialMovimientosTABLA, "MOVIMIENTOS");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnEXPORTAR.setVisible(false);
+		btnEXPORTAR.setBounds(606, 75, 131, 23);
+		getContentPane().add(btnEXPORTAR);
 	}
 }

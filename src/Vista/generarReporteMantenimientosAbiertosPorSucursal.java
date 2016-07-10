@@ -3,6 +3,7 @@ package Vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 	private TMmantenimientosPorSucursalTABLA TM;
 	private List<SucursalDTO> sucursales;
 	private JComboBox<ComboBoxItem> cmbSucursal;
+	private JButton btnExportar;
 
 	public generarReporteMantenimientosAbiertosPorSucursal() {
 		this.controlador = Controlador.getInstance();
@@ -84,7 +86,7 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 					TM = new TMmantenimientosPorSucursalTABLA(res
 							.getMantenimientosDTO());
 					HistorialMantenimientosTABLA.setModel(TM);
-
+					btnExportar.setVisible(true);
 				} else {
 					TM = new TMmantenimientosPorSucursalTABLA(
 							new ArrayList<MantenimientoDTO>());
@@ -108,6 +110,23 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 		HistorialMantenimientosTABLA = new JTable();
 		HistorialMantenimientosTABLA.setModel(TM);
 		scrollPane.setViewportView(HistorialMantenimientosTABLA);
+		
+		btnExportar = new JButton("Exportar");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					controlador.crearExcel(HistorialMantenimientosTABLA, "MANTENIMIENTOS");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnExportar.setVisible(false);
+		btnExportar.setBounds(582, 11, 164, 23);
+		getContentPane().add(btnExportar);
 
 	}
 }

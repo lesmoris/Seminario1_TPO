@@ -2,6 +2,7 @@ package Vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +57,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 
 	private JTable AlquileresTABLA;
 	private TMalquileresTABLA TM;
+	private JButton btnExportar;
 
 	public generarReporteAlquileres() {
 		iniciarComponentes();
@@ -333,6 +335,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 				if (res.sosExitoso()) {
 					TM = new TMalquileresTABLA(res.getAlquileresDTO());
 					AlquileresTABLA.setModel(TM);
+					btnExportar.setVisible(true);
 
 				} else {
 					TM = new TMalquileresTABLA(
@@ -345,7 +348,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 
 			}
 		});
-		btnGenerar.setBounds(611, 143, 147, 23);
+		btnGenerar.setBounds(465, 143, 147, 23);
 		getContentPane().add(btnGenerar);
 
 		JLabel lblTamao = new JLabel("Tama\u00F1o");
@@ -365,7 +368,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		getContentPane().add(cmbTransmision);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 182, 764, 247);
+		scrollPane.setBounds(10, 182, 764, 219);
 		getContentPane().add(scrollPane);
 
 		TM = new TMalquileresTABLA(new ArrayList<ContratoAlquilerDTO>());
@@ -374,12 +377,12 @@ public class generarReporteAlquileres extends JInternalFrame {
 		AlquileresTABLA.setModel(TM);
 		scrollPane.setViewportView(AlquileresTABLA);
 
-		JLabel lblTipoCombustible = new JLabel("Tipo Combustible");
-		lblTipoCombustible.setBounds(403, 147, 99, 14);
+		JLabel lblTipoCombustible = new JLabel("Combustible");
+		lblTipoCombustible.setBounds(294, 147, 83, 14);
 		getContentPane().add(lblTipoCombustible);
 
 		cmbTipoCombustible = new JComboBox();
-		cmbTipoCombustible.setBounds(512, 144, 76, 20);
+		cmbTipoCombustible.setBounds(379, 144, 76, 20);
 		getContentPane().add(cmbTipoCombustible);
 
 		JLabel lblAireAcondicionado = new JLabel("Aire Acond");
@@ -389,6 +392,23 @@ public class generarReporteAlquileres extends JInternalFrame {
 		cmbAC = new JComboBox();
 		cmbAC.setBounds(219, 144, 65, 20);
 		getContentPane().add(cmbAC);
+		
+		btnExportar = new JButton("Exportar");
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					controlador.crearExcel(AlquileresTABLA, "ALQUILERES");
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		btnExportar.setVisible(false);
+		btnExportar.setBounds(623, 143, 147, 23);
+		getContentPane().add(btnExportar);
 
 	}
 }
