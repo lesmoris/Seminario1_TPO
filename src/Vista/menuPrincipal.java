@@ -145,7 +145,7 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 		
-		JMenuItem mntmVerVehiculos = new JMenuItem("Ver Vehiculos");
+		final JMenuItem mntmVerVehiculos = new JMenuItem("Ver Vehiculos");
 		mntmVerVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

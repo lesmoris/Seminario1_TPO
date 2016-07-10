@@ -22,5 +22,7 @@
 	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaSimple2D.jar"/>
 	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaSkyMetallic.jar"/>
 	<classpathentry kind="lib" path="../Seminario1_TPO/src/syntheticaWhiteVision.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/jxl.jar"/>
+	<classpathentry kind="lib" path="../Seminario1_TPO/src/poi-3.14-20160307.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
