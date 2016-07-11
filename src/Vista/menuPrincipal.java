@@ -1,8 +1,12 @@
 package Vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,13 +22,6 @@ import javax.swing.border.EmptyBorder;
 
 import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 
-import javax.swing.DebugGraphics;
-
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.SystemColor;
-import java.awt.Color;
-
 public class menuPrincipal extends JFrame {
 
 	private JPanelConFondo contentPane;
@@ -32,8 +29,7 @@ public class menuPrincipal extends JFrame {
 	private static menuPrincipal frame;
 	private static String title = "Rent-A-Car";
 	private static String separator = " - ";
-	
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,18 +43,11 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 	}
+
 	public menuPrincipal() {
 
-	
-		
-	
-	
 		instancia = this;
 
-		
-		
-
-		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -144,17 +133,17 @@ public class menuPrincipal extends JFrame {
 
 			}
 		});
-		
+
 		final JMenuItem mntmVerVehiculos = new JMenuItem("Ver Vehiculos");
 		mntmVerVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				frame.setTitle(title + separator + mntmVerVehiculos.getText());
-				
+
 				verVehiculos a = new verVehiculos();
-				
+
 				irAVentana(a);
-				
+
 			}
 		});
 		mnVehiculos.add(mntmVerVehiculos);
@@ -389,24 +378,32 @@ public class menuPrincipal extends JFrame {
 		});
 
 		menuBar.add(btnSalir);
-		
-		Image fondopantalla = new ImageIcon(
-                getClass().getResource("/ImagenMenuPrincipal.jpg")
-//                getClass().getResource("/ImagenMenuPrincipal_2.png")
-//              getClass().getResource("/ImagenMenuPrincipal_3.jpg")
-//              getClass().getResource("/ImagenMenuPrincipal_4.jpg")
-//              getClass().getResource("/ImagenMenuPrincipal_5.jpg")
-                ).getImage();
-				
-				//("/ImagenMenuPrincipal.jpg");
-                
-		
-		contentPane =  new JPanelConFondo(fondopantalla);
+
+		Image fondopantalla = new ImageIcon(getClass().getResource(
+				getRandomBackground())).getImage();
+
+		contentPane = new JPanelConFondo(fondopantalla);
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+	}
+
+	private String getRandomBackground() {
+		int size = 5;
+		String[] backgrounds = new String[size];
+
+		backgrounds[0] = "/ImagenMenuPrincipal.jpg";
+		backgrounds[1] = "/ImagenMenuPrincipal_2.png";
+		backgrounds[2] = "/ImagenMenuPrincipal_3.jpg";
+		backgrounds[3] = "/ImagenMenuPrincipal_4.jpg";
+		backgrounds[4] = "/ImagenMenuPrincipal_5.jpg";
+
+		Random rnd = new Random();
+		int nextBackground = (int) (rnd.nextDouble() * size);
+
+		return backgrounds[nextBackground];
 	}
 
 	public void irAMenuPrincipal() {
@@ -437,28 +434,24 @@ public class menuPrincipal extends JFrame {
 		return instancia;
 
 	}
-	
+
 	public class JPanelConFondo extends JPanel {
-		 
-	    private Image imagen;
-	    
-	    public JPanelConFondo(Image imagenInicial) {
-	        if (imagenInicial != null) {
-	            imagen = imagenInicial;
-	        }
-	    }
-	 
-	   
-	 
-	    @Override
-	    public void paint(Graphics g) {
-	        g.drawImage(imagen, 0, 0, getWidth(), getHeight(),
-	                        this);
-	 
-	        setOpaque(false);
-	        super.paint(g);
-	    }
-	
-	
-}
+
+		private Image imagen;
+
+		public JPanelConFondo(Image imagenInicial) {
+			if (imagenInicial != null) {
+				imagen = imagenInicial;
+			}
+		}
+
+		@Override
+		public void paint(Graphics g) {
+			g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+
+			setOpaque(false);
+			super.paint(g);
+		}
+
+	}
 }
