@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -17,16 +18,34 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 
 public class menuPrincipal extends JFrame {
 
 	private JPanelConFondo contentPane;
 	private static menuPrincipal instancia;
-	private static menuPrincipal frame;
+	private static menuPrincipal frameMnuPrincipal;
 	private static String title = "Rent-A-Car";
 	private static String separator = " - ";
 
@@ -35,8 +54,8 @@ public class menuPrincipal extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
-					frame = new menuPrincipal();
-					frame.setVisible(true);
+					frameMnuPrincipal = new menuPrincipal();
+					frameMnuPrincipal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -64,7 +83,7 @@ public class menuPrincipal extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 
-				frame.setTitle(title);
+				frameMnuPrincipal.setTitle(title);
 
 				irAMenuPrincipal();
 
@@ -79,7 +98,7 @@ public class menuPrincipal extends JFrame {
 		mntmAlta_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmAlta_1.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmAlta_1.getText());
 
 				altaCliente a = new altaCliente();
 
@@ -94,7 +113,7 @@ public class menuPrincipal extends JFrame {
 		mntmModificacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmModificacion.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmModificacion.getText());
 
 				modificarCliente a = new modificarCliente();
 
@@ -108,7 +127,7 @@ public class menuPrincipal extends JFrame {
 		mntmBaja_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmBaja_1.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmBaja_1.getText());
 
 				bajaCliente a = new bajaCliente();
 
@@ -125,7 +144,7 @@ public class menuPrincipal extends JFrame {
 		mntmAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmAlta.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmAlta.getText());
 
 				altaVehiculo a = new altaVehiculo();
 
@@ -138,7 +157,7 @@ public class menuPrincipal extends JFrame {
 		mntmVerVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				frame.setTitle(title + separator + mntmVerVehiculos.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmVerVehiculos.getText());
 
 				verVehiculos a = new verVehiculos();
 
@@ -153,7 +172,7 @@ public class menuPrincipal extends JFrame {
 		mntmBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmBaja.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmBaja.getText());
 				bajaVehiculo a = new bajaVehiculo();
 
 				irAVentana(a);
@@ -166,7 +185,7 @@ public class menuPrincipal extends JFrame {
 		mntmModificarPrecioPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmModificarPrecioPor.getText());
 
 				modificacionVehiculo a = new modificacionVehiculo();
@@ -195,7 +214,7 @@ public class menuPrincipal extends JFrame {
 		mntmHistorialMantenimientoPor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmHistorialMantenimientoPor.getText());
 
 				generarReporteMantenimientoPorVehiculo a = new generarReporteMantenimientoPorVehiculo();
@@ -207,7 +226,7 @@ public class menuPrincipal extends JFrame {
 		mntmCerrarMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmCerrarMantenimiento.getText());
 
 				cerrarMantenimiento a = new cerrarMantenimiento();
@@ -219,7 +238,7 @@ public class menuPrincipal extends JFrame {
 		mntmSolicitudMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmSolicitudMantenimiento.getText());
 
 				solicitarMantenimiento a = new solicitarMantenimiento();
@@ -241,7 +260,7 @@ public class menuPrincipal extends JFrame {
 		mntmRecibirVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmRecibirVehiculo.getText());
 
 				recibirVehiculoenMovimiento a = new recibirVehiculoenMovimiento();
@@ -253,7 +272,7 @@ public class menuPrincipal extends JFrame {
 		mntmMoverVehiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmMoverVehiculo.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmMoverVehiculo.getText());
 
 				moverVehiculo a = new moverVehiculo();
 
@@ -270,7 +289,7 @@ public class menuPrincipal extends JFrame {
 		mntmGenerarPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmGenerarPresupuesto.getText());
 
 				generarPresupuesto a = new generarPresupuesto();
@@ -285,7 +304,7 @@ public class menuPrincipal extends JFrame {
 		mntmNuevoAlquiler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmNuevoAlquiler.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmNuevoAlquiler.getText());
 
 				nuevoContratoAlquiler a = new nuevoContratoAlquiler();
 
@@ -299,7 +318,7 @@ public class menuPrincipal extends JFrame {
 		mntmCerrarAlquiler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmCerrarAlquiler.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmCerrarAlquiler.getText());
 
 				cierreAlquiler a = new cierreAlquiler();
 
@@ -316,7 +335,7 @@ public class menuPrincipal extends JFrame {
 		mntmAlquileres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator + mntmAlquileres.getText());
+				frameMnuPrincipal.setTitle(title + separator + mntmAlquileres.getText());
 
 				generarReporteAlquileres a = new generarReporteAlquileres();
 
@@ -331,7 +350,7 @@ public class menuPrincipal extends JFrame {
 		mntmMovimientoVehiculos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmMovimientoVehiculos.getText());
 
 				generarReporteMovimientoVehiculos a = new generarReporteMovimientoVehiculos();
@@ -347,7 +366,7 @@ public class menuPrincipal extends JFrame {
 		mntmVehiculosEnMantenimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				frame.setTitle(title + separator
+				frameMnuPrincipal.setTitle(title + separator
 						+ mntmVehiculosEnMantenimiento.getText());
 
 				generarReporteMantenimientosAbiertosPorSucursal a = new generarReporteMantenimientosAbiertosPorSucursal();
@@ -376,6 +395,281 @@ public class menuPrincipal extends JFrame {
 
 			}
 		});
+		
+		JMenu mnSkins = new JMenu("Skins");
+		menuBar.add(mnSkins);
+
+		JMenuItem mntmPlain = new JMenuItem("Plain");
+		mntmPlain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaPlainLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmPlain);
+		
+		JMenuItem mntmAluoxide = new JMenuItem("AluOxide");
+		mntmAluoxide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmAluoxide);
+		
+		JMenuItem mntmBlackeye = new JMenuItem("BlackEye");
+		mntmBlackeye.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBlackeye);
+		
+		JMenuItem mntmBlackmoon = new JMenuItem("BlackMoon");
+		mntmBlackmoon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlackMoonLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBlackmoon);
+		
+		JMenuItem mntmBlackstar = new JMenuItem("BlackStar");
+		mntmBlackstar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBlackstar);
+		
+		JMenuItem mntmBluelce = new JMenuItem("BlueIce");
+		mntmBluelce.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlueIceLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBluelce);
+		
+		JMenuItem mntmBluelight = new JMenuItem("BlueLight");
+		mntmBluelight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBluelight);
+		
+		JMenuItem mntmBluemoon = new JMenuItem("BlueMoon");
+		mntmBluemoon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlueMoonLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBluemoon);
+		
+		JMenuItem mntmBluesteel = new JMenuItem("BlueSteel");
+		mntmBluesteel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaBlueSteelLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmBluesteel);
+		
+		JMenuItem mntmGreendream = new JMenuItem("GreenDream");
+		mntmGreendream.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaGreenDreamLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmGreendream);
+		
+		JMenuItem mntmMauvemetallic = new JMenuItem("MauveMetallic");
+		mntmMauvemetallic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaMauveMetallicLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmMauvemetallic);
+		
+		JMenuItem mntmOrangemetallic = new JMenuItem("OrangeMetallic");
+		mntmOrangemetallic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaOrangeMetallicLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmOrangemetallic);
+		
+		JMenuItem mntmSilvermoon = new JMenuItem("SilverMoon");
+		mntmSilvermoon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaSilverMoonLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmSilvermoon);
+		
+		JMenuItem mntmSimpled = new JMenuItem("Simple2D");
+		mntmSimpled.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmSimpled);
+		
+		JMenuItem mntmSkymetallic = new JMenuItem("SkyMetallic");
+		mntmSkymetallic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaSkyMetallicLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmSkymetallic);
+		
+		JMenuItem mntmWhitevision = new JMenuItem("WhiteVision");
+		mntmWhitevision.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+					SwingUtilities.updateComponentTreeUI(frameMnuPrincipal);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		mnSkins.add(mntmWhitevision);
 
 		menuBar.add(btnSalir);
 
@@ -391,17 +685,16 @@ public class menuPrincipal extends JFrame {
 	}
 
 	private String getRandomBackground() {
-		int size = 5;
-		String[] backgrounds = new String[size];
+		String[] backgrounds = new String[5];
 
-		backgrounds[0] = "/ImagenMenuPrincipal.jpg";
-		backgrounds[1] = "/ImagenMenuPrincipal_2.png";
-		backgrounds[2] = "/ImagenMenuPrincipal_3.jpg";
-		backgrounds[3] = "/ImagenMenuPrincipal_4.jpg";
-		backgrounds[4] = "/ImagenMenuPrincipal_5.jpg";
+		backgrounds[0] = "/ImagenMenuPrincipal_2.png";
+		backgrounds[1] = "/ImagenMenuPrincipal_3.jpg";
+		backgrounds[2] = "/ImagenMenuPrincipal_4.jpg";
+		backgrounds[3] = "/ImagenMenuPrincipal_5.jpg";
+		backgrounds[4] = "/ImagenMenuPrincipal.jpg";
 
 		Random rnd = new Random();
-		int nextBackground = (int) (rnd.nextDouble() * size);
+		int nextBackground = (int) (rnd.nextDouble() * 4);
 
 		return backgrounds[nextBackground];
 	}
