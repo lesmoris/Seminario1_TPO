@@ -392,6 +392,10 @@ public class menuPrincipal extends JFrame {
 		
 		Image fondopantalla = new ImageIcon(
                 getClass().getResource("/ImagenMenuPrincipal.jpg")
+//                getClass().getResource("/ImagenMenuPrincipal_2.png")
+//              getClass().getResource("/ImagenMenuPrincipal_3.jpg")
+//              getClass().getResource("/ImagenMenuPrincipal_4.jpg")
+//              getClass().getResource("/ImagenMenuPrincipal_5.jpg")
                 ).getImage();
 				
 				//("/ImagenMenuPrincipal.jpg");
