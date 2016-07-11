@@ -49,14 +49,12 @@ public class ContratoAlquiler {
 		
 		
 		if (HelperDate.ConvertirSQLAUtil(this.getFechaFin()).before(HelperDate.obtenerFechaHoy())){
-			System.out.println ("DETECTO FECHA");
 			int diasDeAtraso = HelperDate.diferenciaEntreDosfechas(this.getFechaFin(), HelperDate.obtenerFechaHoy());
 			punitorio = 100 * diasDeAtraso;
 			
 		}
 		
 		if (!this.getPresupuesto().getSucursalDestino().sosSucursal(this.getSucursalDestino().getNombre())){
-			System.out.println ("DETECTO CAMBIO DE SUCURSAL");
 			punitorio = (float) (punitorio + (this.getImporte()*0.2));
 		}
 		

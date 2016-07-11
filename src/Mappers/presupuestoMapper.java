@@ -86,8 +86,6 @@ public class presupuestoMapper extends baseMapper {
 		List<PresupuestoAlquiler> lista = null;
 		Connection con = null;
 
-		System.out.println(idCliente);
-
 		try {
 
 			lista = new ArrayList<PresupuestoAlquiler>();
