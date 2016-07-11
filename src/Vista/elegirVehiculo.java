@@ -115,6 +115,8 @@ public class elegirVehiculo extends JInternalFrame {
 
 						JOptionPane.showMessageDialog(null, res.getMessage(),
 								"Informacion", JOptionPane.INFORMATION_MESSAGE);
+						
+						menuPrincipal.getInstance().irAMenuPrincipal();
 
 					} else {
 						JOptionPane.showMessageDialog(null, res.getMessage(),

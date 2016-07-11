@@ -35,15 +35,15 @@ public class ContratoAlquiler {
 	public void cerrar(Sucursal sucDestino) throws Exception {
 
 		this.setFechaFin(HelperDate.obtenerFechaHoy());
-		this.calcularImporteYPunitorios(sucDestino);
 		this.setSucursalDestino(sucDestino);
+		this.calcularPunitorios();
 		this.Update();
 		
 		// Ponemos al vehiculo en disponible y le asignamos la sucursal
 		this.getPresupuesto().getVehiculo().ponerDisponibleEnSucursal(sucDestino);
 	}
 	
-	private void calcularImporteYPunitorios(Sucursal sucFinal) {
+	private void calcularPunitorios() {
 		
 		float punitorio = 0;
 		
@@ -55,7 +55,7 @@ public class ContratoAlquiler {
 			
 		}
 		
-		if (!this.getSucursalDestino().sosSucursal(sucFinal.getNombre())){
+		if (!this.getPresupuesto().getSucursalDestino().sosSucursal(this.getSucursalDestino().getNombre())){
 			System.out.println ("DETECTO CAMBIO DE SUCURSAL");
 			punitorio = (float) (punitorio + (this.getImporte()*0.2));
 		}

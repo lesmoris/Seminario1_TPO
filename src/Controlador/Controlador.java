@@ -792,7 +792,6 @@ public class Controlador {
 			ca.setPresupuesto(presupuesto);
 			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 			ca.setImporte(ca.getPresupuesto().getImporte());
-			ca.setSucursalDestino(ca.getPresupuesto().getSucursalDestino());
 			ca.Insert();
 			ca.getPresupuesto().getVehiculo().alquilar();
 			this.contratosAlquiler.add(ca);
@@ -838,8 +837,8 @@ public class Controlador {
 			return new ResultadoOperacion(true,
 					"Contrato cerrado con exito. El importe total es : "
 							+ importe + " - Punitorio : " + punitorio);
-		} catch (Exception ex) {
-			return new ResultadoOperacion(false, "Error al cerrar contrato: "
+		} catch (Exception  ex) {
+  			return new ResultadoOperacion(false, "Error al cerrar contrato: "
 					+ ex.getMessage());
 
 		}
