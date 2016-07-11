@@ -31,13 +31,13 @@ public class solicitarMantenimiento extends JInternalFrame {
 	private void iniciarcomponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		final JTextArea descripcionFallaTF = new JTextArea();
 		descripcionFallaTF.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionFallaTF.setLineWrap(true);
-		descripcionFallaTF.setBounds(212, 146, 530, 135);
+		descripcionFallaTF.setBounds(212, 146, 738, 135);
 		descripcionFallaTF.setEnabled(false);
 		getContentPane().add(descripcionFallaTF);
 
@@ -77,7 +77,7 @@ public class solicitarMantenimiento extends JInternalFrame {
 
 			}
 		});
-		btnConfirmar.setBounds(646, 294, 97, 23);
+		btnConfirmar.setBounds(853, 292, 97, 23);
 		getContentPane().add(btnConfirmar);
 
 		JButton btnBuscarVehiculo = new JButton("Buscar");

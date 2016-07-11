@@ -18,20 +18,20 @@ public class bajaVehiculo extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblDominioDelVeh = new JLabel("Dominio del Vehiculo");
-		lblDominioDelVeh.setBounds(191, 138, 149, 14);
+		lblDominioDelVeh.setBounds(326, 262, 149, 14);
 		getContentPane().add(lblDominioDelVeh);
 
 		textField = new JTextField();
-		textField.setBounds(321, 135, 86, 20);
+		textField.setBounds(456, 259, 86, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 
 		JButton btnConfirmarBaja = new JButton("Confirmar");
-		btnConfirmarBaja.setBounds(418, 134, 114, 23);
+		btnConfirmarBaja.setBounds(553, 258, 114, 23);
 		getContentPane().add(btnConfirmarBaja);
 
 	}

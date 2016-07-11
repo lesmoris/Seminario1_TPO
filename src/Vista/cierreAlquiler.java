@@ -118,7 +118,7 @@ public class cierreAlquiler extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
@@ -146,15 +146,15 @@ public class cierreAlquiler extends JInternalFrame {
 
 			}
 		});
-		btnBuscarContrato.setBounds(631, 35, 143, 23);
+		btnBuscarContrato.setBounds(855, 35, 143, 23);
 		getContentPane().add(btnBuscarContrato);
 
 		lblSucursalDestino = new JLabel("Sucursal De Devolucion");
-		lblSucursalDestino.setBounds(86, 363, 143, 14);
+		lblSucursalDestino.setBounds(86, 516, 143, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		cmbSucDestino = new JComboBox();
-		cmbSucDestino.setBounds(228, 360, 133, 20);
+		cmbSucDestino.setBounds(228, 513, 133, 20);
 		getContentPane().add(cmbSucDestino);
 
 		btnFinalizarContrato = new JButton("Finalizar Contrato");
@@ -184,11 +184,11 @@ public class cierreAlquiler extends JInternalFrame {
 				}
 			}
 		});
-		btnFinalizarContrato.setBounds(470, 359, 139, 23);
+		btnFinalizarContrato.setBounds(859, 512, 139, 23);
 		getContentPane().add(btnFinalizarContrato);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 67, 764, 282);
+		scrollPane.setBounds(10, 67, 988, 438);
 		getContentPane().add(scrollPane);
 
 		contratosTABLA = new JTable();

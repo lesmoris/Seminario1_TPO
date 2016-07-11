@@ -61,14 +61,14 @@ public class elegirVehiculo extends JInternalFrame {
 
 		this.sucursales = Controlador.getInstance().getSucursales();
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
 		getContentPane().setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 75, 764, 275);
+		scrollPane.setBounds(10, 75, 988, 453);
 		getContentPane().add(scrollPane);
 
 		vehiculosTABLA = new JTable();
@@ -128,7 +128,7 @@ public class elegirVehiculo extends JInternalFrame {
 
 			}
 		});
-		btnCalcularPrecio.setBounds(613, 361, 161, 21);
+		btnCalcularPrecio.setBounds(837, 539, 161, 21);
 		getContentPane().add(btnCalcularPrecio);
 
 		MaskFormatter mf = null;
@@ -139,12 +139,12 @@ public class elegirVehiculo extends JInternalFrame {
 			e1.printStackTrace();
 		}
 		fechaFinTF = new JFormattedTextField(mf);
-		fechaFinTF.setBounds(356, 361, 86, 20);
+		fechaFinTF.setBounds(356, 539, 86, 20);
 		getContentPane().add(fechaFinTF);
 		fechaFinTF.setColumns(10);
 
 		JLabel lblFechaFinalizacion = new JLabel("Fecha Finalizacion:");
-		lblFechaFinalizacion.setBounds(247, 364, 109, 14);
+		lblFechaFinalizacion.setBounds(247, 542, 109, 14);
 		getContentPane().add(lblFechaFinalizacion);
 
 		precioActualLABEL = new JLabel("");
@@ -152,19 +152,19 @@ public class elegirVehiculo extends JInternalFrame {
 		getContentPane().add(precioActualLABEL);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino: ");
-		lblSucursalDestino.setBounds(10, 386, 109, 14);
+		lblSucursalDestino.setBounds(531, 542, 109, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		sucursalDestinoCOMBO = new JComboBox();
-		sucursalDestinoCOMBO.setBounds(111, 383, 106, 20);
+		sucursalDestinoCOMBO.setBounds(632, 539, 106, 20);
 		getContentPane().add(sucursalDestinoCOMBO);
 
 		JLabel lblInicio = new JLabel("Fecha Inicio:");
-		lblInicio.setBounds(10, 361, 91, 14);
+		lblInicio.setBounds(10, 539, 91, 14);
 		getContentPane().add(lblInicio);
 
 		fechaInicioLABEL = new JLabel("New label");
-		fechaInicioLABEL.setBounds(111, 361, 67, 14);
+		fechaInicioLABEL.setBounds(111, 539, 67, 14);
 		getContentPane().add(fechaInicioLABEL);
 
 		fechaInicioLABEL.setText(fechaInicio);

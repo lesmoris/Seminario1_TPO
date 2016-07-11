@@ -75,7 +75,7 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblFechaInicio = new JLabel("FECHA INICIO");
@@ -119,19 +119,19 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		getContentPane().add(fechaFinHastaTF);
 
 		JLabel lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(361, 50, 106, 14);
+		lblSucursalOrigen.setBounds(622, 47, 106, 14);
 		getContentPane().add(lblSucursalOrigen);
 
 		JLabel lblSucursalDestino = new JLabel("Sucursal Destino");
-		lblSucursalDestino.setBounds(361, 78, 106, 14);
+		lblSucursalDestino.setBounds(622, 75, 106, 14);
 		getContentPane().add(lblSucursalDestino);
 
 		cmbOrigen = new JComboBox();
-		cmbOrigen.setBounds(459, 47, 100, 20);
+		cmbOrigen.setBounds(720, 44, 100, 20);
 		getContentPane().add(cmbOrigen);
 
 		cmbDestino = new JComboBox();
-		cmbDestino.setBounds(459, 75, 100, 20);
+		cmbDestino.setBounds(720, 72, 100, 20);
 		getContentPane().add(cmbDestino);
 
 		JButton btnConfirmar = new JButton("Generar Reporte");
@@ -175,11 +175,11 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 			}
 
 		});
-		btnConfirmar.setBounds(606, 47, 131, 23);
+		btnConfirmar.setBounds(867, 44, 131, 23);
 		getContentPane().add(btnConfirmar);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 116, 764, 294);
+		scrollPane.setBounds(10, 116, 988, 444);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmovimientosDeVehiculosTABLA(new ArrayList<MovimientoDTO>());
@@ -203,7 +203,7 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 			}
 		});
 		btnEXPORTAR.setVisible(false);
-		btnEXPORTAR.setBounds(606, 75, 131, 23);
+		btnEXPORTAR.setBounds(867, 72, 131, 23);
 		getContentPane().add(btnEXPORTAR);
 	}
 }

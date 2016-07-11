@@ -55,7 +55,7 @@ public class moverVehiculo extends JInternalFrame {
 	// Componentes de la pantalla y acciones de los componentes
 	private void iniciarcomponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblDominio = new JLabel("Dominio");
@@ -104,7 +104,7 @@ public class moverVehiculo extends JInternalFrame {
 			}
 
 		});
-		btnIniciarMovimiento.setBounds(563, 297, 169, 34);
+		btnIniciarMovimiento.setBounds(806, 296, 169, 34);
 		btnIniciarMovimiento.setEnabled(false);
 		getContentPane().add(btnIniciarMovimiento);
 

@@ -59,15 +59,15 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 	private void iniciarComponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblSucursal = new JLabel("Sucursal");
-		lblSucursal.setBounds(144, 11, 69, 20);
+		lblSucursal.setBounds(263, 13, 69, 20);
 		getContentPane().add(lblSucursal);
 
 		cmbSucursal = new JComboBox();
-		cmbSucursal.setBounds(223, 11, 140, 20);
+		cmbSucursal.setBounds(342, 13, 140, 20);
 		getContentPane().add(cmbSucursal);
 
 		JButton btnGenerarReporte = new JButton("Generar Reporte");
@@ -97,11 +97,11 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 				}
 			}
 		});
-		btnGenerarReporte.setBounds(408, 11, 164, 23);
+		btnGenerarReporte.setBounds(529, 10, 164, 23);
 		getContentPane().add(btnGenerarReporte);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 43, 764, 381);
+		scrollPane.setBounds(10, 43, 988, 479);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmantenimientosPorSucursalTABLA(
@@ -125,7 +125,7 @@ public class generarReporteMantenimientosAbiertosPorSucursal extends
 			}
 		});
 		btnExportar.setVisible(false);
-		btnExportar.setBounds(582, 11, 164, 23);
+		btnExportar.setBounds(834, 533, 164, 23);
 		getContentPane().add(btnExportar);
 
 	}

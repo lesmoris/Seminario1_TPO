@@ -20,28 +20,28 @@ public class bajaCliente extends JInternalFrame {
 		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(246, 135, 103, 21);
+		lblTipoDocumento.setBounds(383, 226, 103, 21);
 		getContentPane().add(lblTipoDocumento);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(368, 135, 123, 20);
+		comboBox.setBounds(505, 226, 123, 20);
 		getContentPane().add(comboBox);
 		
 		JLabel lblNumeroDocumento = new JLabel("Nro Documento:");
-		lblNumeroDocumento.setBounds(246, 169, 103, 14);
+		lblNumeroDocumento.setBounds(383, 260, 103, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
 		textField = new JTextField();
-		textField.setBounds(368, 166, 123, 20);
+		textField.setBounds(505, 257, 123, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBounds(307, 197, 103, 23);
+		btnConfirmar.setBounds(444, 288, 103, 23);
 		getContentPane().add(btnConfirmar);
 
 	}

@@ -44,7 +44,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JButton btnConfirmarRecepcionVehiculo = new JButton(
@@ -83,15 +83,15 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 				}
 			}
 		});
-		btnConfirmarRecepcionVehiculo.setBounds(582, 262, 155, 23);
+		btnConfirmarRecepcionVehiculo.setBounds(804, 451, 155, 23);
 		getContentPane().add(btnConfirmarRecepcionVehiculo);
 
 		JLabel lblNumeroDeOrden = new JLabel("Sucursal Que Recibe:");
-		lblNumeroDeOrden.setBounds(44, 262, 125, 23);
+		lblNumeroDeOrden.setBounds(44, 451, 125, 23);
 		getContentPane().add(lblNumeroDeOrden);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(43, 125, 694, 103);
+		scrollPane.setBounds(43, 125, 916, 315);
 		getContentPane().add(scrollPane);
 
 		// Llenamos El TableModel
@@ -103,7 +103,7 @@ public class recibirVehiculoenMovimiento extends JInternalFrame {
 		scrollPane.setViewportView(VehiculosEnMovimientoTABLA);
 
 		sucursalCOMBO = new JComboBox();
-		sucursalCOMBO.setBounds(171, 263, 103, 20);
+		sucursalCOMBO.setBounds(171, 452, 103, 20);
 		getContentPane().add(sucursalCOMBO);
 
 		for (SucursalDTO s : this.sucursales) {

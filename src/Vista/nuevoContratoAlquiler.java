@@ -69,7 +69,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
@@ -116,7 +116,7 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscarCliente.setBounds(624, 32, 150, 23);
+		btnBuscarCliente.setBounds(848, 32, 150, 23);
 		getContentPane().add(btnBuscarCliente);
 
 		btnGenerarContrato = new JButton("Generar Contrato");
@@ -147,11 +147,11 @@ public class nuevoContratoAlquiler extends JInternalFrame {
 				}
 			}
 		});
-		btnGenerarContrato.setBounds(328, 371, 137, 23);
+		btnGenerarContrato.setBounds(438, 516, 137, 23);
 		getContentPane().add(btnGenerarContrato);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 69, 764, 291);
+		scrollPane.setBounds(10, 69, 988, 421);
 		getContentPane().add(scrollPane);
 
 		PresupuestoTABLA = new JTable();

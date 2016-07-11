@@ -36,7 +36,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 	private void iniciarcomponentes() {
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblDominio = new JLabel("Dominio");
@@ -56,7 +56,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 		final JTextArea descripcionTA = new JTextArea();
 		descripcionTA.setBorder(new LineBorder(new Color(0, 0, 0)));
 		descripcionTA.setLineWrap(true);
-		descripcionTA.setBounds(214, 146, 529, 138);
+		descripcionTA.setBounds(214, 146, 733, 138);
 		descripcionTA.setEnabled(false);
 		getContentPane().add(descripcionTA);
 
@@ -84,7 +84,7 @@ public class cerrarMantenimiento extends JInternalFrame {
 
 			}
 		});
-		btnConfirmar.setBounds(637, 297, 106, 23);
+		btnConfirmar.setBounds(841, 295, 106, 23);
 		getContentPane().add(btnConfirmar);
 
 		JButton btnBuscar = new JButton("Buscar");

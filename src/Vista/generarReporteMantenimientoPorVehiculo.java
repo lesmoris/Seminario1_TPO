@@ -40,15 +40,15 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblDominioVehiculo = new JLabel("Dominio");
-		lblDominioVehiculo.setBounds(222, 26, 116, 14);
+		lblDominioVehiculo.setBounds(347, 26, 116, 14);
 		getContentPane().add(lblDominioVehiculo);
 
 		dominioTF = new JTextField();
-		dominioTF.setBounds(312, 23, 86, 20);
+		dominioTF.setBounds(409, 23, 86, 20);
 		getContentPane().add(dominioTF);
 		dominioTF.setColumns(10);
 
@@ -79,11 +79,11 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscar.setBounds(431, 22, 89, 23);
+		btnBuscar.setBounds(522, 22, 89, 23);
 		getContentPane().add(btnBuscar);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 56, 764, 345);
+		scrollPane.setBounds(10, 56, 988, 483);
 		getContentPane().add(scrollPane);
 
 		TM = new TMmantenimientosPorVehiculoTABLA(
@@ -107,7 +107,7 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 			}
 		});
 		btnExportar.setVisible(false);
-		btnExportar.setBounds(550, 22, 89, 23);
+		btnExportar.setBounds(909, 550, 89, 23);
 		getContentPane().add(btnExportar);
 
 	}

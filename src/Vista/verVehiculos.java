@@ -40,11 +40,11 @@ public class verVehiculos extends JInternalFrame {
 
 	private void iniciarComponentes() {
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 32, 729, 338);
+		scrollPane.setBounds(10, 32, 988, 480);
 		getContentPane().add(scrollPane);
 		
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -69,7 +69,7 @@ public class verVehiculos extends JInternalFrame {
 				
 			}
 		});
-		btnExportarAExcel.setBounds(31, 381, 142, 23);
+		btnExportarAExcel.setBounds(856, 523, 142, 23);
 		getContentPane().add(btnExportarAExcel);
 		
 		

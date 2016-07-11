@@ -22,50 +22,50 @@ public class altaCliente extends JInternalFrame {
 
 
 	public altaCliente() {
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(292, 78, 111, 14);
+		lblNombre.setBounds(404, 147, 111, 14);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblTipoDocumento = new JLabel("Tipo Documento");
-		lblTipoDocumento.setBounds(292, 115, 111, 14);
+		lblTipoDocumento.setBounds(404, 184, 111, 14);
 		getContentPane().add(lblTipoDocumento);
 		
 		JLabel lblNumeroDocumento = new JLabel("Nro Documento");
-		lblNumeroDocumento.setBounds(292, 150, 111, 14);
+		lblNumeroDocumento.setBounds(404, 219, 111, 14);
 		getContentPane().add(lblNumeroDocumento);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		lblDomicilio.setBounds(292, 185, 111, 14);
+		lblDomicilio.setBounds(404, 254, 111, 14);
 		getContentPane().add(lblDomicilio);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(292, 222, 111, 14);
+		lblTelefono.setBounds(404, 291, 111, 14);
 		getContentPane().add(lblTelefono);
 		
 		nombreTF = new JTextField();
-		nombreTF.setBounds(409, 75, 90, 20);
+		nombreTF.setBounds(521, 144, 90, 20);
 		getContentPane().add(nombreTF);
 		nombreTF.setColumns(10);
 		
 		JComboBox tipodocCB = new JComboBox();
-		tipodocCB.setBounds(409, 112, 90, 20);
+		tipodocCB.setBounds(521, 181, 90, 20);
 		getContentPane().add(tipodocCB);
 		
 		docTF = new JTextField();
-		docTF.setBounds(409, 147, 90, 20);
+		docTF.setBounds(521, 216, 90, 20);
 		getContentPane().add(docTF);
 		docTF.setColumns(10);
 		
 		textField = new JTextField();
-		textField.setBounds(409, 182, 90, 20);
+		textField.setBounds(521, 251, 90, 20);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(409, 219, 90, 20);
+		textField_1.setBounds(521, 288, 90, 20);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -77,15 +77,15 @@ public class altaCliente extends JInternalFrame {
 				
 			}
 		});
-		btnAceptar.setBounds(344, 299, 100, 23);
+		btnAceptar.setBounds(456, 368, 100, 23);
 		getContentPane().add(btnAceptar);
 		
 		JLabel mailLB = new JLabel("Mail");
-		mailLB.setBounds(292, 255, 111, 14);
+		mailLB.setBounds(404, 324, 111, 14);
 		getContentPane().add(mailLB);
 		
 		mailTF = new JTextField();
-		mailTF.setBounds(409, 252, 90, 20);
+		mailTF.setBounds(521, 321, 90, 20);
 		getContentPane().add(mailTF);
 		mailTF.setColumns(10);
 

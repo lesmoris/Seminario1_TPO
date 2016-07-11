@@ -217,27 +217,27 @@ public class generarPresupuesto extends JInternalFrame {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1024, 668);
 		getContentPane().setLayout(null);
 
 		JLabel lblCliente = new JLabel("CLIENTE");
-		lblCliente.setBounds(20, 62, 60, 14);
+		lblCliente.setBounds(171, 111, 60, 14);
 		getContentPane().add(lblCliente);
 
 		JLabel lblTipoDoc = new JLabel("Tipo Doc");
-		lblTipoDoc.setBounds(20, 108, 60, 14);
+		lblTipoDoc.setBounds(171, 157, 60, 14);
 		getContentPane().add(lblTipoDoc);
 
 		tipoDocCOMBO = new JComboBox();
-		tipoDocCOMBO.setBounds(147, 105, 71, 20);
+		tipoDocCOMBO.setBounds(298, 154, 71, 20);
 		getContentPane().add(tipoDocCOMBO);
 
 		JLabel lblNumeroDoc = new JLabel("Numero Doc");
-		lblNumeroDoc.setBounds(20, 139, 71, 14);
+		lblNumeroDoc.setBounds(171, 188, 71, 14);
 		getContentPane().add(lblNumeroDoc);
 
 		numeroDocTF = new JTextField();
-		numeroDocTF.setBounds(100, 136, 118, 20);
+		numeroDocTF.setBounds(251, 185, 118, 20);
 		getContentPane().add(numeroDocTF);
 		numeroDocTF.setColumns(10);
 
@@ -259,61 +259,61 @@ public class generarPresupuesto extends JInternalFrame {
 				}
 			}
 		});
-		btnBuscarCliente.setBounds(60, 164, 158, 23);
+		btnBuscarCliente.setBounds(211, 213, 158, 23);
 		getContentPane().add(btnBuscarCliente);
 
 		lblVehiculo = new JLabel("VEHICULO");
-		lblVehiculo.setBounds(328, 62, 74, 14);
+		lblVehiculo.setBounds(479, 111, 74, 14);
 		getContentPane().add(lblVehiculo);
 
 		lblModelo = new JLabel("Modelo");
-		lblModelo.setBounds(507, 108, 46, 14);
+		lblModelo.setBounds(658, 157, 46, 14);
 		getContentPane().add(lblModelo);
 
 		lblTamap = new JLabel("Tama\u00F1o");
-		lblTamap.setBounds(328, 139, 46, 14);
+		lblTamap.setBounds(479, 188, 46, 14);
 		getContentPane().add(lblTamap);
 
 		lblCantPuertas = new JLabel("Cant Puertas");
-		lblCantPuertas.setBounds(328, 170, 98, 14);
+		lblCantPuertas.setBounds(479, 219, 98, 14);
 		getContentPane().add(lblCantPuertas);
 
 		lblColor = new JLabel("Color");
-		lblColor.setBounds(328, 203, 46, 14);
+		lblColor.setBounds(479, 252, 46, 14);
 		getContentPane().add(lblColor);
 
 		lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(328, 235, 86, 14);
+		lblTransmision.setBounds(479, 284, 86, 14);
 		getContentPane().add(lblTransmision);
 
 		lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(328, 108, 46, 14);
+		lblMarca.setBounds(479, 157, 46, 14);
 		getContentPane().add(lblMarca);
 
 		modeloTF = new JTextField();
-		modeloTF.setBounds(573, 105, 129, 20);
+		modeloTF.setBounds(724, 154, 129, 20);
 		getContentPane().add(modeloTF);
 		modeloTF.setColumns(10);
 
 		tamañoCOMBO = new JComboBox();
-		tamañoCOMBO.setBounds(409, 136, 84, 20);
+		tamañoCOMBO.setBounds(560, 185, 84, 20);
 		getContentPane().add(tamañoCOMBO);
 
 		cantPuertasTF = new JTextField();
-		cantPuertasTF.setBounds(409, 167, 86, 20);
+		cantPuertasTF.setBounds(560, 216, 86, 20);
 		getContentPane().add(cantPuertasTF);
 		cantPuertasTF.setColumns(10);
 
 		colorCOMBO = new JComboBox();
-		colorCOMBO.setBounds(409, 200, 86, 20);
+		colorCOMBO.setBounds(560, 249, 86, 20);
 		getContentPane().add(colorCOMBO);
 
 		transmisionCOMBO = new JComboBox();
-		transmisionCOMBO.setBounds(409, 232, 86, 20);
+		transmisionCOMBO.setBounds(560, 281, 86, 20);
 		getContentPane().add(transmisionCOMBO);
 
 		marcaTF = new JTextField();
-		marcaTF.setBounds(409, 105, 83, 20);
+		marcaTF.setBounds(560, 154, 83, 20);
 		getContentPane().add(marcaTF);
 		marcaTF.setColumns(10);
 
@@ -354,11 +354,11 @@ public class generarPresupuesto extends JInternalFrame {
 				}
 			}
 		});
-		verVehiculosBOTON.setBounds(507, 262, 195, 23);
+		verVehiculosBOTON.setBounds(658, 311, 195, 23);
 		getContentPane().add(verVehiculosBOTON);
 
 		lblInicio = new JLabel("Fecha Inicio");
-		lblInicio.setBounds(20, 266, 74, 14);
+		lblInicio.setBounds(171, 315, 74, 14);
 		getContentPane().add(lblInicio);
 
 		MaskFormatter mf = null;
@@ -370,24 +370,24 @@ public class generarPresupuesto extends JInternalFrame {
 		}
 		fechaInicioTF = new JFormattedTextField(mf);
 
-		fechaInicioTF.setBounds(126, 263, 92, 20);
+		fechaInicioTF.setBounds(277, 312, 92, 20);
 		getContentPane().add(fechaInicioTF);
 		fechaInicioTF.setColumns(10);
 
 		lblSucursalOrigen = new JLabel("Sucursal Origen");
-		lblSucursalOrigen.setBounds(20, 235, 106, 14);
+		lblSucursalOrigen.setBounds(171, 284, 106, 14);
 		getContentPane().add(lblSucursalOrigen);
 
 		sucOrigenCOMBO = new JComboBox();
-		sucOrigenCOMBO.setBounds(126, 232, 92, 20);
+		sucOrigenCOMBO.setBounds(277, 281, 92, 20);
 		getContentPane().add(sucOrigenCOMBO);
 
 		lblCombustible = new JLabel("Combustible");
-		lblCombustible.setBounds(328, 263, 86, 20);
+		lblCombustible.setBounds(479, 312, 86, 20);
 		getContentPane().add(lblCombustible);
 
 		combustibleCOMBO = new JComboBox();
-		combustibleCOMBO.setBounds(409, 263, 86, 20);
+		combustibleCOMBO.setBounds(560, 312, 86, 20);
 		getContentPane().add(combustibleCOMBO);
 
 		btnEstablecerInicio = new JButton("Establecer Inicio");
@@ -411,19 +411,19 @@ public class generarPresupuesto extends JInternalFrame {
 
 			}
 		});
-		btnEstablecerInicio.setBounds(60, 291, 158, 23);
+		btnEstablecerInicio.setBounds(211, 340, 158, 23);
 		getContentPane().add(btnEstablecerInicio);
 
 		cmbAC = new JComboBox();
-		cmbAC.setBounds(626, 146, 76, 20);
+		cmbAC.setBounds(777, 195, 76, 20);
 		getContentPane().add(cmbAC);
 
 		lblAC = new JLabel("Aire Acondicionado");
-		lblAC.setBounds(507, 149, 129, 14);
+		lblAC.setBounds(658, 198, 129, 14);
 		getContentPane().add(lblAC);
 		
 		lblSucursal = new JLabel("SUCURSAL");
-		lblSucursal.setBounds(20, 208, 80, 14);
+		lblSucursal.setBounds(171, 257, 80, 14);
 		getContentPane().add(lblSucursal);
 
 		verVehiculosBOTON.setVisible(false);
