@@ -523,7 +523,7 @@ public class Controlador {
 					&& !fechaInicioHasta.isEmpty()
 					&& HelperDate.diferenciaEntreDosfechas(
 							HelperDate.FormateaFechaYYYYMMDD(fechaInicioDesde),
-							HelperDate.FormateaFechaYYYYMMDD(fechaInicioHasta)) < 0)
+							HelperDate.FormateaFechaYYYYMMDD(fechaInicioHasta)) > 0)
 				return new ResultadoOperacionReporteMovimientosVehiculos(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -537,7 +537,7 @@ public class Controlador {
 					&& !fechaFinHasta.isEmpty()
 					&& HelperDate.diferenciaEntreDosfechas(
 							HelperDate.FormateaFechaYYYYMMDD(fechaFinDesde),
-							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) < 0)
+							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) > 0)
 				return new ResultadoOperacionReporteMovimientosVehiculos(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -730,7 +730,7 @@ public class Controlador {
 					&& !fechaInicioHasta.isEmpty()
 					&& HelperDate.diferenciaEntreDosfechas(
 							HelperDate.FormateaFechaYYYYMMDD(fechaInicioDesde),
-							HelperDate.FormateaFechaYYYYMMDD(fechaInicioHasta)) < 0)
+							HelperDate.FormateaFechaYYYYMMDD(fechaInicioHasta)) > 0)
 				return new ResultadoOperacionReporteAlquileres(
 						false,
 						"La fecha Inicio Desde no puede ser mayor a Inicio Hasta",
@@ -744,10 +744,10 @@ public class Controlador {
 					&& !fechaFinHasta.isEmpty()
 					&& HelperDate.diferenciaEntreDosfechas(
 							HelperDate.FormateaFechaYYYYMMDD(fechaFinDesde),
-							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) < 0)
+							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) > 0)
 				return new ResultadoOperacionReporteAlquileres(false,
 						"La fecha Fin Desde no puede ser mayor a Fin Hasta",
-						null);
+ 						null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

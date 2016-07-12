@@ -33,7 +33,7 @@ AS
 	select @sql	= 
 	N'SELECT 
 	   a.[idAlquiler]
-      ,a.[fechainicio]
+      ,a.[fechaInicio]
       ,a.[fechaFin]
       ,a.[importe]
       ,a.[punitorio]
@@ -55,10 +55,10 @@ AS
 		select @sql	= @sql + ' and a.fechaInicio <= @fechaInicioHasta '
 	
 	if (@fechaFinDesde is not null)
-		select @sql	= @sql + ' and v.fechaFin >= @fechaFinDesde '
+		select @sql	= @sql + ' and a.fechaFin >= @fechaFinDesde '
 	
 	if (@fechaFinHasta is not null)
-		select @sql	= @sql + ' and v.fechaFin <= @fechaFinHasta '
+		select @sql	= @sql + ' and a.fechaFin <= @fechaFinHasta '
 	
 	if (@sucursalOrigen is not null)
 		select @sql	= @sql + ' and s_origen.nombre = @sucursalOrigen '
