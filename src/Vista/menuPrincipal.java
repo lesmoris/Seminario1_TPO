@@ -32,7 +32,6 @@ import de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel;
@@ -332,7 +331,7 @@ public class menuPrincipal extends JFrame {
 		});
 		mnAlquileres.add(mntmCerrarAlquiler);
 		
-		JMenuItem mntmReabrirAlquiler = new JMenuItem("Reabrir Alquiler");
+		final JMenuItem mntmReabrirAlquiler = new JMenuItem("Reabrir Alquiler");
 		mntmReabrirAlquiler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
