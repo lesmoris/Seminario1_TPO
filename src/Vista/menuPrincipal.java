@@ -327,6 +327,22 @@ public class menuPrincipal extends JFrame {
 			}
 		});
 		mnAlquileres.add(mntmCerrarAlquiler);
+		
+		JMenuItem mntmReabrirAlquiler = new JMenuItem("Reabrir Alquiler");
+		mntmReabrirAlquiler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frameMnuPrincipal.setTitle(title + separator + mntmReabrirAlquiler.getText());
+
+				ReabrirContrato a = new ReabrirContrato();
+
+				irAVentana(a);
+
+				
+				
+			}
+		});
+		mnAlquileres.add(mntmReabrirAlquiler);
 
 		JMenu mnReportes = new JMenu("Reportes");
 		menuBar.add(mnReportes);
