@@ -71,16 +71,13 @@ public class contratoMapper extends baseMapper {
 
 			con.setAutoCommit(false);
 
-			String senten = "INSERT INTO ALQUILER (fechainicio, fechafin, importe, "
-					+ "idsucursaldestino, idPresupuesto) VALUES (?,?,?,?,?) ";
+			String senten = "INSERT INTO ALQUILER (fechainicio, importe, idPresupuesto) VALUES (?,?,?) ";
 
 			PreparedStatement ps = null;
 			ps = con.prepareStatement(senten);
 			ps.setDate(1, (Date) cont.getFechaInicio());
-			ps.setDate(2, (Date) cont.getFechaFin());
-			ps.setFloat(3, cont.getImporte());
-			ps.setInt(4, cont.getSucursalDestino().getIdSucursal());
-			ps.setInt(5, cont.getPresupuesto().getIdPresupuesto());
+			ps.setFloat(2, cont.getImporte());
+			ps.setInt(3, cont.getPresupuesto().getIdPresupuesto());
 
 			ps.execute();
 
@@ -98,7 +95,7 @@ public class contratoMapper extends baseMapper {
 
 			con.commit();
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			con.rollback();
 			throw new Exception(e.getMessage());
 		} finally {

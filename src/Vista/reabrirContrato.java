@@ -15,12 +15,12 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import DTOs.ContratoAlquilerDTO;
 import Interfaces.TMElegirContrato;
 
-public class ReabrirContrato extends JInternalFrame {
+public class reabrirContrato extends JInternalFrame {
 	private JTable ContratosTABLA;
 	private JTextField textField;
 
 	
-	public ReabrirContrato() {
+	public reabrirContrato() {
 
 		((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBounds(100, 100, 1024, 668);

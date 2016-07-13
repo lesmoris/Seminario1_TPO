@@ -337,7 +337,7 @@ public class menuPrincipal extends JFrame {
 				
 				frameMnuPrincipal.setTitle(title + separator + mntmReabrirAlquiler.getText());
 
-				ReabrirContrato a = new ReabrirContrato();
+				reabrirContrato a = new reabrirContrato();
 
 				irAVentana(a);
 
