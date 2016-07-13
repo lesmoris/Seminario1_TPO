@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -75,12 +76,15 @@ public class menuPrincipal extends JFrame {
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-
+		
+		// Agregamos Icono a la aplicacion
+		Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icono.jpg"));
+		setIconImage(icon);
+		
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.setContentAreaFilled(false);
 		btnInicio.setBorderPainted(false);
 		btnInicio.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent arg0) {
 
 				frameMnuPrincipal.setTitle(title);
