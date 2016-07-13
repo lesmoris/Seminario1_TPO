@@ -2,10 +2,7 @@ package Vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,14 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.text.MaskFormatter;
 
 import Controlador.Controlador;
 import DTOs.ContratoAlquilerDTO;
 import DTOs.SucursalDTO;
+import Helpers.HelperExcel;
 import Helpers.HelperValoresFijos;
 import Interfaces.ComboBoxItem;
 import Interfaces.JFormattedDateTextField;
+import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionReporteAlquileres;
 import Interfaces.TMalquileresTABLA;
 
@@ -200,7 +198,7 @@ public class generarReporteAlquileres extends JInternalFrame {
 		final JFormattedDateTextField fechaInicioDesdeTF = new JFormattedDateTextField();
 		fechaInicioDesdeTF.setBounds(52, 33, 86, 20);
 		getContentPane().add(fechaInicioDesdeTF);
-		
+
 		final JFormattedDateTextField fechaInicioHastaTF = new JFormattedDateTextField();
 		fechaInicioHastaTF.setBounds(52, 58, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
@@ -392,18 +390,21 @@ public class generarReporteAlquileres extends JInternalFrame {
 		cmbAC = new JComboBox();
 		cmbAC.setBounds(219, 144, 65, 20);
 		getContentPane().add(cmbAC);
-		
+
 		btnExportar = new JButton("Exportar");
 		btnExportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				try {
-					controlador.crearExcel(AlquileresTABLA, "ALQUILERES");
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+
+				ResultadoOperacion res = HelperExcel.crearExcel(
+						AlquileresTABLA, "ALQUILERES");
+
+				if (!res.sosExitoso())
+					// Recibo y muestro el resultado
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
+
 			}
 		});
 		btnExportar.setVisible(false);

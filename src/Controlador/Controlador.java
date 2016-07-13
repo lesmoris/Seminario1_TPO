@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import DTOs.ContratoAlquilerDTO;
@@ -15,6 +14,7 @@ import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
+import Helpers.HelperExcel;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGenerarPresupuesto;
 import Interfaces.ResultadoOperacionGetContratos;
@@ -24,7 +24,6 @@ import Interfaces.ResultadoOperacionGetVehiculo;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.ResultadoOperacionReporteAlquileres;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
-import Interfaces.crearExcel;
 import Mappers.clienteMapper;
 import Mappers.contratoMapper;
 import Mappers.mantenimientoMapper;
@@ -684,9 +683,11 @@ public class Controlador {
 
 			presupuestosAlquiler.add(p);
 
-			String mensaje = ("Presupuesto generado con exito, el Costo el mismo es de: " +p.getImporte());
-			
-			return new ResultadoOperacionGenerarPresupuesto(true, mensaje , p.getImporte());
+			String mensaje = ("Presupuesto generado con exito, el Costo el mismo es de: " + p
+					.getImporte());
+
+			return new ResultadoOperacionGenerarPresupuesto(true, mensaje,
+					p.getImporte());
 		} catch (Exception ex) {
 			return new ResultadoOperacion(false, "Fallo al generar contrato : "
 					+ ex.getMessage());
@@ -747,7 +748,7 @@ public class Controlador {
 							HelperDate.FormateaFechaYYYYMMDD(fechaFinHasta)) > 0)
 				return new ResultadoOperacionReporteAlquileres(false,
 						"La fecha Fin Desde no puede ser mayor a Fin Hasta",
- 						null);
+						null);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -788,14 +789,14 @@ public class Controlador {
 					"El presupuesto indicado no existe");
 		try {
 			ContratoAlquiler ca = new ContratoAlquiler();
-		
+
 			ca.setPresupuesto(presupuesto);
 			ca.setFechaInicio(ca.getPresupuesto().getFechaInicio());
 			ca.setImporte(ca.getPresupuesto().getImporte());
 			ca.Insert();
 			ca.getPresupuesto().getVehiculo().alquilar();
 			this.contratosAlquiler.add(ca);
-			
+
 			ca.getPresupuesto().realizar();
 
 			return new ResultadoOperacion(true, "Contrato generado con exito");
@@ -837,28 +838,19 @@ public class Controlador {
 			return new ResultadoOperacion(true,
 					"Contrato cerrado con exito. El importe total es : "
 							+ importe + " - Punitorio : " + punitorio);
-		} catch (Exception  ex) {
-  			return new ResultadoOperacion(false, "Error al cerrar contrato: "
+		} catch (Exception ex) {
+			return new ResultadoOperacion(false, "Error al cerrar contrato: "
 					+ ex.getMessage());
 
 		}
 	}
-	
-	public List<VehiculoDTO> getVehiculos(){
-		
-		List<VehiculoDTO> resultado = vehiculoMapper.getInstance().SelectAllVehiculos();
-		
+
+	public List<VehiculoDTO> getVehiculos() {
+
+		List<VehiculoDTO> resultado = vehiculoMapper.getInstance()
+				.SelectAllVehiculos();
+
 		return resultado;
 	}
 
-	public void crearExcel(JTable tabla, String titulo) throws FileNotFoundException {
-		
-		
-		if (tabla.getRowCount()>0){
-		new crearExcel(tabla, titulo).crearExcel();
-		}else{
-			JOptionPane.showMessageDialog(null, "LA COLUMNA ESTA VACIA");
-		}
-	}
-	
 }

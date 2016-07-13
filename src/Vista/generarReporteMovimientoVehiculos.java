@@ -1,9 +1,7 @@
 package Vista;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
-import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
 import DTOs.SucursalDTO;
+import Helpers.HelperExcel;
 import Interfaces.ComboBoxItem;
 import Interfaces.JFormattedDateTextField;
+import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionReporteMovimientosVehiculos;
-import Interfaces.TMmantenimientosPorVehiculoTABLA;
 import Interfaces.TMmovimientosDeVehiculosTABLA;
 
 public class generarReporteMovimientoVehiculos extends JInternalFrame {
@@ -101,7 +99,7 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		final JFormattedDateTextField fechaInicioHastaTF = new JFormattedDateTextField();
 		fechaInicioHastaTF.setBounds(66, 75, 86, 20);
 		getContentPane().add(fechaInicioHastaTF);
-		
+
 		JLabel lblDesde_1 = new JLabel("Desde");
 		lblDesde_1.setBounds(179, 50, 46, 14);
 		getContentPane().add(lblDesde_1);
@@ -167,7 +165,6 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 					TM = new TMmovimientosDeVehiculosTABLA(
 							new ArrayList<MovimientoDTO>());
 					HistorialMovimientosTABLA.setModel(TM);
-					
 
 					JOptionPane.showMessageDialog(null, res.getMessage(),
 							"Error", JOptionPane.ERROR_MESSAGE);
@@ -187,19 +184,21 @@ public class generarReporteMovimientoVehiculos extends JInternalFrame {
 		HistorialMovimientosTABLA = new JTable();
 		HistorialMovimientosTABLA.setModel(TM);
 		scrollPane.setViewportView(HistorialMovimientosTABLA);
-		
+
 		btnEXPORTAR = new JButton("Exportar");
 		btnEXPORTAR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				try {
-					controlador.crearExcel(HistorialMovimientosTABLA, "MOVIMIENTOS");
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+
+				ResultadoOperacion res = HelperExcel.crearExcel(
+						HistorialMovimientosTABLA, "MOVIMIENTOS");
+
+				if (!res.sosExitoso())
+					// Recibo y muestro el resultado
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
+
 			}
 		});
 		btnEXPORTAR.setVisible(false);

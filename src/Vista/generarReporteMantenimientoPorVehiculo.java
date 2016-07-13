@@ -1,8 +1,8 @@
 package Vista;
 
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -15,13 +15,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import Controlador.Controlador;
 import DTOs.MantenimientoDTO;
-import Interfaces.ResultadoOperacionGetVehiculo;
+import Helpers.HelperExcel;
+import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionHistorialMantenimiento;
 import Interfaces.TMmantenimientosPorVehiculoTABLA;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 
 public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 	private JTable HistorialMantenimientosTABLA;
@@ -92,18 +89,20 @@ public class generarReporteMantenimientoPorVehiculo extends JInternalFrame {
 		HistorialMantenimientosTABLA = new JTable();
 		HistorialMantenimientosTABLA.setModel(TM);
 		scrollPane.setViewportView(HistorialMantenimientosTABLA);
-		
+
 		btnExportar = new JButton("Exportar");
 		btnExportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					controlador.crearExcel(HistorialMantenimientosTABLA, "MANTENIMIENTOS");
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
+
+				ResultadoOperacion res = HelperExcel.crearExcel(
+						HistorialMantenimientosTABLA, "MANTENIMIENTOS");
+
+				if (!res.sosExitoso())
+					// Recibo y muestro el resultado
+					JOptionPane.showMessageDialog(null, res.getMessage(), res
+							.sosExitoso() ? "Informacion" : "Error", res
+							.sosExitoso() ? JOptionPane.INFORMATION_MESSAGE
+							: JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnExportar.setVisible(false);
