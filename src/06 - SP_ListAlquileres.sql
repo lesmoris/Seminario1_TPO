@@ -1,10 +1,19 @@
---exec SP_ListAlquileres 
+USE [Rent_A_Car]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_ListAlquileres]    Script Date: 14/07/2016 10:00:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[SP_ListAlquileres]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure [dbo].SP_ListAlquileres
+
 GO
 
-CREATE Procedure SP_ListAlquileres
+CREATE Procedure [dbo].[SP_ListAlquileres]
 (  
 	  @fechaInicioDesde		datetime	= null
 	 ,@fechaInicioHasta		datetime	= null
@@ -88,7 +97,7 @@ AS
 		select @sql	= @sql + ' and v.transmision = @transmision '
 	
 	if (@cantPuertas > 0)
-		select @sql	= @sql + ' and v.cantidadPuertas = @cantidadPuertas '
+		select @sql	= @sql + ' and v.cantidadPuertas = @cantPuertas '
 	
 	if (@color is not null)
 		select @sql	= @sql + ' and v.color = @color '
@@ -97,7 +106,10 @@ AS
 		select @sql	= @sql + ' and v.tamaño = @tamanio '
 	
 	exec sp_executesql @sql, 
-						N'  @fechaInicioDesde datetime, @fechaInicioHasta datetime, @fechaFinDesde datetime, @fechaFinHasta datetime, @sucursalOrigen varchar(50), @sucursalDestino	varchar(50), @tipoDoc varchar(10), @nroDoc varchar(20), @marca varchar(15), @modelo varchar(15), @ac varchar(1), @tipoCombustible varchar(10), @transmision varchar(10), @cantPuertas int, @color varchar(10), @tamaño varchar(10)',
+						N'  @fechaInicioDesde datetime, @fechaInicioHasta datetime, @fechaFinDesde datetime, @fechaFinHasta datetime, @sucursalOrigen varchar(50), @sucursalDestino	varchar(50), @tipoDoc varchar(10), @nroDoc varchar(20), @marca varchar(15), @modelo varchar(15), @ac varchar(1), @tipoCombustible varchar(10), @transmision varchar(10), @cantPuertas int, @color varchar(10), @tamanio varchar(10)',
 						@fechaInicioDesde, @fechaInicioHasta, @fechaFinDesde, @fechaFinHasta, @sucursalOrigen, @sucursalDestino, @tipoDoc, @nroDoc, @marca, @modelo, @ac, @tipoCombustible, @transmision, @cantPuertas, @color, @tamanio
 	
+
 GO
+
+
