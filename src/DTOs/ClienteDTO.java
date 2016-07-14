@@ -1,22 +1,15 @@
-package Modelo;
+package DTOs;
 
-import DTOs.ClienteDTO;
-
-public class Cliente {
+public class ClienteDTO {
 
 	private String nombre;
 	private String DNI;
 	private String mail;
 	private String direccion;
 	private String tipoDNI;
-	private int idCliente;
 	
-	// Metodos
-	public boolean sosCliente(String DNI, String tipoDNI){
-		return this.DNI.equals(DNI) && this.tipoDNI.equals(tipoDNI);
-	}
 	
-	// Getters and Setters
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -47,25 +40,8 @@ public class Cliente {
 	public void setTipoDNI(String tipoDNI) {
 		this.tipoDNI = tipoDNI;
 	}
-	public int getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public ClienteDTO crearVista() {
-		
-		ClienteDTO c = new ClienteDTO();
-		
-		c.setNombre(this.getNombre());
-		c.setTipoDNI(this.getTipoDNI());
-		c.setDNI(this.getDNI());
-		c.setDireccion(this.getDireccion());
-		c.setMail(this.getMail());
-		
-		return c;
-		
-		
-	}
+	
+	
+	
+	
 }

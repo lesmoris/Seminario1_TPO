@@ -96,6 +96,7 @@ public class presupuestoMapper extends baseMapper {
 					+ "FROM PRESUPUESTO p "
 					+ "left join ALQUILER a on a.idPresupuesto = p.idpresupuesto "
 					+ "where idcliente = ? "
+					// Con esto, no nos muestran presupuestos que ya hayan sido utilizados para Contratos
 					+ "and a.idPresupuesto is null "
 					// Con esto, no nos muestran presupuestos con fechas anteriores a hoy
 					+ "and p.fechaInicio>=CONVERT (char(10), getdate(), 112)";

@@ -86,6 +86,7 @@ public class Vehiculo {
 		this.setEstado("DISPONIBLE");
 		this.setSucursal(destino);
 		vehiculoMapper.getInstance().SetStatus(this, "DISPONIBLE");
+		vehiculoMapper.getInstance().UpdateSucursal(this, destino);
 	}
 
 	public int agregarMantenimiento(String problema) throws Exception {

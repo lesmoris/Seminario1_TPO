@@ -1,12 +1,10 @@
 package Controlador;
 
-import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTable;
-
+import DTOs.ClienteDTO;
 import DTOs.ContratoAlquilerDTO;
 import DTOs.MantenimientoDTO;
 import DTOs.MovimientoDTO;
@@ -14,7 +12,6 @@ import DTOs.PresupuestoDTO;
 import DTOs.SucursalDTO;
 import DTOs.VehiculoDTO;
 import Helpers.HelperDate;
-import Helpers.HelperExcel;
 import Interfaces.ResultadoOperacion;
 import Interfaces.ResultadoOperacionGenerarPresupuesto;
 import Interfaces.ResultadoOperacionGetContratos;
@@ -683,7 +680,7 @@ public class Controlador {
 
 			presupuestosAlquiler.add(p);
 
-			String mensaje = ("Presupuesto generado con exito, el Costo el mismo es de: " + p
+			String mensaje = ("Presupuesto generado con exito, el Costo del mismo es de: " + p
 					.getImporte());
 
 			return new ResultadoOperacionGenerarPresupuesto(true, mensaje,
@@ -852,5 +849,19 @@ public class Controlador {
 
 		return resultado;
 	}
+	
+	public List<ClienteDTO> getClientes() throws Exception{
+		
+		List<Cliente> aux = clienteMapper.getInstance().SelectAll();
+		List<ClienteDTO> resultado = new ArrayList<ClienteDTO>();
+		
+		for (Cliente c: aux){
+			resultado.add(c.crearVista());
+		}
+		
+		  
+		return resultado;
+	}
+	
 
 }

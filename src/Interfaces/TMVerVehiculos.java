@@ -169,6 +169,10 @@ private List<VehiculoDTO> vehiculos;
 	}
 
 	public boolean isCellEditable(int arg0, int arg1) {
+		
+		if (arg1==0)
+			return true;
+		
 		return false;
 	}
 

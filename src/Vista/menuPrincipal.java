@@ -69,7 +69,7 @@ public class menuPrincipal extends JFrame {
 
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 668);
+		setBounds(120, 30, 1024, 668);
 
 		setResizable(false);
 
@@ -110,6 +110,28 @@ public class menuPrincipal extends JFrame {
 			}
 
 		});
+		
+		JMenuItem mntmVerClientes = new JMenuItem("Ver Clientes");
+		mntmVerClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frameMnuPrincipal.setTitle(title + separator + mntmVerClientes.getText());
+				
+				try {
+					verClientes a = new verClientes();
+					
+					irAVentana(a);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+			}
+		});
+		mnNewMenu.add(mntmVerClientes);
 		mnNewMenu.add(mntmAlta_1);
 
 		final JMenuItem mntmModificacion = new JMenuItem("Modificar Cliente");
