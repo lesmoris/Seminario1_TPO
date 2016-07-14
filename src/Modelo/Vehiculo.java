@@ -92,7 +92,7 @@ public class Vehiculo {
 	public int agregarMantenimiento(String problema) throws Exception {
 
 		if (this.estasEnMantenimiento())
-			throw new Exception("Vehiclo esta actualmente en mantenimiento");
+			throw new Exception("Vehiculo esta actualmente en mantenimiento");
 
 		Mantenimiento mantenimiento = new Mantenimiento();
 		mantenimiento.setProblema(problema);

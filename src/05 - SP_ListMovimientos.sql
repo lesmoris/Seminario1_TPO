@@ -1,10 +1,19 @@
---exec SP_ListMovimientos 
+USE [Rent_A_Car]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_ListMovimientos]    Script Date: 14/07/2016 9:51:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
 
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[SP_ListMovimientos]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure [dbo].SP_ListMovimientos
 GO
 
-CREATE Procedure SP_ListMovimientos
+
+CREATE Procedure [dbo].[SP_ListMovimientos]
 (  
 	  @fechaInicioDesde		datetime	= null
 	 ,@fechaInicioHasta		datetime	= null
@@ -38,10 +47,10 @@ AS
 		select @sql	= @sql + ' and m.fechaInicio <= @fechaInicioHasta '
 	
 	if (@fechaFinDesde is not null)
-		select @sql	= @sql + ' and v.fechaFin >= @fechaFinDesde '
+		select @sql	= @sql + ' and m.fechaFin >= @fechaFinDesde '
 	
 	if (@fechaFinHasta is not null)
-		select @sql	= @sql + ' and v.fechaFin <= @fechaFinHasta '
+		select @sql	= @sql + ' and m.fechaFin <= @fechaFinHasta '
 	
 	if (@sucursalOrigen is not null)
 		select @sql	= @sql + ' and s_origen.nombre = @sucursalOrigen '
@@ -53,4 +62,7 @@ AS
 						N'  @fechaInicioDesde datetime, @fechaInicioHasta datetime, @fechaFinDesde datetime, @fechaFinHasta datetime, @sucursalOrigen varchar(50), @sucursalDestino	varchar(50)',
 						@fechaInicioDesde, @fechaInicioHasta, @fechaFinDesde, @fechaFinHasta, @sucursalOrigen, @sucursalDestino
 	
+
 GO
+
+

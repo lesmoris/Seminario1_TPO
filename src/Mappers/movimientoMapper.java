@@ -115,7 +115,7 @@ public class movimientoMapper extends baseMapper {
 
 		try {
 			con = Conectar();
-
+			
 			String SP_ListMovimientos = "{call SP_ListMovimientos(?,?,?,?,?,?)}";
 			CallableStatement callableStatement = con
 					.prepareCall(SP_ListMovimientos);
@@ -139,10 +139,12 @@ public class movimientoMapper extends baseMapper {
 					!sucursalOrigen.trim().isEmpty() ? sucursalOrigen : null);
 			callableStatement.setString(6,
 					!sucursalDestino.trim().isEmpty() ? sucursalDestino : null);
-
+			
+			
 			ResultSet res = callableStatement.executeQuery();
 
 			while (res.next()) {
+			
 				Movimiento mov = new Movimiento();
 
 				mov.setIdMovimiento(res.getInt("idMovimiento"));
